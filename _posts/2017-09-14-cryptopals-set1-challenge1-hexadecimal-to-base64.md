@@ -6,6 +6,8 @@ categories: tutorials javascript cryptopals
 ---
 
 ### [Cryptopals Set 1 Challenge 1](https://cryptopals.com/sets/1/challenges/1)
+### [code repo](https://github.com/thmsdnnr/cryptopals/tree/master/s1c1)
+### [working demo](https://thmsdnnr.github.io/cryptopals/s1c1.html)
 
 Here's a [good blog post](https://blogs.oracle.com/rammenon/base64-explained) from Oracle to understand the maths behind the conversion:
 
