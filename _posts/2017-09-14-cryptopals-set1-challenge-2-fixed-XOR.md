@@ -7,7 +7,7 @@ categories: tutorials javascript cryptopals
 
 ### [Cryptopals Set 1 Challenge 2](https://cryptopals.com/sets/1/challenges/2)
 ### [code repo](https://github.com/thmsdnnr/cryptopals/tree/master/s1c2)
-### [working demo](https://thmsdnnr.github.io/cryptopals/s1c2.html)
+### [working demo](https://thmsdnnr.github.io/cryptopals/s1c2/index.html)
 
 Write a function that takes two equal-length buffers and produces their XOR combination.
 [info on exclusive OR](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_XOR)

@@ -7,7 +7,7 @@ categories: tutorials javascript cryptopals
 
 ### [Cryptopals Set 1 Challenge 3](https://cryptopals.com/sets/1/challenges/3)
 ### [code repo](https://github.com/thmsdnnr/cryptopals/tree/master/s1c3)
-### [working demo](https://thmsdnnr.github.io/cryptopals/s1c3.html)
+### [working demo](https://thmsdnnr.github.io/cryptopals/s1c3/index.html)
 
 The challenge? Find the single character this ciphertext has been XOR'd against:
 `1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736`
