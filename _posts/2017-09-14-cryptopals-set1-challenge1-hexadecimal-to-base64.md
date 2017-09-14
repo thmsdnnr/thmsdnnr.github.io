@@ -5,7 +5,7 @@ date:   2017-09-14 10:47:06 -0500
 categories: tutorials javascript cryptopals
 ---
 
-### Cryptopals Set 1 Challenge 1: [https://cryptopals.com/sets/1/challenges/1](https://cryptopals.com/sets/1/challenges/1)
+### [Cryptopals Set 1 Challenge 1](https://cryptopals.com/sets/1/challenges/1)
 
 Here's a [good blog post](https://blogs.oracle.com/rammenon/base64-explained) from Oracle to understand the maths behind the conversion:
 
