@@ -62,8 +62,12 @@ The nMap array maps array index -> hexadecimal value, 0 through 15.
 
 We break the hexadecimal into two and convert into hexadecimal (first character decimal equivalent times 16^1 plus second character decimal equivalent times 16^0).
 
-We return the decimal.
+We return the decimal. There are two ways to do this. First, a concise way using ES6:
+{% highlight javascript %}
+const hexToDec = (hex) => parseInt(hex,16).toString(10);
+{% endhighlight %}
 
+A more verbose way: something similar happens behind the scenes when using parseInt and toString functions:
 {% highlight javascript %}
 hex=hex.split("");
 hex=hex.map(e=>e.toUpperCase());
@@ -80,8 +84,17 @@ We do this by iterating through powers of 2 for a byte and, if the value we want
 
 Clearly we can represent between 0 (00000000) and 255 (11111111) here.
 
-Then we return the binary representation of the decimal as a string, e.g., "11111111".
+Then we return the binary representation of the decimal as a string. Once again, it can be simple:
 
+{% highlight javascript %}
+function decToBin(dec) {
+  dec=parseInt(dec,10).toString(2);
+  while (dec.length<8) { dec="0"+dec; }
+  return dec;
+}
+{% endhighlight %}
+
+or verbose:
 {% highlight javascript %}
 let binArr=[0,0,0,0,0,0,0,0];
 for (var i=8;i>=0;i--) {
