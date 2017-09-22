@@ -138,7 +138,17 @@ I wrote a full test suite for all my functions using Chai and Mocha. [Here's a g
 **You absolutely must write tests**, or debugging will become hopelessly complex.
 
 * Write tests before you write functions.
+
 * Make sure the individual functions work before plugging them together. Make sure to double-check the format and data type of each input and output when you are plugging functions together (is that an array, or a string? is that in hex or binary or text or base64?).
+
+A few things not to forget (you will, and then you'll kick yourself later):
+
+* Encryption vs decryption: you'll likely use the same named functions, but there will be some sort of flag to specify which of the two you're performing. Don't forget to set this flag.
+
+* The block size is 16 bytes. The block size is 16 bytes. It does not change no matter what the number of bytes in the KEY. The key becomes longer, but it still operates on groups of 16 bytes. More rounds take place, which is why the key must be longer.
+
+* Don't forget that in 32-bit mode, the extended key has a slightly different step: there is an extra subWord on the EK req'd every 8th round, starting @ round 12
+
 
 #### Step 5: Now Code It Yourself (or don't!)
 
