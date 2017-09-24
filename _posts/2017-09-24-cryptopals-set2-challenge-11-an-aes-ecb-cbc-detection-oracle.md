@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "An AES CBC/ECB Detection Oracle!"
-date:   2017-09-24 10:20:04 -0500
+date:   2017-09-24 14:30:04 -0500
 categories: tutorials javascript cryptopals
 ---
 
