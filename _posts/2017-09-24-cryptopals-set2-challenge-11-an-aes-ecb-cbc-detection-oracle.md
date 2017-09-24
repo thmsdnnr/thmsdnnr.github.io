@@ -7,7 +7,6 @@ categories: tutorials javascript cryptopals
 
 ### [Cryptopals Set 2 Challenge 11](https://cryptopals.com/sets/2/challenges/11)
 ### [code repo](https://github.com/thmsdnnr/cryptopals/tree/master/s2c11)
-### [working demo](https://thmsdnnr.github.io/cryptopals/s2c11/index.html)
 
 #### Step 0: What is an Oracle?
 
