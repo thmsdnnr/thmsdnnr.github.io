@@ -5,7 +5,7 @@ date:   2017-10-02 14:40:04 -0500
 categories: tutorials javascript cryptopals
 ---
 
-### [Cryptopals Set 2 Challenge 17](https://cryptopals.com/sets/3/challenges/17)
+### [Cryptopals Set 3 Challenge 17](https://cryptopals.com/sets/3/challenges/17)
 ### [code repo](https://github.com/thmsdnnr/cryptopals/tree/master/s3c17)
 ### [demo](https://thmsdnnr.github.io/cryptopals/s3c17/)
 
