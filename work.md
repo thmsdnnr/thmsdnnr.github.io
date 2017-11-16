@@ -5,6 +5,7 @@ permalink: /work/
 ---
 
 #### small things:
+* [Divvy Bike Finder App w/Real-time Data](https://thmsdnnr.github.io/divvyme/)
 * [Roguelike Dungeoncrawler Game (React)](https://thmsdnnr.github.io/roguelike/)
 * [John Conway's Game of Life (w/React)](https://thmsdnnr.github.io/conwaygameoflife/)
 * [Search Wikipedia with yr Voice](https://thmsdnnr.github.io/javascript30/day20/)
