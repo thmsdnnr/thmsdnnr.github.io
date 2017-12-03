@@ -4,6 +4,11 @@ title: work
 permalink: /work/
 ---
 
+#### big things: full-stack web apps (Node+Express/MongoDB)
+* [Votive](https://votive.herokuapp.com): create and vote on polls
+* [Attractio](https://attractio.herokuapp.com): real-time collaborative magnetic poetry w/Websockets
+* [Tickster](https://tickster.herokuapp.com): stock charting app w/WebSockets
+
 #### small things:
 * [Divvy Bike Finder App w/Real-time Data](https://thmsdnnr.github.io/divvyme/)
 * [Roguelike Dungeoncrawler Game (React)](https://thmsdnnr.github.io/roguelike/)
@@ -15,10 +20,6 @@ permalink: /work/
 
 #### tiny sketches in the sand:
 * [Codepen](https://codepen.io/thmsdnnr/pens/popular/)
-
-#### big things: full-stack web apps (Node/Express/EJS/MongoDB)
-* [Votive](https://votive.herokuapp.com): create and vote on polls
-* [Tickster](https://tickster.herokuapp.com): stock charting app using Quandl API and Socket.IO
 
 #### tutorials: cryptopals 1-18
 * [here they are! right here!](https://thmsdnnr.github.io/blog/)
