@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Attractio 1: Project Background"
+title:  "Attractio 0: Project Background"
 date:   2017-12-03 09:00:04 -0500
 categories: tutorials javascript attractio
 ---
