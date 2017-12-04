@@ -44,6 +44,12 @@ Do you remember those little magnetic rectangles with words on them you could st
 * Sign up for a free account for mLab and Heroku.
 * Sign up for GitHub if you haven't already.
 * Install the software in the prerequisites.
+* Grab the repo:
+  * `git clone https://github.com/thmsdnnr/attractio-tutorial.git folderToCloneInto`
+
+You can `cd` into any project folder and then run that folder with `npm install` followed by `npm start`. More specific info on each folder's content are available in the respective tutorials.
+
+Or, [the final repo](https://github.com/thmsdnnr/attractio).
 
 ### Step 1: Let's Get Started!
 
