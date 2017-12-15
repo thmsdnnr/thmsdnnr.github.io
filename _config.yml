@@ -13,18 +13,28 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: thmsdnnr coded this stuff
-description: > # this means to ignore newlines until "baseurl:"
-  an awesome description
+title: front-end footpath
+description: # this means to ignore newlines until "baseurl:"
+  morsels of code + jolts of JS
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://thmsdnnr.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  thmsdnnr
+social:
+  name: Thomas Danner
+  links:
+    - https://www.codewars.com/users/thmsdnnr
+    - https://github.com/thmsdnnr
+    - https://codepen.io/thmsdnnr/
+    - https://www.freecodecamp.org/thmsdnnr
+    - https://twitter.com/thmsdnnr
+    - https://www.facebook.com/thmsdnnr
 
 # Build settings
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
   # Assets Pipeline
 assets:
