@@ -34,6 +34,13 @@ Each loop, check iteration quit conditions:
 * If L > R, the item does not exist in the array
 * If loop count is equal to the number of elements in the array, the item does not exist in the array (or the input is not sorted)
 
+Before running the loop, we also exclude a few cases in which we cannot reasonably run the search.
+
+* If an array or target is not supplied, or if the array length is <=1
+* If the `typeof target` does not equal the `typeof arr[0]`
+  * (we already checked that `arr` exists so we know `arr[0]` is accessible)
+* If the `typeof arr` is not an array
+
 # aaaand a test runner!
 
 We can also write a simple test runner to check the algorithm's output.
