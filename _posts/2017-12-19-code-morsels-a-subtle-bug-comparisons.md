@@ -36,4 +36,8 @@ The answer to me seems to be this:
 
 Try fixing the CodePen above by filling in steps 2 and 3.
 
-###
+### Bug or Design Decision?
+
+Note that the way in which you choose to compare strings, and whether you opt to sort arrays of mixed type at all, is an implementation decision. There is not a "right" or "wrong" way to do it, but there are confusing ways of doing it.
+
+This is where a language like [TypeScript](https://www.typescriptlang.org/) that is [strongly typed](https://en.wikipedia.org/wiki/Strong_and_weak_typing) can prevent unforeseen bugs, by forcing you to handle type handling in the code itself, rather than making assumptions based on a best guess.
