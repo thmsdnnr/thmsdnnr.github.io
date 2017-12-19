@@ -6,6 +6,7 @@ description: Binary search algorithm with a test runner implementation, coded in
 author: Thomas Danner
 lang: en_US
 categories: tutorials javascript codeMorsels algorithms
+tags: binarySearch, searching, algorithms, javascript, tutorial
 ---
 
 [Binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm) is an algorithm used to find the position of an item in a sorted array.

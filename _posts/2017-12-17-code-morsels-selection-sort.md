@@ -6,6 +6,7 @@ description: Selection sort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
 categories: tutorials javascript codeMorsels algorithms
+tags: selectionSort, sorting, algorithms, javascript, tutorial
 ---
 
 [Selection sort](https://en.wikipedia.org/wiki/Selection_sort) is an algorithm used to sort an unordered array of items.

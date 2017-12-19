@@ -6,6 +6,7 @@ description: Insertion sort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
 categories: tutorials javascript codeMorsels algorithms
+tags: insertionSort, sorting, algorithms, javascript, tutorial
 ---
 
 [Insertion sort](https://en.wikipedia.org/wiki/Insertion_sort) is an algorithm used to sort an unordered array of items.
