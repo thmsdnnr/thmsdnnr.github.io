@@ -28,8 +28,8 @@ The answer to me seems to be this:
 
 1. Break the input array into numbers and strings.
   ```javascript
-    let numbers=arr.filter(e=>Number(e));
-    let strings=arr.filter(e=>!Number(e));
+    let numbers=arr.filter(e=>Number.isInteger(Number(e))).map(e=>Number(e));
+    let strings=arr.filter(e=>Number.isInteger(Number(e)));
   ```
 2. Sort the number and string arrays separately.
 3. Concatenate together the sorted results.
