@@ -32,7 +32,7 @@ if (L>R) { return false; }
 
 Now, we return the `index` of *where the element would exist, if it did exist*:
 ```javascript
-if (L>R) { return (target > arr[L]) ? L+1 : L; }
+if (L>=R) { return (target > arr[L]) ? L+1 : L; }
 ```
 
 ### Tiny Modification to Insertion Sort Algorithm
