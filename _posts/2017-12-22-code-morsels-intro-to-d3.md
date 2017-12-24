@@ -1,25 +1,18 @@
 ---
 layout: post
-title:  "Intro to D3 Graphs + visualize sorting algorithms"
+title:  "Intro to D3: Bar Graphs"
 date:   2017-12-22 6:40:04 -0500
 description: Visualizing Sorting Algorithms in D3
 author: Thomas Danner
 lang: en_US
 categories: tutorials javascript codeMorsels algorithms
-tags: D3, sorting, algorithms, javascript, dataViz, tutorial
+tags: D3, javascript, dataVisualization, tutorial
 ---
 
-### let's make some pictures
+<p data-height="300" data-theme-id="32039" data-slug-hash="jYVBag" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Simple D3 Bar Graph w/Transition Updates" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/jYVBag/">Simple D3 Bar Graph w/Transition Updates</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
-Insertion and Binary Insertion Sort, Selection Sort, Bubble Sort, and Quicksort.
-
-Quicksort dominates. Selection and Insertion sort aren't bad. And, Bubble Sort (as is expected) takes a very long time.
-
-Try the `camelBack` beginning arrays. You'll see that these take Bubble Sort the longest to complete and particularly struggles with "turtles" (small values near the end of the initial array). Shell sort is an implementation we'll talk about that utilizes elements of insertion and bubble sort, aiming to reduce the effect of these "turtles" on performance.
-
-### d3 Library
-
-[d3](https://d3js.org/) is a fantastic SVG-based library for data visualization. You can make all sorts of graphs and charts using it. It allows you to bind data to the DOM and then interact with it directly, either by creating HTML elements for display or SVG elements for real-time visualization.
+[d3](https://d3js.org/) is a fantastic SVG-based library for data visualization. You can make all sorts of graphs and charts. It allows you to bind data to the DOM and then interact with it directly, either by creating HTML elements for display or SVG elements for real-time visualization.
 
 For some inspiration and great links to a "code playground" of d3 examples, check out [bl.ocks.org](https://bl.ocks.org).
 
@@ -29,7 +22,7 @@ Goals:
 
 1. Create a d3 bar graph
 2. Enable the graph to dynamically update given new data
-3. Learn the three different phases of d3 data updating, `enter`, `update`, and `append`
+3. Learn the three different phases of d3 data updating: `enter`, `update`, and `exit`.
 
 ### let's make a simple graph
 
@@ -61,7 +54,7 @@ We append an `svg` element to our container div and adjust its position based on
 
 Now we just need to add some data to the picture. We'll define a function called `update` that takes the `data` array. Each time `update` is called, it will bind the data it is passed to DOM elements on the page and update those elements accordingly.
 
-### update()
+### updateData()
 
 First we define a function for our `x` and `y` axis using d3's scaling functions. These functions scale the domain (input values) of our x and y coordinates to a specified range (output values) based on the dimensions of our graph.
 
@@ -90,14 +83,17 @@ var bars = svg.selectAll(".bar").data(data);
 #### create DOM elements (bars)
 ```javascript
 bars.enter().append("rect")
+  .merge(bars)
   .attr("class", "bar")
   .attr("y", function(d,i) { return i*barHeight+margin.top; })
-  .attr("width", function(d) { console.log(d, x(d)); return x(d); })
+  .attr("width", function(d) { return x(d); })
   .attr("x", function(d,i) { return margin.left; })
   .attr("height", barHeight-1);
 ```
 
 `enter()` creates elements for each element of data that does not have a matching DOM element. In this case, that means each bar in our bar graph. It then passes this newborn element down the chain of methods. For each data element that does not have a matching DOM element, we append an SVG `rect` element, and we assign it attributes based on the data.
+
+`merge` merges together the new data elements that are passed to the function with the existing dataset.
 
 We add a class to the `rect` element to style the bars. In our CSS, we can style the bar how we like using the `rect.bar` selector.
 
@@ -124,18 +120,13 @@ bars.exit().remove();
 
 That's it. If we wanted to do something special with those elements `.exit()`ing the page, we could do that before we call `.remove()` on them which removes them from the DOM.
 
-#### merge in new data
+We throw in a `setInterval` to pass some random data to the function and add
 
-We will modify our `.enter().append()` chain slightly to include the `merge()` method.
-
-```JavaScript
-.merge(bars)
-.transition()
-.duration(500)
+```javascript
+.transition().duration(700)
 ```
+to the `enter()` selection to animate the newly-entered data in the graph.
 
-### codepen
-https://codepen.io/thmsdnnr/full/VyKrpj/
+#### next steps
 
-<!-- <p data-height="590" data-width="800" data-theme-id="32039" data-slug-hash="VyKrpj" data-default-tab="result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Data Visualization of Sorting Algos w/D3" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/VyKrpj/">Data Visualization of Sorting Algos w/D3</a> by Thomas (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
-<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script> -->
+We'll add axes and data labels in the next tutorial. Try forking this CodePen and converting the graph into a vertical graph.
