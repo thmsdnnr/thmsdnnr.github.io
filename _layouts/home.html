@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  {{ content }}
+
+  <p data-height="212" data-theme-id="32039" data-slug-hash="JMWPOM" data-default-tab="result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="SVG LCD Display" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/JMWPOM/">SVG LCD Display</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<h1 class="page-heading">—the last thing I built, an SVG LCD display (<a href="http://thmsdnnr.com/tutorials/javascript/project/svg/2017/12/28/code-morsels-coding-an-LCD-display.html">full tutorial!</a>)</h1>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+
+</div>
