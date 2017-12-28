@@ -5,7 +5,7 @@ date:   2017-12-28 09:15:04 -0500
 description: Coding an LCD display
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript project SVG
+categories: tutorials javascript projects SVG
 tags: SVG, CSS, LCD, javascript, tutorial, generativeSVG
 ---
 

@@ -21,5 +21,5 @@ permalink: /work/
 #### tiny sketches in the sand:
 * [Codepen](https://codepen.io/thmsdnnr/pens/popular/)
 
-#### tutorials: cryptopals 1-18
-* [here they are! right here!](https://thmsdnnr.github.io/blog/)
+#### tutorials:
+* [all of em!](http://thmsdnnr.com/blog)
