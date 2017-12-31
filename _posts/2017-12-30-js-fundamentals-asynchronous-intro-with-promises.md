@@ -9,10 +9,9 @@ categories: tutorials javascript projects
 tags: async, asynchronous, AJAX, async, promises, API, weather, javascript, networks, API
 ---
 
-# Let's make this.
-
-<p data-height="342" data-theme-id="32039" data-slug-hash="zpwpRQ" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Simple Weather App" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/zpwpRQ/">Simple Weather App</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
-<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+# Let's make this:
+<img src="https://i.imgur.com/cVxLIG7.png" width="360" alt="Weather app viewed in portrait mode on mobile">
+## Live demo on Codepen: <a href="https://codepen.io/thmsdnnr/full/zpwpRQ/">Simple Weather App</a>
 ##### First, we need to understand a few concepts: asynchronous JavaScript, and fetching data from an API.
 
 ## I'll be done in a few.
