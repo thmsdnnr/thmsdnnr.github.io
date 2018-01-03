@@ -12,6 +12,13 @@ permalink: /blog/
   {% endfor %}
 </ul>
 
+#### JS Fundamentals
+<ul>
+  {% for post in site.categories.fundamentals %}
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a> - <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time></li>
+  {% endfor %}
+</ul>
+
 #### Basic Algos
 <ul>
   {% for post in site.categories.algorithms %}

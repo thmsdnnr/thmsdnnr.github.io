@@ -5,7 +5,7 @@ date:   2017-12-31 10:40:04 -0500
 description: Fireworks with MatterJS
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript fundamentals
+categories: tutorials javascript
 tags: JS, matterJS, fireworks, animation
 ---
 
