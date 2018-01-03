@@ -13,7 +13,7 @@ The [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Stora
 
 ## demo: you were here last @
 
-<p data-height="201" data-theme-id="32039" data-slug-hash="BJZEed" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="BJZEed" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/BJZEed/">BJZEed</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p data-height="205" data-theme-id="32039" data-slug-hash="OzjmgO" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="LocalStorage Example — Last visited on:" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/OzjmgO/">LocalStorage Example — Last visited on:</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 Check out the `console.log()` on CodePen too. Go to Create > New Pen, and then type `localStorage` in the developer console to see the storage. Codepen uses the three variables to assign the percentage a pane takes in the editor (HTML/CSS/JS) and whether the console is toggled or not. Try dragging around the panes and watch how the `localStorage` changes.
