@@ -237,6 +237,23 @@ Unlike `map` and `filter`, there is not an application for chaining `reduce`, si
 
 ### Let's write our own reduce.
 
+```javascript
+function myOwnReduce(array, callback, initialValue) {
+  let acc=initialValue;
+  for (var idx=0;idx<array.length;idx++) {
+    acc=callback.apply(null,[acc, array[idx], idx, array]);
+  }
+  return acc;
+}
+```
+
+It works the same way.
+
+```javascript
+myOwnReduce([1,2,3,4,5],(acc,ele,idx)=>idx%2!==0 ? acc+=ele : acc, 0);
+// 6
+```
+
 ## What about dot notation?
 
 Our methods can be chained by [functional composition](https://en.wikipedia.org/wiki/Function_composition), but not with dot notation.
