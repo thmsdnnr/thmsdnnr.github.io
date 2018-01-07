@@ -9,7 +9,7 @@ categories: tutorials javascript fundamentals
 tags: JS, events, DOM, selectors, eventListeners
 ---
 
-<p data-height="474" data-theme-id="32039" data-slug-hash="RxjaXp" data-default-tab="result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Mousemove Listener Color Selector with Debounce" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/RxjaXp/">Mousemove Listener Color Selector with Debounce</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p data-height="388" data-theme-id="32039" data-slug-hash="RxjaXp" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Mousemove Listener Color Selector with Debounce" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/RxjaXp/">Mousemove Listener Color Selector with Debounce</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 ##### an example using a `mousemove` listener and `debounce` to bring it all together
 
