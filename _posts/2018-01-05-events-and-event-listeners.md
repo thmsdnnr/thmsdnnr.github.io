@@ -286,18 +286,17 @@ For instance, if mousemove is calling 50 times per second and your debounce is s
 [Underscore](http://underscorejs.org/) is a JS utility library that implements debounce. We can write it for fun though, too.
 
 ```javascript
-function debounce(fn, intervalMs) {
-  let lastCalled=Date.now();
-  return function debounced() {
-    const rightNow=Date.now();
-    if (rightNow-lastCalled>intervalMs) {
-      //call fn
-      fn.call();
-      lastCalled=Date.now();
-    } else { //debounce
-        ; //no-op
+const debounce = (fn, intervalMs, ...args) => {
+    let lastCalled=Date.now();
+    return function debounced(args) {
+      const rightNow=Date.now();
+      if (rightNow-lastCalled>intervalMs) {
+        fn.apply(null, [args]);
+        lastCalled=Date.now();
+      } else { //debounce
+          ; //no-op
+      }
     }
-  }
 }
 
 function logger(){ console.log('test'); }
