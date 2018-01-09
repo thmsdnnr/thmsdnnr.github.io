@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Pixl: A Pixel Art Editor w/Canvas (1 of 3)"
+title:  "Pixl: A Pixel Art Editor w/Canvas Part 1"
 date:   2018-1-7 14:30:04 -0500
-description: HTML5 Canvas, Pixel Art
+description: Walkthrough/tutorial on creating a pixel art editor using JS and HTML5 Canvas.
 author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects
@@ -131,11 +131,14 @@ function coordsToIdx(X, Y) {
 }
 ```
 
-When the user clicks a square, we look up which square was clicked and set the data array.
+When the user clicks a square, we look up which square was clicked and set the data array. We bounds check the coordinates in our `handleClick` to make sure the click is in bounds and is not right on the margin. If we didn't do this, users could click the rightmost or leftmost boundary and have the row calculation "bump over" into the next/previous row at the opposite column. Consider a click at `480px`. 480/30 is 16, not 15 (rows are indexed 0-15).
 
 ```javascript
 function handleClick(e) {
-  setData(coordsToIdx(e.offsetX, e.offsetY), currentColor);
+  let X=e.offsetX;
+  let Y=e.offsetY;
+  if ((X>=WIDTH||X<=0)||(Y>=HEIGHT||Y<=0)) { return false; }
+  setData(coordsToIdx(X, Y), currentColor);
 }
 ```
 
