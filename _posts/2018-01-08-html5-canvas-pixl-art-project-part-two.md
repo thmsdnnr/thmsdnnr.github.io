@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Pixl: Color Palette & Enhanced UI Part 2"
+title:  "Pixl: Color Palette & Enhanced UI [part 2]"
 date:   2018-1-8 19:30:04 -0500
 description: Walkthrough/tutorial on creating a pixel art editor using JS and HTML5 Canvas.
 author: Thomas Danner
@@ -204,6 +204,12 @@ function switchColor(e) {
   currentColorDiv.classList.remove('activeColor');
   setColor(e.target);
 }
+```
+
+Finally, we add one line to our `initEditor` function that calls `setColor` onload to set the default color to the first swatch:
+
+```javascript
+setColor(document.getElementById('c_0')); //set default color;
 ```
 
 #### 2. Mouse Dragging

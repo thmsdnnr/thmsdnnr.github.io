@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Pixl: A Pixel Art Editor w/Canvas Part 1"
+title:  "Pixl: A Pixel Art Editor w/Canvas [part 1]"
 date:   2018-1-7 14:30:04 -0500
 description: Walkthrough/tutorial on creating a pixel art editor using JS and HTML5 Canvas.
 author: Thomas Danner
