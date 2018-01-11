@@ -17,6 +17,8 @@ In [part one](http://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5
 
 In [part two](http://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html) we added a color palette and mouse-dragging functionality to paint pixels more quickly.
 
+### What's happening today?
+
 Now we're going to enable the user to save their masterpiece. We'll offer the option to scale to 16px, 32px, 64px, or 128px and the choice of transparent vs solid color backgrounds. Finally, we'll display all the generated canvases in a tray at the bottom of the app.
 
 ### Let's get started.
