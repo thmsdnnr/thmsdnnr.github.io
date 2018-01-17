@@ -37,7 +37,7 @@ A [media query](https://en.wikipedia.org/wiki/Media_queries) allows us to define
 
 Here's a simple example.
 
-<!-- ```css
+```css
 div#colorDemo {
   background-color: white;
 }
@@ -45,6 +45,7 @@ div#colorDemo {
   div#colorDemo {
     background-color: gold;
   }
+}
 ```
 
 <style>
@@ -55,7 +56,8 @@ div#colorDemo {
   div#colorDemo {
     background-color: gold;
   }
-</style> -->
+}
+</style>
 
 <div id="colorDemo">I change color to gold when I am wider than 500px.</div>
 
