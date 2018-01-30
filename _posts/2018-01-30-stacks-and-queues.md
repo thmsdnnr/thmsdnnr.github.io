@@ -9,6 +9,10 @@ categories: tutorials javascript fundamentals
 tags: JS, stack, queue, big-O, complexity, dataStructures
 ---
 
+<p data-height="243" data-theme-id="32039" data-slug-hash="bLNzbd" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Code Linter: Mismatched Brackets" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/bLNzbd/">Code Linter: Mismatched Brackets</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+##### a cool thing we can build with stacks: a code linter!
+
 ## Stacks and Queues, Fundamental Data Structures
 
 Today we're going to talk about stacks and queues, two common and incredibly useful data structures in computer science.
@@ -89,9 +93,9 @@ function bracketLint(string) {
     lines.forEach((line,idx)=>{
       line=line.split("");
       for (var i=0;i<line.length;i++) {
-        if (line[i].match(/[\[\(\{]/)) { //opening bracket
+        if (openersToClosers[line[i]]) { //opening bracket
           stack.push(line[i]);
-        } else if (line[i].match(/[\]\)\}]/)) { //closing bracket
+        } else if (closersToOpeners[line[i]]) { //closing bracket
           //check to see if the closer matches the last opener
           let firstOut=stack.pop();
           if (!firstOut||openersToClosers[firstOut]!==line[i]) {
@@ -113,11 +117,9 @@ function bracketLint(string) {
 }
 ```
 
-Let's walk through this code. First, we define a simple mapping from opening brackets to closing brackets and vice versa. This way, when we consider a bracket, we know its partner.
+Let's walk through this code. First, we define a simple mapping from opening brackets to closing brackets and vice versa. This way, when we consider a bracket, we know its partner. We can also use the dictionaries to test the characters in the string that we parse for matching a bracket.
 
-Then we take the string we've been passed. We break the code up into an array with elements corresponding to lines. For each line, we break it into another array with elements at the character level. Then we do our parsing.
-
-We use [`String.match()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) to test the character and see if it equals any of the three opening bracket characters. Note that opening brackets are special characters, so we have to escape each one with a backslash.
+We take in the string we've been passed. We break the code up into an array with elements corresponding to lines. For each line, we break it into another array with elements at the character level. Then we do our parsing.
 
 If we have an opening bracket, we push it on the stack! If we have a closing bracket, we [`.pop()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop) the last-encountered opening bracket off the stack. We look it up in our dictionary to see what closing bracket we expect, and then we compare our expectation with the actual bracket we encountered.
 
