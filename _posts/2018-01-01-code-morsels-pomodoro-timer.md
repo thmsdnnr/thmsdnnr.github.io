@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects
 tags: JS, pomodoro, productivity
+comments: true
 ---
 
 ## Tomato tom-ahto

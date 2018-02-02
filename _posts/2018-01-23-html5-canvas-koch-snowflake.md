@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects
 tags: JS, events, canvas, fractals, koch, snowflake, triangle, equilateral
+comments: true
 ---
 
 *Lately it's been feeling a bit more wintery in Chicago. In honor of the fresh powder, transient though it be, let's code a snowflake fractal that we can enjoy all year long.*

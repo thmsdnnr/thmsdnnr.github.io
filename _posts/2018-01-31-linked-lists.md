@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, stack, queue, big-O, complexity, dataStructures, linkedList, array
+comments: true
 ---
 
 ## (Singly) Linked Lists

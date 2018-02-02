@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, closures, fundamentals, let, var, scope
+comments: true
 ---
 
 # Closures: or, these aren't the loop variables you're looking for.

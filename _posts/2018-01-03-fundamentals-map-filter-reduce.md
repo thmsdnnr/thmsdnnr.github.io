@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, map, filter, reduce, standardDeviation, functionChaining, functionalProgramming
+comments: true
 ---
 
 Map, filter, and reduce are useful tools that facilitate a coding ethos known as Functional Programming.

@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects SVG
 tags: SVG, CSS, LCD, javascript, tutorial, generativeSVG
+comments: true
 ---
 
 ### let's code an LCD

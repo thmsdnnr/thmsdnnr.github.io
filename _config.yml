@@ -17,9 +17,10 @@ title: front-end footpath
 description: # this means to ignore newlines until "baseurl:"
   morsels of code + jolts of JS
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://thmsdnnr.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://thmsdnnr.com" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  thmsdnnr
 twitter_username: thmsdnnr
+disqus_shortname: thmsdnnr
 social:
   name: Thomas Danner
   links:
@@ -29,7 +30,6 @@ social:
     - https://www.freecodecamp.org/thmsdnnr
     - https://twitter.com/thmsdnnr
     - https://www.facebook.com/thmsdnnr
-
 # Build settings
 markdown: kramdown
 paginate: 5
