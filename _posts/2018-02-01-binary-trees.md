@@ -240,8 +240,8 @@ As a neat side-note, we can turn the print node function into pre-order and post
 #### pre-order:
 
 ```javascript
-traverse(tree.left);
 res.push(tree.data);
+traverse(tree.left);
 traverse(tree.right);
 ```
 
@@ -249,8 +249,8 @@ traverse(tree.right);
 
 ```javascript
 traverse(tree.left);
-res.push(tree.data);
 traverse(tree.right);
+res.push(tree.data);
 ```
 
 #### reverse in-order:
