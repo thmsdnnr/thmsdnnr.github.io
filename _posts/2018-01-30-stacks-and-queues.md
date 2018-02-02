@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, stack, queue, big-O, complexity, dataStructures
+comments: true
 ---
 
 <p data-height="243" data-theme-id="32039" data-slug-hash="bLNzbd" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Code Linter: Mismatched Brackets" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/bLNzbd/">Code Linter: Mismatched Brackets</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>

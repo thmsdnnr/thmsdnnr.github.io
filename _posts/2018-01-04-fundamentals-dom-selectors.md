@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, querySelector, querySelectorAll, DOM, selectors
+comments: true
 ---
 
 The [Document Object Model (DOM)](https://en.wikipedia.org/wiki/Document_Object_Model) is how browsers turn your code into a user experience. I know, it's just one character away from "doom", but I promise: after this tutorial, you'll gain some clarity.

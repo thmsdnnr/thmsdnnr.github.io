@@ -6,7 +6,8 @@ description: John Conway's Game of Life simulation implemented in JS
 author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects
-tags: cellularAutomata, gameOfLife, algorithms, javascript, simulations, tutorial
+tags: cellula
+comments: truerAutomata, gameOfLife, algorithms, javascript, simulations, tutorial
 ---
 
 ## John Conway's Game of Life

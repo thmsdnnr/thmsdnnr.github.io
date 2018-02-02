@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, events, DOM, selectors, eventListeners
+comments: true
 ---
 
 <p data-height="388" data-theme-id="32039" data-slug-hash="RxjaXp" data-default-tab="js,result" data-user="thmsdnnr" data-embed-version="2" data-pen-title="Mousemove Listener Color Selector with Debounce" class="codepen">See the Pen <a href="https://codepen.io/thmsdnnr/pen/RxjaXp/">Mousemove Listener Color Selector with Debounce</a> by thmsdnnr (<a href="https://codepen.io/thmsdnnr">@thmsdnnr</a>) on <a href="https://codepen.io">CodePen</a>.</p>

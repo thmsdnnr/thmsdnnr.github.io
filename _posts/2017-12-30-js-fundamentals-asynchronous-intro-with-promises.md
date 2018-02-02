@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects
 tags: async, asynchronous, AJAX, async, promises, API, weather, javascript, networks, API
+comments: true
 ---
 
 # Let's make this:

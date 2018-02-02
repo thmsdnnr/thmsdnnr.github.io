@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript projects
 tags: JS, events, canvas, fractals, sierpinski, gasket, triangle, equilateral
+comments: true
 ---
 
 ## Let's Code a Fractal! <a href="https://codepen.io/thmsdnnr/full/opoddP/">[codepen demo]</a>

@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals,
 tags: JS, memoize, memoization, efficiency, complexity, optimization
+comments: true
 ---
 
 ### Memoization: or (You) Call(ed) Me (Before), Maybe

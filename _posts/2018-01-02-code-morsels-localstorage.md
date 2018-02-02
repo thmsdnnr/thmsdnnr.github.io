@@ -7,6 +7,7 @@ author: Thomas Danner
 lang: en_US
 categories: tutorials javascript fundamentals
 tags: JS, sessionStorage, localStorage, webStorage
+comments: true
 ---
 
 The [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) allows you to store data for a given origin (page on your site) that can persist across sessions. Data is stored as key-value pairs. There can only be one value for a given key, although that value can be a `JSON.stringify()`d object. Web Storage is [well-supported across browsers](https://caniuse.com/#feat=namevalue-storage) with few limitations, aside from [browser-specific limits](http://dev-test.nemikor.com/web-storage/support-test/) on storage space.
