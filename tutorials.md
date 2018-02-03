@@ -5,9 +5,9 @@ category: tutorials
 permalink: /blog/
 ---
 
-#### Fun Projects
+#### Computer Science
 <ul>
-  {% for post in site.categories.projects %}
+  {% for post in site.categories.compsci %}
     <li><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a> - <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time></li>
   {% endfor %}
 </ul>
@@ -22,6 +22,13 @@ permalink: /blog/
 #### Basic Algos
 <ul>
   {% for post in site.categories.algorithms %}
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a> - <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time></li>
+  {% endfor %}
+</ul>
+
+#### Fun Projects
+<ul>
+  {% for post in site.categories.projects %}
     <li><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a> - <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time></li>
   {% endfor %}
 </ul>
