@@ -5,7 +5,7 @@ date:   2018-1-31 06:56:04 -0500
 description: An introduction to the linked list data structure with code implementation, comparisons to arrays, and big-O analysis.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript fundamentals
+categories: tutorials compsci
 tags: JS, stack, queue, big-O, complexity, dataStructures, linkedList, array
 comments: true
 ---

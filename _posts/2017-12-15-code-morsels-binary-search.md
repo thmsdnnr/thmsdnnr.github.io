@@ -5,7 +5,7 @@ date:   2017-12-15 21:06:04 -0500
 description: Binary search algorithm with a test runner implementation, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript codeMorsels algorithms
+categories: tutorials compsci codeMorsels algorithms
 tags: binarySearch, searching, algorithms, javascript, tutorial
 ---
 

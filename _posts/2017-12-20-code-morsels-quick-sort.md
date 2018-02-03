@@ -5,7 +5,7 @@ date:   2017-12-20 10:40:04 -0500
 description: Quicksort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript codeMorsels algorithms
+categories: tutorials compsci codeMorsels algorithms
 tags: quicksort, sorting, algorithms, javascript, tutorial
 ---
 

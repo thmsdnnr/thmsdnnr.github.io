@@ -5,7 +5,7 @@ date:   2018-2-1 06:56:04 -0500
 description: An introduction to the binary tree data structure with code implementation of insertion, traversal, and search methods.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript fundamentals
+categories: tutorials compsci
 tags: JS, stack, queue, big-O, complexity, dataStructures, binaryTree, treeTraversal
 comments: true
 ---

@@ -5,7 +5,7 @@ date:   2018-2-2 06:56:04 -0500
 description: A part two to the binary tree data structure with code implementation of deletion method.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript fundamentals
+categories: tutorials compsci
 tags: JS, stack, queue, big-O, complexity, dataStructures, binaryTree, treeTraversal, deletion
 comments: true
 ---

@@ -5,7 +5,6 @@ date:   2017-12-19 10:55:04 -0500
 description: Bubble Sort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript codeMorsels algorithms
 tags: comparisons, bug, QA, testing, sorting, algorithms, javascript, tutorial
 ---
 

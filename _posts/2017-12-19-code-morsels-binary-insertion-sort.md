@@ -5,7 +5,7 @@ date:   2017-12-19 09:50:04 -0500
 description: Binary Insertion Sort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript codeMorsels algorithms
+categories: tutorials compsci codeMorsels algorithms
 tags: binaryInsertionSort, sorting, binarySearch, algorithms, javascript, tutorial
 ---
 

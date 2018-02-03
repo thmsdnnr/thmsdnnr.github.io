@@ -5,7 +5,7 @@ date:   2017-12-18 20:10:04 -0500
 description: Insertion sort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript codeMorsels algorithms
+categories: tutorials compsci codeMorsels algorithms
 tags: insertionSort, sorting, algorithms, javascript, tutorial
 ---
 

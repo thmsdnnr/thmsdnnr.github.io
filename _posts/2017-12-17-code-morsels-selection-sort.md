@@ -5,7 +5,7 @@ date:   2017-12-17 09:10:04 -0500
 description: Selection sort algorithm, coded in JavaScript.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript codeMorsels algorithms
+categories: tutorials compsci codeMorsels algorithms
 tags: selectionSort, sorting, algorithms, javascript, tutorial
 ---
 

@@ -5,7 +5,7 @@ date:   2018-1-30 08:56:04 -0500
 description: An introduction to the stack and queue data structures with examples.
 author: Thomas Danner
 lang: en_US
-categories: tutorials javascript fundamentals
+categories: tutorials compsci
 tags: JS, stack, queue, big-O, complexity, dataStructures
 comments: true
 ---
