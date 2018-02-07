@@ -6,7 +6,7 @@ description: A discussion of AVL trees, a balanced binary search tree with bette
 author: Thomas Danner
 lang: en_US
 categories: tutorials compsci
-tags: JS, stack, queue, big-O, complexity, dataStructures, binaryTree, binarySpacePartitioning, canvas, art, proceduralGeneration
+tags: JS, stack, big-O, complexity, dataStructures, binaryTree, AVL, rotations
 comments: true
 ---
 
@@ -293,21 +293,6 @@ null   null
 We have the open spot on `rightChild`'s left, so we just replace its null with `root` by connecting that left node to the root node with `rightChild.left=root`.
 
 And we're done!
-
-## Tracking Node Height
-
-Since we're going to use the height property of a node when we do a rotation, we'll add a height property to our node objects:
-
-```javascript
-var node = function(data, left, right) {
-  this.data=data || null;
-  this.left=left || null;
-  this.right=right || null;
-  this.height=0;
-}
-```
-
-We're not going to use this in this tutorial, but think about how we're going to use it when we insert and delete new nodes to decide which nodes require a balancing operation. Hint: at each parent node, we get the balance factor with `node.left.height-node.right.height`.
 
 ## Confused Yet?
 
