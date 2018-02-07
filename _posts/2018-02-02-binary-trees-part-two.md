@@ -72,12 +72,13 @@ function countChildren(node) {
 }
 ```
 
-We'll also write one other helper method, `findParent`. This returns the parent node of a given node (or null if the node does not exist in the tree).
+We'll also write one other helper method, `findParent`. This returns the parent node of a given node. It returns null if the node does not exist in the tree, or if the node is the tree's parent.
 
 ```javascript
 function findParent(tree, node) {
+  if (tree==node) { return null; } // this is the root
   while (tree!==null) {
-    if (tree.left===node||tree.right==node) { break; }
+    if (tree.left==node||tree.right==node) { break; }
     if (node.data<tree.data) { parentNode=tree; tree = tree.left; }
     else if (node.data>tree.data) { parentNode=tree; tree = tree.right; }
   }

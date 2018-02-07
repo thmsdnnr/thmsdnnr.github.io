@@ -40,11 +40,11 @@ We count the height of a node's branch by calculating the maximum distance from 
 We can calculate this maximum distance using a depth-first search like so:
 
 ```javascript
-function maxDepth(tree) {
+function maxHeight(tree) {
   if (tree==null) { return 0; }
   else {
-    let leftD=maxDepth(tree.left);
-    let rightD=maxDepth(tree.right);
+    let leftD=maxHeight(tree.left);
+    let rightD=maxHeight(tree.right);
     return leftD > rightD ? leftD+1 : rightD+1;
   }
 }
