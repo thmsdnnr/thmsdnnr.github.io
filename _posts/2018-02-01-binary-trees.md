@@ -16,13 +16,42 @@ A [binary tree](https://en.wikipedia.org/wiki/Binary_tree) is a tree data struct
 
 By convention, the root of a binary tree is drawn at the top, with branches proceeding downward.
 
-In a subset of the binary tree structure, the *Full binary tree*, every node has either 0 or 2 children. Nodes with zero children (where `left` and `right` are null) are called leaf nodes.
+In a *Full binary tree*, every node except the leaves have two children. Nodes with zero children (where `left` and `right` are null) are called leaf nodes.
 
-Binary trees in and of themselves are often not used in computer science, but the tree structure can be used to create a data structure called a *Binary Search Tree*, which is much more useful.
+A *Complete binary tree* is a full binary tree in which every level of the tree is filled (except perhaps the last), and nodes are populated from left-to-right.
+
+```
+     2
+   /   \
+  4     7
+ / \
+5   6
+```
+##### A full and complete binary tree.
+
+```
+     2
+   /   \
+  4     7
+ / \   / \
+5   6     9
+```
+##### A full but *incomplete* binary tree.
+
+```
+         2
+    /    |    \
+  4      6      7
+ / \    / \    / \
+5   6  4   2      9
+```
+##### This is not a binary tree at all: the root has three branches.
+
+A binary tree is an abstract structure whose use can be leveraged for different ends, particularly when ordering is applied to the tree's nodes. One such ordering creates a structure called a *Binary Search Tree*, which we will discuss here.
 
 ## Binary Search Trees
 
-In a [binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree), an "ordered" or "sorted" binary tree, the child nodes are kept in an order relative to their parents. We create an insert method to insert data in this ordered fashion.
+In a [binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree), an "ordered" or "sorted" binary tree, the child nodes are kept in an order relative to their parents. The left child is always less than the parent, and the right child is always greater than or equal to the parent. We create an insert method to insert data in this ordered fashion.
 
 For inserting item A in tree T, we proceed down the tree. For each node we encounter, we compare the value of A with the value of that node. If A is less than the node, we go left. If A is greater than the node, we go right.
 
