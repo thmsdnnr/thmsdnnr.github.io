@@ -11,7 +11,12 @@
   <script src="/assets/js/anchor.min.js"></script>
   <script src="/assets/js/linkify.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function(event) {
-  anchors.add('h4');
+    if (window.location.href.match(/tutorials/)) {
+      anchors.add('h2');
+      anchors.add('h3');
+      anchors.add('h4');
+      anchors.add('h5');
+    }
 });</script>
 {% seo %}
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111623123-1"></script>
