@@ -12,11 +12,11 @@ comments: true
 
 ## Generator Functions
 
-A [generator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) is a function that can exit and re-enter execution at a later time. When the function executes later on, it retains its memory of its local variables. In this sense, it acts like a closure.
+A [generator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) is a function that can exit and re-enter execution at a later time. When the function executes later on, it retains its memory of its local variables. In this sense, it acts like a [closure](http://localhost:4000/tutorials/javascript/fundamentals/2017/12/31/code-morsels-closures-let-vs-var.html#enter-closures).
 
 The best way to understand generators is with some simple examples.
 
-### Simplest Generation
+### Defining Generation
 
 The syntax for defining a generator function is to use a `*` before the function name and then have `yield` statements in the function body.
 
@@ -36,9 +36,11 @@ let G = generate();
 G.next();
 ```
 
-Calling G.next() returns an object with a `value` and a `done` property. `value` corresponds to the current value yielded by the generator function. `done` is a boolean signifying whether the generator function is exhausted for not. Calling `G.next()` sequentially in our example function yields:
+Calling G.next() returns an object with a `value` and a `done` property. `value` corresponds to the current value yielded by the generator function. `done` is a boolean signifying whether the generator function is exhausted for not.
 
-```
+Calling `G.next()` sequentially in our example function yields:
+
+```javascript
 {value: "this", done: false}
 {value: "is", done: false}
 {value: "a", done: false}
@@ -46,7 +48,7 @@ Calling G.next() returns an object with a `value` and a `done` property. `value`
 {value: undefined, done: true}
 ```
 
-Note that `done` is *not* false until we call the function and there are no more yields left.
+Note that `done` is *not* true until we call the function and there are no more yields left.
 
 ### Generators With Arguments
 
@@ -100,7 +102,19 @@ function *zeroToTen() {
 ```
 ##### Generate recurring numbers 0-10
 
-
+```javascript
+function *fibbo() {
+  let a = 0;
+  let b = 1;
+  while (true) {
+    let current = a;
+    a = b;
+    b = current + a;
+    yield current;
+  }
+}
+```
+##### Generator for the Fibonacci sequence
 
 ### Generators Yielding To Other Generators
 
@@ -123,3 +137,9 @@ backAndForth.next(); //"b is now in control"
 backAndForth.next(); //"a is now in control"
 backAndForth.next(); //{value: undefined, done: true}
 ```
+
+## But, why?
+
+Generators are more than just syntactic sugar. They are powerful tools for making infinite sequences or tasks manageable by implementing [lazy evaluation](https://en.wikipedia.org/wiki/Lazy_evaluation), the paradigm of only producing results when they are requested. Lazy Evaluation is why you can have a `while (true)` loop in the function that doesn't hang infinitely: `yield` breaks out of the while loop until the next time the function is called.
+
+Look for ways that you can implement generators to make your code more readable. Consider how you might use it with asynchronous code like fetch or use it to make more readable functions that perform similar tasks.
