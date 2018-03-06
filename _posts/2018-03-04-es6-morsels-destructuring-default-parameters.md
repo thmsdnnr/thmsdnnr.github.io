@@ -260,8 +260,8 @@ function parseObject(propString, obj) {
   propString=propString.split("?").map(e=>e.replace(/^\./g,''));
   if (obj==undefined) { return undefined; }
   for (var i=1;i<propString.length;i++) {
-    if (!propString[i].match(/^[^0-9][a-zA-Z0-9_$.]*$/)) {
-     throw new Error('Invalid property name: ',propString[i]);
+    if (!propString[i].length>0) {
+     throw new Error('Property names must have a length of at least one!');
    }
     if (obj[propString[i]]) { obj=obj[propString[i]]; }
     else { return undefined; }
@@ -271,8 +271,6 @@ function parseObject(propString, obj) {
 console.log(parseObject('cuteAnimalRatings?.cats?.data?.nestedWhy', cuteAnimalRatings));
 // [{name: "Fluffykins", rating: 10}, {name: "Hugo", rating: 6}]
 ```
-
-We filter out invalid property names, since we can only allow properties containing alphanumeric characters including `_` and `$` and names that do not start with numbers.
 
 Coming soon to a language near you!
 
