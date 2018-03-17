@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Knapsack Problem"
-date:   2018-3-15 06:56:04 -0500
+date:   2018-3-16 06:56:04 -0500
 description: Examining the Knapsack Problem and solutions using dynamic programming.
 author: Thomas Danner
 lang: en_US
@@ -75,14 +75,31 @@ Clearly we need a way to generate combinations relative to the constraints *as* 
 
 How does this apply to the knapsack problem?
 
-At a high level, how do we go about filling the knapsack? We iterate through the items and look at the current state of the knapsack. We ask ourself first:
+At a high level, how do we go about filling the knapsack? We iterate through the items and look at the current state of the knapsack. We ask these questions:
 
-1. Will the item fit? If not, skip it.
-2. If so, does adding it add more value, *given the current size of the knapsack*? If so, add it. If not, skip it.
+1. Will the item fit? If not, skip it. Add the previous row's value, since that's the highest value we can attain.
+2. If the item fits, we decide whether or not to add it by comparing two values:
 
-We are asking the question:
+A) The value of not adding the item at all (the value of the row immediately above).
 
-1. For a given size of the knapsack, iterating over each item, which item provides the most value relative to the size increase it creates? Then, of these items, which is permissible to add ()
+B) The value of adding the item and then the highest-valued-combination-of-items of size (current knapsack size - potential new item size). For example, if the size of the new item is 1, and we're currently considering a pack of size 3, we look up the highest-value combination of size 2.
+
+We can find the highest-value combination by going up one row and back `size` columns.
+
+If value A > value B, we don't add the item and copy down the value of the row above.
+
+If value B > value A, we add the item and record the combined value in the cell.
+
+The beauty of this algorithm is that we assemble the answers we need to determine whether or not to add an item *as we iterate through the items*. When we finish filling out the array, we'll have our answer of the maximum value: it's just the `[last row][last column]`.
+
+There are a few relations that make this algorithm work that you can [find here on the Wikipedia](https://en.wikipedia.org/wiki/Knapsack_problem#0/1_knapsack_problem).
+
+Straight from the wiki:
+
+* m[i, w] is the maximum value using i items for a given weight.
+* m[0, w] is zero for all w, since zero items have zero value.
+* m[i, w] if the new item *doesn't* fit: m[i-1, w].
+  * If the new item fits: max(m[i-1, w], m[i-1, w-newItem weight] + valueNewItem)
 
 ## The Nuts and Bolts
 
@@ -90,7 +107,7 @@ We'll solve the problem by creating a grid with a width equal to the weight the 
 
 When the knapsack is full and we've run through all of our items, the maximum value will be the last row and last column of the array.
 
-We can then iterate through our "Did we pick the item up?" matrix to answer the questions of *which* items constitute this maximum value.
+We track whether or not we added an item to the knapsack with an auxiliary array: 1 indicates we picked it up, and 0 indicates that we did not pick it up. We can use this auxiliary array `keepArr` after the fact to create a packing list of items that constitute the maximum value for a given weight.
 
 ```javascript
 const bagSize = 8;
@@ -137,39 +154,78 @@ for (var i=1; i<=N; i++) {
     }
   }
 }
+```
+
+<img src="/assets/pics/knapsack.jpg" alt="Knapsack Grid for Example Problem" width="500px">
+##### Completed value matrix for the given item list
+
+### Walking Through The Code
+
+The code makes a lot more sense if you look at this example grid. We construct an array that is 1-based (so we fill out the zero-th index with a 0 and never use it). This makes the array indexing much easier, since we don't have to worry about index-1 being out of bounds.
+
+Then, we list the number of items as rows and the integer weight values as columns.
+
+Note each row in the image corresponds to the `items` array above. We've got the cat dish at the top and the diamonds at the bottom.
+
+So let's walk through the diamonds row. Keep in mind, each time we say "is bigger than", we're walking up one row (the previous item) and back 2 (the diamonds' weight).
+
+* [7,0], the value is zero, because there's no item in a bag with zero weight.
+* [7,1], the value is 10, because we can't fit the diamonds (size 2) in a bag of size 1.
+* [7,2], the value is 70, because 70 + 0 is bigger than 14.
+* [7,3], the value is 80, because 70 + 10 is bigger than 16.
+* [7,4], the value is 84, because 70 + 14 is bigger than 40.
+* [7,5], the value is 86, because 70 + 16 is bigger than 50.
+* [7,6], the value is 110, because 70 + 40 is bigger than 54.
+* [7,7], the value is 120, because 70 + 50 is bigger than 56.
+* [7,8], the value is 124, because 70 + 54 is bigger than 60.
+
+### Figuring Out Which Items Constitute The Max Value
+
+```javascript
 let keptElements=[];
 let eleKey = bagSize;
 for (var i=N; i>0; i--) {
-  console.log(i, eleKey);
   if (keepArr[i][eleKey]==1) {
     keptElements.push(i-1);
     eleKey -= weights[i];
   }
 }
-let optimalBagContents = knapsackSolver(items, bagSize); // ??
 ```
+
+<img src="/assets/pics/keepArr.jpg" alt="Keep Array for Example Problem" width="500px">
+##### Traversing the Keep Array
+
+All we have to do to figure out which elements constitute the highest value is to traverse our keepArray, starting at the solution point. If the value is 1, we add that element's index (minus one, since our matrix is 1-based) to the results array, and then we decrement our weight index by the weight of that element.
+
+```
+​​​​​[ { name: 'diamonds', value: 70, size: 2 },​​​​​
+​​​​​  { name: 'catnip', value: 10, size: 1 },​​​​​
+​​​​​  { name: 'laptop', value: 40, size: 4 },​​​​​
+​​​​​  { name: 'cat dish', value: 4, size: 1 } ]​​​​​;
+```
+##### keptElements.map(e=>items[e]);
 
 ## Knapsack Problem Variants
 
 We just solved the 0-1 knapsack problem: items in the collection exist either zero or one times. We don't have two cat dishes or two laptops.
 
-There are two other variants:
+There are a few other variants [(list of them here)](https://en.wikipedia.org/wiki/List_of_knapsack_problems), including:
 
-* bounded knapsack problem: there can be more than one of a given item in the collection, but no more than some max quantity (bound)
+* the bounded knapsack problem: there can be more than one of a given item in the collection, but no more than some max quantity (bound)
 
 `{name: 'cat dish', value: 4, size: 1, qty: 4}`
 
-* unbounded knapsack problem: there can be any number of given items in the collection, so long as they are integral and non-negative
+* the unbounded knapsack problem: there can be any number of given items in the collection, so long as they are integral and non-negative
 
 Allowed: `{name: 'cat dish', value: 4, size: 1, qty: 1e6}`
 
+Not allowed:
+* `{name: 'cat dish', value: 4, size: 1, qty: 2.3}`
+* `{name: 'cat dish', value: 4, size: 1, qty: -4}`
 
-Not allowed: `{name: 'cat dish', value: 4, size: 1, qty: 2.3}` or `{name: 'cat dish', value: 4, size: 1, qty: -4}`
-
-## Multidimensional Knapsacks
-
-To imagine a multidimensional version of the problem, pretend you're UPS, and you're trying to distribute boxes to trucks. Each truck has a fixed volume and a fixed max weight capacity. Each package has a shipping cost that is not necessarily directly proportional to the volume and weight of a given box. Some small, lightweight boxes might have tons of insurance -- like a bag of diamonds. Some boxes might have cost more for expedited shipping. Other boxes might be very volume-heavy in proportion to the size and weight of their contents (like when you get a huge box from Amazon with big air cushions that only contains a single thing).
 
 ## TIL
 
-Dynamic programming is a technique that uses [memoization](http://thmsdnnr.com/tutorials/javascript/fundamentals,/2018/01/24/fundamentals-memoizing.html), allowing us to solve problems much more quickly and efficiently than we might otherwise have been able.
+Dynamic programming is a technique that uses [memoization](http://thmsdnnr.com/tutorials/javascript/fundamentals,/2018/01/24/fundamentals-memoizing.html), allowing us to solve problems much more quickly and efficiently than we might otherwise have been able. In this case, we memoized answers to the question "What's the largest-value knapsack of weight W that I can assemble given a consideration of all previous items?". Doing so allowed us to avoid having to generate a complexity-prohibitive power set to solve an optimization problem.
+
+While you might not use this algorithm the next time you're headed to the airport, you certainly could in order to allocate limited resources in the most effective manner.
