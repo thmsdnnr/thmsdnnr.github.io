@@ -4,9 +4,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
-  {% if jekyll.environment == 'production' and site.google_analytics %}
-    {% include google-analytics.html %}
-  {% endif %}
   <link rel="stylesheet" type="text/css" href="/assets/css/linkify.css">
   <script src="/assets/js/anchor.min.js"></script>
   <script src="/assets/js/linkify.js"></script>
@@ -19,12 +16,4 @@
     }
 });</script>
 {% seo %}
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111623123-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-111623123-1');
-</script>
 </head>
