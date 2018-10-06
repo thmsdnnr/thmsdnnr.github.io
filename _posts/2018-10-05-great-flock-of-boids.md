@@ -1,31 +1,41 @@
 ---
 layout: post
-title:  "Great Flock of Boids: Generative Systems"
-date:   2018-10-02 06:56:04 -0500
-description: Coding 
+title:  "A Great Scarf of Boids"
+date:   2018-10-05 06:56:04 -0500
+description: Craig Reynolds' boids simulation using JavaScript and canvas, along with basic explanation of vector math to run the particle simulation.
 author: Thomas Danner
 lang: en_US
-categories: compsci
-tags: JS, boids, computer science, generative systems
+categories: fun projects
+tags: JS, boids, computer science, generative systems, particle system
 ---
+
+<img src="/assets/pics/boidflock.gif" alt="A flock of Boids flying freely" width="700px">
+[CodePen Demo](https://codepen.io/thmsdnnr/full/JmRboR/) // [github repo](https://github.com/thmsdnnr/boids/)
 
 ## Boids
 
-// TODO: CodePen / GitHub example link, wikipedia article, figure out Rule 2, consider use Points instead of overloading the V2 to act as both vector and point.
+[Boids](https://en.wikipedia.org/wiki/Boids) are a simulation program, originally conceived by Craig Reynolds, to model the cooperative movement of animals in nature, like flocks of birds and schools of fish.
 
-[Boids]() are a simulation program, originally conceived by Craig Reynolds, to model the cooperative movement of animals in nature, like flocks of birds and schools of fish. One of the super cool things about boids is the complex flocking behavior and coordinated movement that emerges from the application of a few simple rules to a group, along with some constants that dictate how these rules are applied. This emergent behavior is similar to [John Conway's Game of Life](TODO LINK HERE).
+Boids are fascinating, because from the application of a few simple rules to a group of entities, complex coordinated behavior emerges.
 
 Conrad Parker [has written an excellent resource](http://www.vergenet.net/~conrad/boids/pseudocode.html) on how to code the simulation using psuedocode, which will allow you to reproduce the simulation in your own language of choice.
 
-For my case, I chose to implement boids using JavaScript and HTML5 canvas to visualize the flock.
+Here, we'll use vanilla JavaScript and an HTML canvas to visualize the flock.
 
 ### Vectors and Scalars
 
-A brief introduction to terms. A vector is a mathematical tool that describes a direction as well as a magnitude. A scalar simply represents a magnitude.
+A brief introduction to terms.
 
-The common example is velocity and speed. If you tell me you're going 55 miles per hour on the highway, I know how much distance you're covering, but I have no idea where you're going toward or coming from.
+* Scalars: represent a magnitude
+* Vectors: represent direction as well as magnitude
 
-On the other hand, if you tell me that you're traveling 55 miles per hour (direction) *and* that you're going north on I-5 (magnitude), I can locate you on a map. 
+The classic examples are speed and velocity. 
+
+Imagine you're driving a car, and you give me your current position on a map and tell me you're going 55 miles per hour.
+
+I know how much distance you're covering in a given time, but I have no idea where you're going toward or coming from.
+
+On the other hand, if you tell me that you're traveling 55 miles per hour (direction) *and* that you're going north on I-5 (magnitude), I can tell you where you'll be in a given period of time, given your starting position.
 
 But "north on I-5" is too specific. To capture the notion of direction and magnitude in the abstract, vectors have a coordinate for each direction of motion.
 
@@ -48,30 +58,34 @@ function V2 (x, y) {
 }
 ```
 
-We intiialize the default x and y copmonent to 0 and add four methods.
+We intialize the default x and y copmonent to 0 and add four methods.
 
-##### Addition
+#### Addition
 To add two vectors, you simply create a new vector, where each component is the sum of the added vectors' components.
 
 For instance: `[1, 2] + [3, 4]` => `[4, 6]`
 
-##### Subtraction
+#### Subtraction
 Subtraction is the inverse of addition. Just subtract instead.
 
-##### Multiplication
-To multiply a vector by a scalar, create a new vector with the 
+For instance: `[1, 2] - [3, 4]` => `[-2, -2]`
 
-##### Magnitude
+#### Multiplication
+To multiply a vector by a scalar, create a new vector with each component multiplied by the scalar.
+
+For instance: `[1, 2] * -1` => `[-1, -2]`
+
+#### Magnitude
 To calculate magnitude, we use the Pythagorean Theorum: the magnitude of a vector is equal to the square root of the sum of the squares of each component.
+
+For instance: `[-1, 2] => sqrt(-1 * -1 + 2 * 2) => sqrt(5)`
 
 ### Boids
 Now that we have vectors, we can make boids.
 
-Boids have positions and velocities. We also want to be able to identify individual boids, since some rules will modify a given boid's velocity by calculating some factor of all boids *except* the given boid. To do this, we can create an autoincrementing integer on the Boid object that increases by one each time we create a new boid.
+Boids have positions and velocities. We also want to be able to identify individual boids. To do this, we can create an autoincrementing instance count on the Boid object.
 
-#### Positions
-
-A position is an X, Y coordinate pair. A velocity is a 2D vector that operates on those pairs. A velocity is a change in position over time. 
+Velocity is the change of position over time (distance / time). Acceleration is the change of velocity over time (distance / time * 2). You can describe this using calculus (integrating the velocity over a time interval gives the distance travelled), but for our simulation, all this means is that if we update at a constant frames-per-second, we can update the position by adding the change in velocity over that time interval.
 
 ```javascript
 function Boid (initialPosition, initialVelocity) {
@@ -86,11 +100,9 @@ function Boid (initialPosition, initialVelocity) {
 
 Each of these rules considers an individual `boid` with respect to the group of all boids `boidList`, an array of `boid`s.
 
-Each rule takes the boid in consideration and the entire list of boids, and then it returns a vector.
+Each rule returns a velocity vector.
 
-In each tick of time, we evaluate each rule on every boid, which gives us three new vectors for each boid. We then add the three vectors to the boid's position to generate the next state of the boid flock.
-
-#### RULE 1: // Boids try to align themselves with the average position of the flock
+#### 1. Boids try to align themselves with the average position of the flock
 
 First, we calculate the average position of the flock (excluding the current boid). We calculate this just like any other average: sum each vector and then divide by the length of the list of boids (minus one, because we're excluding the current boid).
 
@@ -111,7 +123,7 @@ function rule1 (boid, boidList) {
 }
 ```
 
-#### RULE 2: // Boids try to maintain a minimum distance between themselves and others
+#### 2. Boids try to maintain a minimum distance between themselves and others
 
 We can set a constant `TOO_CLOSE_MAGNITUDE` that the boids will use to figure out if they are too close to one another. First, we make a list of the boids that the current boid is too close too. For each boid that's too close, we generate a vector pulling this boid away from these boids.
 
@@ -129,14 +141,13 @@ function rule2 (boid, boidList) {
     )
     .map(tooCloseBoid =>
       newPositionVector.subtract(tooCloseBoid.subtract(boid.position))
-    ) // TODO: is this adding to newPositionVector actually?
-
+    )
   return newPositionVector
 }
 ```
 
 
-#### RULE 3: // Boids try to match their velocity with that of the flock
+#### 3. Boids try to match their velocity with that of the flock
 
 We can calculate the average velocity in the same way that we calculated average position. Then, multiply by a `VELOCITY_MATCH_FACTOR`.
 
@@ -159,11 +170,11 @@ function rule3 (boid, boidList) {
 
 `<canvas id="birdflock"></canvas>`
 
-If you have a retina display, canvas pixels look weird unless you cale them down by a factor of 2. So, we'll use a `scaleFactor` of the pixel ratio (2x for retina, 1x for non-retina) to augment our calculations.
-
 We'll make the canvas the height & width of the window with 100 pixel margins. 
 
-The `ctx.translate(0.5, 0.5)` moves the screen by a half so that the edge of pixels aren't jagged. 
+`ctx.translate(0.5, 0.5)` moves the canvas grid by a half-pixel for smoothing.
+
+If you have a retina display, canvas pixels look weird unless you scale them down by a factor of 2. So, we'll use a `scaleFactor` of the pixel ratio (2x for retina, 1x for non-retina) to augment our calculations.
 
 ```javascript
 const scaleFactor = window.devicePixelRatio
@@ -199,7 +210,9 @@ this.draw = ctx => {
 
 ### Introduce the element of time
 
-Now that we have Boids and rules for their behavior, we have to introduce an element of time into our simulation. We can do this using `window.requestAnimationFrame`. In each tick of time, we'll first check to see if we should draw a frame, based on our `fpsInterval`, which is 1000ms / frames-per-second. If we haven't reached this amount of time since we last drew, we'll do nothing.
+Now that we have Boids and rules for their behavior, we have to introduce an element of time into our simulation. We can do this using `window.requestAnimationFrame`.
+
+In each tick of time, we'll first check to see if we should draw a frame, based on our `fpsInterval`, which is 1000ms / frames-per-second. If we haven't reached this amount of time since we last drew, we'll do nothing.
 
 The main loop looks like this:
 
@@ -225,15 +238,17 @@ function step () {
 
 With each tick we:
 
-1. clear the canvas and fill it with black
-2. call `updateBoidPositions`, which applies the rules to each boid, and then performs a final adjustment to make sure the boid isn't off screen.
+1. clear the canvas and paint it black
+2. call `updateBoidPositions`, which applies the rules to each boid, and then performs a final adjustment to make sure the boid isn't off screen
 3. tell the boids to draw themselves
+
+### Refining boid behavior
 
 It helps to impose a velocity limit on the boids, so that the flocks do not hurt your eyes as they flutter about. `VELOCITY_LIMIT` is a constant, and `limitVelocity` can be called on the resultant velocity:
 
 ```javascript
 const limitVelocity = v =>
-  (v.magnitude > VELOCITY_LIMIT ? v / v.magnitude * VELOCITY_LIMIT : v)
+  (v.magnitude() > VELOCITY_LIMIT ? v.multiply(1 / (v.magnitude() * VELOCITY_LIMIT)) : v)
 ```
 
 In addition, in order to keep the boids within the viewport (the part of the screen that we display on the canvas), we have to limit their coordinates to the bounds of the viewport.
@@ -242,7 +257,7 @@ So, in each frame, for each boid, we'll make sure the X and Y coordinates are gr
 
 So that the boid doesn't go *all* the way off the screen, we'll make the bounds slightly smaller, by a factor of the BOID_WIDTH and BOID_HEIGHT for the X and Y components, respectively.
 
-If te boid is out of bounds on either coordinate, we apply an opposing factor to the velocity `FLINGBACK_VELOCITY` and multiply by -1 if we need the boid to go in the opposite direction from which it's going (for instance, if its X or Y coordinate is too large, it needs to make this coordinate smaller).
+If the boid is out of bounds on either axis, we apply an opposing factor to the velocity `FLINGBACK_VELOCITY` and multiply by -1 if the value is too large.
 
 ```javascript
 this.normalizePosition = (maxX, maxY) => {
@@ -299,9 +314,6 @@ function fillBoidList () {
   let list = []
   for (var i = 0; i < BOID_START_CT; i++) {
     // Give a little randomization
-    // TODO: would be cool to cast them off equally in all directions
-    // as though away from the center of a circle, e.g., boidCt / 360
-    // each one every 3.6 degrees difference
     let dir = Math.random() > 0.5 ? 1 : -1
     list.push(
       new Boid(
@@ -336,8 +348,13 @@ function fly () {
 document.addEventListener('DOMContentLoaded', fly)
 ```
 
-## More stuff
+## More ideas
 
 In my CodePen, I added some sliders so that you can vary the the rule's parameter factors dynamically, adjust the frames-per-second, and a reset button to start again from scratch.
 
-You can have a lot o fun with this. [Conrad Parker's paper](http://www.vergenet.net/~conrad/boids/pseudocode.html) details some of these ideas, like introducing a wind as a constant vector for all the boids in the flock. You can also set up obstacles for boids (an obstacle is just a boid that ... never moves). You could easily have the canvas react to mouse clicks or toggle the simulation parameters.
+[Conrad Parker's paper](http://www.vergenet.net/~conrad/boids/pseudocode.html) details some of these ideas. You could try:
+
+1. introducing a wind as a constant vector for all the boids in the flock
+2. setting up obstacles for boids to fly around
+3. have the canvas react to mouse clicks to generate or direct flocks
+4. add another dimension and use [https://threejs.org/](https://threejs.org/) to make a VR simulation
