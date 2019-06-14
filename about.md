@@ -4,12 +4,18 @@ title: whoami
 permalink: /about/
 ---
 
-### *I help craft software to bring people joy*.
-I learn new concepts quickly and am experienced with conceptualizing problems. I have a passion for usability, intuitive design, & thorough testing. I enjoy helping to teach others who are learning to code.
+### *I craft software to bring people joy*.
+I believe that technology fosters connection and opportunity so long as we remain, above all, focused upon the people our work is intended to enrich.
+
+I learn new concepts quickly. I have experience learning new languages and frameworks from scratch. Initial bewilderment is my jam. I am passionate about open source, Internet privacy, and programming education. I enjoy learning and helping others learn to code.
 
 #### Tech I know
-- JavaScript, Ruby (basic familiarity), ExpressJS, Node, React+Redux, D3.js, Chart.js, Mocha+Chai, Nightwatch+Selenium, HTML5, CSS (including SASS & SCSS), Web Audio API, SQL/Oracle, MongoDB
+- Use Every Day: JavaScript, HTML & CSS, SQL, Google Cloud Platform (particularly App Engine, BigQuery, Compute, and Cloud functions), custom Stripe & PayPal integrations
 
-I am active on [GitHub](https://github.com/thmsdnnr), 99th percentile on [CodeWars](https://www.codewars.com/users/thmsdnnr), and a contributor to open source software: ([pantry-for-good](https://github.com/freeCodeCamp/pantry-for-good/) & [freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp)). I am Front End, Back End, and Data Visualization Certified on FreeCodeCamp, putting in 500+ hours to complete the curriculum [certifications](https://www.freecodecamp.org/thmsdnnr).
+- Use Every Week: NodeJS & Express, Python, Docker, PHP, Bash
 
-I am currently available to work on projects. [Let's talk](mailto:thmsdnnr@gmail.com)!
+- Side Projects & Learning: React+Redux, MongoDB, React Native, Flutter
+
+I am active on [GitHub](https://github.com/thmsdnnr) and [StackOverflow](https://stackoverflow.com/users/7316502/thmsdnnr) and a proud graduate of [freeCodeCamp](https://www.freecodecamp.org/).
+
+I currently hack remotely for [AdBlock](https://getadblock.com/) as a Full-Stack Developer.
