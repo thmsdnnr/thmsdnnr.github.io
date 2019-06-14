@@ -3,24 +3,3 @@ layout: home
 pagination:
   enabled: true
 ---
-<!-- This loops through the paginated posts -->
-{% for post in paginator.posts %}
-  {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-  <h2><span class="post-meta">{{ post.date | date: date_format }}</span>
-
-    <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-  </h2>
-{% endfor %}
-
-<!-- Pagination links -->
-<div class="pagination">
-  <span class="post-meta">
-  {% if paginator.page>1 %}
-    <a href="{{ paginator.previous_page_path }}" class="previous"><<</a>
-  {% endif %}
-  <span class="page_number ">{{ paginator.page }} / {{ paginator.total_pages }}</span>
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="next">>></a>
-  {% endif %}
-</span>
-</div>
