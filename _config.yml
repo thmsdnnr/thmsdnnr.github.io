@@ -13,22 +13,20 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: front-end footpath
+title: full-stack overflow
 description: # this means to ignore newlines until "baseurl:"
   morsels of code + jolts of JS
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://thmsdnnr.com" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  thmsdnnr
-twitter_username: thmsdnnr
 social:
   name: Thomas Danner
   links:
-    - https://www.codewars.com/users/thmsdnnr
-    - https://github.com/thmsdnnr
+    - https://github.com/thmsdnnr/
+    - https://stackoverflow.com/users/7316502/thmsdnnr
     - https://codepen.io/thmsdnnr/
     - https://www.freecodecamp.org/thmsdnnr
-    - https://twitter.com/thmsdnnr
-    - https://www.facebook.com/thmsdnnr
+    - https://www.codewars.com/users/thmsdnnr
 # Build settings
 markdown: kramdown
 paginate: 5
