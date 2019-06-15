@@ -1,9 +1,16 @@
 ---
 layout: page
-title: tutorials
-category: tutorials
+title: blog
+category: blog
 permalink: /blog/
 ---
+
+#### Dev Tips
+<ul>
+  {% for post in site.categories.devtips %}
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></li>
+  {% endfor %}
+</ul>
 
 #### Computer Science
 <ul>
