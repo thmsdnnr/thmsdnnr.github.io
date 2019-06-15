@@ -276,4 +276,12 @@ pagination:
       <button id="numberToggle">numbers</button>
       thanks&nbsp;<a href="https://unsplash.com/" target="_blank">Unsplash</a>
     </div>
+    <section id="article">
+      <h4>latest blog post</h4>
+    <ul>
+        {% for post in site.posts offset: 0 limit: 1  %}
+          &raquo; <a href="{{ post.url }}">{{ post.title }}</a>
+        {% endfor %}
+      </ul>
+    </section>
 </div>
