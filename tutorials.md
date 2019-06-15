@@ -1,7 +1,7 @@
 ---
 layout: page
-title: tutorials
-category: tutorials
+title: blog
+category: blog
 permalink: /blog/
 ---
 
