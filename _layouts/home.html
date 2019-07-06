@@ -3,285 +3,150 @@ layout: default
 pagination:
   enabled: true
 ---
+
 <div class="home">
-<script>
-    function go() {
-      const SQUARE_SIDE_PX = 200;
-      const SQUARE_MARGIN_PX = 8;
-      const randomRangeToN = n =>
-        fischerYates(new Array(n).fill(0).map((_, idx) => _ + idx));
-      const ROWS = 3;
-      const COLS = 3;
-      const SIZE = ROWS * COLS;
-      let style = document.createElement("style");
-      document.head.appendChild(style);
-      let STYLESHEET = style.sheet;
-      const desiredWidth = 1000;
-      const desiredHeight = 1000;
-      let numbers = false;
-      const imageURL = `url("https://source.unsplash.com/random/${desiredWidth}x${desiredHeight}/")`;
-      let board = randomRangeToN(SIZE);
+  <style>
+    div#antcontainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    div#info { text-align: center; }
+  </style>
+  <div id="antcontainer">
+    <canvas id="langtons-ant" width="500" height="500"></canvas>
+  </div>
+  <div id="info">
+    <h4>
+      ^^ Langton's Ant, a ceullar automata
+      <a href="https://en.wikipedia.org/wiki/Langton%27s_ant" target="_blank"
+        >[more info]</a
+      >
+    </h4>
+  </div>
 
-      const getFirstMismatch = () => {
-        for (var i = 0; i < board.length - 1; i++) {
-          if (board[i] > board[i + 1]) return [i, i + 1];
-        }
-        return false;
-      };
+  <script>
+    let canvasWidth, canvasHeight;
+    const WIDTH = 500;
+    const HEIGHT = 500;
+    const ROWS = 50;
+    const COLS = 50;
+    const ANT_SIZE = 10;
+    const Position = { U: 0, R: 1, D: 2, L: 3 };
+    const PositionToDelta = {
+      U: { dx: 0, dy: -1 },
+      R: { dx: 1, dy: 0 },
+      D: { dx: 0, dy: 1 },
+      L: { dx: -1, dy: 0 },
+    };
+    const PositionList = ["U", "R", "D", "L"];
 
-      const giveHint = (cb, ms = 5000) => {
-        let B = document.getElementById("board");
-        B.classList.add("box-image");
-        const boxes = document.querySelectorAll(".box");
-        boxes.forEach(box => {
-          box.classList.add("low-opacity");
-        });
-        window.setTimeout(() => {
-          B.classList.remove("box-image");
-          boxes.forEach(box => {
-            box.classList.remove("low-opacity");
-          });
-          if (typeof cb === "function") cb();
-        }, ms);
-      };
-
-      const hintBtn = document.getElementById("hint");
-      hintBtn.addEventListener("click", giveHint);
-
-      const toggleNumbers = document.getElementById("numberToggle");
-      toggleNumbers.addEventListener("click", () => {
-        numbers = !numbers;
-        drawBoard(board, {numbers});
-      });
-
-      const showWon = () => {
-        STYLESHEET.insertRule(`.for-the-win {
-          background: ${imageURL};
-        }`);
-        document.body.classList.add("for-the-win");
-        const boardDiv = document.getElementById("board");
-        boardDiv.style.display = "none";
-        const winDiv = document.getElementById("winner");
-        winDiv.style.display = "block";
-      };
-
-      function handleDragStart(ev) {
-        ev.dataTransfer.dropEffect = "move";
-        // Add the target element's id to the data transfer object
-        ev.dataTransfer.setData("text/plain", ev.target.id);
-      }
-
-      function handleDragOver(ev) {
-        ev.preventDefault();
-        // Set the dropEffect to move
-        ev.dataTransfer.dropEffect = "move";
-      }
-      function handleDrop(ev) {
-        ev.preventDefault();
-        // Get the id of the target and add the moved element to the target's DOM
-        var data = ev.dataTransfer.getData("text/plain");
-        const movingBox = Number(data.split("_")[1]);
-        const moveToBox = Number(ev.target.id.split("_")[1]);
-        if (isNaN(movingBox) || isNaN(moveToBox)) {
-          return false;
-        }
-        const dragFromIdx = board.indexOf(movingBox);
-        const dragToIdx = board.indexOf(moveToBox);
-        if (dragFromIdx < 0 || dragToIdx < 0) {
-          return false;
-        }
-        swapBoardIndices(dragFromIdx, dragToIdx);
-        swapNodesByBoardIndex(movingBox, moveToBox);
-        if (hasWon()) {
-          showWon();
+    function drawBoard(board, ctx) {
+      for (let i = 0; i < board.length; i++) {
+        // rows
+        for (let j = 0; j < board[i].length; j++) {
+          // cols
+          const color = board[i][j] === 0 ? "#fdfdfd" : "#000000";
+          ctx.fillStyle = color;
+          ctx.fillRect(j * ANT_SIZE, i * ANT_SIZE, ANT_SIZE, ANT_SIZE);
         }
       }
-
-      function drawBoard(board, obj) {
-        if (obj) {
-          const { numbers } = obj;
-        }
-        let B = document.getElementById("board");
-        B.innerHTML = null;
-        const high = Math.round(SQUARE_SIDE_PX * ROWS);
-        const wide = Math.round(SQUARE_SIDE_PX * COLS);
-        B.style.width = wide;
-        B.style.height = high;
-        B.addEventListener("dragover", handleDragOver);
-        B.addEventListener("drop", handleDrop);
-        let divs = [];
-        for (var idx = -1; idx < board.length; idx++) {
-          if (idx < 0) {
-            // dummy first element
-            let div = document.createElement("div");
-            div.id = "dummy-el"
-            div.style.display = "none";
-            B.appendChild(div);
-            continue;
-          }
-          let div = document.createElement("div");
-          div.classList.add("box");
-          div.classList.add("box-image");
-          div.draggable = true;
-          div.id = `box_${idx}`;
-          if (numbers) { div.textContent = idx; }
-          div.style.width = `${SQUARE_SIDE_PX - SQUARE_MARGIN_PX}px`;
-          div.style.height = `${SQUARE_SIDE_PX - SQUARE_MARGIN_PX}px`;
-          div.style.backgroundSize = `${wide}px ${high}px`;
-          div.style.backgroundPosition = `-${(idx % COLS) *
-            (wide / COLS)}px -${Math.floor(idx / ROWS) * (high / ROWS)}px`;
-          div.addEventListener("dragstart", handleDragStart);
-          divs.push(div);
-        }
-        board.forEach(idx => {
-          // Append to DOM in shuffled order
-          B.appendChild(divs[idx]);
-        });
-      }
-
-      function init() {
-        STYLESHEET.insertRule(`.box-image {background: ${imageURL}`);
-        let B = document.getElementById("board");
-        const high = Math.round(SQUARE_SIDE_PX * ROWS);
-        const wide = Math.round(SQUARE_SIDE_PX * COLS);
-        B.style.width = wide;
-        B.style.height = high;
-        giveHint(() => drawBoard(board), 2000);
-      }
-
-      function fischerYates(array) {
-        let indices = [];
-        let shuffledArray = array.slice();
-        for (var i = array.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i - 1));
-          const temp = shuffledArray[j];
-          shuffledArray[j] = shuffledArray[i];
-          shuffledArray[i] = temp;
-        }
-        return shuffledArray;
-      }
-
-      const swapBoardIndices = (idx1, idx2) => {
-        if (isNaN(idx1) || isNaN(idx1)) return false;
-        const temp = board[idx1];
-        board[idx1] = board[idx2];
-        board[idx2] = temp;
-      };
-
-      function swapNodesByBoardIndex(idx1, idx2) {
-        const el1 = document.getElementById(`box_${idx1}`);
-        const el2 = document.getElementById(`box_${idx2}`);
-        if (!el1 || !el2) {
-          return false;
-        }
-        let prev1 = el1.previousSibling;
-        let prev2 = el2.previousSibling;
-        if (!prev1 || !prev2) {
-          return false;
-        }
-        prev1.after(el2);
-        prev2.after(el1);
-      }
-
-      const hasWon = () => !getFirstMismatch();
-      init();
     }
 
-    window.addEventListener("DOMContentLoaded", go);
+    function Ant(x, y, position, board, ctx) {
+      this.X = x;
+      this.Y = y;
+      this.position = position;
+      this.board = board;
+      this.ctx = ctx;
+    }
+
+    Ant.prototype.turnLeft = function() {
+      const idx = Position[this.position];
+      if (idx === 0) {
+        this.position = PositionList[3];
+      } else {
+        this.position = PositionList[idx - 1];
+      }
+    };
+    Ant.prototype.turnRight = function() {
+      const idx = Position[this.position];
+      if (idx === 3) {
+        this.position = PositionList[0];
+      } else {
+        this.position = PositionList[idx + 1];
+      }
+    };
+    Ant.prototype.goForward = function() {
+      const { dx, dy } = PositionToDelta[this.position];
+      if (this.X + dx < COLS && this.X + dx >= 0) {
+        this.X += dx;
+      }
+      if (this.Y + dy < ROWS && this.Y + dy >= 0) {
+        this.Y += dy;
+      }
+    };
+    Ant.prototype.stepFromWhite = function() {
+      flipSquare(this.board, this.X, this.Y);
+      this.turnRight();
+      this.goForward();
+    };
+    Ant.prototype.stepFromBlack = function() {
+      flipSquare(this.board, this.X, this.Y);
+      this.turnLeft();
+      this.goForward();
+    };
+    Ant.prototype.step = function() {
+      if (this.board[this.X][this.Y] === 0) {
+        this.stepFromWhite();
+      } else {
+        this.stepFromBlack();
+      }
+    };
+    Ant.prototype.draw = function() {
+      this.ctx.fillStyle = "gold";
+      this.ctx.fillRect(
+        this.X * ANT_SIZE,
+        this.Y * ANT_SIZE,
+        ANT_SIZE,
+        ANT_SIZE,
+      );
+    };
+    function flipSquare(G, x, y) {
+      G[y][x] = Number(!G[y][x]);
+    }
+    function drawSquares() {}
+    function drawAnt() {}
+
+    function loaded() {
+      const canvas = document.getElementById("langtons-ant");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // 0 is white 1 is black
+      const G = new Array(ROWS).fill(0).map(e => new Uint8Array(COLS).fill(0));
+      const A = new Ant(
+        Math.floor(ROWS / 2),
+        Math.floor(COLS / 2),
+        PositionList[1],
+        G,
+        ctx,
+      );
+
+      setInterval(function() {
+        drawBoard(G, ctx);
+        A.draw();
+        A.step();
+      }, 24);
+    }
+
+    document.addEventListener("DOMContentLoaded", loaded);
   </script>
-  <style>
-      html,
-      body,
-      * {
-        box-sizing: border-box;
-      }
-      .for-the-win {
-        height: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-      div {
-        -webkit-transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
-        transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
-      }
-      div#winner {
-        color: #ffffff;
-        background-color: #000000;
-        padding: 16px;
-        font-size: 2em;
-        width: 100%;
-        text-align: center;
-      }
-      div#board {
-        width: 600px;
-        height: 600px;
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-        flex-flow: row wrap;
-        -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-      }
-      div.box {
-        margin: 4px 4px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        font-size: 2em;
-        color: #ffffff;
-        cursor: pointer;
-        -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        user-select: none;
-      }
-      div.box:hover {
-        -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-        box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.6);
-      }
-      div#box_blank {
-        align-items: flex-start;
-        box-shadow: none;
-        font-weight: bold;
-        color: gold;
-      }
-      .low-opacity {
-        opacity: 0.1;
-      }
-      div#buttons {
-        width: 576px;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      button {
-        background-color: #efefef;
-        color: #010;
-        flex: 1;
-        height: 24px;
-        font-family: Inconsolata, sans-serif;
-        font-size: 1rem;
-        margin: 12px;
-      }
-    </style>
-    <div id="winner" style="display: none;">Congratulations, winner! :)</div>
-    <div id="board"></div>
-    <div id="buttons">
-      <button id="hint">hint</button>
-      <button id="numberToggle">numbers</button>
-      thanks&nbsp;<a href="https://unsplash.com/" target="_blank">Unsplash</a>
-    </div>
-    <section id="article">
-      <h4>latest blog post</h4>
+  <section id="article">
+    <h4>latest blog post</h4>
     <ul>
-        {% for post in site.posts offset: 0 limit: 1  %}
-          &raquo; <a href="{{ post.url }}">{{ post.title }}</a>
-        {% endfor %}
-      </ul>
-    </section>
+      {% for post in site.posts offset: 0 limit: 1 %} &raquo;
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      {% endfor %}
+    </ul>
+  </section>
 </div>
