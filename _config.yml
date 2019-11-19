@@ -26,13 +26,12 @@ social:
     - https://stackoverflow.com/users/7316502/thmsdnnr
     - https://codepen.io/thmsdnnr/
     - https://www.freecodecamp.org/thmsdnnr
-    - https://www.codewars.com/users/thmsdnnr
 # Build settings
 markdown: kramdown
 paginate: 5
 paginate_path: "/page:num/"
 theme: minima
-plugins:
+plugins_dir:
   - jekyll-feed
   - jekyll-seo-tag
 
