@@ -564,14 +564,14 @@
 			</description>
 		</item>
 		<item>
-			<title></title>
+			<title>Recent Projects</title>
 			<link>https://thmsdnnr.com/projects/</link>
 			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
 			
 			<guid>https://thmsdnnr.com/projects/</guid>
 			<description>
 				
-				Recent Projects  huffandpuff : a Huffman Coding compression program written in Go Puzzl : a puzzle game in the browser: ...
+				A few select projects that I think are fun and interesting.
 				
 			</description>
 		</item>
