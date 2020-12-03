@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>rotations on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/rotations/</link>
+		<description>Recent content in rotations on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Mon, 05 Feb 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/rotations/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>AVL Trees Part 1: Balanced Binary Search and Rotations</title>
+			<link>https://thmsdnnr.com/post/avl-trees-part-1-balanced-binary-search-and-rotations/</link>
+			<pubDate>Mon, 05 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/avl-trees-part-1-balanced-binary-search-and-rotations/</guid>
+			<description>
+				
+				AVL trees are self-balancing binary trees that avoid worst-case O(n) performance given increasing or decreasing inputs.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

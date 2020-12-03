@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>computer science on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/categories/computer-science/</link>
+		<description>Recent content in computer science on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 07 Oct 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/categories/computer-science/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Caching and the Least Recently Used Replacement Policy</title>
+			<link>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</guid>
+			<description>
+				
+				What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?
+				
+			</description>
+		</item>
+		<item>
+			<title>The Knapsack Problem</title>
+			<link>https://thmsdnnr.com/post/the-knapsack-problem/</link>
+			<pubDate>Thu, 15 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/the-knapsack-problem/</guid>
+			<description>
+				
+				Examining the Knapsack Problem and solutions using dynamic programming.
+				
+			</description>
+		</item>
+		<item>
+			<title>Introduction to Databases</title>
+			<link>https://thmsdnnr.com/post/introduction-to-databases/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/introduction-to-databases/</guid>
+			<description>
+				
+				What are databases? What are the similarities and differences from file systems? What is a SQL vs No-SQL database and the pros and cons of each for a given application?
+				
+			</description>
+		</item>
+		<item>
+			<title>Lightning Fast String Lookups With Tries</title>
+			<link>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</guid>
+			<description>
+				
+				Tries are a hybrid data structure combining a tree and hash table to provide O(k) lookup for k-character words, popular for use cases like typeahead and autocomplete.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Heaps: Min-Heaps and Max-Heaps</title>
+			<link>https://thmsdnnr.com/post/binary-heaps-min-heaps-and-max-heaps/</link>
+			<pubDate>Mon, 12 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-heaps-min-heaps-and-max-heaps/</guid>
+			<description>
+				
+				Binary Heaps are binary-tree based data structures that can be used to implement a Priority Queue and provide O(1) insert and find-minimum performance.
+				
+			</description>
+		</item>
+		<item>
+			<title>AVL Trees Part 2: Insertions</title>
+			<link>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</guid>
+			<description>
+				
+				Taking an in-depth look at node rebalancing after insertions in AVL trees.
+				
+			</description>
+		</item>
+		<item>
+			<title>AVL Trees Part 1: Balanced Binary Search and Rotations</title>
+			<link>https://thmsdnnr.com/post/avl-trees-part-1-balanced-binary-search-and-rotations/</link>
+			<pubDate>Mon, 05 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/avl-trees-part-1-balanced-binary-search-and-rotations/</guid>
+			<description>
+				
+				AVL trees are self-balancing binary trees that avoid worst-case O(n) performance given increasing or decreasing inputs.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Tree Application: Binary Space Partitioning</title>
+			<link>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</link>
+			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</guid>
+			<description>
+				
+				Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Search Trees: Handling Deletion</title>
+			<link>https://thmsdnnr.com/post/binary-search-trees-handling-deletion/</link>
+			<pubDate>Fri, 02 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-search-trees-handling-deletion/</guid>
+			<description>
+				
+				Handling deletion in Binary Search Trees for nodes with zero, one, and two children.
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to Binary Search Trees</title>
+			<link>https://thmsdnnr.com/post/intro-to-binary-search-trees/</link>
+			<pubDate>Thu, 01 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-binary-search-trees/</guid>
+			<description>
+				
+				Binary Search Trees are are a data structure allowing O(log(N)) lookup of entries. We implement insertion, traversal, and search methods for Binary Search Trees.
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to Linked Lists</title>
+			<link>https://thmsdnnr.com/post/intro-to-linked-lists/</link>
+			<pubDate>Wed, 31 Jan 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-linked-lists/</guid>
+			<description>
+				
+				The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays.
+				
+			</description>
+		</item>
+		<item>
+			<title>Stacks, Queues, and Matching Brackets</title>
+			<link>https://thmsdnnr.com/post/stacks-queues-and-matching-brackets/</link>
+			<pubDate>Tue, 30 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/stacks-queues-and-matching-brackets/</guid>
+			<description>
+				
+				Introducing the Stack and Queue data structures, using the Stack to implement a Code Linter to check for mismatched open and closing brackets.
+				
+			</description>
+		</item>
+		<item>
+			<title>Quicksort, a Divide and Conquer Sorting Algorithm.</title>
+			<link>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</link>
+			<pubDate>Wed, 20 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</guid>
+			<description>
+				
+				We code Quicksort in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Bubble Sort</title>
+			<link>https://thmsdnnr.com/post/bubble-sort/</link>
+			<pubDate>Tue, 19 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/bubble-sort/</guid>
+			<description>
+				
+				Bubble Sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Insertion Sort</title>
+			<link>https://thmsdnnr.com/post/binary-insertion-sort/</link>
+			<pubDate>Tue, 19 Dec 2017 09:50:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-insertion-sort/</guid>
+			<description>
+				
+				Binary Insertion Sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Insertion Sort</title>
+			<link>https://thmsdnnr.com/post/insertion-sort/</link>
+			<pubDate>Mon, 18 Dec 2017 20:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/insertion-sort/</guid>
+			<description>
+				
+				Insertion sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Selection Sort</title>
+			<link>https://thmsdnnr.com/post/selection-sort/</link>
+			<pubDate>Sun, 17 Dec 2017 09:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/selection-sort/</guid>
+			<description>
+				
+				Selection sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Search</title>
+			<link>https://thmsdnnr.com/post/binary-search/</link>
+			<pubDate>Fri, 15 Dec 2017 21:06:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-search/</guid>
+			<description>
+				
+				Binary search algorithm with a test runner implementation, coded in JavaScript.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

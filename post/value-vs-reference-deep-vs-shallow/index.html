@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Value vs Reference: Deep vs Shallow">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,fundamentals,object,copy,shallow,deep,clone,value,reference"><meta name="description" content="A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references."><meta property="og:title" content="Value vs Reference: Deep vs Shallow" />
+<meta property="og:description" content="A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/" />
+<meta property="article:published_time" content="2018-03-11T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-03-11T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Value vs Reference: Deep vs Shallow"/>
+<meta name="twitter:description" content="A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Value vs Reference: Deep vs Shallow | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">11</span>
+				<span class="rest">Mar 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Value vs Reference: Deep vs Shallow</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>It seems like the easiest thing in the world: copy the thing stored in one variable into another variable so that you can manipulate two instances of this variable.</p>
+<p>Say you have an object you want a copy of. The naive way to copy would be to create a new variable and set it equal to the object you desire to copy.</p>
+<p>At first, all appears well and good. But then you try to modify either of the two objects. Modifying the property of one modifies the property of the other:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> catObj <span style="color:#ff79c6">=</span> { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fluffy&#34;</span>, age<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">5</span> };
+<span style="color:#8be9fd;font-style:italic">let</span> anotherCat <span style="color:#ff79c6">=</span> catObj;
+anotherCat.age <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">10</span>;
+anotherCat.age <span style="color:#ff79c6">==</span> catObj.age; <span style="color:#6272a4">// true
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">delete</span> catObj.name;
+<span style="color:#ff79c6">delete</span> catObj.age;
+console.log(anotherCat); <span style="color:#6272a4">// {}
+</span></code></pre></div><p>This is not a bug. Why is this? The two properties <em>reference</em> the same value.</p>
+<h2 id="pass-by-value-vs-pass-by-reference">Pass by Value vs Pass by Reference</h2>
+<p>The distinction between value and reference is the distinction between a unique copy of a value and a pointer to a single instance of a value. The two objects reference the same value. This means that changing the value of one of the references alters the single value.</p>
+<p>If you don&rsquo;t need to change the value of a thing and it is shared across multiple object instances, it makes a sense to just store a pointer to that thing. After all, when you go to copy these instances, you only have to copy a single pointer rather than the entire object.</p>
+<p>In Javascript, objects and arrays are mutable. Without explicitly copying them, any variables that point to them are <em>references</em> to them, meaning that making a local change will impact every other variable that points to that value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> giveCatHaircut(obj) {
+  <span style="color:#8be9fd;font-style:italic">let</span> trimmedHair <span style="color:#ff79c6">=</span> obj;
+  trimmedHair.haircut <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+}
+<span style="color:#8be9fd;font-style:italic">let</span> fluffy <span style="color:#ff79c6">=</span> { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fluffy&#34;</span>, haircut<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span> };
+giveCatHaircut(fluffy);
+<span style="color:#8be9fd;font-style:italic">let</span> fluffy <span style="color:#ff79c6">=</span> { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fluffy&#34;</span>, haircut<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span> };
+</code></pre></div><h5 id="object-mutation-inside-a-function">Object mutation inside a function</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> countSingles(arr) {
+  <span style="color:#8be9fd;font-style:italic">let</span> singles <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">while</span> (arr.length) {
+    <span style="color:#8be9fd;font-style:italic">let</span> element <span style="color:#ff79c6">=</span> arr.shift();
+    <span style="color:#ff79c6">if</span> (<span style="color:#8be9fd;font-style:italic">String</span>(element).length <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span>) {
+      singles<span style="color:#ff79c6">++</span>;
+    }
+  }
+  <span style="color:#ff79c6">return</span> singles;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> mixedArr <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#f1fa8c">&#34;cats&#34;</span>, <span style="color:#f1fa8c">&#34;horses&#34;</span>, <span style="color:#f1fa8c">&#34;dogs&#34;</span>];
+countSingles(mixedArr); <span style="color:#6272a4">// 3, correct!
+</span><span style="color:#6272a4"></span>console.log(mixedArr); <span style="color:#6272a4">// [], oops.
+</span></code></pre></div><h5 id="naive-way-to-count-the-number-of-length1-elements-in-an-array">Naive way to count the number of length===1 elements in an array</h5>
+<p>Pass-by-reference is usually a nice feature: indeed, it&rsquo;s a key mechanism for <a href="https://thmsdnnr.com/fundamentals/2018/03/05/prototypal-inheritance.html" target="_blank">prototypal inheritance</a> to function. It&rsquo;s only an issue when the implicit nature of the reference causes you to unintentionally mutate state and create unexpected behavior. In languages like C, pointers and references are explicitly declared. In JS, it happens under the hood.</p>
+<h2 id="fixing-the-two-examples">Fixing the Two Examples</h2>
+<h3 id="object-copying">Object copying</h3>
+<p>We can copy one-dimensional (non-nested) objects using <code>Object.assign</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank">(Docs)</a>, which copies all enumerable and own properties from specified sources (one or more objects) to a target object. If multiple source objects are defined, matching keys are that occur earlier overwritten by keys that occur later (assignment occurs from left-to-right).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> a <span style="color:#ff79c6">=</span> { cat<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;big&#34;</span> };
+<span style="color:#8be9fd;font-style:italic">let</span> b <span style="color:#ff79c6">=</span> { cat<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;small&#34;</span> };
+<span style="color:#8be9fd;font-style:italic">let</span> c <span style="color:#ff79c6">=</span> { cat<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;medium&#34;</span> };
+<span style="color:#8be9fd;font-style:italic">let</span> newCat <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, c, b, a);
+newCat; <span style="color:#6272a4">// {cat: &#34;big&#34;}
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> newCat1 <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, a, c, b);
+newCat1; <span style="color:#6272a4">// {cat: &#34;small&#34;}
+</span></code></pre></div><p>A selective cat barber.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> giveCatHaircut(obj) {
+  <span style="color:#8be9fd;font-style:italic">let</span> trimmedHair <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, obj);
+  trimmedHair.haircut <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  <span style="color:#ff79c6">return</span> trimmedHair;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> fluffy <span style="color:#ff79c6">=</span> { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fluffy&#34;</span>, haircut<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span> };
+<span style="color:#8be9fd;font-style:italic">let</span> haircut <span style="color:#ff79c6">=</span> giveCatHaircut(fluffy);
+console.log(fluffy); <span style="color:#6272a4">// {name: &#39;fluffy&#39;, haircut: false };
+</span><span style="color:#6272a4"></span>console.log(haircut); <span style="color:#6272a4">// {name: &#39;fluffy&#39;, haircut: true };
+</span></code></pre></div><h3 id="array-copying">Array Copying</h3>
+<p>We can copy an array with <code>Array.slice()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice" target="_blank">(Docs)</a>. We could also fix up our function by using <code>map</code> and <code>filter</code> to immutably calculate the desired value:</p>
+<p><code>return arr.map(e=&gt;String(e)).filter(e=&gt;e.length==1).length;</code></p>
+<p>Since map and filter maintain internal variables that track the state of their operations, they are making an implicit copy of the array and do not mutate the original in place.</p>
+<h2 id="multidimensional-copying">Multidimensional Copying</h2>
+<p>Object.assign fails to create copying behavior when the object is nested: that is, when its values are themselves objects. Instead, it assigns <em>references</em>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> catObj <span style="color:#ff79c6">=</span> {
+  name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fluffy&#34;</span>,
+  age<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">5</span>,
+  friends<span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#34;larry&#34;</span>, <span style="color:#f1fa8c">&#34;charlie&#34;</span>, <span style="color:#f1fa8c">&#34;suzy&#34;</span>]
+};
+<span style="color:#8be9fd;font-style:italic">let</span> anotherCat <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, catObj);
+anotherCat.friends.push(<span style="color:#f1fa8c">&#34;ned&#34;</span>);
+console.log(anotherCat.friends); <span style="color:#6272a4">// [&#39;larry&#39;, &#39;charlie&#39;, &#39;suzy&#39;, &#39;ned&#39;]
+</span><span style="color:#6272a4"></span>console.log(catObj.friends); <span style="color:#6272a4">// [&#39;larry&#39;, &#39;charlie&#39;, &#39;suzy&#39;, &#39;ned&#39;]
+</span></code></pre></div><p><code>Object.assign</code> works fine at a given level of an object to copy values, but it fails when those values are not primitives or are themselves objects.</p>
+<p>Similarly with arrays, <code>Array.slice()</code> does not create value copies of nested arrays.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> notImmutable(arr) {
+  <span style="color:#8be9fd;font-style:italic">let</span> localCopy <span style="color:#ff79c6">=</span> arr.slice();
+  localCopy[<span style="color:#bd93f9">1</span>][<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">999</span>;
+  <span style="color:#ff79c6">return</span> localCopy;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> nestedArr <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, [<span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>]];
+console.log(notImmutable(nestedArr)); <span style="color:#6272a4">// [1, [2, 999]]
+</span><span style="color:#6272a4"></span>console.log(nestedArr); <span style="color:#6272a4">// [1, [2, 999]] doh!
+</span></code></pre></div><h5 id="arrayslice-only-copies-by-value-those-elements-on-the-level-of-the-array-on-which-slice-was-called-nested-values-are-copied-as-references">Array.slice() only copies by value those elements on the level of the array on which .slice was called. Nested values are copied as references.</h5>
+<p>How can we make a deep copy of a nested array or object?</p>
+<p>We need to recursively examine each level of the object in question. If a given level consists of only primitives, we assign the copy these values. If the given level consists of non-primitives, we copy the value according to the immutable copying method for that primitive (<code>Array.slice()</code>, <code>Date = new Date()</code>, etc.). We then continue until we reach a level of the object which does not contain any nested levels itself.</p>
+<p>There are a few gotchas involved in writing such a method. One is circular references:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">anotherCat.self <span style="color:#ff79c6">=</span> anotherCat;
+console.log(anotherCat); <span style="color:#6272a4">// self: [Circular]
+</span><span style="color:#6272a4"></span>anotherCat.self; <span style="color:#6272a4">// another cat
+</span><span style="color:#6272a4"></span>anotherCat.self.self; <span style="color:#6272a4">// another cat
+</span></code></pre></div><p><code>anotherCat.self</code> references anotherCat, and so on into infinity.</p>
+<p>If we write a method that iterates over the object and copies its properties, we have to have a way of detecting whether there are circular references in the object. Otherwise, recursing on a given property of the object until it has no other children would lead to an infinite loop (imagine: recurse on anotherCat.self until anotherCat.self is a primitive).</p>
+<p>Detecting a circular reference is more than just detecting an object that points to an object that is the <em>same</em> as itself &ndash; note that we could have two distinct objects that share all the same values and have a link between them: the reference would not be circular, even though it would appear to be so, just as in the above example.</p>
+<h2 id="maybe-later">Maybe Later.</h2>
+<p>Writing the code to deep copy an object while managing all the edge cases is outside the scope of this tutorial: indeed, entire libraries exist to solve this problem <a href="https://github.com/mout/mout" target="_blank">like</a> <a href="https://lodash.com/docs/4.17.5#cloneDeep" target="_blank">these</a>. You should probably use one, if you really need to exhaustively copy an entire array or object. You should also consider: do you <em>really need</em> to exhaustively copy an entire array or object? Often using Immutable data structures or selectively slicing out elements depending on your use case is enough. It&rsquo;s also easier to read and maintain.</p>
+<p><a href="https://facebook.github.io/immutable-js/" target="_blank">ImmutableJS</a> makes the intricacies of deep cloning one case for immutability: since the structure of objects cannot be changed directly, you can copy an object simply by copying a reference to itself. Note that all the problems we encountered above came about because we set a reference and then changed the value through that reference.</p>
+<p>The key here is to understand the concepts and limitations of object and array copying methods, to understand the difference between pass-by-reference and pass-by-value, and to understand when you&rsquo;d want to use one or the other: to modify in place vs to perform non-mutating operations to return a result. Keeping these concepts in mind is key to writing and understanding code with any level of complexity.</p>
+<h2 id="til">TIL</h2>
+<p>Copying objects is complicated. It&rsquo;s rare that you will want to copy an entire object indiscriminately. The key takeaways:</p>
+<ul>
+<li>Objects and Arrays are passed as <em>references</em> and have to be explicitly copied unless you wish to mutate the original.</li>
+<li>Other primitives are passed by value.</li>
+<li>Individual levels of an array can be copies with <code>.slice()</code>, but <code>.slice()</code> returns <em>references</em> to nested arrays.</li>
+<li>Similarly with Objects, <code>Object.assign({}, source)</code> can be used, but nested objects will return references as well.</li>
+<li>Consider using a library or custom method for selective deep copying. It&rsquo;s often better to take intelligent slices rather than indiscriminate copies for memory and performance: and it&rsquo;s also a lot easier to debug and follow logically.</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/clone/"> clone </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/copy/"> copy </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/deep/"> deep </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/object/"> object </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/reference/"> reference </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/shallow/"> shallow </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/value/"> value </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

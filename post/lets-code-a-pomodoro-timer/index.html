@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Let&#39;s Code a Pomodoro Timer">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,pomodoro,productivity"><meta name="description" content="We build a Pomodoro Timer, a popular time-management tool that breaks work in to 25 minutes segments of work combined with 5 minute periods of rest."><meta property="og:title" content="Let&#39;s Code a Pomodoro Timer" />
+<meta property="og:description" content="We build a Pomodoro Timer, a popular time-management tool that breaks work in to 25 minutes segments of work combined with 5 minute periods of rest." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/" />
+<meta property="article:published_time" content="2018-01-01T19:40:04+00:00" />
+<meta property="article:modified_time" content="2018-01-01T19:40:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s Code a Pomodoro Timer"/>
+<meta name="twitter:description" content="We build a Pomodoro Timer, a popular time-management tool that breaks work in to 25 minutes segments of work combined with 5 minute periods of rest."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Let&#39;s Code a Pomodoro Timer | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">01</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Let&#39;s Code a Pomodoro Timer</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="vpZLeN"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<p>The <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">Pomodoro Technique</a> is a time management method that tracks the number of focused work periods you perform and rewards you periodically with breaks so that you stay refreshed.</p>
+<p>The technique is simple. Set a Work Timer (usually for 25 minutes). Work on the task.</p>
+<p>When the timer completes, evaluate your progress.</p>
+<p>Did you complete the period successfully, working on the task throughout? Then put a checkmark on a piece of paper.</p>
+<p>Did you get distracted during the period and fail to work the full length? Well, then it doesn&rsquo;t count.</p>
+<p>If your piece of paper has fewer than four checkmarks, start a Break Timer (usually 3-5 minutes). Take a short break. Then start the work timer again.</p>
+<p>When you&rsquo;ve completed four Pomodoros (four checkmarks), take a longer break (15-30 minutes), erase the checkmarks, and continue working.</p>
+<p>In an 8 to 10 hour day, you ideally complete 16 pomodoros. You&rsquo;ll have 4 15-30 minute breaks, and 16 3-5 minute breaks.</p>
+<p>This comes out to 6 hours and 40 minutes of focused work, and between 1hr 48mins and 3hrs 20 mins of breaks.</p>
+<h2 id="were-going-to-code-a-pomodoro-timer">We&rsquo;re going to code a Pomodoro Timer.</h2>
+<p>We&rsquo;d like to be able to invoke the timer like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">window</span>.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">const</span> displayDiv <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;div#timer&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">var</span> timer <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Pomodoro({ displayDiv });
+  timer.init();
+  timer.startTimer();
+};
+</code></pre></div><p>Let&rsquo;s code a basic object to manage our timer.</p>
+<ul>
+<li>
+<p>We want to specify a duration for our work period and our two break periods, short and long.</p>
+</li>
+<li>
+<p>We&rsquo;d like to be able to pause and resume the timer.</p>
+</li>
+<li>
+<p>We need to be able mark a work period as an incomplete Pomodoro.</p>
+</li>
+</ul>
+<p>We configure <code>checkMarks</code> (count of the number of successful Pomodoros), a <code>running</code> flag, an <code>interval</code> to hold the reference to the setInterval function that calls the timer periodically, a <code>timerType</code> (&lsquo;work&rsquo; or &lsquo;break&rsquo;), a <code>displayDiv</code> to hold the div in which time info is displayed, and <code>lastTick</code> (the instant we last incremented the elapsed time).</p>
+<p><code>isValid</code> is a flag set at the start of each timer run that determines whether the Pomodoro was valid or not (did the user get distracted)? <code>timerLength</code> holds the length of the current timer (one of either workSeconds, shortBreakSeconds, or longBreakSeconds). <code>secondsElapsed</code> holds the number of seconds that have passed while the timer has been running for the given <code>timerType</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> Pomodoro <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">function</span> Pomodoro(args <span style="color:#ff79c6">=</span> {}) {
+    <span style="color:#ff79c6">const</span> {
+      workMinutes,
+      shortBreakMinutes,
+      longBreakMinutes,
+      displayDiv,
+    } <span style="color:#ff79c6">=</span> args;
+    <span style="color:#6272a4">// short defaults for testing
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">this</span>.workSeconds <span style="color:#ff79c6">=</span> workMinutes <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">60</span> <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">10</span>;
+    <span style="color:#ff79c6">this</span>.shortBreakSeconds <span style="color:#ff79c6">=</span> shortBreakMinutes <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">60</span> <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">5</span>;
+    <span style="color:#ff79c6">this</span>.longBreakSeconds <span style="color:#ff79c6">=</span> longBreakMinutes <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">60</span> <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">30</span>;
+    <span style="color:#6272a4">// longer defaults for real-world:  25*60; // 5*60; // 15*60
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">this</span>.checkMarks <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    <span style="color:#ff79c6">this</span>.isValid <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+    <span style="color:#ff79c6">this</span>.running <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    <span style="color:#ff79c6">this</span>.interval <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+    <span style="color:#ff79c6">this</span>.lastTick <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+    <span style="color:#ff79c6">this</span>.secondsElapsed <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    <span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+    <span style="color:#ff79c6">this</span>.timerType <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;work&#34;</span>; <span style="color:#6272a4">// &#39;work&#39; or &#39;break&#39;
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">this</span>.displayDiv <span style="color:#ff79c6">=</span> displayDiv;
+  }
+  <span style="color:#ff79c6">return</span> Pomodoro;
+})();
+</code></pre></div><h3 id="defining-object-methods">Defining Object Methods</h3>
+<p>We initialize by starting with a work period.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.init <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.workSeconds;
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+  res.classList.add(<span style="color:#f1fa8c">&#34;clock&#34;</span>);
+  res.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;clock&#34;</span>;
+  <span style="color:#ff79c6">this</span>.displayDiv.appendChild(res);
+  <span style="color:#ff79c6">this</span>.resultsDiv <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;div#clock&#34;</span>);
+  <span style="color:#6272a4">// got distracted
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> b <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;button&#34;</span>);
+  b.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;got distracted&#34;</span>;
+  <span style="color:#ff79c6">this</span>.displayDiv.appendChild(b);
+  b.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, () =&gt; (<span style="color:#ff79c6">this</span>.isValid <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>));
+  <span style="color:#6272a4">// pause timer
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> pause <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;button&#34;</span>);
+  pause.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;pause&#34;</span>;
+  <span style="color:#ff79c6">this</span>.displayDiv.appendChild(pause);
+  pause.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, () =&gt; <span style="color:#ff79c6">this</span>.togglePause());
+};
+</code></pre></div><p>We define a few simple functions to toggle timer type and check whether the timer is a work timer or a break timer.</p>
+<p><code>wasValidPomodoro</code> tells us whether <code>isValid===true</code>. During a work period, if the user clicks a &ldquo;got distracted&rdquo;, we continue with the work period, but we do not count that period toward the checkmarks for a longer break.</p>
+<p><code>displayTime</code> uses the provided div to output the relevant user-facing timer information. You&rsquo;ll notice that it uses two helper functions. <code>nTimes</code> just repeats a given character <code>c</code> <code>n</code> times and returns it in an array. We use it to update our list of checkmarks. <code>formatTime</code> takes the seconds remaining and formats them to a mm:ss display (padding out seconds with a 0 if fewer than 10).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.flipTimerType <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> (<span style="color:#ff79c6">this</span>.timerType <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.timerType <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;work&#34;</span> <span style="color:#ff79c6">?</span> <span style="color:#f1fa8c">&#34;break&#34;</span> <span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;work&#34;</span>);
+};
+Pomodoro.prototype.isWork <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.timerType <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;work&#34;</span>;
+};
+Pomodoro.prototype.isBreak <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.timerType <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;break&#34;</span>;
+};
+Pomodoro.prototype.displayTime <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">this</span>.displayDiv.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`</span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">this</span>.timerType<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">! time left: </span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">Math</span>.ceil(
+    <span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.secondsElapsed
+  )<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> checkMarks: </span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">this</span>.checkMarks<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">`</span>;
+};
+Pomodoro.prototype.wasValidPomodoro <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.isValid <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">true</span>;
+};
+Pomodoro.prototype.displayTime <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">this</span>.resultsDiv.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`&lt;b&gt;</span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">this</span>.timerType<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">!&lt;/b&gt;
+</span><span style="color:#f1fa8c">    </span><span style="color:#f1fa8c">${</span>nTimes(<span style="color:#f1fa8c">&#34;&amp;#10004;&#34;</span>, <span style="color:#ff79c6">this</span>.checkMarks).join(<span style="color:#f1fa8c">&#34; &#34;</span>)<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">
+</span><span style="color:#f1fa8c">    &lt;br /&gt;time left: </span><span style="color:#f1fa8c">${</span>formatTime(
+      <span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.secondsElapsed)
+    )<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&lt;br /&gt;successful pomodoros: </span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">this</span>.pomodoroCount<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">`</span>;
+};
+</code></pre></div><h3 id="starttimer">startTimer</h3>
+<p>We call <code>startTimer</code> when the timer is first initialized and also each time the timer type changes. We set the <code>running</code> flag, reset <code>secondsElapsed</code>, and set the timer interval to call update and display every 1000ms.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.startTimer <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">this</span>.secondsElapsed <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">this</span>.lastTick <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Date</span>.now();
+  <span style="color:#ff79c6">this</span>.running <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  <span style="color:#ff79c6">this</span>.isValid <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  <span style="color:#ff79c6">this</span>.interval <span style="color:#ff79c6">=</span> setInterval(() =&gt; {
+    <span style="color:#ff79c6">this</span>.updateTime();
+    <span style="color:#ff79c6">this</span>.displayTime();
+  }, <span style="color:#bd93f9">1000</span>);
+};
+</code></pre></div><h3 id="updatetime">updateTime</h3>
+<p><code>updateTime</code> increments the elapsed time by adding the difference between the current instant and the last instant the function was called. We divide by 1000 because <code>Date.now()</code> returns milliseconds, and we are measuring elapsed time in seconds.</p>
+<p>Each tick we check if elapsed has exceeded the current timer length. If so, we stop the timer.</p>
+<p>Note that we do not assume that <code>updateTime</code> gets called every second, even though we define the interval as 1000ms. This is because the event loop timing is <a href="https://johnresig.com/blog/how-javascript-timers-work/" target="_blank">not that precise</a>. We can&rsquo;t just add <code>1</code> to secondsElapsed every time <code>updateTime</code> gets fired.</p>
+<p>Instead, each time the function is called, we calculate the difference between the two time points.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.updateTime <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.running) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#ff79c6">this</span>.secondsElapsed <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd;font-style:italic">Date</span>.now() <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.lastTick) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">1000</span>;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.secondsElapsed <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">0</span>) {
+    <span style="color:#ff79c6">this</span>.running <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.timerEnded();
+  }
+  <span style="color:#ff79c6">this</span>.lastTick <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Date</span>.now();
+};
+</code></pre></div><h3 id="timerended">timerEnded</h3>
+<p>We call <code>timerEnded</code> whenever a time interval (work or break period) ends. The timer stops the interval. Then, if we just finished a work interval, we check to see if the Pomodoro was valid, incrementing <code>checkMarks</code> if so. We flip the current timer type and set the length of the next time period, calling <code>startTimer</code> at the end.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.timerEnded <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  clearInterval(<span style="color:#ff79c6">this</span>.interval);
+  <span style="color:#6272a4">// if timer was work, prompt user to see if they get a checkmark or not
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.isWork()) {
+    <span style="color:#6272a4">// time for a break
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.wasValidPomodoro()) {
+      <span style="color:#ff79c6">this</span>.checkMarks<span style="color:#ff79c6">++</span>;
+    }
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.checkMarks <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">4</span>) {
+      <span style="color:#6272a4">// long break
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.longBreakSeconds;
+      <span style="color:#ff79c6">this</span>.checkMarks <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    } <span style="color:#ff79c6">else</span> {
+      <span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.shortBreakSeconds;
+    }
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#6272a4">// time to work
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">this</span>.timerLength <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.workSeconds;
+  }
+  <span style="color:#ff79c6">this</span>.flipTimerType();
+  <span style="color:#ff79c6">this</span>.startTimer();
+};
+</code></pre></div><h3 id="togglepause">togglePause</h3>
+<p>We&rsquo;d like to be able to pause the timer if we step away from a work or break period and return later. If the timer is not paused when we call togglePause, we stop the interval (no need for it) and set the running flag to false. If the timer was already paused, we resume the timer.</p>
+<p>Note how we&rsquo;ve been able to code pause by simply composing existing object methods. Since we created small functional units that act without side effects, we can compose them in different ways to produce different behaviors. This makes code functionality easier to debug, shorter, less error prone, and easier to unit test and reason about.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.togglePause <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.running) {
+    <span style="color:#ff79c6">this</span>.running <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    clearInterval(<span style="color:#ff79c6">this</span>.interval);
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#ff79c6">this</span>.running <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+    <span style="color:#ff79c6">this</span>.interval <span style="color:#ff79c6">=</span> setInterval(() =&gt; {
+      <span style="color:#ff79c6">this</span>.updateTime();
+      <span style="color:#ff79c6">this</span>.displayTime();
+    }, <span style="color:#bd93f9">1000</span>);
+  }
+};
+</code></pre></div><h2 id="thats-that">That&rsquo;s that!</h2>
+<p>It works! It&rsquo;s simple, but it&rsquo;s enough to use as a productivity tool. Note how it works even if it is open in a separate tab. It&rsquo;s also minimal in that it only requires user intervention when the user fails to complete a Pomodoro. Otherwise, it works silently in the background and can be viewed in the page title or open tab if in a browser.</p>
+<h2 id="additional-features">Additional Features</h2>
+<ul>
+<li>We can enhance the UI to make it prettier.</li>
+<li>We can use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank">Notifications API</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API" target="_blank">Vibration API</a> to make subtle indications of the start and end of pomodoro periods.</li>
+<li>We can use LocalStorage to track &ldquo;Pomodoros for the day&rdquo; so that users can leave the site and return later.</li>
+<li>We can establish &ldquo;daily pomodoro goals&rdquo;</li>
+<li>We can track Pomodoro success over time: days, Pomodoros completed, # times distracted</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pomodoro/"> pomodoro </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/productivity/"> productivity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

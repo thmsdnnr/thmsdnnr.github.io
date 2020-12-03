@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>computer science on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/computer-science/</link>
+		<description>Recent content in computer science on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 07 Oct 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Caching and the Least Recently Used Replacement Policy</title>
+			<link>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</guid>
+			<description>
+				
+				What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?
+				
+			</description>
+		</item>
+		<item>
+			<title>Boids: A Bird Flock Simulator</title>
+			<link>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</guid>
+			<description>
+				
+				We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation.
+				
+			</description>
+		</item>
+		<item>
+			<title>The Knapsack Problem</title>
+			<link>https://thmsdnnr.com/post/the-knapsack-problem/</link>
+			<pubDate>Thu, 15 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/the-knapsack-problem/</guid>
+			<description>
+				
+				Examining the Knapsack Problem and solutions using dynamic programming.
+				
+			</description>
+		</item>
+		<item>
+			<title>Introduction to Databases</title>
+			<link>https://thmsdnnr.com/post/introduction-to-databases/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/introduction-to-databases/</guid>
+			<description>
+				
+				What are databases? What are the similarities and differences from file systems? What is a SQL vs No-SQL database and the pros and cons of each for a given application?
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

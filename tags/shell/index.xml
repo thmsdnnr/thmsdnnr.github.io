@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>shell on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/shell/</link>
+		<description>Recent content in shell on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 14 Jun 2019 19:20:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Automatically backup config with git and cron</title>
+			<link>https://thmsdnnr.com/post/automatically-backup-config-with-git-and-cron/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/automatically-backup-config-with-git-and-cron/</guid>
+			<description>
+				
+				An automated backup strategy for configuration files to make restoring from backups or purchasing a new computer easy.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

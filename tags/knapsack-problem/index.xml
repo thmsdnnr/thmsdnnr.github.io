@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>knapsack problem on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/knapsack-problem/</link>
+		<description>Recent content in knapsack problem on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Thu, 15 Mar 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/knapsack-problem/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>The Knapsack Problem</title>
+			<link>https://thmsdnnr.com/post/the-knapsack-problem/</link>
+			<pubDate>Thu, 15 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/the-knapsack-problem/</guid>
+			<description>
+				
+				Examining the Knapsack Problem and solutions using dynamic programming.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

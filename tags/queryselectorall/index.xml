@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>querySelectorAll on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/queryselectorall/</link>
+		<description>Recent content in querySelectorAll on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Thu, 04 Jan 2018 23:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/queryselectorall/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Document Object Model (DOM) Selectors</title>
+			<link>https://thmsdnnr.com/post/document-object-model-dom-selectors/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/document-object-model-dom-selectors/</guid>
+			<description>
+				
+				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

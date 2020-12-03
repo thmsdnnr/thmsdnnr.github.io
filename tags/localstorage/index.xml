@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>localStorage on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/localstorage/</link>
+		<description>Recent content in localStorage on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Tue, 02 Jan 2018 20:04:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/localstorage/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>WebStorage API: localStorage and sessionStorage</title>
+			<link>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</guid>
+			<description>
+				
+				WebStorage API, localStorage, and sessionStorage
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

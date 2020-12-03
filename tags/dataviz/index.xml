@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>dataViz on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/dataviz/</link>
+		<description>Recent content in dataViz on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sat, 23 Dec 2017 06:40:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/dataviz/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Intro to D3 Graphs &#43; visualize sorting algorithms</title>
+			<link>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</guid>
+			<description>
+				
+				Visualizing Sorting Algorithms in D3
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

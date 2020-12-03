@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Intro to Linked Lists">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,stack,queue,big-O,complexity,dataStructures,linkedList,array"><meta name="description" content="The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays."><meta property="og:title" content="Intro to Linked Lists" />
+<meta property="og:description" content="The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/intro-to-linked-lists/" />
+<meta property="article:published_time" content="2018-01-31T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-01-31T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intro to Linked Lists"/>
+<meta name="twitter:description" content="The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Intro to Linked Lists | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">31</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Intro to Linked Lists</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>A <a href="https://en.wikipedia.org/wiki/Linked_list" target="_blank">linked list</a> is a container that holds an ordered list of items called nodes. The nodes have the special characteristic that (unlike arrays) they do not have to be stored contiguously in memory.</p>
+<h3 id="nodes">Nodes</h3>
+<p>Nodes minimally contain two properties.</p>
+<ol>
+<li><code>data</code> - the data of interest</li>
+<li><code>next</code> - a pointer to the next node in the list.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> node <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (data, next) {
+  <span style="color:#ff79c6">this</span>.data <span style="color:#ff79c6">=</span> data;
+  <span style="color:#ff79c6">this</span>.next <span style="color:#ff79c6">=</span> next <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+};
+</code></pre></div><p>In order to compare nodes, we need to define a helper function that evaluates object equality, since in JavaScript <code>{data:'test', ct:1} == {data:'test', ct:1}</code> is false.</p>
+<p>This is easy enough. Two nodes are equal if their data and next properties are equal, so we simply AND the results of the two comparisons and return the result:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">node.prototype.equals <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (node) {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.data <span style="color:#ff79c6">===</span> node.data <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#ff79c6">this</span>.next <span style="color:#ff79c6">===</span> node.next;
+};
+</code></pre></div><h3 id="linked-list-container">Linked List Container</h3>
+<p>A Linked List (in this case, a singly linked list) contains a reference to the beginning or head of the list. It also contains methods for operating on its nodes to perform tasks like insertion, deletion, and search.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> LinkedList <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (head) {
+  <span style="color:#ff79c6">this</span>.head <span style="color:#ff79c6">=</span> head <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">this</span>.ct <span style="color:#ff79c6">=</span> head <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>;
+};
+</code></pre></div><p>These operations include:</p>
+<ul>
+<li>getLength - return the number of elements in the array</li>
+<li>insertAfter - insert a given node after the target node in the array</li>
+<li>removeAfter - remove the node after the target node in the array</li>
+<li>insertBeginning - insert a node at the beginning of the list</li>
+<li>removeBeginning - remove and return the node at the beginning of the list</li>
+<li>findNode - find the index of a node in the given list (if the node exists)</li>
+</ul>
+<p>We can also implement methods that allow us to use our LinkedList as a Stack or Queue.</p>
+<h3 id="stack-fns">Stack fns</h3>
+<ul>
+<li>push - insert an element at the end of the linked list</li>
+<li>pop - remove and return the element at the end of the linked list</li>
+</ul>
+<h3 id="queue-fns">Queue fns</h3>
+<ul>
+<li>shift - remove and return the first element of the linked list</li>
+<li>unshift - remove and return the first element of the linked list</li>
+</ul>
+<p>Note that shift and unshift are equivalent to removeBeginning and insertBeginning.</p>
+<h2 id="lets-implement-the-methods">Let&rsquo;s implement the methods.</h2>
+<p>With all the methods that access the list, we&rsquo;ll want to do a sanity check and make sure the list has a valid length to perform the operation. We also want to validate the arguments when a node is passed in for insertion or removal. It&rsquo;s also crucial to accurately update the count of the number of items in the list in order to perform these bounds checks.</p>
+<h4 id="getlength">getLength()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.getLength <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span>() { <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.ct; }
+</code></pre></div><p>Obtaining the length is simple enough: we just get the count of entries stored in the list. We must be sure to accurately increment and decrement this count in all our other list methods.</p>
+<h4 id="insertafter">insertAfter()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.insertAfter <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (node, newNode) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>node <span style="color:#ff79c6">&amp;&amp;</span> newNode) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> currentNode <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+  <span style="color:#8be9fd;font-style:italic">let</span> found <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+  <span style="color:#ff79c6">while</span> (currentNode <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (currentNode.equals(node)) {
+      found <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+      <span style="color:#ff79c6">break</span>;
+    }
+    currentNode <span style="color:#ff79c6">=</span> currentNode.next;
+  }
+  <span style="color:#ff79c6">if</span> (found) {
+    <span style="color:#8be9fd;font-style:italic">let</span> newNodeAfter <span style="color:#ff79c6">=</span> currentNode.next;
+    currentNode.next <span style="color:#ff79c6">=</span> newNode;
+    newNode.next <span style="color:#ff79c6">=</span> newNodeAfter;
+    <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">++</span>;
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">true</span>;
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+};
+</code></pre></div><p>In order to insert a node we will perform a common operation: finding the node of interest. Since the nodes are not stored contiguously in memory, we cannot simply start at a memory address and increment by fixed intervals. Instead, we must <strong>traverse</strong> the list. This is the work of the <code>while</code> loop. We start at the head node and sequentially proceed through the list nodes by setting <code>currentNode=currentNode.next</code> (until <code>currentNode==null</code>).</p>
+<p>We compare each element using our <code>.equals</code> method. There are two cases here.</p>
+<ol>
+<li>The node we&rsquo;re looking for doesn&rsquo;t exist. The found flag will be false, and we return false.</li>
+<li>The node we&rsquo;re looking for does exist. The found flag is true.</li>
+</ol>
+<p>If we find the node to insert after, we:</p>
+<ol>
+<li>Place the <strong>current</strong> next node in a temporary variable, <code>newNodeAfter</code>.</li>
+<li>Set <code>currentNode.next</code> to the <code>newNode</code>. (Inserting the new node)</li>
+<li>Set <code>newNode.next</code> to <code>newNodeAfter</code>. (&ldquo;put back&rdquo; the node we moved over for <code>newNode</code>)</li>
+<li>Increase the list length by one.</li>
+</ol>
+<h4 id="removeafter">removeAfter()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.removeAfter <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (node) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>node) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> found <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+  <span style="color:#8be9fd;font-style:italic">let</span> currentNode <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+  <span style="color:#ff79c6">while</span> (currentNode <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (currentNode.equals(node)) {
+      found <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+      <span style="color:#ff79c6">break</span>;
+    }
+    currentNode <span style="color:#ff79c6">=</span> currentNode.next;
+  }
+  <span style="color:#ff79c6">if</span> (found) {
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>currentNode.next) {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (currentNode.next.next) {
+      currentNode.next <span style="color:#ff79c6">=</span> currentNode.next.next;
+    } <span style="color:#ff79c6">else</span> {
+      currentNode.next <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+    }
+    <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">--</span>;
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">true</span>;
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+};
+</code></pre></div><p>Removing a node is very similar to inserting a node. We perform the same operation to find the target node, returning false if it is not in the list.</p>
+<p>All that differs is what we do when we reach the node. There are two things to consider when removing a node after a given node.</p>
+<ol>
+<li>That node has no nodes after it (its <code>.next===null</code>)</li>
+<li>That node has exactly one node after it (its <code>.next!==null</code> but its <code>.next.next===null</code>)</li>
+<li>That node has two or more nodes following it (<code>.next.next!==null</code>)</li>
+</ol>
+<p>In the first case, we return false. There are no nodes to remove.</p>
+<p>In the second case, we simply set <code>currentNode.next=null</code>.</p>
+<p>In the third case, we have to not only <strong>remove</strong> the next node, but also join up the current node with the rest of the list chain. We set the <code>currentNode.next</code> to <code>currentNode.next.next</code> (skipping over the element in between). We decrement the list length by one.</p>
+<h4 id="insertbeginning">insertBeginning()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.insertBeginning <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (node) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>node) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">++</span>;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.getLength()) {
+    <span style="color:#ff79c6">return</span> (<span style="color:#ff79c6">this</span>.head <span style="color:#ff79c6">=</span> node);
+  }
+  node.next <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+  <span style="color:#ff79c6">this</span>.head <span style="color:#ff79c6">=</span> node;
+};
+</code></pre></div><p>To insert a node at the beginning of the list, there are two possible cases:</p>
+<ol>
+<li>The list is empty. The node to insert becomes the head.</li>
+<li>The list is not empty. The node to insert becomes the head, and we must attach the existing head to the new node&rsquo;s <code>.next</code>.</li>
+</ol>
+<p>In either case, we increment the list length by one.</p>
+<h4 id="removebeginning">removeBeginning()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.removeBeginning <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.getLength()) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#8be9fd;font-style:italic">let</span> removed <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+    <span style="color:#ff79c6">this</span>.head <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head.next;
+    <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">--</span>;
+    <span style="color:#ff79c6">return</span> removed;
+  }
+};
+</code></pre></div><p>To remove a node at the beginning of the list, there are two possible cases:</p>
+<ol>
+<li>The list is empty. We return false, as there&rsquo;s nothing to remove.</li>
+<li>The list is not empty. We set the current list&rsquo;s head to the value of <code>head.next</code>, return the removed element, and decrement the list length by one.</li>
+</ol>
+<h4 id="findnode">findNode()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.findNode <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (searchNode) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>(<span style="color:#ff79c6">this</span>.getLength() <span style="color:#ff79c6">&amp;&amp;</span> searchNode)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> currentNode <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+  <span style="color:#ff79c6">if</span> (currentNode.equals(searchNode)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> idx <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">while</span> (currentNode <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (currentNode.equals(searchNode)) {
+      <span style="color:#ff79c6">return</span> idx;
+    }
+    currentNode <span style="color:#ff79c6">=</span> currentNode.next;
+    idx<span style="color:#ff79c6">++</span>;
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+};
+</code></pre></div><p>We&rsquo;ve been finding nodes already in all the other methods: we just have been using them directly rather than tracking their position. The <code>findNode</code> method will simply track the index, by incrementing a counter by one each time we traverse to the next node. If the node we are searching for exists, we return its index.</p>
+<p>If it does not exist, we return false.</p>
+<h3 id="two-bonus-methods">Two bonus methods</h3>
+<p>As mentioned, the Linked List can be used to implement a stack. For this, we need two functions: push and pop.</p>
+<h4 id="push">push()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.push <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (node) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>node) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">++</span>;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.head) {
+    <span style="color:#ff79c6">return</span> (<span style="color:#ff79c6">this</span>.head <span style="color:#ff79c6">=</span> node);
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> currentNode <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+  <span style="color:#ff79c6">while</span> (currentNode.next <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    currentNode <span style="color:#ff79c6">=</span> currentNode.next;
+  }
+  currentNode.next <span style="color:#ff79c6">=</span> node;
+};
+</code></pre></div><p>This code is pretty simple. We find the last node in the list, and we set its <code>next</code> to the given node. We increment the list length by one.</p>
+<h4 id="pop">pop()</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">LinkedList.prototype.pop <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (node) {
+  <span style="color:#8be9fd;font-style:italic">let</span> currentNode <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+  <span style="color:#8be9fd;font-style:italic">let</span> length <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.getLength();
+  <span style="color:#8be9fd;font-style:italic">let</span> popped <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>length) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#ff79c6">if</span> (length <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">1</span>) {
+    popped <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.head;
+    <span style="color:#ff79c6">this</span>.head <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+    <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">--</span>;
+    <span style="color:#ff79c6">return</span> popped;
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#ff79c6">while</span> (currentNode.next.next <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+      currentNode <span style="color:#ff79c6">=</span> currentNode.next;
+    }
+    popped <span style="color:#ff79c6">=</span> currentNode.next;
+    currentNode.next <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+    <span style="color:#ff79c6">this</span>.ct<span style="color:#ff79c6">--</span>;
+    <span style="color:#ff79c6">return</span> popped;
+  }
+};
+</code></pre></div><p>Popping a value off the list is a little trickier. Once again, let&rsquo;s consider the cases.</p>
+<ol>
+<li>The list is empty. We cannot pop the item off an empty list. We return false.</li>
+<li>The list has one element. We most pop the head off the list and set the list&rsquo;s head to null, decrementing the length by one and returning the head.</li>
+<li>The list has more than one element. We must remove the element and decrement the list length by one.</li>
+</ol>
+<p>Note the termination condition here in the while loop: we are looking for <code>currentNode.next.next</code> equaling null. Why? Well, we want the second-to-last node to operate on, since we are removing the very last node from the list (that&rsquo;s what gets popped), and in order to do this, we set the second-to-last node&rsquo;s <code>next</code> to null.</p>
+<h2 id="big-o-complexity--comparison-with-arrays">Big-O Complexity &amp; Comparison with Arrays</h2>
+<p>First, a quick word about Big-O. <a href="https://en.wikipedia.org/wiki/Big_O_notation" target="_blank">Big-O notation</a> is not a scary monster. In short, it&rsquo;s simply a tool for us to <a href="https://en.wikipedia.org/wiki/Asymptotic_analysis" target="_blank">asymptotically compare</a> the performance of operations on sets of data. When you see <code>log</code> in Big-O, it&rsquo;s log base 2, written abbreviated as log.</p>
+<p>Big-O gives us general comparisons, not strict results. We can determine whether an operation takes place in constant O(1) or O(log n), linear O(n), logarithmic O(n*log n), quadratic O(n^2), exponential O(2^n), or factorial O(n!) time.</p>
+<p>(There&rsquo;s a Big-O equivalent for space complexity: it&rsquo;s just another dimension of comparison.)</p>
+<p>What types of operations? When it comes to data structures it&rsquo;s things like insertion, deletion, access, or search. We compare in three dimensions: best case scenario, worst case scenario, and average case scenario. Practically though, we are most concerned about the worst-case scenario. The average case is hard to quantify. The best case scenario is rare. And if we&rsquo;re okay with the worst-case scenario, we&rsquo;ll always be pleasantly surprised (pessimistic, but true!).</p>
+<p>In short: if your algorithm runs in quadratic or slower time, there&rsquo;s probably a better way to do it. The most efficient sorting algorithms (quicksort and mergesort) work in logarithmic time. There are ways to make searching even faster than <code>n*log n</code>, but the algorithms are not generalizable since they leverage fixed characteristics of the data to optimize further.</p>
+<h3 id="comparing-big-o-of-linked-lists-and-arrays">Comparing Big-O of Linked Lists and Arrays</h3>
+<p>Let&rsquo;s take a look at the <a href="http://bigocheatsheet.com/" target="_blank">Big-O Cheat Sheet</a> and do a quick comparison of Singly Linked Lists with Arrays. Linked lists are similar to arrays, but use case dictates which is most performant.</p>
+<p>Looking at the worst case scenarios, Linked Lists give us constant time insertion and deletion, and linear time access and search.
+Arrays give us constant time access, and linear time search, insertion, and deletion.</p>
+<p>Let&rsquo;s think about why this is the case.</p>
+<h4 id="search-is-the-same-speed">Search is the same speed</h4>
+<p>To search in our linked list or array, we start at the beginning of the array and go to the end. In the worst case scenario, the thing we&rsquo;re searching for is farthest away from our starting point (at the <code>n-1</code>th index). Thus, it&rsquo;ll take O(n) operations for us to pass through the data structure to find it.</p>
+<h4 id="access-arrays-o1-linked-lists-on">Access: Arrays O(1), Linked Lists O(n)</h4>
+<p>A linked list takes O(n) in the worst case to access a given element, whereas arrays can access elements in constant time. This is because arrays are <em>indexed</em>. This means that given the order in the list, I can go directly to that list item. How does this work? Well, an array is ordered contiguously in memory. That means that I can skip to any item in the array immediately simply by jumping to this memory address:</p>
+<p><code>memory address of head</code> + <code>array element size</code> * <code>index offset</code></p>
+<p>With a linked list, we might know how many elements are in memory, but since the elements do not have to be stored contiguously, we have to traverse every node in the list until we find an item. This is the same performance as doing a search.</p>
+<h4 id="insertiondeletion-arrays-on-linked-lists-o1">Insertion/Deletion: Arrays O(n), Linked Lists O(1)</h4>
+<p>Linked lists are much faster at insertion and deletion. Since arrays are indexed, inserting or deleting an element requires us to change, in the worst case, all the other elements of the array. Imagine we insert at the beginning of the array. We have to go through and increment each element by one. Deletion at the beginning of the array means decrementing all the offsets by one.</p>
+<p>Insertion and deletion at the end of the array is O(1).</p>
+<p>Insertion and deletion at the beginning of a linked list is O(1). In a linked list, we know the head, and to insert and element, we simply set the new element&rsquo;s <code>next</code> to the previous head and then update the linked list&rsquo;s head to point to the new element. For removal, we just replace the list&rsquo;s head with the current node at <code>head.next</code>. These operations are constant time.</p>
+<p>Insertion and deletion at the <strong>end</strong> of a linked list is still O(1), but we have to first traverse the whole linked list to find the end. Then we insert or delete. That search process in the worst case is O(n).</p>
+<p>I know what you&rsquo;re thinking: this is super confusing.</p>
+<p>The key takeaways are that arrays shine when you need quick, random access to any element in the array due to indexing. Lookup of any element is O(1). They are also good when you only need to add or remove elements from the end (like a stack, hint hint).</p>
+<p>Linked lists on the other hand shine when you need insert or remove a lot of elements, particularly toward the middle or beginning of the array since they do not require reindexing. They are less performant when you require random access to individual elements.</p>
+<h2 id="wrapping-up">Wrapping Up</h2>
+<p>This is a ton of material. Take a moment to pat yourself on the back. While there is certainly a bit more nuance to Big-O notation and the many ways in which we can implement a Linked List, this covers the basic groundwork. If you got this far, you understand the key differentiators between arrays and linked lists and have a a good grasp of which one will be most performant for your application.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/array/"> array </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/big-o/"> big-o </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datastructures/"> datastructures </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/linkedlist/"> linkedlist </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/queue/"> queue </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/stack/"> stack </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>art on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/art/</link>
+		<description>Recent content in art on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sat, 03 Feb 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/art/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Binary Tree Application: Binary Space Partitioning</title>
+			<link>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</link>
+			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</guid>
+			<description>
+				
+				Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

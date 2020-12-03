@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>binaryHeap on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/binaryheap/</link>
+		<description>Recent content in binaryHeap on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Mon, 12 Feb 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/binaryheap/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Binary Heaps: Min-Heaps and Max-Heaps</title>
+			<link>https://thmsdnnr.com/post/binary-heaps-min-heaps-and-max-heaps/</link>
+			<pubDate>Mon, 12 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-heaps-min-heaps-and-max-heaps/</guid>
+			<description>
+				
+				Binary Heaps are binary-tree based data structures that can be used to implement a Priority Queue and provide O(1) insert and find-minimum performance.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

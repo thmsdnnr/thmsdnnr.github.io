@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>codeMorsels on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/categories/codemorsels/</link>
+		<description>Recent content in codeMorsels on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sat, 23 Dec 2017 06:40:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/categories/codemorsels/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Intro to D3 Graphs &#43; visualize sorting algorithms</title>
+			<link>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</guid>
+			<description>
+				
+				Visualizing Sorting Algorithms in D3
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to D3: Bar Graphs</title>
+			<link>https://thmsdnnr.com/post/intro-to-d3-bar-graphs/</link>
+			<pubDate>Fri, 22 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-d3-bar-graphs/</guid>
+			<description>
+				
+				We learn the basics of D3 and how to use it to build bar graphs.
+				
+			</description>
+		</item>
+		<item>
+			<title>Quicksort, a Divide and Conquer Sorting Algorithm.</title>
+			<link>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</link>
+			<pubDate>Wed, 20 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</guid>
+			<description>
+				
+				We code Quicksort in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Bubble Sort</title>
+			<link>https://thmsdnnr.com/post/bubble-sort/</link>
+			<pubDate>Tue, 19 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/bubble-sort/</guid>
+			<description>
+				
+				Bubble Sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Insertion Sort</title>
+			<link>https://thmsdnnr.com/post/binary-insertion-sort/</link>
+			<pubDate>Tue, 19 Dec 2017 09:50:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-insertion-sort/</guid>
+			<description>
+				
+				Binary Insertion Sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Insertion Sort</title>
+			<link>https://thmsdnnr.com/post/insertion-sort/</link>
+			<pubDate>Mon, 18 Dec 2017 20:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/insertion-sort/</guid>
+			<description>
+				
+				Insertion sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Selection Sort</title>
+			<link>https://thmsdnnr.com/post/selection-sort/</link>
+			<pubDate>Sun, 17 Dec 2017 09:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/selection-sort/</guid>
+			<description>
+				
+				Selection sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Search</title>
+			<link>https://thmsdnnr.com/post/binary-search/</link>
+			<pubDate>Fri, 15 Dec 2017 21:06:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/binary-search/</guid>
+			<description>
+				
+				Binary search algorithm with a test runner implementation, coded in JavaScript.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

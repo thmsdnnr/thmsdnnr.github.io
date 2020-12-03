@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Caching and the Least Recently Used Replacement Policy">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,computer science,LRU,caching"><meta name="description" content="What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?"><meta property="og:title" content="Caching and the Least Recently Used Replacement Policy" />
+<meta property="og:description" content="What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/" />
+<meta property="article:published_time" content="2018-10-07T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-10-07T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Caching and the Least Recently Used Replacement Policy"/>
+<meta name="twitter:description" content="What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?"/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Caching and the Least Recently Used Replacement Policy | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">07</span>
+				<span class="rest">Oct 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Caching and the Least Recently Used Replacement Policy</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>Caching data is the process of saving data in memory that we will use again soon. It provides the advantage of speed, since a memory lookup is much faster than retrieving data from disk or over a network. In addition, caching data rather than fetching and processing it saves CPU cycles for serving more users.</p>
+<p>The main thing to know is that caching (like most everything in computing) is a time-space tradeoff. If you have extra space, you can use it up to save time.</p>
+<p>Caching is related to <a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">memoization</a>: saving the result of expensive computations so that you do not have to perform them again. The general consensus from Wikipedia and StackOverflow is that caching is more general (can be for both input and output) and usually refers to saving the result of data that <em>another service</em> has computed, and that this output is non-deterministic (it varies with time).</p>
+<p>Memoization would be saving the result of a factorial function so you don&rsquo;t have to recalculate it for values you&rsquo;ve already computed.</p>
+<p>Caching would be saving the result that&rsquo;s going to change, say a weather report that&rsquo;s updated every hour.</p>
+<p>You&rsquo;ve experienced caching yourself (your browser is doing it right now). If you&rsquo;re a developer, you&rsquo;ve likely made changes to an existing script, hit refresh, and &hellip; nothing happens. Your browser&rsquo;s stashed a local copy that it&rsquo;s accessing instead of requesting it fresh from the server.</p>
+<p>Caches are valuable tools, not only for browsers, but also for servers. Adding a cache to an existing webserver can often more fully utilize its memory and allow you to serve more traffic with better performance, at the same cost.</p>
+<h2 id="limitations">Limitations</h2>
+<p>Caching is limited by memory (you&rsquo;ll run out eventually!) and the time-expiration of information. If you&rsquo;re a weather website and you get reports from a station every 5 minutes, it&rsquo;s fine to cache for that long, but after 5 minutes, you better request it fresh.</p>
+<h2 id="eviction-strategies">Eviction Strategies</h2>
+<p>An eviction strategy is simply: when the cache is full, and we add another item, how do we decide which element to remove? The best answer is: whichever element we&rsquo;re never going to need again! This would, of course, require us to know the future, so it&rsquo;s impossible. Instead, we can try to get close to the optimal based on probabilities.</p>
+<p>There are <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Policies" target="_blank">a lot of strategies</a> to remove items from a cache.</p>
+<p>All these strategies that are not simply random typically consider two factors:</p>
+<ol>
+<li>Frequency of use: count the number of times a cache item is requested; discard the item with the lowest number of requests</li>
+<li>Time of last use: assign an &ldquo;age&rdquo; to each element each time an element is added to the cache; discard the &ldquo;oldest&rdquo; element</li>
+</ol>
+<h2 id="example-least-recently-used-lru">Example: Least-Recently Used (LRU)</h2>
+<p>One common cache strategy is least-recently used. When the cache is full and we&rsquo;ve gotta add something new, get rid of the thing that&rsquo;s the oldest thing in the cache. This is what that might look like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> LRUCache <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (capacity) {
+  <span style="color:#ff79c6">this</span>.capacity <span style="color:#ff79c6">=</span> capacity;
+  <span style="color:#ff79c6">this</span>.size <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">this</span>.cache <span style="color:#ff79c6">=</span> {};
+  <span style="color:#ff79c6">this</span>.keysByAge <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">this</span>.hits <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">this</span>.misses <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+};
+
+LRUCache.prototype.get <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (key) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.cache[key]) {
+    <span style="color:#6272a4">// Promote key to most recently used
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">this</span>.hits<span style="color:#ff79c6">++</span>;
+    <span style="color:#ff79c6">this</span>.keysByAge <span style="color:#ff79c6">=</span> [key, ...<span style="color:#ff79c6">this</span>.keysByAge.filter((k) =&gt; k <span style="color:#ff79c6">!==</span> key)];
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.cache[key];
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#ff79c6">this</span>.misses<span style="color:#ff79c6">++</span>;
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+  }
+};
+
+LRUCache.prototype.put <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (key, value) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.size <span style="color:#ff79c6">&lt;</span> <span style="color:#ff79c6">this</span>.capacity) {
+    <span style="color:#ff79c6">this</span>.cache[key] <span style="color:#ff79c6">=</span> value;
+    <span style="color:#ff79c6">this</span>.keysByAge.push(key);
+    <span style="color:#ff79c6">this</span>.size<span style="color:#ff79c6">++</span>;
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#6272a4">// evictAndPut
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">const</span> OLDEST <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.keysByAge.shift();
+    <span style="color:#ff79c6">delete</span> <span style="color:#ff79c6">this</span>.cache[OLDEST];
+    <span style="color:#ff79c6">this</span>.keysByAge <span style="color:#ff79c6">=</span> [key, ...<span style="color:#ff79c6">this</span>.keysByAge.filter((k) =&gt; k <span style="color:#ff79c6">!==</span> OLDEST)];
+    <span style="color:#ff79c6">this</span>.cache[key] <span style="color:#ff79c6">=</span> value;
+  }
+};
+</code></pre></div><p>We store key-value pairs in a hash table, so the lookup is O(1). To track the age of objects, we keep a separate array of keys, <code>keysByAge</code>. Each time an element is used, we promote the element to the front of the array. Each time an element is added, we push the element onto the array.</p>
+<p>In this way, elements are ordered from most-recently-used to least-recently-used. When we try to add an element and the cache is at capacity, we simply take the last element in the keys array, delete the reference in the cache, and then add per usual.</p>
+<p>This solution is suboptimal, since each get and put is O(n). The optimal solution would use a doubly-linked list instead of an array to maintain the age-ordered list of keys. The important thing to understand though, is the concept at play. You&rsquo;re probably not going to code one of these yourself from scratch.</p>
+<h2 id="cache-benefits-a-little-demo">Cache benefits: a little demo.</h2>
+<p>If you use the code above, you can test it like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> cache <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> LRUCache(<span style="color:#bd93f9">20</span>);
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">100</span>; i<span style="color:#ff79c6">++</span>) {
+  cache.put(i, <span style="color:#ff79c6">true</span>);
+  cache.get(<span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> i));
+}
+console.log(<span style="color:#f1fa8c">&#34;Hit ratio: &#34;</span> <span style="color:#ff79c6">+</span> cache.hits <span style="color:#ff79c6">/</span> (cache.hits <span style="color:#ff79c6">+</span> cache.misses));
+</code></pre></div><p>This is not so scientific: just throw 100 elements into the cache, and after you do, randomly access elements that might exist (from 0 to i). Then measure how many hits there are.</p>
+<p>I got data about like this for 100 elements. Plot these points and it&rsquo;ll look logarithmic:</p>
+<table>
+<thead>
+<tr>
+<th>cache size</th>
+<th>hit ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.07</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.19</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.21</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0.48</td>
+</tr>
+<tr>
+<td>32</td>
+<td>0.71</td>
+</tr>
+<tr>
+<td>64</td>
+<td>0.94</td>
+</tr>
+</tbody>
+</table>
+<p>The big takeaway here is that if you&rsquo;ve got the space, saving 32% of your elements means you&rsquo;ll have the element you need 70% of the time! If it takes 50ms to make a data-heavy network request when there&rsquo;s a cache miss, this can save you 3.5 seconds per 100 requests, or an average of 35ms/request.</p>
+<p>Caching allows us to bargain with time-space complexity: when time is important and space is inexpensive, they often offer a solution.</p>
+<h2 id="caching-in-the-real-world">Caching in the real world</h2>
+<p>Like more or less everything that involves a doubly-linked list, don&rsquo;t write it yourself (but it&rsquo;s good to understand it). There are a lot of libraries out there that can do this stuff for you like <a href="https://memcached.org/" target="_blank">Memcached</a>, <a href="https://redis.io/" target="_blank">Redis</a>, or <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache" target="_blank">Python&#39;s functools</a>.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/caching/"> caching </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/lru/"> lru </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

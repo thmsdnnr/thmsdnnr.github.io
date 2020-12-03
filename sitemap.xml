@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/automatically-backup-config-with-git-and-cron/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/series/backup/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/backups/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/cron/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/crontab/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/devtips/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/dotfiles/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/git/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/series/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/shell/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/caching/</loc>
+    <lastmod>2018-10-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</loc>
+    <lastmod>2018-10-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/computer-science/</loc>
+    <lastmod>2018-10-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/computer-science/</loc>
+    <lastmod>2018-10-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/javascript/</loc>
+    <lastmod>2018-10-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/lru/</loc>
+    <lastmod>2018-10-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/automata/</loc>
+    <lastmod>2018-10-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/boids/</loc>
+    <lastmod>2018-10-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</loc>
+    <lastmod>2018-10-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/generative-systems/</loc>
+    <lastmod>2018-10-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/particle-system/</loc>
+    <lastmod>2018-10-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/projects/</loc>
+    <lastmod>2018-10-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/knapsack-problem/</loc>
+    <lastmod>2018-03-15T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/the-knapsack-problem/</loc>
+    <lastmod>2018-03-15T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/acid/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/b-tree/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/crud/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/data-integrity/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/data-modeling/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/databases/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/introduction-to-databases/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/nosql/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/queries/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/sql/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/transactions/</loc>
+    <lastmod>2018-03-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/clone/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/copy/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/deep/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/fundamentals/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/fundamentals/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/object/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/reference/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/shallow/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/value/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</loc>
+    <lastmod>2018-03-11T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/canvas/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/d3/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/dataanalysis/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/datascience/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/filereader/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/frequency/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/histograms/</loc>
+    <lastmod>2018-03-09T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</loc>
+    <lastmod>2018-03-06T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/observablehq/</loc>
+    <lastmod>2018-03-06T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/classes/</loc>
+    <lastmod>2018-03-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/inheritance/</loc>
+    <lastmod>2018-03-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/new/</loc>
+    <lastmod>2018-03-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/objects/</loc>
+    <lastmod>2018-03-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/prototypal-inheritance-basics/</loc>
+    <lastmod>2018-03-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/prototypes/</loc>
+    <lastmod>2018-03-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/destructuring/</loc>
+    <lastmod>2018-03-04T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/es6-destructuring-default-parameters/</loc>
+    <lastmod>2018-03-04T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/es6-morsel/</loc>
+    <lastmod>2018-03-04T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/javascript/</loc>
+    <lastmod>2018-03-04T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/es6-generator-functions/</loc>
+    <lastmod>2018-02-24T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/generator/</loc>
+    <lastmod>2018-02-24T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/tutorials/</loc>
+    <lastmod>2018-02-24T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/big-o/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/binarytree/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/complexity/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/datastructures/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/queue/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/trie/</loc>
+    <lastmod>2018-02-14T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/binary-heaps-min-heaps-and-max-heaps/</loc>
+    <lastmod>2018-02-12T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/binaryheap/</loc>
+    <lastmod>2018-02-12T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/avl/</loc>
+    <lastmod>2018-02-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</loc>
+    <lastmod>2018-02-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/balanacedbinarysearch/</loc>
+    <lastmod>2018-02-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/delete/</loc>
+    <lastmod>2018-02-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/insert/</loc>
+    <lastmod>2018-02-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/stack/</loc>
+    <lastmod>2018-02-07T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/avl-trees-part-1-balanced-binary-search-and-rotations/</loc>
+    <lastmod>2018-02-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/rotations/</loc>
+    <lastmod>2018-02-05T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/art/</loc>
+    <lastmod>2018-02-03T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</loc>
+    <lastmod>2018-02-03T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/binaryspacepartitioning/</loc>
+    <lastmod>2018-02-03T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/proceduralgeneration/</loc>
+    <lastmod>2018-02-03T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/binary-search-trees-handling-deletion/</loc>
+    <lastmod>2018-02-02T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/deletion/</loc>
+    <lastmod>2018-02-02T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/treetraversal/</loc>
+    <lastmod>2018-02-02T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/intro-to-binary-search-trees/</loc>
+    <lastmod>2018-02-01T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/array/</loc>
+    <lastmod>2018-01-31T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/intro-to-linked-lists/</loc>
+    <lastmod>2018-01-31T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/linkedlist/</loc>
+    <lastmod>2018-01-31T06:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/stacks-queues-and-matching-brackets/</loc>
+    <lastmod>2018-01-30T08:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/efficiency/</loc>
+    <lastmod>2018-01-24T08:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/memoization/</loc>
+    <lastmod>2018-01-24T08:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/memoize/</loc>
+    <lastmod>2018-01-24T08:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/optimization/</loc>
+    <lastmod>2018-01-24T08:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</loc>
+    <lastmod>2018-01-24T08:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/equilateral/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/events/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/fractals/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/koch/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/koch-snowflakes/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/snowflake/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/triangle/</loc>
+    <lastmod>2018-01-23T17:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/css/</loc>
+    <lastmod>2018-01-13T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/pixelart/</loc>
+    <lastmod>2018-01-13T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/pixl/</loc>
+    <lastmod>2018-01-13T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</loc>
+    <lastmod>2018-01-13T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/ui/</loc>
+    <lastmod>2018-01-13T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</loc>
+    <lastmod>2018-01-12T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</loc>
+    <lastmod>2018-01-09T09:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</loc>
+    <lastmod>2018-01-08T19:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</loc>
+    <lastmod>2018-01-07T14:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</loc>
+    <lastmod>2018-01-06T14:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/gasket/</loc>
+    <lastmod>2018-01-06T14:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/sierpinski/</loc>
+    <lastmod>2018-01-06T14:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/dom/</loc>
+    <lastmod>2018-01-05T19:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/eventlisteners/</loc>
+    <lastmod>2018-01-05T19:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</loc>
+    <lastmod>2018-01-05T19:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/selectors/</loc>
+    <lastmod>2018-01-05T19:30:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/document-object-model-dom-selectors/</loc>
+    <lastmod>2018-01-04T23:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/queryselector/</loc>
+    <lastmod>2018-01-04T23:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/queryselectorall/</loc>
+    <lastmod>2018-01-04T23:56:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/filter/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/functionalprogramming/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/functionchaining/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/map/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/reduce/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/standarddeviation/</loc>
+    <lastmod>2018-01-03T10:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/localstorage/</loc>
+    <lastmod>2018-01-02T20:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/sessionstorage/</loc>
+    <lastmod>2018-01-02T20:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/webstorage/</loc>
+    <lastmod>2018-01-02T20:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</loc>
+    <lastmod>2018-01-02T20:04:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/</loc>
+    <lastmod>2018-01-01T19:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/pomodoro/</loc>
+    <lastmod>2018-01-01T19:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/productivity/</loc>
+    <lastmod>2018-01-01T19:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/closures/</loc>
+    <lastmod>2017-12-31T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/let/</loc>
+    <lastmod>2017-12-31T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/scope/</loc>
+    <lastmod>2017-12-31T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</loc>
+    <lastmod>2017-12-31T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/var/</loc>
+    <lastmod>2017-12-31T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/ajax/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/api/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/async/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/asynchronous/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/code-a-weather-app/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/networks/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/promises/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/weather/</loc>
+    <lastmod>2017-12-30T23:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/automata/</loc>
+    <lastmod>2017-12-29T08:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</loc>
+    <lastmod>2017-12-29T08:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/create-an-animated-lcd-display/</loc>
+    <lastmod>2017-12-28T09:15:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/generativesvg/</loc>
+    <lastmod>2017-12-28T09:15:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/lcd/</loc>
+    <lastmod>2017-12-28T09:15:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/svg/</loc>
+    <lastmod>2017-12-28T09:15:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/svg/</loc>
+    <lastmod>2017-12-28T09:15:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/tutorial/</loc>
+    <lastmod>2017-12-28T09:15:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/algorithms/</loc>
+    <lastmod>2017-12-23T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/algorithms/</loc>
+    <lastmod>2017-12-23T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/codemorsels/</loc>
+    <lastmod>2017-12-23T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/dataviz/</loc>
+    <lastmod>2017-12-23T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</loc>
+    <lastmod>2017-12-23T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/sorting/</loc>
+    <lastmod>2017-12-23T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/datavisualization/</loc>
+    <lastmod>2017-12-22T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/intro-to-d3-bar-graphs/</loc>
+    <lastmod>2017-12-22T06:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/quicksort/</loc>
+    <lastmod>2017-12-20T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</loc>
+    <lastmod>2017-12-20T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/bubble-sort/</loc>
+    <lastmod>2017-12-19T10:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/binary-insertion-sort/</loc>
+    <lastmod>2017-12-19T09:50:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/binarysearch/</loc>
+    <lastmod>2017-12-19T09:50:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/insertion-sort/</loc>
+    <lastmod>2017-12-18T20:10:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/selection-sort/</loc>
+    <lastmod>2017-12-17T09:10:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/post/binary-search/</loc>
+    <lastmod>2017-12-15T21:06:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/searching/</loc>
+    <lastmod>2017-12-15T21:06:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/homepage/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/projects/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

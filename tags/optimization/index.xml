@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>optimization on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/optimization/</link>
+		<description>Recent content in optimization on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Wed, 24 Jan 2018 08:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Speeding Up Repetitive Calculations with Memoization</title>
+			<link>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</guid>
+			<description>
+				
+				Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

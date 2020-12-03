@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>fundamentals on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/categories/fundamentals/</link>
+		<description>Recent content in fundamentals on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 11 Mar 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/categories/fundamentals/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Value vs Reference: Deep vs Shallow</title>
+			<link>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</guid>
+			<description>
+				
+				A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references.
+				
+			</description>
+		</item>
+		<item>
+			<title>Histograms in D3 and Observable HQ</title>
+			<link>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</link>
+			<pubDate>Tue, 06 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</guid>
+			<description>
+				
+				An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration.
+				
+			</description>
+		</item>
+		<item>
+			<title>Prototypal Inheritance Basics</title>
+			<link>https://thmsdnnr.com/post/prototypal-inheritance-basics/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/prototypal-inheritance-basics/</guid>
+			<description>
+				
+				What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax.
+				
+			</description>
+		</item>
+		<item>
+			<title>ES6 — Generator Functions</title>
+			<link>https://thmsdnnr.com/post/es6-generator-functions/</link>
+			<pubDate>Sat, 24 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/es6-generator-functions/</guid>
+			<description>
+				
+				Generator functions let programmers use yield to pause the execution of functions until they are called later.
+				
+			</description>
+		</item>
+		<item>
+			<title>Speeding Up Repetitive Calculations with Memoization</title>
+			<link>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</guid>
+			<description>
+				
+				Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization.
+				
+			</description>
+		</item>
+		<item>
+			<title>Events and Event Listeners in JavaScript</title>
+			<link>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</guid>
+			<description>
+				
+				JavaScript is a fundamentally event-driven programming language. Learn about the event loop, adding handlers to events with listeners, and debouncing for limiting the number of times those handlers are called.
+				
+			</description>
+		</item>
+		<item>
+			<title>Document Object Model (DOM) Selectors</title>
+			<link>https://thmsdnnr.com/post/document-object-model-dom-selectors/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/document-object-model-dom-selectors/</guid>
+			<description>
+				
+				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.
+				
+			</description>
+		</item>
+		<item>
+			<title>Map, Filter, and Reduce: Functional Programming Gems</title>
+			<link>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</guid>
+			<description>
+				
+				Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation.
+				
+			</description>
+		</item>
+		<item>
+			<title>WebStorage API: localStorage and sessionStorage</title>
+			<link>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</guid>
+			<description>
+				
+				WebStorage API, localStorage, and sessionStorage
+				
+			</description>
+		</item>
+		<item>
+			<title>Scope &amp; Closures: let vs var in JavaScript</title>
+			<link>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</guid>
+			<description>
+				
+				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

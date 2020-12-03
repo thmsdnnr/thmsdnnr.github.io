@@ -1,0 +1,1492 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Tags on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/</link>
+		<description>Recent content in Tags on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 14 Jun 2019 19:20:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>backups</title>
+			<link>https://thmsdnnr.com/tags/backups/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/backups/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>cron</title>
+			<link>https://thmsdnnr.com/tags/cron/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/cron/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>crontab</title>
+			<link>https://thmsdnnr.com/tags/crontab/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/crontab/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>dotfiles</title>
+			<link>https://thmsdnnr.com/tags/dotfiles/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/dotfiles/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>git</title>
+			<link>https://thmsdnnr.com/tags/git/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/git/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>shell</title>
+			<link>https://thmsdnnr.com/tags/shell/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/shell/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>caching</title>
+			<link>https://thmsdnnr.com/tags/caching/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/caching/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>computer science</title>
+			<link>https://thmsdnnr.com/tags/computer-science/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/computer-science/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>javascript</title>
+			<link>https://thmsdnnr.com/tags/javascript/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/javascript/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>LRU</title>
+			<link>https://thmsdnnr.com/tags/lru/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/lru/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>boids</title>
+			<link>https://thmsdnnr.com/tags/boids/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/boids/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>generative systems</title>
+			<link>https://thmsdnnr.com/tags/generative-systems/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/generative-systems/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>particle system</title>
+			<link>https://thmsdnnr.com/tags/particle-system/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/particle-system/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>knapsack problem</title>
+			<link>https://thmsdnnr.com/tags/knapsack-problem/</link>
+			<pubDate>Thu, 15 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/knapsack-problem/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>ACID</title>
+			<link>https://thmsdnnr.com/tags/acid/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/acid/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>B-tree</title>
+			<link>https://thmsdnnr.com/tags/b-tree/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/b-tree/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>CRUD</title>
+			<link>https://thmsdnnr.com/tags/crud/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/crud/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>data integrity</title>
+			<link>https://thmsdnnr.com/tags/data-integrity/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/data-integrity/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>data modeling</title>
+			<link>https://thmsdnnr.com/tags/data-modeling/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/data-modeling/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>databases</title>
+			<link>https://thmsdnnr.com/tags/databases/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/databases/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>NoSQL</title>
+			<link>https://thmsdnnr.com/tags/nosql/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/nosql/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>queries</title>
+			<link>https://thmsdnnr.com/tags/queries/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/queries/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>SQL</title>
+			<link>https://thmsdnnr.com/tags/sql/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/sql/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>transactions</title>
+			<link>https://thmsdnnr.com/tags/transactions/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/transactions/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>clone</title>
+			<link>https://thmsdnnr.com/tags/clone/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/clone/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>copy</title>
+			<link>https://thmsdnnr.com/tags/copy/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/copy/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>deep</title>
+			<link>https://thmsdnnr.com/tags/deep/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/deep/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>fundamentals</title>
+			<link>https://thmsdnnr.com/tags/fundamentals/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/fundamentals/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>object</title>
+			<link>https://thmsdnnr.com/tags/object/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/object/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>reference</title>
+			<link>https://thmsdnnr.com/tags/reference/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/reference/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>shallow</title>
+			<link>https://thmsdnnr.com/tags/shallow/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/shallow/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>value</title>
+			<link>https://thmsdnnr.com/tags/value/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/value/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>canvas</title>
+			<link>https://thmsdnnr.com/tags/canvas/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/canvas/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>D3</title>
+			<link>https://thmsdnnr.com/tags/d3/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/d3/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>dataAnalysis</title>
+			<link>https://thmsdnnr.com/tags/dataanalysis/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/dataanalysis/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>dataScience</title>
+			<link>https://thmsdnnr.com/tags/datascience/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/datascience/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>fileReader</title>
+			<link>https://thmsdnnr.com/tags/filereader/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/filereader/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>frequency</title>
+			<link>https://thmsdnnr.com/tags/frequency/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/frequency/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>histograms</title>
+			<link>https://thmsdnnr.com/tags/histograms/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/histograms/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>observableHQ</title>
+			<link>https://thmsdnnr.com/tags/observablehq/</link>
+			<pubDate>Tue, 06 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/observablehq/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>classes</title>
+			<link>https://thmsdnnr.com/tags/classes/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/classes/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>inheritance</title>
+			<link>https://thmsdnnr.com/tags/inheritance/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/inheritance/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>new</title>
+			<link>https://thmsdnnr.com/tags/new/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/new/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>objects</title>
+			<link>https://thmsdnnr.com/tags/objects/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/objects/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>prototypes</title>
+			<link>https://thmsdnnr.com/tags/prototypes/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/prototypes/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>destructuring</title>
+			<link>https://thmsdnnr.com/tags/destructuring/</link>
+			<pubDate>Sun, 04 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/destructuring/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>ES6-morsel</title>
+			<link>https://thmsdnnr.com/tags/es6-morsel/</link>
+			<pubDate>Sun, 04 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/es6-morsel/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>generator</title>
+			<link>https://thmsdnnr.com/tags/generator/</link>
+			<pubDate>Sat, 24 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/generator/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>big-O</title>
+			<link>https://thmsdnnr.com/tags/big-o/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/big-o/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>binaryTree</title>
+			<link>https://thmsdnnr.com/tags/binarytree/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/binarytree/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>complexity</title>
+			<link>https://thmsdnnr.com/tags/complexity/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/complexity/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>dataStructures</title>
+			<link>https://thmsdnnr.com/tags/datastructures/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/datastructures/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>queue</title>
+			<link>https://thmsdnnr.com/tags/queue/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/queue/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>trie</title>
+			<link>https://thmsdnnr.com/tags/trie/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/trie/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>binaryHeap</title>
+			<link>https://thmsdnnr.com/tags/binaryheap/</link>
+			<pubDate>Mon, 12 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/binaryheap/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>AVL</title>
+			<link>https://thmsdnnr.com/tags/avl/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/avl/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>balanacedBinarySearch</title>
+			<link>https://thmsdnnr.com/tags/balanacedbinarysearch/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/balanacedbinarysearch/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>delete</title>
+			<link>https://thmsdnnr.com/tags/delete/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/delete/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>insert</title>
+			<link>https://thmsdnnr.com/tags/insert/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/insert/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>stack</title>
+			<link>https://thmsdnnr.com/tags/stack/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/stack/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>rotations</title>
+			<link>https://thmsdnnr.com/tags/rotations/</link>
+			<pubDate>Mon, 05 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/rotations/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>art</title>
+			<link>https://thmsdnnr.com/tags/art/</link>
+			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/art/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>binarySpacePartitioning</title>
+			<link>https://thmsdnnr.com/tags/binaryspacepartitioning/</link>
+			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/binaryspacepartitioning/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>proceduralGeneration</title>
+			<link>https://thmsdnnr.com/tags/proceduralgeneration/</link>
+			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/proceduralgeneration/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>deletion</title>
+			<link>https://thmsdnnr.com/tags/deletion/</link>
+			<pubDate>Fri, 02 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/deletion/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>treeTraversal</title>
+			<link>https://thmsdnnr.com/tags/treetraversal/</link>
+			<pubDate>Fri, 02 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/treetraversal/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>array</title>
+			<link>https://thmsdnnr.com/tags/array/</link>
+			<pubDate>Wed, 31 Jan 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/array/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>linkedList</title>
+			<link>https://thmsdnnr.com/tags/linkedlist/</link>
+			<pubDate>Wed, 31 Jan 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/linkedlist/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>efficiency</title>
+			<link>https://thmsdnnr.com/tags/efficiency/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/efficiency/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>memoization</title>
+			<link>https://thmsdnnr.com/tags/memoization/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/memoization/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>memoize</title>
+			<link>https://thmsdnnr.com/tags/memoize/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/memoize/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>optimization</title>
+			<link>https://thmsdnnr.com/tags/optimization/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/optimization/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>equilateral</title>
+			<link>https://thmsdnnr.com/tags/equilateral/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/equilateral/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>events</title>
+			<link>https://thmsdnnr.com/tags/events/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/events/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>fractals</title>
+			<link>https://thmsdnnr.com/tags/fractals/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/fractals/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>koch</title>
+			<link>https://thmsdnnr.com/tags/koch/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/koch/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>snowflake</title>
+			<link>https://thmsdnnr.com/tags/snowflake/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/snowflake/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>triangle</title>
+			<link>https://thmsdnnr.com/tags/triangle/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/triangle/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>CSS</title>
+			<link>https://thmsdnnr.com/tags/css/</link>
+			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/css/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>pixelArt</title>
+			<link>https://thmsdnnr.com/tags/pixelart/</link>
+			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/pixelart/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>pixl</title>
+			<link>https://thmsdnnr.com/tags/pixl/</link>
+			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/pixl/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>UI</title>
+			<link>https://thmsdnnr.com/tags/ui/</link>
+			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/ui/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>gasket</title>
+			<link>https://thmsdnnr.com/tags/gasket/</link>
+			<pubDate>Sat, 06 Jan 2018 14:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/gasket/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>sierpinski</title>
+			<link>https://thmsdnnr.com/tags/sierpinski/</link>
+			<pubDate>Sat, 06 Jan 2018 14:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/sierpinski/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>DOM</title>
+			<link>https://thmsdnnr.com/tags/dom/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/dom/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>eventListeners</title>
+			<link>https://thmsdnnr.com/tags/eventlisteners/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/eventlisteners/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>selectors</title>
+			<link>https://thmsdnnr.com/tags/selectors/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/selectors/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>querySelector</title>
+			<link>https://thmsdnnr.com/tags/queryselector/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/queryselector/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>querySelectorAll</title>
+			<link>https://thmsdnnr.com/tags/queryselectorall/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/queryselectorall/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>filter</title>
+			<link>https://thmsdnnr.com/tags/filter/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/filter/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>functionalProgramming</title>
+			<link>https://thmsdnnr.com/tags/functionalprogramming/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/functionalprogramming/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>functionChaining</title>
+			<link>https://thmsdnnr.com/tags/functionchaining/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/functionchaining/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>map</title>
+			<link>https://thmsdnnr.com/tags/map/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/map/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>reduce</title>
+			<link>https://thmsdnnr.com/tags/reduce/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/reduce/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>standardDeviation</title>
+			<link>https://thmsdnnr.com/tags/standarddeviation/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/standarddeviation/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>localStorage</title>
+			<link>https://thmsdnnr.com/tags/localstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/localstorage/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>sessionStorage</title>
+			<link>https://thmsdnnr.com/tags/sessionstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/sessionstorage/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>webStorage</title>
+			<link>https://thmsdnnr.com/tags/webstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/webstorage/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>pomodoro</title>
+			<link>https://thmsdnnr.com/tags/pomodoro/</link>
+			<pubDate>Mon, 01 Jan 2018 19:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/pomodoro/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>productivity</title>
+			<link>https://thmsdnnr.com/tags/productivity/</link>
+			<pubDate>Mon, 01 Jan 2018 19:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/productivity/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>closures</title>
+			<link>https://thmsdnnr.com/tags/closures/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/closures/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>let</title>
+			<link>https://thmsdnnr.com/tags/let/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/let/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>scope</title>
+			<link>https://thmsdnnr.com/tags/scope/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/scope/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>var</title>
+			<link>https://thmsdnnr.com/tags/var/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/var/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>AJAX</title>
+			<link>https://thmsdnnr.com/tags/ajax/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/ajax/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>API</title>
+			<link>https://thmsdnnr.com/tags/api/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/api/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>async</title>
+			<link>https://thmsdnnr.com/tags/async/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/async/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>asynchronous</title>
+			<link>https://thmsdnnr.com/tags/asynchronous/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/asynchronous/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>networks</title>
+			<link>https://thmsdnnr.com/tags/networks/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/networks/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>promises</title>
+			<link>https://thmsdnnr.com/tags/promises/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/promises/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>weather</title>
+			<link>https://thmsdnnr.com/tags/weather/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/weather/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>automata</title>
+			<link>https://thmsdnnr.com/tags/automata/</link>
+			<pubDate>Fri, 29 Dec 2017 08:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/automata/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>generativeSVG</title>
+			<link>https://thmsdnnr.com/tags/generativesvg/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/generativesvg/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>LCD</title>
+			<link>https://thmsdnnr.com/tags/lcd/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/lcd/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>SVG</title>
+			<link>https://thmsdnnr.com/tags/svg/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/svg/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>tutorial</title>
+			<link>https://thmsdnnr.com/tags/tutorial/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/tutorial/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>algorithms</title>
+			<link>https://thmsdnnr.com/tags/algorithms/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/algorithms/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>dataViz</title>
+			<link>https://thmsdnnr.com/tags/dataviz/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/dataviz/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>sorting</title>
+			<link>https://thmsdnnr.com/tags/sorting/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/sorting/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>dataVisualization</title>
+			<link>https://thmsdnnr.com/tags/datavisualization/</link>
+			<pubDate>Fri, 22 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/datavisualization/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>quicksort</title>
+			<link>https://thmsdnnr.com/tags/quicksort/</link>
+			<pubDate>Wed, 20 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/quicksort/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>binarySearch</title>
+			<link>https://thmsdnnr.com/tags/binarysearch/</link>
+			<pubDate>Tue, 19 Dec 2017 09:50:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/binarysearch/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>searching</title>
+			<link>https://thmsdnnr.com/tags/searching/</link>
+			<pubDate>Fri, 15 Dec 2017 21:06:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/tags/searching/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

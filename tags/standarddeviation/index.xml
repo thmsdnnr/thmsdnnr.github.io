@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>standardDeviation on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/standarddeviation/</link>
+		<description>Recent content in standardDeviation on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Wed, 03 Jan 2018 10:04:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/standarddeviation/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Map, Filter, and Reduce: Functional Programming Gems</title>
+			<link>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</guid>
+			<description>
+				
+				Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

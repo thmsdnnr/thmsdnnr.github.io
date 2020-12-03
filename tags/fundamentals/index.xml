@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>fundamentals on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/fundamentals/</link>
+		<description>Recent content in fundamentals on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 11 Mar 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/fundamentals/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Value vs Reference: Deep vs Shallow</title>
+			<link>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</guid>
+			<description>
+				
+				A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references.
+				
+			</description>
+		</item>
+		<item>
+			<title>Draw Photo Histograms: D3 &#43; Canvas</title>
+			<link>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</guid>
+			<description>
+				
+				Exploring histograms using vanilla JavaScript, D3, and the FileReader API.
+				
+			</description>
+		</item>
+		<item>
+			<title>Histograms in D3 and Observable HQ</title>
+			<link>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</link>
+			<pubDate>Tue, 06 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</guid>
+			<description>
+				
+				An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration.
+				
+			</description>
+		</item>
+		<item>
+			<title>Prototypal Inheritance Basics</title>
+			<link>https://thmsdnnr.com/post/prototypal-inheritance-basics/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/prototypal-inheritance-basics/</guid>
+			<description>
+				
+				What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax.
+				
+			</description>
+		</item>
+		<item>
+			<title>Scope &amp; Closures: let vs var in JavaScript</title>
+			<link>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</guid>
+			<description>
+				
+				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>LRU on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/lru/</link>
+		<description>Recent content in LRU on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 07 Oct 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/lru/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Caching and the Least Recently Used Replacement Policy</title>
+			<link>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</guid>
+			<description>
+				
+				What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

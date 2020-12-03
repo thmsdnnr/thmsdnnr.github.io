@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>DOM on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/dom/</link>
+		<description>Recent content in DOM on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 05 Jan 2018 19:30:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/dom/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Events and Event Listeners in JavaScript</title>
+			<link>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</guid>
+			<description>
+				
+				JavaScript is a fundamentally event-driven programming language. Learn about the event loop, adding handlers to events with listeners, and debouncing for limiting the number of times those handlers are called.
+				
+			</description>
+		</item>
+		<item>
+			<title>Document Object Model (DOM) Selectors</title>
+			<link>https://thmsdnnr.com/post/document-object-model-dom-selectors/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/document-object-model-dom-selectors/</guid>
+			<description>
+				
+				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>let on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/let/</link>
+		<description>Recent content in let on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 31 Dec 2017 10:40:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/let/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Scope &amp; Closures: let vs var in JavaScript</title>
+			<link>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</guid>
+			<description>
+				
+				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

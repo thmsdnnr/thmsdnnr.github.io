@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Koch Snowflakes">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,fractals,koch,snowflake,triangle,equilateral"><meta name="description" content="Building Fractal Art with Koch Snowflakes on HTML5 Canvas."><meta property="og:title" content="Koch Snowflakes" />
+<meta property="og:description" content="Building Fractal Art with Koch Snowflakes on HTML5 Canvas." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/koch-snowflakes/" />
+<meta property="article:published_time" content="2018-01-23T17:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-23T17:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Koch Snowflakes"/>
+<meta name="twitter:description" content="Building Fractal Art with Koch Snowflakes on HTML5 Canvas."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Koch Snowflakes | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">23</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Koch Snowflakes</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="aEPJOp"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p>A Koch Snowflake going through 8 iterations from 3 to 12,288 sides</p>
+</blockquote>
+<p>A <a href="https://en.wikipedia.org/wiki/Koch_snowflake" target="_blank">Koch Snowflake</a> is a fractal that is generated by the recursive subdivision of line segments according to a simple rule. For the Snowflake seen above, the initial state is three line segments that form an equilateral triangle.</p>
+<p>The Koch Snowflake has the fascinating property that while it bounds a finite area, its perimeter tends toward infinity. Let&rsquo;s code this infinite perimeter in finite time.</p>
+<h3 id="lets-define-some-simple-objects">Let&rsquo;s define some simple objects.</h3>
+<p>We need to work with Segments. A line segment has two Points.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> Point <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (x, y) {
+  <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">=</span> x;
+  <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">=</span> y;
+};
+</code></pre></div><p>Points can be added: sum the X and Y component of both points</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Point.prototype.add <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (B) {
+  <span style="color:#8be9fd;font-style:italic">let</span> newX <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">+</span> B.x;
+  <span style="color:#8be9fd;font-style:italic">let</span> newY <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">+</span> B.y;
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> Point(newX, newY);
+};
+</code></pre></div><p>Points can be multiplied by a scalar: multiply the X and Y component by the scalar value</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Point.prototype.scalarMultiply <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (B) {
+  <span style="color:#8be9fd;font-style:italic">let</span> newX <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">*</span> B;
+  <span style="color:#8be9fd;font-style:italic">let</span> newY <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">*</span> B;
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> Point(newX, newY);
+};
+</code></pre></div><p>A segment holds two points.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> Segment <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (args <span style="color:#ff79c6">=</span> {}) {
+  <span style="color:#ff79c6">const</span> { A, B } <span style="color:#ff79c6">=</span> args;
+  <span style="color:#ff79c6">this</span>.A <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(A[<span style="color:#bd93f9">0</span>], A[<span style="color:#bd93f9">1</span>]);
+  <span style="color:#ff79c6">this</span>.B <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(B[<span style="color:#bd93f9">0</span>], B[<span style="color:#bd93f9">1</span>]);
+};
+
+Segment.prototype.split <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#6272a4">/* magical split function, to be defined */</span>
+};
+</code></pre></div><p><code>Segment.split()</code> will turn a segment into four line segments per the Koch method.</p>
+<h3 id="we-need-to-do-some-math">We need to do some math.</h3>
+<p><figure>
+  <img src="/assets/pics/koch_maths.png" alt="Geometry calculations for Koch Triangle"  />
+</figure></p>
+<blockquote>
+<p>thanks to <a href="https://stackoverflow.com/a/15368026" target="_blank">excellent StackOverflow answer</a></p>
+</blockquote>
+<p><code>Segment.split()</code> must calculate the value of points P, Q, and R given points A and B.</p>
+<p>We perform the following operation to create four new line segments from segment AB:</p>
+<ol>
+<li>Convert AB into three equal parts of <code>length</code> (red lines are the two split points)</li>
+<li>Draw an equilateral triangle with base points <code>length/3</code> (P) and <code>2*length/3</code> (R)</li>
+<li>Remove the base of the triangle, segment PR.</li>
+</ol>
+<p>To handle Step 3, we will simply not calculate the base of the triangle at all. Now we just need to calculate the X and Y coordinates of points A, B, P, Q, and R.</p>
+<h3 id="a-and-b">A and B</h3>
+<p>A and B are trivial.</p>
+<p><code>A: [this.A.x, this.A.y]</code>
+<code>B: [this.B.x, this.B.y]</code></p>
+<h3 id="p-and-r">P and R</h3>
+<p>P and R are also quite simple. We create the helper point <code>U</code> which has coordinates</p>
+<p><code>[this.B.x - this.A.x, this.B.y - this.A.y]</code></p>
+<p><strong>U helps us translate the Y component of P and R when AB is not horizontal.</strong></p>
+<p>We can then calculate points P and R with the <code>scalarMultiply</code> method that we gave our points. We can calculate these points relative to A. Points P and R correspond to the two red lines in the diagram, or the 1/3 and 2/3 split of the segment AB.</p>
+<p>P: <code>let P = this.A.add(U.scalarMultiply(1 / 3));</code></p>
+<p>R: <code>let R = this.A.add(U.scalarMultiply(2 / 3));</code></p>
+<p>If the line AB is horizontal, <code>A.y==B.y</code>, so the Y component of <code>U</code> will be zero. However, if the line is at an angle relative to the X-axis, the scalar multiplication adjusts the Y-component of P and R by a factor of (1/3) and (2/3) times the &ldquo;difference in Y&rdquo; between A and B.</p>
+<h3 id="the-dreaded-point-q">The dreaded Point Q</h3>
+<p>Q is the trickiest one. Just repeat: move to the midpoint of AB and distribute the height, proportional to AB&rsquo;s orientation. That&rsquo;s all there is to it.</p>
+<p>Okay, sorry&hellip;that was a mouthful.</p>
+<p>We know the altitude of an equilateral triangle is <code>side*sqrt(3)/2</code>.</p>
+<p>Since our equilateral triangle consists of a <em>third</em> of the side length, the height of our triangle becomes <code>(side/3)*sqrt(3)/2</code> or <code>side*sqrt(3)/6</code>.</p>
+<p>Q will always be altitude <code>side*sqrt(3)/6</code> away from segment AB. The question is only: how do we calculate this point when AB is not horizontal?</p>
+<p><em>How much of the altitude is distributed to the X and Y component of Q, given a rotation of AB?</em></p>
+<p>Here we make use of the helper point <code>V</code>, which has coordinates</p>
+<p><code>[this.A.y - this.B.y, this.B.x - this.A.x]</code></p>
+<p>Point V is the result of rotating Point U 90 degrees counterclockwise relative to the origin. You can rotate a point (x, y) in this way by transforming it into (-y, x).</p>
+<p>Once we have Point V, we have only to use it.</p>
+<blockquote>
+<p><strong>V helps us translate the X component of Q when AB is not horizontal.</strong></p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> Q <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.A.add(
+  U.scalarMultiply(<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>).add(V.scalarMultiply(<span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#bd93f9">3</span>) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">6</span>))
+);
+</code></pre></div><p>First, we translate Point A to the midpoint of AB by multiplying by <code>U*(1/2)</code>.</p>
+<p>Then we need to distribute the height to the X and Y components based on the orientation of AB.</p>
+<p>Have a look at this diagram and work through the following three cases.</p>
+<p><figure>
+  <img src="/assets/pics/koch_dimensions.png" alt="Diagram with three Koch curve segments rotated at 0, 45, and 90 degrees relative to origin"  />
+</figure></p>
+<ol>
+<li>
+<p>Consider: if AB is horizontal, <code>A.y-B.y==0</code>, so the x-component of V will be zero. We distribute all the height to the Y component of Q.</p>
+</li>
+<li>
+<p>Consider: if AB is rotated 45 degrees CCW relative to the origin, <code>A.y-B.y==(-1)*s/sqrt(2)</code> and <code>B.x-A.x==s/sqrt(2)</code>. We distribute half the height to the X component of Q (subtracting from Q) and half the height to the Y component of Q.</p>
+</li>
+<li>
+<p>Consider: if AB is rotated 90 degrees CCW relative to the origin, <code>A.y-B.y==(-1*)sideLength</code>. <code>B.x-A.x==0</code>. We distribute all the height to the X component of Q (subtracting from Q) and none of the height to the Y component of Q (Q&rsquo;s Y stays at the midpoint of AB).</p>
+</li>
+</ol>
+<p><em>Note how since we handled these cases for the first and second quadrant, where <code>A.y&lt;B.y</code>, we are also covered if the rotation is CW about the origin into the third or fourth quadrant: in these cases, <code>A.y&gt;B.y</code>, so we ADD to the X component of Q instead of subtract.</em></p>
+<h3 id="we-finished-segmentsplit">We finished Segment.split()!</h3>
+<p>We already did all the tricky maths. Now we just have to fill in the points, based our calculations above. Coding Segment.split is trivial, since we planned what we were going to do before we tried to do it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Segment.prototype.split <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">let</span> U <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(<span style="color:#ff79c6">this</span>.B.x <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.A.x, <span style="color:#ff79c6">this</span>.B.y <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.A.y);
+  <span style="color:#8be9fd;font-style:italic">let</span> V <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(<span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.B.y, <span style="color:#ff79c6">this</span>.B.x <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.A.x);
+  <span style="color:#8be9fd;font-style:italic">let</span> P <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.A.add(U.scalarMultiply(<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">3</span>));
+  <span style="color:#8be9fd;font-style:italic">let</span> Q <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.A.add(
+    U.scalarMultiply(<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>).add(V.scalarMultiply(<span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#bd93f9">3</span>) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">6</span>))
+  );
+  <span style="color:#8be9fd;font-style:italic">let</span> R <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.A.add(U.scalarMultiply(<span style="color:#bd93f9">2</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">3</span>));
+
+  <span style="color:#ff79c6">return</span> [
+    <span style="color:#ff79c6">new</span> Segment({
+      <span style="color:#6272a4">// AP
+</span><span style="color:#6272a4"></span>      A<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x, <span style="color:#ff79c6">this</span>.A.y],
+      B<span style="color:#ff79c6">:</span> [P.x, P.y],
+    }),
+    <span style="color:#ff79c6">new</span> Segment({
+      <span style="color:#6272a4">// PQ
+</span><span style="color:#6272a4"></span>      A<span style="color:#ff79c6">:</span> [P.x, P.y],
+      B<span style="color:#ff79c6">:</span> [Q.x, Q.y],
+    }),
+    <span style="color:#ff79c6">new</span> Segment({
+      <span style="color:#6272a4">// QR
+</span><span style="color:#6272a4"></span>      A<span style="color:#ff79c6">:</span> [Q.x, Q.y],
+      B<span style="color:#ff79c6">:</span> [R.x, R.y],
+    }),
+    <span style="color:#ff79c6">new</span> Segment({
+      <span style="color:#6272a4">// RB
+</span><span style="color:#6272a4"></span>      A<span style="color:#ff79c6">:</span> [R.x, R.y],
+      B<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.B.x, <span style="color:#ff79c6">this</span>.B.y],
+    }),
+  ];
+};
+</code></pre></div><h3 id="using-what-we-already-made">Using what we already made</h3>
+<p>We can use the same code that we wrote for the <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/06/html5-canvas-sierpinski-triangle.html" target="_blank">Sierpinski Triangle</a> tutorial to generate and play through the phases of evolution of the Koch Snowflake.</p>
+<p>We&rsquo;ll define our three starting line segments as the three sides of an equilateral triangle. Our <code>Segment</code> object does all the heavy lifting of figuring out how to split itself up given its orientation. We then simply iterate over the number of levels to generate our lovely snowflake.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> triWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">400</span>;
+<span style="color:#ff79c6">const</span> triHeight <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#bd93f9">3</span>) <span style="color:#ff79c6">*</span> triWidth) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>;
+
+<span style="color:#8be9fd;font-style:italic">let</span> startingLine <span style="color:#ff79c6">=</span> [
+  <span style="color:#ff79c6">new</span> Segment({ A<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>], B<span style="color:#ff79c6">:</span> [triWidth <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, triHeight] }),
+  <span style="color:#ff79c6">new</span> Segment({ A<span style="color:#ff79c6">:</span> [triWidth <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, triHeight], B<span style="color:#ff79c6">:</span> [triWidth, <span style="color:#bd93f9">0</span>] }),
+  <span style="color:#ff79c6">new</span> Segment({ A<span style="color:#ff79c6">:</span> [triWidth, <span style="color:#bd93f9">0</span>], B<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>] }),
+];
+
+<span style="color:#ff79c6">const</span> levels <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">6</span>;
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;=</span> levels; i<span style="color:#ff79c6">++</span>) {
+  startingLine <span style="color:#ff79c6">=</span> startingLine
+    .map((t) =&gt; t.split())
+    .reduce((arr, c) =&gt; arr.concat(c), []);
+}
+</code></pre></div><h3 id="those-lines-look-a-little-jagged">Those lines look a little jagged</h3>
+<p>Ah, what an astute observer! What&rsquo;s happening here is twofold:</p>
+<ol>
+<li>Drawing lines on HTML canvas that are incredibly close together and at strange decimal offsets</li>
+<li>Error propagation due to cumulative rounding inaccuracies of floating-point arithmetic</li>
+</ol>
+<p>We&rsquo;ve already seen #1 before <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank">in our previous HTML5 canvas tutorials</a>. That&rsquo;s why we call <code>ctx.translate(0.5, 0.5)</code> for smooth lines (so we draw &ldquo;on&rdquo; a pixel instead of &ldquo;between&rdquo; pixels).</p>
+<p>For #2, just try this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">console.log(<span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0.2</span>); <span style="color:#6272a4">// true
+</span><span style="color:#6272a4"></span>console.log(<span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0.2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0.3</span>); <span style="color:#6272a4">// false... what the?!
+</span><span style="color:#6272a4"></span>
+console.log(<span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0.1</span>); <span style="color:#6272a4">// 0.2 -- okay, looks good
+</span><span style="color:#6272a4"></span>console.log(<span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0.2</span>); <span style="color:#6272a4">// 0.30000000000000004 -- facepalm
+</span></code></pre></div><p>If you&rsquo;d like to know why, check out how computers store decimal values using <a href="http://floating-point-gui.de/formats/binary/" target="_blank">binary fractions</a> and <a href="https://stackoverflow.com/questions/17849101/laymans-explanation-for-why-javascript-has-weird-floating-math-ieee-754-stand" target="_blank">this StackOverflow post</a> about Javascript and the IEEE-754 floating point number standard, specifically.</p>
+<p>Believe it or not, <em>even 0.1+0.1</em> generates rounding error. You just don&rsquo;t see it in the previous example, because JavaScript&rsquo;s internal number format has rules for rounding the result of floating point arithmetic.</p>
+<p>Whenever the error becomes greater than the least significant digit of the result, you get incorrect answers. See this example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> start <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">100</span>; i<span style="color:#ff79c6">++</span>) {
+  start <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">0.1</span>;
+}
+console.log(<span style="color:#bd93f9">10</span> <span style="color:#ff79c6">-</span> start); <span style="color:#6272a4">// cumulative error: 1.9539925233402755e-14
+</span><span style="color:#6272a4"></span>console.log(start); <span style="color:#6272a4">// we expect 10, we get: 9.99999999999998
+</span></code></pre></div><p>Feels a little bit like <a href="http://www.imdb.com/title/tt0151804/" target="_blank">Office Space</a>, huh?</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/equilateral/"> equilateral </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/fractals/"> fractals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/koch/"> koch </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/snowflake/"> snowflake </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/triangle/"> triangle </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

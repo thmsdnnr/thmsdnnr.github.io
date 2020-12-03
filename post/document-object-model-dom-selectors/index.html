@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Document Object Model (DOM) Selectors">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,querySelector,querySelectorAll,DOM,selectors"><meta name="description" content="Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them."><meta property="og:title" content="Document Object Model (DOM) Selectors" />
+<meta property="og:description" content="Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/document-object-model-dom-selectors/" />
+<meta property="article:published_time" content="2018-01-04T23:56:04+00:00" />
+<meta property="article:modified_time" content="2018-01-04T23:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Document Object Model (DOM) Selectors"/>
+<meta name="twitter:description" content="Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Document Object Model (DOM) Selectors | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">04</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Document Object Model (DOM) Selectors</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>The <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">Document Object Model (DOM)</a> is how browsers turn your code into a user experience. I know, it&rsquo;s just one character away from &ldquo;doom&rdquo;, but I promise: after this tutorial, you&rsquo;ll gain some clarity.</p>
+<h3 id="the-dom">The DOM</h3>
+<p>Here&rsquo;s a basic webpage.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML">&lt;<span style="color:#ff79c6">html</span>&gt;
+    &lt;<span style="color:#ff79c6">head</span>&gt;
+        &lt;<span style="color:#ff79c6">title</span>&gt;a cool page&lt;/<span style="color:#ff79c6">title</span>&gt;
+    &lt;/<span style="color:#ff79c6">head</span>&gt;
+    &lt;<span style="color:#ff79c6">body</span>&gt;
+        &lt;<span style="color:#ff79c6">p</span>&gt;a paragraph here&lt;/<span style="color:#ff79c6">p</span>&gt;
+    &lt;/<span style="color:#ff79c6">body</span>&gt;
+&lt;/<span style="color:#ff79c6">html</span>&gt;
+</code></pre></div><p>How does the browser know to translate these HTML tags and the data they enclose into what we see?</p>
+<p>It begins by parsing the source code into the DOM tree. In the tree, there are parents and children. The top of the tree is the <code>document</code> element. Beneath that element (in our example) is the <code>html</code> element. Nested within HTML is head -&gt; title, and body -&gt; p. Note the &ldquo;parent -&gt; child&rdquo; relationship in the tree.</p>
+<p>As soon as a page loads, we can use JavaScript to select and manipulate any of the elements of the page via the DOM tree. Before we are able to select or manipulate the DOM, it has to exist. This might seem intuitive, but we have to tell our code this explicitly. Code that selects or manipulates the DOM should be wrapped in a <code>window.onload(){}</code>. Otherwise you&rsquo;ll get an error. Things will not work.</p>
+<h3 id="selecting-elements">Selecting Elements</h3>
+<p>Our <code>document</code> provides a few methods to select its elements. Each method is passed a string: a name, tagname, ID, or className, or a CSS selector (in the case of querySelector).</p>
+<h5 id="selecting-single-elements">selecting single elements</h5>
+<ul>
+<li><code>document.querySelector()</code></li>
+</ul>
+<h5 id="select-the-element-returned-by-a-css-selector-eg-divcontent">select the element returned by a css selector, e.g., &lsquo;div#content&rsquo;</h5>
+<ul>
+<li><code>getElementById()</code></li>
+</ul>
+<p>Elements should not have the same ID. If two do, however, <code>getElementById</code> will return whichever one comes first on the page.</p>
+<h5 id="select-all-elements-with-a-given-class-name">select all elements with a given class name</h5>
+<ul>
+<li><code>getElementsByClassName()</code></li>
+</ul>
+<h5 id="select-all-elements-with-a-given-attribute-name">select all elements with a given attribute &ldquo;name&rdquo;</h5>
+<ul>
+<li><code>getElementsByName()</code></li>
+</ul>
+<h5 id="select-all-elements-with-a-given-name-eg-input-nameusername-">select all elements with a given name, e.g., <code>&lt;input name=&quot;username&quot; /&gt;</code></h5>
+<ul>
+<li><code>getElementsByTagName()</code></li>
+</ul>
+<h5 id="select-all-elements-with-a-given-tag-name-eg-form-or-button">select all elements with a given tag name (e.g., <code>form</code> or <code>button</code>)</h5>
+<ul>
+<li><code>document.querySelectorAll()</code></li>
+</ul>
+<h5 id="select-all-the-elements-returned-by-a-css-selector-eg-divcontent">select all the elements returned by a css selector, e.g., &lsquo;div.content&rsquo;</h5>
+<h3 id="what-to-do-with-our-selection">What to do with our selection?</h3>
+<p><code>console.dir()</code> is your best friend. If you call it on a selected element, you&rsquo;ll get a huge list of properties. We won&rsquo;t discuss them all here, but there are a few that are commonly used:</p>
+<ul>
+<li><code>classList</code> is the list of classes currently applied to an element.</li>
+<li><code>classList</code> has a method <code>.toggle()</code> that can be used to toggle a class on and off for an element. This can be used to show/hide an element, for example</li>
+<li><code>style</code> is the CSS style that is being applied to the element.</li>
+<li><code>innerHTML</code> is the HTML present within a tag</li>
+<li><code>innerText</code> is the innerHTML with the tags removed (text only)</li>
+<li><code>textContent</code> is the standardized and recommended version of <code>innerText</code> to use.</li>
+<li><code>value</code> is the value of an input element like a form or textarea</li>
+</ul>
+<h3 id="a-simple-example-word-frequency-with-getelementsbytagname">a simple example: word frequency with <code>getElementsByTagName</code></h3>
+<p>Paste this into the JS console when you&rsquo;re on any page with paragraphs. <a href="https://en.wikipedia.org/wiki/HTML" target="_blank">Wikipedia</a> is good:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> A <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Array</span>.from(<span style="color:#8be9fd;font-style:italic">document</span>.getElementsByTagName(<span style="color:#f1fa8c">&#34;p&#34;</span>));
+<span style="color:#8be9fd;font-style:italic">let</span> joinedWords <span style="color:#ff79c6">=</span> A.map((e) =&gt;
+  e.textContent.split(<span style="color:#f1fa8c">&#34; &#34;</span>).filter((e) =&gt; e.length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>)
+).reduce((acc, b) =&gt; acc.concat(b), []);
+<span style="color:#8be9fd;font-style:italic">let</span> d <span style="color:#ff79c6">=</span> {};
+joinedWords.forEach((word) =&gt; (d[word] <span style="color:#ff79c6">?</span> d[word]<span style="color:#ff79c6">++</span> <span style="color:#ff79c6">:</span> (d[word] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>)));
+
+<span style="color:#8be9fd;font-style:italic">let</span> kv <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.keys(d).map((k) =&gt; [k, d[k]]);
+kv.sort((a, b) =&gt; b[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">-</span> a[<span style="color:#bd93f9">1</span>]);
+console.log(kv.slice(<span style="color:#bd93f9">10</span>));
+</code></pre></div><p><code>getElementsByTagName</code> returns an &ldquo;array-like selection&rdquo;, so we use <code>Array.from()</code> to give us something we can <code>map</code> over. Then we map each HTML Node to its textContent, filter out empty elements and spaces, concatenate each paragraph&rsquo;s text, and count the occurrences of each word using a hash. We then map the hash&rsquo;s keys and values to an array and sort that array in ascending order based on word frequency. Finally, we log out word frequency for the given page.</p>
+<p>See how powerful a simple selector can be? Try using selectors in your own code or on pages you visit to select elements of interest. Try selecting and styling elements using CSS, and by toggling classes.</p>
+<p>Once you&rsquo;re comfortable with selecting elements, we can discuss how to add event listeners to elements, in order to make the elements themselves responsive to changes in the page and user interaction. This is just the tip of the iceberg of what JS can do. Stay tuned!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/dom/"> dom </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/queryselector/"> queryselector </a>
+			
+			
+			
+			
+			
+			<a href="/tags/queryselectorall/"> queryselectorall </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/selectors/"> selectors </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

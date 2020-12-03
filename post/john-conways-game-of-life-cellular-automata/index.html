@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="John Conway&#39;s Game of Life: Cellular Automata">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="automata"><meta name="description" content="John Conway&#39;s Game of Life simulation implemented in JavaScript."><meta property="og:title" content="John Conway&#39;s Game of Life: Cellular Automata" />
+<meta property="og:description" content="John Conway&#39;s Game of Life simulation implemented in JavaScript." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/" />
+<meta property="article:published_time" content="2017-12-29T08:40:04+00:00" />
+<meta property="article:modified_time" content="2017-12-29T08:40:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="John Conway&#39;s Game of Life: Cellular Automata"/>
+<meta name="twitter:description" content="John Conway&#39;s Game of Life simulation implemented in JavaScript."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>John Conway&#39;s Game of Life: Cellular Automata | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">29</span>
+				<span class="rest">Dec 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">John Conway&#39;s Game of Life: Cellular Automata</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="baWVQB"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">The Game of Life</a> is a <a href="https://en.wikipedia.org/wiki/Cellular_automaton" target="_blank">cellular automaton</a> simulation. It provides a good example of emergent properties, or higher orders of complexity that can arise from applying a simple set of rules.</p>
+</blockquote>
+<p>A cellular automaton consists of a finite grid of cells with a finite number of possible states. There are typically rules governing the evolution of these states over time. In the case of the Game of Life, there are only two states: alive and dead. The simulation proceeds forward one <code>generation</code> at a time by evaluating a rules for each cell and updating the simulation.</p>
+<p>In each generation, we evaluate these rules for each in the grid to determine the next generation:</p>
+<h3 id="if-the-cell-is-alive">if the cell is alive:</h3>
+<ol>
+<li>If it has fewer than two living neighbors, it dies (simulating underpopulation)</li>
+<li>If it has two or three live neighbors, it continues to live</li>
+<li>If it has more than three live neighbors, it dies (simulating overpopulation).</li>
+</ol>
+<h3 id="if-the-cell-is-dead">if the cell is dead:</h3>
+<ol>
+<li>If the cell has three live neighbors, it comes back to life (simulating reproduction).</li>
+</ol>
+<p>Each cell will be represented by an element in an array. Living cells are 1s and dead cells are 0s. In each generation, we compute a score of living neighbors for each cell by summing the values of its neighboring cells.</p>
+<h3 id="data-structure">data structure</h3>
+<p>We need an array of length <code>n^2</code> to hold our cell states.
+We need a function to initialize the array with a random state, 1 or 0.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> sideLength <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">10</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> states <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(<span style="color:#8be9fd;font-style:italic">Math</span>.pow(sideLength, <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>)
+  .fill(<span style="color:#bd93f9">0</span>)
+  .map((e) =&gt; (<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0.5</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>));
+</code></pre></div><h3 id="data-methods">data methods</h3>
+<p>We need a function to evaluate the &ldquo;living&rdquo; or &ldquo;dying&rdquo; rules on each cell and return a new array. We need to take care not to modify the array in-place. We take a snapshot of the array and create a <em>new</em> array based on the snapshot. Mutating the snapshot would change the rules' outcome. We return a new array from the function and then set this equal to the next state of the board.</p>
+<h3 id="the-trickiest-part">the trickiest part</h3>
+<p>The hardest part is accessing the indices of neighbors to evaluate whether a given cell lives or dies.</p>
+<p>First, we&rsquo;ll write a helper function to take the current state of a cell and its number of live neighbors. It will return the next state of the cell, alive (1) or dead (0).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> cellDestiny(currentState, neighborCt) {
+  <span style="color:#ff79c6">if</span> (currentState <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">1</span>) {
+    <span style="color:#ff79c6">if</span> (neighborCt <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">||</span> neighborCt <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">3</span>) {
+      <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+    } <span style="color:#ff79c6">else</span> {
+      <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>;
+    }
+  }
+  <span style="color:#ff79c6">if</span> (neighborCt <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">3</span>) {
+    <span style="color:#6272a4">// if dead but three live neighbors
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>;
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+}
+
+</code></pre></div><p>Now we&rsquo;ll iterate through our state array cell-by-cell. For each cell we will:</p>
+<ol>
+<li>Identify its neighbors</li>
+<li>Sum the score of its living neighbors in <code>liveNeighborCt</code> (including diagonals)</li>
+<li>Call <code>cellDestiny</code> with <code>liveNeighborCt</code> and the current cell&rsquo;s state</li>
+</ol>
+<p>We will need to bounds-check the validity of the indices so that we do not attempt to access values outside of the array (e.g., non-existent neighbors for elements on the perimeter).</p>
+<p>Here is the strategy:</p>
+<ol>
+<li>Take the index of the cell, <code>i</code>.</li>
+<li><code>i-sideLength</code> is the cell above.</li>
+</ol>
+<ul>
+<li>Check to see if we are in the top row. If not, add the cell above. If so, set <code>topRow</code> flag.</li>
+</ul>
+<ol start="3">
+<li><code>i+sideLength</code> is the cell below.</li>
+</ol>
+<ul>
+<li>Check to see if we are in the bottom row. If not, add the cell below. If so, set <code>bottomRow</code> flag.</li>
+</ul>
+<ol start="4">
+<li><code>i-1</code> is the cell to the left.</li>
+</ol>
+<ul>
+<li>Check to see if we are in the left-most column. If not, add the cell to the left, and the cells left-above and left-below (if in bounds).</li>
+</ul>
+<ol start="5">
+<li><code>i+1</code> is the cell to the right.</li>
+</ol>
+<ul>
+<li>Check to see if we are in the right-most column. If not, add the cell to the right, and the cells right-above and right-below (if in bounds).</li>
+</ul>
+<p>We can encapsulate all of this logic in a for-loop. The only tricky math involved here is figuring out if we are in the left-most or right-most column.</p>
+<p>Whenever we are in the left-most column, the index of the cell will divide evenly into <code>sideLength</code>. Similarly, whenever we are in the right-most column, the <code>index+1</code> will divide evenly into <code>sideLength</code>, since when we add one to the right-most column, we wrap around to the left-most column of the next row. <code>4+1=5</code>, and <code>5%5==0</code>. <code>9+1=10</code>, and <code>10%5==0</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> processState(stateArr, sideLength) {
+  <span style="color:#8be9fd;font-style:italic">let</span> nextState <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> stateArr.length; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> topRow <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    <span style="color:#8be9fd;font-style:italic">let</span> bottomRow <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    <span style="color:#8be9fd;font-style:italic">let</span> liveNeighborCt <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">-</span> sideLength <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#6272a4">// add neighbor above
+</span><span style="color:#6272a4"></span>      liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">-</span> sideLength]; <span style="color:#6272a4">// #1
+</span><span style="color:#6272a4"></span>    } <span style="color:#ff79c6">else</span> {
+      topRow <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+    }
+    <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">+</span> sideLength <span style="color:#ff79c6">&lt;=</span> stateArr.length) {
+      <span style="color:#6272a4">// add neighbor below
+</span><span style="color:#6272a4"></span>      liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">+</span> sideLength]; <span style="color:#6272a4">// #2
+</span><span style="color:#6272a4"></span>    } <span style="color:#ff79c6">else</span> {
+      bottomRow <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+    }
+    <span style="color:#ff79c6">if</span> ((i <span style="color:#ff79c6">-</span> sideLength) <span style="color:#ff79c6">%</span> sideLength <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#6272a4">// if we are not at the left edge
+</span><span style="color:#6272a4"></span>      liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>]; <span style="color:#6272a4">// #3
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>topRow) {
+        liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">-</span> sideLength <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>];
+      } <span style="color:#6272a4">// #5
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>bottomRow) {
+        liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">+</span> sideLength <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>];
+      } <span style="color:#6272a4">//#6
+</span><span style="color:#6272a4"></span>    }
+    <span style="color:#ff79c6">if</span> ((i <span style="color:#ff79c6">+</span> sideLength) <span style="color:#ff79c6">%</span> sideLength <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#6272a4">// if we are not at the right edge
+</span><span style="color:#6272a4"></span>      liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>]; <span style="color:#6272a4">// #4
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>topRow) {
+        liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">-</span> sideLength <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>];
+      } <span style="color:#6272a4">// #7
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>bottomRow) {
+        liveNeighborCt <span style="color:#ff79c6">+=</span> stateArr[i <span style="color:#ff79c6">+</span> sideLength <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>];
+      } <span style="color:#6272a4">// #8
+</span><span style="color:#6272a4"></span>    }
+    nextState.push(cellDestiny(stateArr[i], liveNeighborCt));
+  }
+  <span style="color:#ff79c6">return</span> nextState;
+}
+</code></pre></div><h3 id="d3-visualization">d3 visualization</h3>
+<p>We&rsquo;ve written all the code. We can call <code>processState</code> with our random array and get back an updated array. But it&rsquo;s not so interesting. We&rsquo;re going to create a grid of squares to visualize the patterns in the data. Each square will have a color associated with it. Live cells will have high-opacity fills and dead cells will have low-opacity fills. We&rsquo;ll then throw <code>processState</code> in a <code>setInterval</code> so that we can view many generations of the board and watch it evolve over time.</p>
+<p>We can use d3 to draw the squares. We&rsquo;ll create an <code>init()</code> function to draw the SVG element. Then we&rsquo;ll bind our data array to the element and append an SVG <code>rect</code> for each element of data.</p>
+<p>We set the <code>x</code> and <code>y</code> coordinates of the squares so that they show up as a grid. The X coordinate will be a repeating pattern for each row (since this is the X-coordinate of a column), and it is based on the side length of each square and which column we are in (given by <code>idx%squaresPerRow</code>).</p>
+<p>The <code>y</code> coordinate is increasing for each index, but constant for each row. Thus, it is the whole part of <code>idx/squaresPerRow</code> multiplied by the side length of our squares.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> squaresPerRow <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">20</span>;
+<span style="color:#ff79c6">const</span> squareSideLen <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">10</span>;
+<span style="color:#ff79c6">const</span> boardDim <span style="color:#ff79c6">=</span> squaresPerRow <span style="color:#ff79c6">*</span> squareSideLen;
+
+<span style="color:#8be9fd;font-style:italic">function</span> init() {
+  <span style="color:#8be9fd;font-style:italic">let</span> states <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(<span style="color:#8be9fd;font-style:italic">Math</span>.pow(squaresPerRow, <span style="color:#bd93f9">2</span>))
+    .fill(<span style="color:#bd93f9">0</span>)
+    .map((e) =&gt; (<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0.5</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>));
+  <span style="color:#8be9fd;font-style:italic">var</span> grid <span style="color:#ff79c6">=</span> d3
+    .select(<span style="color:#f1fa8c">&#34;#grid&#34;</span>)
+    .append(<span style="color:#f1fa8c">&#34;svg&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;width&#34;</span>, boardDim)
+    .attr(<span style="color:#f1fa8c">&#34;height&#34;</span>, boardDim);
+  <span style="color:#8be9fd;font-style:italic">var</span> cell <span style="color:#ff79c6">=</span> grid
+    .selectAll(<span style="color:#f1fa8c">&#34;.cell&#34;</span>)
+    .data(states)
+    .enter()
+    .append(<span style="color:#f1fa8c">&#34;rect&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;class&#34;</span>, <span style="color:#f1fa8c">&#34;cell&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;height&#34;</span>, squareSideLen <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;px&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;width&#34;</span>, squareSideLen <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;px&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;margin&#34;</span>, <span style="color:#f1fa8c">&#34;1px&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;stroke&#34;</span>, <span style="color:#f1fa8c">&#34;black&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;stroke-width&#34;</span>, <span style="color:#f1fa8c">&#34;1px&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;x&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d, idx) {
+      <span style="color:#ff79c6">return</span> (idx <span style="color:#ff79c6">%</span> squaresPerRow) <span style="color:#ff79c6">*</span> squareSideLen;
+    })
+    .attr(<span style="color:#f1fa8c">&#34;y&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d, idx) {
+      <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(idx <span style="color:#ff79c6">/</span> squaresPerRow) <span style="color:#ff79c6">*</span> squareSideLen;
+    })
+    .attr(<span style="color:#f1fa8c">&#34;fill&#34;</span>, <span style="color:#f1fa8c">&#34;salmon&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;fill-opacity&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+      <span style="color:#ff79c6">return</span> d <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> <span style="color:#f1fa8c">&#34;1.0&#34;</span> <span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;0.5&#34;</span>;
+    });
+}
+</code></pre></div><p>Finally, we define a function to update our d3 data display. We call it with the data array that is returned from <code>processState</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> updateData(states) {
+  <span style="color:#8be9fd;font-style:italic">var</span> grid <span style="color:#ff79c6">=</span> d3.select(<span style="color:#f1fa8c">&#34;div#grid&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">var</span> cells <span style="color:#ff79c6">=</span> grid.selectAll(<span style="color:#f1fa8c">&#34;.cell&#34;</span>).data(states);
+  cells.attr(<span style="color:#f1fa8c">&#34;fill-opacity&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+    <span style="color:#ff79c6">return</span> d <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> <span style="color:#f1fa8c">&#34;1.0&#34;</span> <span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;0.3&#34;</span>;
+  });
+}
+</code></pre></div><p>It toggles the fill-opacity of cells based on whether or not they are alive (&lsquo;1.0&rsquo;) or dead (&lsquo;0.3&rsquo;).</p>
+<h3 id="animation">animation</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> UPDATE_EVERY_MS <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">100</span>; <span style="color:#6272a4">// update every 100ms
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> interval <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+
+<span style="color:#8be9fd;font-style:italic">function</span> tick(initialState) {
+  <span style="color:#8be9fd;font-style:italic">var</span> lastState <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#8be9fd;font-style:italic">var</span> nextState;
+  interval <span style="color:#ff79c6">=</span> setInterval(() =&gt; {
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>lastState) {
+      nextState <span style="color:#ff79c6">=</span> processState(initialState, squaresPerRow);
+    } <span style="color:#ff79c6">else</span> {
+      nextState <span style="color:#ff79c6">=</span> processState(lastState, squaresPerRow);
+    }
+    updateData(nextState);
+    lastState <span style="color:#ff79c6">=</span> nextState;
+  }, UPDATE_EVERY_MS);
+}
+</code></pre></div><h3 id="start-the-simulation">start the simulation</h3>
+<p>All that&rsquo;s left to do is call the functions we created when the window loads up.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">init();
+<span style="color:#8be9fd;font-style:italic">let</span> initial <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(<span style="color:#8be9fd;font-style:italic">Math</span>.pow(squaresPerRow, <span style="color:#bd93f9">2</span>))
+  .fill(<span style="color:#bd93f9">0</span>)
+  .map((e) =&gt; (<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0.5</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>));
+tick(initial);
+</code></pre></div><p>I added a reset button and some simple styling that you can see from the CodePen. It&rsquo;s neat how easy it is to set up a complex simulation and visualization using D3.</p>
+<h3 id="next-steps">next steps?</h3>
+<p>The Game of Life has many <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns" target="_blank">emergent patterns</a>. Ideas for new features include:</p>
+<ul>
+<li>allow user to &ldquo;paint&rdquo; an initial state by clicking on cells</li>
+<li>pre-program known patterns and let the user click tabs to toggle between them</li>
+<li>recognize and count the number of pattern occurrences for a given # of generations</li>
+<li>graph pattern frequency of occurrence in real-time with D3</li>
+<li>display a different color for cells that have just died or just come back to life</li>
+<li>display a different color for cells as they age (tracking stability of patterns &amp; clusters)</li>
+</ul>
+<p>You could even change the rules and create your own automata. Experiment and have fun with it!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/automata/"> automata </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/automata/"> automata </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Binary Search Trees: Handling Deletion">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,stack,queue,big-O,complexity,dataStructures,binaryTree,treeTraversal,deletion"><meta name="description" content="Handling deletion in Binary Search Trees for nodes with zero, one, and two children."><meta property="og:title" content="Binary Search Trees: Handling Deletion" />
+<meta property="og:description" content="Handling deletion in Binary Search Trees for nodes with zero, one, and two children." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/binary-search-trees-handling-deletion/" />
+<meta property="article:published_time" content="2018-02-02T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-02-02T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Binary Search Trees: Handling Deletion"/>
+<meta name="twitter:description" content="Handling deletion in Binary Search Trees for nodes with zero, one, and two children."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Binary Search Trees: Handling Deletion | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">02</span>
+				<span class="rest">Feb 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Binary Search Trees: Handling Deletion</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="deletion">Deletion</h2>
+<p>We saved deletion for last because, well, it&rsquo;s just a little tricky. It&rsquo;s similar to the deletion considerations we had for <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/31/linked-lists.html" target="_blank">linked lists</a>. We first find the node to delete. If it exists, we then consider how to handle the blank space left after its deletion. There are three possible cases:</p>
+<ol>
+<li>The node is a leaf node. It has 0 children. Simply remove the node from the tree.</li>
+<li>The node has one child. We splice it out, connecting its parent to its child.</li>
+<li>The node has <em>three</em> children. We follow the following algorithm:</li>
+</ol>
+<ul>
+<li>Find the successor of the node.</li>
+<li>Remove the successor and splice the parent with its right child.</li>
+<li>Save the successor we spliced out and swap it with the node to be deleted.</li>
+</ul>
+<p>We are able to splice out the successor from the tree as though it were case #2, a node with only one child. You might worry though: what if the successor has two children? Believe it or not, that&rsquo;s impossible.</p>
+<p>How do we know the successor can&rsquo;t have a left child? By virtue of its being a successor.</p>
+<p>We define the successor S as the smallest element strictly greater than its parent.</p>
+<ol>
+<li>Since this is a binary search tree, left children are always strictly less than their parents, and right children are always strictly greater than their parents.</li>
+<li>If S had a left child (C), that left child would have to be less than S.</li>
+<li>But S is, by definition, the smallest strictly greater element.</li>
+</ol>
+<p>So if S &ldquo;had&rdquo; a left child, S would not be the successor: C would be.</p>
+<p>Before we write any code, let&rsquo;s visualize the three cases.</p>
+<h3 id="visualization">Visualization</h3>
+<p>Here&rsquo;s the before and after for deleting a node with 0, 1, and 2 children.</p>
+<p><figure>
+  <img src="/assets/pics/btree/before.png" alt="Binary search tree before any deletion or modification operations"  />
+</figure></p>
+<blockquote>
+<p>Delete Node 9: a node with no children</p>
+</blockquote>
+<p><figure>
+  <img src="/assets/pics/btree/after_0.png" alt="Binary search tree after deleting a node with no children."  />
+</figure></p>
+<blockquote>
+<p>Delete Node 7: a node with one child</p>
+</blockquote>
+<p><figure>
+  <img src="/assets/pics/btree/after_1.png" alt="Binary search tree after deleting a node with one child"  />
+</figure></p>
+<blockquote>
+<p>Delete Node 5 (the root node) a node with two children</p>
+</blockquote>
+<p><figure>
+  <img src="/assets/pics/btree/after_2.png" alt="Binary search tree after deleting a node with two children (the root node)"  />
+</figure></p>
+<h3 id="now-lets-write-some-code">Now let&rsquo;s write some code.</h3>
+<p>We need a few helper functions for the tricky cases. One will find the successor for a given node by recursing down the leftmost branch until we reach a leaf node:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> findSuccessor(N) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>(N <span style="color:#ff79c6">&amp;&amp;</span> N.right)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  N <span style="color:#ff79c6">=</span> N.right;
+  <span style="color:#ff79c6">while</span> (N.left <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    N <span style="color:#ff79c6">=</span> N.left;
+  }
+  <span style="color:#ff79c6">return</span> N;
+}
+</code></pre></div><p>If a node does not have a right child, it doesn&rsquo;t have a successor. If it does have a right child, we find its successor by traversing to the right child and then recursing left until we reach a leaf node.</p>
+<p>We&rsquo;ll also write a simple function to return the number of child nodes given a node, so that we know which of the three deletion cases we&rsquo;re handling.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> countChildren(node) {
+  <span style="color:#ff79c6">return</span> (node.right <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">+</span> (node.left <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>);
+}
+</code></pre></div><p>We&rsquo;ll also write one other helper method, <code>findParent</code>. This returns the parent node of a given node. It returns null if the node does not exist in the tree, or if the node is the tree&rsquo;s parent.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> findParent(tree, node) {
+  <span style="color:#ff79c6">if</span> (tree <span style="color:#ff79c6">==</span> node) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+  } <span style="color:#6272a4">// this is the root
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">while</span> (tree <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (tree.left <span style="color:#ff79c6">==</span> node <span style="color:#ff79c6">||</span> tree.right <span style="color:#ff79c6">==</span> node) {
+      <span style="color:#ff79c6">break</span>;
+    }
+    <span style="color:#ff79c6">if</span> (node.data <span style="color:#ff79c6">&lt;</span> tree.data) {
+      parentNode <span style="color:#ff79c6">=</span> tree;
+      tree <span style="color:#ff79c6">=</span> tree.left;
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (node.data <span style="color:#ff79c6">&gt;</span> tree.data) {
+      parentNode <span style="color:#ff79c6">=</span> tree;
+      tree <span style="color:#ff79c6">=</span> tree.right;
+    }
+  }
+  <span style="color:#ff79c6">return</span> tree <span style="color:#ff79c6">?</span> tree <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>;
+}
+</code></pre></div><p>Let&rsquo;s go ahead and write our delete function now.</p>
+<p>Modes 1 and 2 are simple enough.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> deleteNode(tree, value) {
+  <span style="color:#8be9fd;font-style:italic">let</span> parentNode <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">while</span> (tree <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (tree.data <span style="color:#ff79c6">===</span> value) {
+      <span style="color:#ff79c6">break</span>;
+    }
+    <span style="color:#ff79c6">if</span> (value <span style="color:#ff79c6">&lt;</span> tree.data) {
+      parentNode <span style="color:#ff79c6">=</span> tree;
+      tree <span style="color:#ff79c6">=</span> tree.left;
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (value <span style="color:#ff79c6">&gt;</span> tree.data) {
+      parentNode <span style="color:#ff79c6">=</span> tree;
+      tree <span style="color:#ff79c6">=</span> tree.right;
+    }
+  }
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>tree) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> childCt <span style="color:#ff79c6">=</span> countChildren(tree);
+  <span style="color:#ff79c6">if</span> (childCt <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span>) {
+    parentNode.left <span style="color:#ff79c6">==</span> tree
+      <span style="color:#ff79c6">?</span> (parentNode.left <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>)
+      <span style="color:#ff79c6">:</span> (parentNode.right <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>);
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (childCt <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">1</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> nodeToSplice <span style="color:#ff79c6">=</span> tree.left <span style="color:#ff79c6">?</span> tree.left <span style="color:#ff79c6">:</span> tree.right;
+    parentNode.left <span style="color:#ff79c6">===</span> tree
+      <span style="color:#ff79c6">?</span> (parentNode.left <span style="color:#ff79c6">=</span> nodeToSplice)
+      <span style="color:#ff79c6">:</span> (parentNode.right <span style="color:#ff79c6">=</span> nodeToSplice);
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#6272a4">/* two children...sigh */</span>
+  }
+}
+</code></pre></div><p>When we search the tree for the value we intend to delete, we keep track of the <code>parentNode</code> (the last node that we visited before going left or right). This way, when we find the target node, we already have the pointer we need for its parent.</p>
+<p>We break from the while loop when we find the value, or when <code>tree===null</code>. We check after the loop to see if <code>tree</code> is null. If it is, that means the value doesn&rsquo;t exist in the tree, so we&rsquo;re done. Nothing to delete.</p>
+<p>If we found the value, we get the count of that node&rsquo;s children. Then, we execute the three possible deletion cases.</p>
+<p>No children? We check to see whether the child is on the left or right side of the <code>parentNode</code>, and then we set that side to null.</p>
+<p>One child? We set the variable <code>nodeToSplice</code> equal to whichever child is non-null. Then, we find whether the child is on the left or right side of <code>parentNode</code> and connect <code>nodeToSplice</code> directly. The deleted node now has no references to it.</p>
+<p>Two children? Okay, here&rsquo;s the slightly tricky part.</p>
+<ol>
+<li>Find the successor of the node we wish to delete.</li>
+<li>Copy the successor node.</li>
+<li>Splice out the successor by swapping out its right child with itself.</li>
+<li>Swap out the deleted node with the successor.</li>
+</ol>
+<p>We&rsquo;ll define a method for nodes to swap the value of a given node with a provided value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">node.prototype.swapValue <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (b) {
+  <span style="color:#ff79c6">this</span>.data <span style="color:#ff79c6">=</span> b.data;
+};
+</code></pre></div><p>All right, let&rsquo;s write the code for case 3.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">else</span> {
+  <span style="color:#6272a4">// sigh no more
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> succ <span style="color:#ff79c6">=</span> findSuccessor(tree);
+  <span style="color:#8be9fd;font-style:italic">let</span> parent <span style="color:#ff79c6">=</span> findParent(tree, succ);
+  parent.left <span style="color:#ff79c6">===</span> succ
+    <span style="color:#ff79c6">?</span> (parent.left <span style="color:#ff79c6">=</span> succ.right)
+    <span style="color:#ff79c6">:</span> (parent.right <span style="color:#ff79c6">=</span> succ.right);
+  tree <span style="color:#ff79c6">=</span> tree.swapValue(succ);
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">true</span>;
+}
+</code></pre></div><p>That&rsquo;s pretty easy, right? We find the successor and the parent of that successor. We determine which side of the parent that the successor lies on. Then, we swap out the deleted node with the successor.</p>
+<h3 id="sidenote-garbage-collection">Sidenote: Garbage Collection</h3>
+<p>It&rsquo;s important to note that not all languages will free a variable after you have removed a reference to it. <a href="https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" target="_blank">Garbage collection</a> is the process of freeing up memory that the program is no longer using but remains allocated as the result of previous operations. When we set the pointer to an item to null, this &ldquo;orphan&rdquo; item (which is no longer connected to anything else) will be cleared up by JavaScript&rsquo;s garbage collector. In some lower-level languages like C, the programmer must free memory manually.</p>
+<h3 id="congratulations">Congratulations</h3>
+<p>If you&rsquo;ve finished reading through this and <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/02/01/binary-trees.html" target="_blank">part one</a> of the Binary Search Trees tutorial, you&rsquo;ve learned yourself some powerful computer science tools. There&rsquo;s much more to learn: did you know that trees need <a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree" target="_blank">balancing</a> in order to maintain an optimal shape and performance? Consider if we just added node after node after node without reconfiguring the nodes' orientation. We&rsquo;d get a tree like this:</p>
+<!-- raw HTML omitted -->
+<p>Search is no longer <code>O(n*log n)</code>. In fact, the performance is not much better than linear search on a linked list. What happened? All that work for nothing?</p>
+<p>Patience, young grasshopper. You&rsquo;ve earned yourself a break from the computer. Have a stretch and some coffee. We&rsquo;ll cover balanced binary search trees soon enough.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/big-o/"> big-o </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/binarytree/"> binarytree </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datastructures/"> datastructures </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/deletion/"> deletion </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/queue/"> queue </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/stack/"> stack </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/treetraversal/"> treetraversal </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

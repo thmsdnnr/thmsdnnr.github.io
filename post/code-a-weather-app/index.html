@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Code a Weather App">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="async,asynchronous,AJAX,async,promises,API,weather,javascript,networks,API"><meta name="description" content="We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs)."><meta property="og:title" content="Code a Weather App" />
+<meta property="og:description" content="We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/code-a-weather-app/" />
+<meta property="article:published_time" content="2017-12-30T23:40:04+00:00" />
+<meta property="article:modified_time" content="2017-12-30T23:40:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Code a Weather App"/>
+<meta name="twitter:description" content="We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs)."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Code a Weather App | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">30</span>
+				<span class="rest">Dec 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Code a Weather App</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>We often want to create applications that interact with external resources. We&rsquo;re Imgur, and we have images hosted on a file system somewhere in the cloud. Or we&rsquo;re Reddit, and we have a database of posts to request from when a user visits a page.</p>
+<p>A simpler example: a weather app that gets the user&rsquo;s current location and displays a forecast.</p>
+<p>We want to get weather information, but we do not want (and cannot afford!) to buy and maintain weather stations, network them wirelessly, power them, code them, and then call to them individually to display updates.</p>
+<p>An <a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank">Application Programming Interface (API)</a> allows us to interact with other programs through the Internet. The National Weather Service has plenty of weather stations, and it&rsquo;s set up a server from which we can request data. Now we don&rsquo;t have to buy the weather stations: we just have to tell the server the data we&rsquo;re interested in, wait for it to arrive, and then display it in the app how we&rsquo;d like.</p>
+<p>To be specific, this sort of API is called <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">RESTful</a>. That&rsquo;s an acronym for Representational State Transfer, which is really just a fancy term for a <em>contract that a server establishes for client requests</em>.</p>
+<p>The server says: &ldquo;here are my endpoints (routes you can call)&rdquo;, and here are the verbs you can call them with (GET/POST/PUT/DELETE). Also, here are the parameters that I understand.</p>
+<h3 id="real-world-example-national-weather-service-api">Real-world example: National Weather Service API</h3>
+<p>Check out the &ldquo;API Reference&rdquo; tab <a href="https://forecast-v3.weather.gov/documentation?redirect=legacy" target="_blank">here</a> for the National Weather Service.</p>
+<p>You&rsquo;ll find a table with an <code>Endpoint</code> column, <code>Formats</code>, and <code>Details</code>. The endpoint is the URL where you request the resource from. In this case, the base URL is <code>https://api.weather.gov</code>. You append the endpoint you are interested in to the base URL.</p>
+<p>For example, if we want the weather forecast for a point (say latitude: 35.0693 longitude: -91.6716), we request from <code>https://api.weather.gov/points/35.0693,-91.6716/forecast</code>.</p>
+<p>Let&rsquo;s use the metaphor of a phone call to your health insurance company. You dial the number. This is the &ldquo;base URL&rdquo;. You hear a menu &ldquo;press 1 for&hellip; press 2 for&hellip;&rdquo;.</p>
+<p>You choose an option, and then tell the person what information you&rsquo;re interested in getting. Hey, I pressed 3 for weather info about a point. The latitude is X and the longitude is Y. In a moment, the person responds. &ldquo;Here&rsquo;s the forecast!&rdquo; Or, &ldquo;Hey, we don&rsquo;t have any data for that request.&rdquo;</p>
+<h3 id="json-responses">JSON responses</h3>
+<p>The server responds with <a href="http://www.json.org/" target="_blank">json</a> (JavaScript Object Notation), a common format for exchanging data on the web. It can be used with any language, not just JavaScript. It&rsquo;s <em>Js</em>on because it&rsquo;s based on a subset of the JavaScript language.</p>
+<p>There are two methods in JavaScript that we can use to deal with this format:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">JSON.stringify()</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank">JSON.parse()</a></li>
+</ol>
+<p>JSON.stringify() does just what it sounds like: it turns an object into a string that we can send across a network. JSON.parse() turns that string back into an object when it arrives at its destination. If you remember high-school math, these functions are <em>inverses</em> of one another. That means that:</p>
+<ul>
+<li>
+<p><code>JSON.parse(JSON.stringify({&quot;a&quot;:&quot;an object with one key-value&quot;}))</code></p>
+<ul>
+<li>yields: <code>{&quot;a&quot;:&quot;an object with one key-value&quot;}</code></li>
+</ul>
+</li>
+<li>
+<p><code>JSON.stringify(JSON.parse(&quot;{&quot;a&quot;:&quot;an object with one key-value&quot;}&quot;))</code></p>
+<ul>
+<li>yields: <code>&quot;{&quot;a&quot;:&quot;an object with one key-value&quot;}&quot;</code></li>
+</ul>
+</li>
+</ul>
+<p>Note the quote marks around the brackets there.</p>
+<blockquote>
+<p>Think of the object as a letter. You can put it in an envelope with an address, sealing it up with JSON.stringify(). When the sender receives it, they use JSON.parse() like a letter opener to retrieve the contents.</p>
+</blockquote>
+<p>You&rsquo;ll use <code>JSON.parse()</code> whenever you are dealing with data you&rsquo;ve fetched from a web service. In fact, as we&rsquo;ll discuss later in this tutorial, <code>fetch</code> has this functionality built-in.</p>
+<p><strong>Pro-tip: a very common error you&rsquo;ll see is &ldquo;unexpected token&rdquo; in JSON:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">VM2250:1 Uncaught SyntaxError: Unexpected token a in JSON at position 0
+    at JSON.parse (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:1:6
+</code></pre></div><h5 id="this-usually-means-that-youve-done-something-like-jsonparseasbsdab-trying-to-parse-a-string-that-has-not-been-jsonstringify-d-and-is-not-in-the-proper-format">This usually means that you&rsquo;ve done something like <code>JSON.parse('asbsdab')</code>: trying to parse a string that has not been <code>JSON.stringify()</code>-d and is not in the proper format.</h5>
+<h3 id="what-happens-with-your-app-while-youre-on-hold">what happens with your app while you&rsquo;re on hold?</h3>
+<p>Networks respond way faster than a customer service line for your health insurance, but there is still a delay between the request and response.</p>
+<p>JavaScript is single-threaded. It can only execute one line of code at a time. We want to do other things in our app while we&rsquo;re waiting for all the data to come in. We want to display the data we have. We want to be able to update the UI to say, &ldquo;Hey, it&rsquo;s coming, one sec.&rdquo;. Maybe we display and hide a spinner icon. We want to remain responsive to the user even when we&rsquo;re waiting for a request to finish.</p>
+<p>Imagine what would happen if in our app we said, &ldquo;Okay, request this&rdquo; and then <em>waited</em> for the request to come back before the app was responsive again?</p>
+<p>All the other lines of your code in the application would have to wait. We can&rsquo;t even play bad call holding music. The user gets frustrated and hangs up. Your app fails.</p>
+<blockquote>
+<p>We want to be able to put something in our code that says, &ldquo;We&rsquo;re going to request this data. It&rsquo;ll take a little bit for it to get back, but when it arrives, perform these actions&rdquo;. Meanwhile, we&rsquo;re moving on.</p>
+</blockquote>
+<p>Enter <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promises</a>.</p>
+<h3 id="promises-promises">Promises promises&hellip;</h3>
+<p>Here&rsquo;s (one example of) what a promise looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> fetchWeatherData(latitude, longitude) {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Promise</span>(<span style="color:#8be9fd;font-style:italic">function</span> (resolve, reject) {
+    <span style="color:#6272a4">// request data asynchronously (from network API, file system, etc.)
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">if</span> (data.error) {
+      reject(data.error);
+    } <span style="color:#ff79c6">else</span> {
+      resolve(data);
+    }
+  });
+}
+</code></pre></div><p>A Promise is an object that takes a callback function. The callback is an interface for code that invokes the promise. We perform our asynchronous request within the body of the <code>Promise</code>, and then we define how to invoke the callback function, depending on the results returned by our request.</p>
+<p>Here is how we would call this code above:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> data <span style="color:#ff79c6">=</span> fetchWeatherData(<span style="color:#bd93f9">35.0693</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">91.6716</span>);
+</code></pre></div><p>Now we cannot just <code>console.log(data)</code> and access our data. If you do, you&rsquo;ll get this:</p>
+<p><code>Promise {&lt;pending&gt;}</code></p>
+<p>Remember, the function is going to take some unknown amount of time to respond. Instead, we say &ldquo;when the promise has been resolved (with our data) or rejected (with an error), do these things&rdquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">data
+  .then(<span style="color:#8be9fd;font-style:italic">function</span> (d) {
+    <span style="color:#6272a4">// do something with the Resolved data
+</span><span style="color:#6272a4"></span>  })
+  .<span style="color:#ff79c6">catch</span>(<span style="color:#8be9fd;font-style:italic">function</span> (err) {
+    <span style="color:#6272a4">// handle the Rejected error
+</span><span style="color:#6272a4"></span>  });
+</code></pre></div><h5 id="then-calls-functiond-with-a-resolved-value-catch-calls-functionerr-with-a-rejected-value"><code>.then()</code> calls <code>function(d)</code> with a resolved value; <code>.catch()</code> calls <code>function(err)</code> with a rejected value.</h5>
+<p>There are three possible states for a promise:</p>
+<ol>
+<li><code>Pending</code>: neither <code>resolve</code> nor <code>reject</code> have been called. This is the state that <code>data</code> is in when we first call <code>fetchWeatherData</code>.</li>
+<li><code>Resolved</code>: we called <code>resolve(data)</code> within the function with the returned data.</li>
+<li><code>Rejected</code>: we called <code>reject(data.error)</code> because the API threw an error.</li>
+</ol>
+<h3 id="chaining-promises--promise-ception">chaining Promises &gt; Promise-ception.</h3>
+<p>We can chain promises together, or have the <code>resolve()</code> of one promise await the resolution of earlier promises. In fact, this is exactly how our wrapper function <code>fetchWeatherData()</code> will work when we fill in the missing <code>//fetch the data</code> piece.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" target="_blank">Fetch</a> is a Javascript interface for requesting data across a network. Hopefully you&rsquo;re thinking &ldquo;Wait though, that&rsquo;s asynchronous&rdquo;. You&rsquo;re correct. Can you guess what <code>fetch</code> returns? A promise. Bingo!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> fetchWeatherData(latitude, longitude) {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Promise</span>(<span style="color:#8be9fd;font-style:italic">function</span> (resolve, reject) {
+    fetch(
+      <span style="color:#f1fa8c">&#34;https://api.weather.gov/points/&#34;</span> <span style="color:#ff79c6">+</span>
+        latitude <span style="color:#ff79c6">+</span>
+        <span style="color:#f1fa8c">&#34;,&#34;</span> <span style="color:#ff79c6">+</span>
+        longitude <span style="color:#ff79c6">+</span>
+        <span style="color:#f1fa8c">&#34;/forecast&#34;</span>
+    )
+      .then(<span style="color:#8be9fd;font-style:italic">function</span> (response) {
+        <span style="color:#ff79c6">if</span> (response.status <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">200</span>) {
+          <span style="color:#ff79c6">return</span> response.json();
+        } <span style="color:#ff79c6">else</span> {
+          reject(response.status);
+        }
+      })
+      .then(<span style="color:#8be9fd;font-style:italic">function</span> (parsedResponse) {
+        resolve(parsedResponse);
+      });
+  });
+}
+</code></pre></div><p>This might look confusing. Let&rsquo;s walk through piece by piece.</p>
+<p><code>fetchWeatherData</code> is a wrapper that takes the <code>latitude, longitude</code> point we are interested in. It returns a <code>Promise</code> saying &ldquo;Hey, I&rsquo;ll get you the data as soon as I can.&rdquo;</p>
+<p>Your program says, &ldquo;Okay, I&rsquo;ll do other stuff, but when you do pass me back the data, here&rsquo;s what I&rsquo;m going to do with it.&rdquo; The program goes merrily along.</p>
+<p>Within <code>fetchWeatherData</code>, we call <code>fetch</code>. Fetch does the same thing as the wrapper.</p>
+<p><code>fetch</code>: &ldquo;Hey <code>fetchWeatherData</code>, I&rsquo;m going to request data from the server. It might take a while&rdquo;.
+<code>fetchWeatherData</code>: &ldquo;No problem fetch. When you get the response, here&rsquo;s what I&rsquo;ll do.&rdquo;</p>
+<h3 id="when-fetch-calls-us-back">when fetch calls us back</h3>
+<p>When we get the response back, it will be in the JSON format. We check the <code>status</code> of the response. This is the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank">HTTP status code</a> of the request. You&rsquo;re probably familiar with the good ol' 404. 200 means &ldquo;we&rsquo;re good everybody!&rdquo;. If the status is anything but this, we&rsquo;ll reject the promise with the status code.</p>
+<p>If the status <em>is</em> 200, then we&rsquo;ll return <code>response.json()</code>, which parses the JSON and returns it in the object form we desire.</p>
+<blockquote>
+<p>Okay, in reality <code>.json()</code> does more than just parsing. The <code>response</code> body that <code>fetch</code> returns is actually a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API" target="_blank">Stream</a>. Using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Body/json" target="_blank">&lt;code&gt;.json()&lt;/code&gt;</a> method on the <code>response</code> object reads the stream so that we don&rsquo;t have to. More to come on Streams: they deserve their own series.</p>
+</blockquote>
+<p>If you&rsquo;d like to visualize what&rsquo;s happening, paste this into the JavaScript console on your browser:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">fetch(<span style="color:#f1fa8c">&#34;https://api.weather.gov/points/35.0693,-91.6716/forecast&#34;</span>)
+  .then((res) =&gt; res.json())
+  .then((parsed) =&gt; console.log(parsed));
+</code></pre></div><!-- raw HTML omitted -->
+<p>See the <code>periods</code> array (<code>parsed.properties.periods</code>)? That contains 14 forecasts that we can display in our app for the requested latitude and longitude. Sweet!</p>
+<p>Here&rsquo;s what it looks like when we don&rsquo;t parse the JSON. Note the <code>body</code> property of the response of type <code>ReadableStream</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">fetch(<span style="color:#f1fa8c">&#34;https://api.weather.gov/points/35.0693,-91.6716/forecast&#34;</span>).then((res) =&gt;
+  console.log(res)
+);
+</code></pre></div><!-- raw HTML omitted -->
+<p>See how initially it is a Pending Promise that then turns into the response? Cool, huh?</p>
+<h3 id="lets-apply-this">let&rsquo;s apply this.</h3>
+<p>To fetch weather forecasts for a user, we have to get their location. We can actually use something built in called the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition" target="_blank">Geolocation API</a> to grab the user&rsquo;s current position.</p>
+<p>We call <code>navigator.geolocation.getCurrentPosition</code> and give it callback of <code>success</code> and <code>error</code> (another example of an asynchronous function!). On success, we receive an object that contains <code>pos.coords.latitude</code> and <code>pos.coords.longitude</code> which we can pass to the weather service API. We&rsquo;ll use the <code>fetchWeatherData</code> function we&rsquo;ve already written (not listed below):</p>
+<p>The Weather API&rsquo;s <code>properties.periods</code> is an array of objects like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON">{
+  <span style="color:#ff79c6">&#34;detailedForecast&#34;</span>: <span style="color:#f1fa8c">&#34;Mostly sunny. High near 6, with temperatures falling to around 3 in the afternoon. Wind chill values as low as -20. Northwest wind 10 to 20 mph, with gusts as high as 30 mph.&#34;</span>,
+  <span style="color:#ff79c6">&#34;endTime&#34;</span>: <span style="color:#f1fa8c">&#34;2017-12-30T18:00:00-06:00&#34;</span>,
+  <span style="color:#ff79c6">&#34;icon&#34;</span>: <span style="color:#f1fa8c">&#34;https://api.weather.gov/icons/land/day/cold?size=medium&#34;</span>,
+  <span style="color:#ff79c6">&#34;isDaytime&#34;</span>: <span style="color:#ff79c6">true</span>,
+  <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Today&#34;</span>,
+  <span style="color:#ff79c6">&#34;number&#34;</span>: <span style="color:#bd93f9">1</span>,
+  <span style="color:#ff79c6">&#34;shortForecast&#34;</span>: <span style="color:#f1fa8c">&#34;Mostly Sunny&#34;</span>,
+  <span style="color:#ff79c6">&#34;startTime&#34;</span>: <span style="color:#f1fa8c">&#34;2017-12-30T11:00:00-06:00&#34;</span>,
+  <span style="color:#ff79c6">&#34;temperature&#34;</span>: <span style="color:#bd93f9">6</span>,
+  <span style="color:#ff79c6">&#34;temperatureTrend&#34;</span>: <span style="color:#f1fa8c">&#34;falling&#34;</span>,
+  <span style="color:#ff79c6">&#34;temperatureUnit&#34;</span>: <span style="color:#f1fa8c">&#34;F&#34;</span>,
+  <span style="color:#ff79c6">&#34;windDirection&#34;</span>: <span style="color:#f1fa8c">&#34;NW&#34;</span>,
+  <span style="color:#ff79c6">&#34;windSpeed&#34;</span>: <span style="color:#f1fa8c">&#34;10 to 20 mph&#34;</span>
+}
+</code></pre></div><p>We can choose which items we&rsquo;d like to display. Then we just iterate through, format them, and output them to an HTML div.</p>
+<p>This is all it takes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">showLoader();
+<span style="color:#8be9fd;font-style:italic">function</span> success(pos) {
+  <span style="color:#8be9fd;font-style:italic">let</span> lat <span style="color:#ff79c6">=</span> pos.coords.latitude;
+  <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#ff79c6">long</span> <span style="color:#ff79c6">=</span> pos.coords.longitude;
+  reverseGeocode(lat, <span style="color:#ff79c6">long</span>).then((data) =&gt; {
+    <span style="color:#ff79c6">if</span> (data.numFound <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> data.result[<span style="color:#bd93f9">0</span>];
+      <span style="color:#ff79c6">const</span> header <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;span#location&#34;</span>);
+      header.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Weather forecasts for &#34;</span> <span style="color:#ff79c6">+</span> res.city <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;, &#34;</span> <span style="color:#ff79c6">+</span> res.state;
+    }
+  });
+  fetchWeatherData(lat, <span style="color:#ff79c6">long</span>).then((data) =&gt; {
+    data.properties.periods.forEach((p, idx) =&gt; {
+      <span style="color:#8be9fd;font-style:italic">let</span> period <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+      <span style="color:#8be9fd;font-style:italic">let</span> img <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;&lt;img src=${p.icon} alt=${p.shortForecast}&gt;&#34;</span>;
+      period.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;period_&#34;</span> <span style="color:#ff79c6">+</span> p.number;
+      period.classList.add(<span style="color:#f1fa8c">&#34;forecastPeriod&#34;</span>);
+      period.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`</span><span style="color:#f1fa8c">${</span>img<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&lt;span id=&#34;wxHeader&#34;&gt;&lt;b&gt;</span><span style="color:#f1fa8c">${</span>p.name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&lt;/b&gt;&lt;br /&gt;
+</span><span style="color:#f1fa8c">      </span><span style="color:#f1fa8c">${</span>p.temperature<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">˚F </span><span style="color:#f1fa8c">${</span>
+        p.temperatureTrend <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span> <span style="color:#ff79c6">?</span> p.temperatureTrend <span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&#34;</span>
+      <span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> |
+</span><span style="color:#f1fa8c">      </span><span style="color:#f1fa8c">${</span>p.windSpeed<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> </span><span style="color:#f1fa8c">${</span>p.windDirection<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&lt;/span&gt;&lt;br /&gt;
+</span><span style="color:#f1fa8c">      </span><span style="color:#f1fa8c">${</span>p.detailedForecast<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">`</span>;
+      dataDiv.appendChild(period);
+    });
+    hideLoader();
+  });
+}
+navigator.geolocation.getCurrentPosition(success, error);
+</code></pre></div><p>Note that we could extend this app to allow the user to input a zip code. You could use Geocoding with <a href="https://developers.google.com/maps/documentation/geocoding/intro" target="_blank">Google Geocoder</a>, or a simple dictionary mapping zip codes to a latitude and longitude, extracted from US Census Data like this <a href="https://gist.github.com/erichurst/7882666" target="_blank">github Gist by erichurst</a>. This would be another example of chaining promises. User enters City. Pass to Google Geocoder (or grab the lat/lon list), then await response. Then when you have the latitude and longitude, pass it to the Weather API. Await the response from that. Then pass the weather result to your user through the UI.</p>
+<p>ReverseGeocode looks just like <code>fetchWeatherData</code>. It returns a promise, we await the response, and if the data is there, we parse and display it. Easy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON">{
+  <span style="color:#ff79c6">&#34;city&#34;</span>: <span style="color:#f1fa8c">&#34;Chicago&#34;</span>,
+  <span style="color:#ff79c6">&#34;countryCode&#34;</span>: <span style="color:#f1fa8c">&#34;US&#34;</span>,
+  <span style="color:#ff79c6">&#34;distance&#34;</span>: <span style="color:#bd93f9">11.884522997519374</span>,
+  <span style="color:#ff79c6">&#34;formatedFull&#34;</span>: <span style="color:#f1fa8c">&#34;1, Random Street, Chicago, Illinois, United States, US&#34;</span>,
+  <span style="color:#ff79c6">&#34;geocodingLevel&#34;</span>: <span style="color:#f1fa8c">&#34;HOUSE_NUMBER&#34;</span>,
+  <span style="color:#ff79c6">&#34;houseNumber&#34;</span>: <span style="color:#f1fa8c">&#34;1&#34;</span>,
+  <span style="color:#ff79c6">&#34;lat&#34;</span>: <span style="color:#f1fa8c">&#34;@some_latitude_float&#34;</span>,
+  <span style="color:#ff79c6">&#34;lng&#34;</span>: <span style="color:#f1fa8c">&#34;@some_longitude_float&#34;</span>,
+  <span style="color:#ff79c6">&#34;state&#34;</span>: <span style="color:#f1fa8c">&#34;Illinois&#34;</span>,
+  <span style="color:#ff79c6">&#34;streetName&#34;</span>: <span style="color:#f1fa8c">&#34;street name&#34;</span>
+}
+</code></pre></div><p>Finally, we show and hide a CSS loader by toggling the display style of the loader. We could just as easily create a CSS class <code>.hidden</code> with <code>display:none</code>, and toggle the class on the <code>div</code> with <code>classList.toggle('hidden')</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> showLoader <span style="color:#ff79c6">=</span> () =&gt;
+  (<span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;div.loader&#34;</span>).style.display <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;inline&#34;</span>);
+<span style="color:#ff79c6">const</span> hideLoader <span style="color:#ff79c6">=</span> () =&gt;
+  (<span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;div.loader&#34;</span>).style.display <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;none&#34;</span>);
+</code></pre></div><h3 id="next-steps">next steps</h3>
+<p>There are an <a href="https://www.programmableweb.com/apis" target="_blank">incredible number</a> of APIs on the web. Using what you&rsquo;ve just learned , you can now interact with <em>any</em> of them. Some require an API key or special headers, but these are just small tweaks to your <code>fetch</code> request. Try building an app that integrates data sources together in a new and exciting way. Once you learn how to interact with other services, you acquire a huge mechanical advantage when it comes to leveraging small bits of code to do great things. Code on!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/ajax/"> ajax </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/api/"> api </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/async/"> async </a>
+			
+			
+			
+			
+			
+			<a href="/tags/asynchronous/"> asynchronous </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/networks/"> networks </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/promises/"> promises </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/weather/"> weather </a>
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

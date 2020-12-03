@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>value on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/value/</link>
+		<description>Recent content in value on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 11 Mar 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/value/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Value vs Reference: Deep vs Shallow</title>
+			<link>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</guid>
+			<description>
+				
+				A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

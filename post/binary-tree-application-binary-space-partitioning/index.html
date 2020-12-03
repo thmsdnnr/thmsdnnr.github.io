@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Binary Tree Application: Binary Space Partitioning">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,stack,queue,big-O,complexity,dataStructures,binaryTree,binarySpacePartitioning,canvas,art,proceduralGeneration"><meta name="description" content="Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art."><meta property="og:title" content="Binary Tree Application: Binary Space Partitioning" />
+<meta property="og:description" content="Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/" />
+<meta property="article:published_time" content="2018-02-03T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-02-03T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Binary Tree Application: Binary Space Partitioning"/>
+<meta name="twitter:description" content="Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Binary Tree Application: Binary Space Partitioning | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">03</span>
+				<span class="rest">Feb 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Binary Tree Application: Binary Space Partitioning</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="yveddj"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p>Procedural container generation using Binary Space Partitioning</p>
+</blockquote>
+<h2 id="binary-space-partitioning">Binary Space Partitioning</h2>
+<p>Let&rsquo;s take a step back from all of this theory and look at a cool application of a binary tree: binary space partitioning. I used binary space partitioning in my <a href="https://thmsdnnr.com/roguelike/" target="_blank">Roguelike Dungeoncrawler Game</a> to create procedurally generated worlds. This means that each level (and indeed, each game) never has the same size or configuration of rooms.</p>
+<p>In the demo above, each room configuration is generated with a single function call: there are no predetermined dimensions other than the container&rsquo;s width and height constraints and a minimum child dimension. Pretty cool, right?</p>
+<p><a href="https://en.wikipedia.org/wiki/Binary_space_partitioning" target="_blank">Binary space partitioning</a> is a technique for recursively dividing a space subject to some constraints. In this case, the constraint is the width and height of the container, and the fact that we do not want containers to overlap (since they represent separate &ldquo;rooms&rdquo;). By creating Leaves which hold Containers inside of them, we are able to generate non-overlapping rooms with a specified amount of space between them (namely, the padding of the leaves that offsets the boundary of the containers).</p>
+<h2 id="lets-make-some-leaves-and-containers">Let&rsquo;s make some leaves and containers.</h2>
+<p>All that the leaves and containers know about is an x and y position (of their upper-left corner) and a width and height. Leaves hold containers. Containers are the shapes that you see drawn on the screen.</p>
+<p>Leaves have an x and y position and a width and a height. They also have a container (the structure within them that you see drawn), as well as a left and a right child. Thus, a leaf is an <em>extension of the concept of a node in a binary tree</em> with a few additional properties for this application.</p>
+<p>We pad each container by a random amount, setting its width and height to between 70 and 90% of its enclosing leaf. Then, we set the x and y coordinates of the container within the leaf by assigning half the padding to the left &amp; right coordinate. This has the effect of centering the container within each leaf.</p>
+<p>We can draw a container just by defining a rectangle with its x and y coordinates and stroking it on an HTML5 canvas. This is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes" target="_blank">simple introduction</a> to drawing shapes with canvas if you need a refresher.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> randomIn <span style="color:#ff79c6">=</span> (min, max) =&gt; <span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> (max <span style="color:#ff79c6">-</span> min)) <span style="color:#ff79c6">+</span> min;
+
+<span style="color:#8be9fd;font-style:italic">let</span> Container <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (x1, y1, x2, y2) {
+  <span style="color:#ff79c6">this</span>.x1 <span style="color:#ff79c6">=</span> x1;
+  <span style="color:#ff79c6">this</span>.y1 <span style="color:#ff79c6">=</span> y1;
+  <span style="color:#ff79c6">this</span>.x2 <span style="color:#ff79c6">=</span> x2;
+  <span style="color:#ff79c6">this</span>.y2 <span style="color:#ff79c6">=</span> y2;
+};
+
+<span style="color:#8be9fd;font-style:italic">let</span> Leaf <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (x, y, width, height) {
+  <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">=</span> x;
+  <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">=</span> y;
+  <span style="color:#ff79c6">this</span>.width <span style="color:#ff79c6">=</span> width;
+  <span style="color:#ff79c6">this</span>.height <span style="color:#ff79c6">=</span> height;
+  <span style="color:#ff79c6">this</span>.left <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">this</span>.right <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">this</span>.container <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+};
+
+Leaf.prototype.addContainer <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">let</span> width <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(randomIn(<span style="color:#bd93f9">0.7</span>, <span style="color:#bd93f9">0.9</span>) <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">this</span>.width);
+  <span style="color:#8be9fd;font-style:italic">let</span> height <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(randomIn(<span style="color:#bd93f9">0.7</span>, <span style="color:#bd93f9">0.9</span>) <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">this</span>.height);
+  <span style="color:#8be9fd;font-style:italic">let</span> xPos <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">+</span> (<span style="color:#ff79c6">this</span>.width <span style="color:#ff79c6">-</span> width) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> yPos <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">+</span> (<span style="color:#ff79c6">this</span>.height <span style="color:#ff79c6">-</span> height) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>);
+  <span style="color:#ff79c6">this</span>.container <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Container(xPos, yPos, xPos <span style="color:#ff79c6">+</span> width, yPos <span style="color:#ff79c6">+</span> height);
+};
+
+Leaf.prototype.drawSelf <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (ctx) {
+  <span style="color:#8be9fd;font-style:italic">let</span> C <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.container;
+  ctx.strokeStyle <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;black&#34;</span>;
+  ctx.strokeWidth <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;2&#34;</span>;
+  ctx.stroke();
+  ctx.strokeRect(C.x1, C.y1, C.x2 <span style="color:#ff79c6">-</span> C.x1, C.y2 <span style="color:#ff79c6">-</span> C.y1);
+};
+</code></pre></div><p>Now all we have to do is partition the space into non-overlapping leaves at the desired level of depth. We&rsquo;ll do this in two steps. First, we have to define a <code>splitLeaf</code> function for the leaves.</p>
+<p>We choose whether to split the leaf vertically or horizontally. We do this based on a set proportion. If the width/height ratio is greater than or equal to 1.5 (so it&rsquo;s a rectangle with, e.g., width&gt;= 15 for height 10), we choose to split the container vertically. Otherwise, the container is either a square or taller than it is wide. In this case, we choose to split the container horizontally.</p>
+<p>You can toggle the desired width/height ratio to get more vertical containers, more horizontal containers, or more square-like containers.</p>
+<p>Once we choose the direction of split, we calculate the available space to partition in the chosen direction. If we are splitting horizontally (dividing with a horizontal line, somewhere in the y-coordinates of the container), we calculate the total height of the container. If we are splitting vertically, (dividing with a vertical line, somewhere in the x-coordinates of the container) we calculate the total width of the container.</p>
+<p>If the total width or height available is less than the minimum leaf size*2, we return false (it&rsquo;s not possible to create the container). Otherwise, we pick a random split point that is between the minimum leaf size and the maximum available space minus the minimum leaf size. This means that we ensure that each container has at a minimum <code>minLeafSize</code>, and at a maximum <code>max-minLeafSize</code>.</p>
+<p>Once we&rsquo;ve determined that we have the horizontal or vertical space available to make the split, we set the leaf&rsquo;s left and right children to the two new leaves.</p>
+<p>If we split vertically, both new leaves share the same height, and their width is partitioned into <code>[0, splitLoc]</code> and <code>[splitLoc, this.width-splitLoc]</code>.</p>
+<p>If we split horizontally, both new leaves share the same width, and their heights are partitioned into <code>[0, splitLoc]</code> and <code>[splitLoc, this.height-splitLoc]</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Leaf.prototype.splitLeaf <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">let</span> splitVertical;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.width <span style="color:#ff79c6">/</span> <span style="color:#ff79c6">this</span>.height <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">1.5</span>) {
+    splitVertical <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  } <span style="color:#ff79c6">else</span> {
+    splitVertical <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+  }
+
+  <span style="color:#8be9fd;font-style:italic">let</span> max <span style="color:#ff79c6">=</span> (splitVertical <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">this</span>.width <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">this</span>.height) <span style="color:#ff79c6">-</span> minLeafSize;
+  <span style="color:#ff79c6">if</span> (max <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">*</span> minLeafSize) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> splitLoc <span style="color:#ff79c6">=</span> randomIn(minLeafSize, max <span style="color:#ff79c6">-</span> minLeafSize);
+
+  <span style="color:#ff79c6">if</span> (splitVertical) {
+    <span style="color:#ff79c6">this</span>.left <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Leaf(<span style="color:#ff79c6">this</span>.x, <span style="color:#ff79c6">this</span>.y, splitLoc, <span style="color:#ff79c6">this</span>.height);
+    <span style="color:#ff79c6">this</span>.right <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Leaf(
+      <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">+</span> splitLoc,
+      <span style="color:#ff79c6">this</span>.y,
+      <span style="color:#ff79c6">this</span>.width <span style="color:#ff79c6">-</span> splitLoc,
+      <span style="color:#ff79c6">this</span>.height
+    );
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#ff79c6">this</span>.left <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Leaf(<span style="color:#ff79c6">this</span>.x, <span style="color:#ff79c6">this</span>.y, <span style="color:#ff79c6">this</span>.width, splitLoc);
+    <span style="color:#ff79c6">this</span>.right <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Leaf(
+      <span style="color:#ff79c6">this</span>.x,
+      <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">+</span> splitLoc,
+      <span style="color:#ff79c6">this</span>.width,
+      <span style="color:#ff79c6">this</span>.height <span style="color:#ff79c6">-</span> splitLoc
+    );
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">true</span>;
+};
+</code></pre></div><p>Finally, we define a function that will recursively traverse all the leaves of a given leaf and return an array of their children. We&rsquo;ll use this later on the root leaf of our container to gather up all the leaves so that we can draw them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Leaf.prototype.getLeafs <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.left <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.right
+    <span style="color:#ff79c6">?</span> [<span style="color:#ff79c6">this</span>]
+    <span style="color:#ff79c6">:</span> [].concat(<span style="color:#ff79c6">this</span>.left.getLeafs(), <span style="color:#ff79c6">this</span>.right.getLeafs());
+};
+</code></pre></div><h3 id="using-the-code-we-wired-up">Using the code we wired up</h3>
+<p>Now that we have a container class and a leaf class with a leaf splitting function, all that we have to do is call the function. We&rsquo;ll wrap it in a <code>redrawCanvas</code> method so that we can call it repeatedly with <code>setInterval</code> to randomly generate a new board.</p>
+<p>Generating a board from the classes we&rsquo;ve defined is pretty simple.</p>
+<p>First we define some constants: the max width and height, a minimum leaf size, and the desired number of leaves.</p>
+<p>Then, we define a root leaf that contains all the space available for partitioning.</p>
+<p>Finally, we call <code>splitLeaf()</code> on the left and right child of every element in our leaf tree that has not yet been split (for which both <code>leaf.left</code> and <code>leaf.right</code> is null).</p>
+<p>When the while loop exits, <code>root</code> will contain the maximum number of possible leaves given our constraints.</p>
+<p>If you were to log out the length of the leaves in each iteration, you&rsquo;ll notice that it&rsquo;s in the mid-to-high 500s. This is almost half of our desired number of leaves. The reason this happens is because there are conditions in our <code>splitLeaf</code> method that return false if the leaf is not able to be split. This makes sense too if you consider the bounds of the board (700x420) and the minimum leaf size. It&rsquo;s actually impossible to have 1000 non-overlapping leaves of side dimension 10 on a board that&rsquo;s 700x420 (you&rsquo;d need minimally 1000x1000 available).</p>
+<p>Once we have a <code>root</code> element with all our leaves in it, we call <code>getLeaves</code> to populate an array with all the leaves. For each leaf, we add a container (the inner parts you see drawn on the screen, padded out by our specified percentages). We then draw the container.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> gameWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">700</span>;
+<span style="color:#ff79c6">const</span> gameHeight <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">420</span>;
+<span style="color:#ff79c6">const</span> minLeafSize <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">10</span>;
+<span style="color:#ff79c6">const</span> desiredNumberOfLeaves <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1000</span>;
+
+<span style="color:#8be9fd;font-style:italic">function</span> redrawCanvas() {
+  ctx.setTransform(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>);
+  ctx.clearRect(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, gameWidth, gameHeight);
+  ctx.translate(<span style="color:#bd93f9">0.5</span>, <span style="color:#bd93f9">0.5</span>);
+
+  <span style="color:#6272a4">// create leaves with containers
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> root <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Leaf(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, gameWidth, gameHeight);
+  <span style="color:#8be9fd;font-style:italic">let</span> leafLitter <span style="color:#ff79c6">=</span> [root];
+  <span style="color:#8be9fd;font-style:italic">let</span> didSplit <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  <span style="color:#ff79c6">while</span> (didSplit) {
+    didSplit <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    leafLitter.forEach((leaf) =&gt; {
+      <span style="color:#ff79c6">if</span> (leaf.left <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">null</span> <span style="color:#ff79c6">&amp;&amp;</span> leaf.right <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">null</span>) {
+        <span style="color:#ff79c6">if</span> (leaf.splitLeaf() <span style="color:#ff79c6">&amp;&amp;</span> leafLitter.length <span style="color:#ff79c6">&lt;</span> desiredNumberOfLeaves) {
+          leafLitter.push(leaf.left, leaf.right);
+          didSplit <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+        }
+      }
+    });
+  }
+
+  <span style="color:#6272a4">// draw containers inside leaves
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> leaves <span style="color:#ff79c6">=</span> root.getLeafs();
+  leaves.forEach(<span style="color:#8be9fd;font-style:italic">function</span> (leaf) {
+    leaf.addContainer();
+    leaf.drawSelf(ctx);
+  });
+}
+</code></pre></div><p>And this code just sets up our canvas when the window loads and draws a new, procedurally generated canvas every second to the screen for your viewing pleasure.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">window</span>.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">const</span> cvs <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;board&#34;</span>);
+  <span style="color:#ff79c6">const</span> ctx <span style="color:#ff79c6">=</span> cvs.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+  redrawCanvas(ctx);
+  setInterval(<span style="color:#8be9fd;font-style:italic">function</span> () {
+    redrawCanvas(ctx);
+  }, <span style="color:#bd93f9">1000</span>);
+};
+</code></pre></div><h3 id="next-steps">Next steps</h3>
+<p>If you wanted to use this code to generate a game, you&rsquo;d still have to connect each space with hallways and make the coordinates navigable. However, with just a few lines of code, we&rsquo;ve solved a pretty complex problem: subdividing a space into arbitrarily small, non-overlapping spaces.</p>
+<p>This is an application where trees make a lot of sense to use: each child element is smaller and consists of some subdivision of its parent&rsquo;s space. Imagine how hard it would be to keep track of all these elements if we didn&rsquo;t have some sort of hierarchy to store them in. Who&rsquo;s parents of who? How do we know how much space to allocate for each child?</p>
+<p>Leveraging a binary tree structure allows us to easily achieve this task. Note that no collision detection was required to make sure the spaces are non-overlapping: with the binary subdivision algorithm, we get non-overlapping spaces for free.</p>
+<p>Binary Space Partitioning can get even <a href="https://pdfs.semanticscholar.org/c496/61c65c1780053dcc1ccd71abec5f244af2c9.pdf" target="_blank">more complicated</a> as it can be used to subdivide space in 3D to help render polygons in 3D graphics engines. Read more about them if you&rsquo;re interested: they are pretty awesome tools that can serve a variety of purposes.</p>
+<p>Why not fork the Codepen? Try planting your own tree and watch it grow!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/art/"> art </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/big-o/"> big-o </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/binaryspacepartitioning/"> binaryspacepartitioning </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/binarytree/"> binarytree </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datastructures/"> datastructures </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/proceduralgeneration/"> proceduralgeneration </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/queue/"> queue </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/stack/"> stack </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

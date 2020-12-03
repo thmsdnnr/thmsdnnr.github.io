@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>array on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/array/</link>
+		<description>Recent content in array on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Wed, 31 Jan 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/array/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Intro to Linked Lists</title>
+			<link>https://thmsdnnr.com/post/intro-to-linked-lists/</link>
+			<pubDate>Wed, 31 Jan 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-linked-lists/</guid>
+			<description>
+				
+				The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

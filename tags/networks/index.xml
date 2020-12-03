@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>networks on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/networks/</link>
+		<description>Recent content in networks on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sat, 30 Dec 2017 23:40:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/networks/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Code a Weather App</title>
+			<link>https://thmsdnnr.com/post/code-a-weather-app/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/code-a-weather-app/</guid>
+			<description>
+				
+				We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs).
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

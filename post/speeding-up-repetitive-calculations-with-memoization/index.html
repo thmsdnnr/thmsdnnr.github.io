@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Speeding Up Repetitive Calculations with Memoization">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,memoize,memoization,efficiency,complexity,optimization"><meta name="description" content="Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization."><meta property="og:title" content="Speeding Up Repetitive Calculations with Memoization" />
+<meta property="og:description" content="Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/" />
+<meta property="article:published_time" content="2018-01-24T08:56:04+00:00" />
+<meta property="article:modified_time" content="2018-01-24T08:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Speeding Up Repetitive Calculations with Memoization"/>
+<meta name="twitter:description" content="Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Speeding Up Repetitive Calculations with Memoization | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">24</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Speeding Up Repetitive Calculations with Memoization</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h3 id="memoization-or-you-called-me-before-maybe">Memoization: or (You) Call(ed) Me (Before), Maybe</h3>
+<p><a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">Memoization</a> is a simple yet powerful technique to optimize the performance of your code.</p>
+<p>Memoization gives a function a memory: if the function has already been called with a given set of inputs, it remembers its output from the previous call and returns that output directly, without recalculating a known result.</p>
+<p>Think of it like a dictionary for your function. The combination of parameters are a word, and a given output is a definition. By building up a dictionary of terms, you save time having to scrounge around for the definition (calculating it from scratch).</p>
+<p>Say you have an expensive function. What&rsquo;s expensive? Anything that takes longer time to calculate than it does to look up an answer for. Let&rsquo;s go with the Factorial function.</p>
+<p><code>N!</code> is defined as <code>N*(N-1)*(N-2)...*1</code>. So <code>4!</code> is <code>4*3*2*1</code>.</p>
+<p><code>0!</code> is defined as 1.</p>
+<p>We can code factorial using recursion.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> factorial(N) {
+  <span style="color:#ff79c6">if</span> (N <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span>) {
+    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">return</span> N <span style="color:#ff79c6">*</span> factorial(N <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>);
+}
+</code></pre></div><p>This works fine, but it&rsquo;s a lot of work for the computer. If we call factorial(200), we&rsquo;ve got to push 200 things onto the stack, <em>every time we call the function</em>. What if we only had to do that once, and henceforth we could simply look up the answer in a dictionary?</p>
+<h3 id="memoize-that">Memoize That!</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> memoizedFactorial <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (N) {
+  <span style="color:#ff79c6">this</span>.dict <span style="color:#ff79c6">=</span> {};
+};
+
+memoizedFactorial.prototype.calculate <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (N) {
+  <span style="color:#8be9fd;font-style:italic">let</span> key <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;k_&#34;</span> <span style="color:#ff79c6">+</span> N;
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.dict[key] <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">this</span>.dict[key] <span style="color:#ff79c6">:</span> (<span style="color:#ff79c6">this</span>.dict[key] <span style="color:#ff79c6">=</span> factorial(N));
+  <span style="color:#8be9fd;font-style:italic">function</span> factorial(N) {
+    <span style="color:#ff79c6">return</span> N <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> N <span style="color:#ff79c6">*</span> factorial(N <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>);
+  }
+};
+
+memoizedFactorial.prototype.showDict <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.dict;
+};
+</code></pre></div><p>We prepend <code>k_</code> to the function parameter N, since JS does not allow integer dictionary keys (they get cast to Strings). Might as well avoid implicit type conversion and keep things clean.</p>
+<p>We can use our new memoized factorial thusly:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> Fact <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> memoizedFactorial();
+Fact.calculate(<span style="color:#bd93f9">4</span>); <span style="color:#6272a4">// 24
+</span></code></pre></div><p>Okay, great&hellip;but I hear what you&rsquo;re thinking. Why bother with all of this? It&rsquo;s not that much faster! Well, imagine you have some loop that&rsquo;s going to need the value of 0 through 9 factorial many times over.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10000</span>; j<span style="color:#ff79c6">++</span>) {
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>; i<span style="color:#ff79c6">++</span>) {
+    Fact.calculate(i);
+  }
+}
+</code></pre></div><p>If you tried to perform this calculation without memoization, you&rsquo;d be wasting a ton of extra CPU cycles. With memoization, we just look up the value. Another benefit of memoization with a recursive function is you&rsquo;re less likely to blow the stack. After calculating N factorial, for say N=10, we only have to calculate 10 more times to get 20! (we already have 10!, 9!, 8!&hellip;) memoized.</p>
+<h3 id="memoize-all-the-things">Memoize All The Things!</h3>
+<p>So let&rsquo;s just write a wrapper to memoize everything!</p>
+<p>Nope. There&rsquo;s two reasons why this is a bad idea.</p>
+<h4 id="memoization-requires-pure-functions">Memoization requires <em>pure functions</em>.</h4>
+<p>What&rsquo;s a pure function? A function that returns the same output given the same input. It has no side effects, like getting the current time when called and multiplying that by one of its arguments.</p>
+<p>If our function isn&rsquo;t pure, returning a previous answer is likely to be incorrect. Say we have a function <code>minuteMultiplier</code> that returns the result of a number multiplied by the current minute.</p>
+<p>We <em>could</em> memoize the function, but we&rsquo;d have to do it <em>not only</em> based on the arguments, but also on the current state of the function when called. In this case, memoization would likely be more trouble than it&rsquo;s worth, since you&rsquo;re already looking up the current time in order to determine <em>where</em> in your dictionary to search for a previous result. Instead of looking up the result, just return it.</p>
+<p>Furthermore, lots of valuable functions have side effects (manipulating the DOM, querying the database, etc.). We do not want to memoize these results as they are dynamic, and any caching would be at best stale, at worst inaccurate and misleading.</p>
+<h4 id="time-vs-space-tradeoffs">Time vs Space Tradeoffs</h4>
+<p>There&rsquo;s always a tradeoff here. When we&rsquo;re storing numbers, no big deal. But imagine our function returns a very large object that is expensive to store in memory. In this case, memoization is a tradeoff between CPU cycles and storage space. This is often application-specific, but it&rsquo;s reason enough to not be cavalier in caching your data.</p>
+<p>As always, a little bit of thought can save a lot of work spent on undoing poor design decisions.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/efficiency/"> efficiency </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/memoization/"> memoization </a>
+			
+			
+			
+			
+			
+			<a href="/tags/memoize/"> memoize </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/optimization/"> optimization </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>balanacedBinarySearch on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/balanacedbinarysearch/</link>
+		<description>Recent content in balanacedBinarySearch on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Wed, 07 Feb 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/balanacedbinarysearch/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>AVL Trees Part 2: Insertions</title>
+			<link>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</guid>
+			<description>
+				
+				Taking an in-depth look at node rebalancing after insertions in AVL trees.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

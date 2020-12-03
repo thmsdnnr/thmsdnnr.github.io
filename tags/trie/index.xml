@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>trie on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/trie/</link>
+		<description>Recent content in trie on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Wed, 14 Feb 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/trie/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Lightning Fast String Lookups With Tries</title>
+			<link>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</guid>
+			<description>
+				
+				Tries are a hybrid data structure combining a tree and hash table to provide O(k) lookup for k-character words, popular for use cases like typeahead and autocomplete.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

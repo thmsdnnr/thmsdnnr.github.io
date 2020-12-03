@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>particle system on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/particle-system/</link>
+		<description>Recent content in particle system on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 05 Oct 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/particle-system/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Boids: A Bird Flock Simulator</title>
+			<link>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</guid>
+			<description>
+				
+				We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

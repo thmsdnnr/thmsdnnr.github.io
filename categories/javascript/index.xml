@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>javascript on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/categories/javascript/</link>
+		<description>Recent content in javascript on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Sun, 04 Mar 2018 06:56:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>ES6 — Destructuring &#43; Default Parameters</title>
+			<link>https://thmsdnnr.com/post/es6-destructuring-default-parameters/</link>
+			<pubDate>Sun, 04 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/es6-destructuring-default-parameters/</guid>
+			<description>
+				
+				Object and Array destructuring in ES6 allows you to easily extract selected properties of nested objects.
+				
+			</description>
+		</item>
+		<item>
+			<title>Speeding Up Repetitive Calculations with Memoization</title>
+			<link>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</guid>
+			<description>
+				
+				Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization.
+				
+			</description>
+		</item>
+		<item>
+			<title>Koch Snowflakes</title>
+			<link>https://thmsdnnr.com/post/koch-snowflakes/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/koch-snowflakes/</guid>
+			<description>
+				
+				Building Fractal Art with Koch Snowflakes on HTML5 Canvas.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: A Sea of CSS [part 5]</title>
+			<link>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</link>
+			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</guid>
+			<description>
+				
+				Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: Scaling &amp; Saving Art [part 4]</title>
+			<link>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</link>
+			<pubDate>Fri, 12 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</guid>
+			<description>
+				
+				Enabling save and restore of images using the browser&#39;s localStorage API.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: Scaling &amp; Saving Art [part 3]</title>
+			<link>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</link>
+			<pubDate>Tue, 09 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</guid>
+			<description>
+				
+				Canvas scaling, transparent backgrounds, and a first step at saving the images.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: Color Palette &amp; Enhanced UI [part 2]</title>
+			<link>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</link>
+			<pubDate>Mon, 08 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</guid>
+			<description>
+				
+				Adding a randomized color palette selector using jscolor.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: A Pixel Art Editor w/Canvas [part 1]</title>
+			<link>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
+			<pubDate>Sun, 07 Jan 2018 14:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
+			<description>
+				
+				A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more.
+				
+			</description>
+		</item>
+		<item>
+			<title>Fractal Art and Sierpinski Triangles</title>
+			<link>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</link>
+			<pubDate>Sat, 06 Jan 2018 14:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</guid>
+			<description>
+				
+				Building a Sierpinski Triangle with HTML5 Canvas and JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Events and Event Listeners in JavaScript</title>
+			<link>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</guid>
+			<description>
+				
+				JavaScript is a fundamentally event-driven programming language. Learn about the event loop, adding handlers to events with listeners, and debouncing for limiting the number of times those handlers are called.
+				
+			</description>
+		</item>
+		<item>
+			<title>Document Object Model (DOM) Selectors</title>
+			<link>https://thmsdnnr.com/post/document-object-model-dom-selectors/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/document-object-model-dom-selectors/</guid>
+			<description>
+				
+				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.
+				
+			</description>
+		</item>
+		<item>
+			<title>Map, Filter, and Reduce: Functional Programming Gems</title>
+			<link>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</guid>
+			<description>
+				
+				Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation.
+				
+			</description>
+		</item>
+		<item>
+			<title>WebStorage API: localStorage and sessionStorage</title>
+			<link>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</guid>
+			<description>
+				
+				WebStorage API, localStorage, and sessionStorage
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Code a Pomodoro Timer</title>
+			<link>https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/</link>
+			<pubDate>Mon, 01 Jan 2018 19:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/</guid>
+			<description>
+				
+				We build a Pomodoro Timer, a popular time-management tool that breaks work in to 25 minutes segments of work combined with 5 minute periods of rest.
+				
+			</description>
+		</item>
+		<item>
+			<title>Scope &amp; Closures: let vs var in JavaScript</title>
+			<link>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</guid>
+			<description>
+				
+				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.
+				
+			</description>
+		</item>
+		<item>
+			<title>Code a Weather App</title>
+			<link>https://thmsdnnr.com/post/code-a-weather-app/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/code-a-weather-app/</guid>
+			<description>
+				
+				We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs).
+				
+			</description>
+		</item>
+		<item>
+			<title>John Conway&#39;s Game of Life: Cellular Automata</title>
+			<link>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</link>
+			<pubDate>Fri, 29 Dec 2017 08:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</guid>
+			<description>
+				
+				John Conway&#39;s Game of Life simulation implemented in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Create an Animated LCD Display</title>
+			<link>https://thmsdnnr.com/post/create-an-animated-lcd-display/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/create-an-animated-lcd-display/</guid>
+			<description>
+				
+				We build a retro look-and-feel LCD display using dynamically-animated SVG with JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to D3 Graphs &#43; visualize sorting algorithms</title>
+			<link>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</guid>
+			<description>
+				
+				Visualizing Sorting Algorithms in D3
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to D3: Bar Graphs</title>
+			<link>https://thmsdnnr.com/post/intro-to-d3-bar-graphs/</link>
+			<pubDate>Fri, 22 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/post/intro-to-d3-bar-graphs/</guid>
+			<description>
+				
+				We learn the basics of D3 and how to use it to build bar graphs.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

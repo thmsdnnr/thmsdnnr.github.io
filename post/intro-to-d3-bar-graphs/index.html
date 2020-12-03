@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Intro to D3: Bar Graphs">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="D3,javascript,dataVisualization,tutorial"><meta name="description" content="We learn the basics of D3 and how to use it to build bar graphs."><meta property="og:title" content="Intro to D3: Bar Graphs" />
+<meta property="og:description" content="We learn the basics of D3 and how to use it to build bar graphs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/intro-to-d3-bar-graphs/" />
+<meta property="article:published_time" content="2017-12-22T06:40:04+00:00" />
+<meta property="article:modified_time" content="2017-12-22T06:40:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intro to D3: Bar Graphs"/>
+<meta name="twitter:description" content="We learn the basics of D3 and how to use it to build bar graphs."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>Intro to D3: Bar Graphs | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">22</span>
+				<span class="rest">Dec 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Intro to D3: Bar Graphs</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="jYVBag"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<p><a href="https://d3js.org/" target="_blank">d3</a> is a fantastic SVG-based library for data visualization. You can make all sorts of graphs and charts. It allows you to bind data to the DOM and then interact with it directly, either by creating HTML elements for display or SVG elements for real-time visualization.</p>
+<p>For some inspiration and great links to a &ldquo;code playground&rdquo; of d3 examples, check out <a href="https://bl.ocks.org" target="_blank">bl.ocks.org</a>.</p>
+<p>Some say that d3 has a large learning curve, but here we&rsquo;ll just cover the basics.</p>
+<p>Goals:</p>
+<ol>
+<li>Create a d3 bar graph</li>
+<li>Enable the graph to dynamically update given new data</li>
+<li>Learn the three different phases of d3 data updating: <code>enter</code>, <code>update</code>, and <code>exit</code>.</li>
+</ol>
+<h3 id="lets-make-a-simple-graph">let&rsquo;s make a simple graph</h3>
+<p>We&rsquo;d like to create a bar graph from a simple array of numbers.</p>
+<p>All graphs in d3 require some initial configuration. We must specify a height, width, and padding, which is typically written as a <code>margin</code> object with keys <code>top</code>, <code>left</code>, <code>right</code>, and <code>bottom</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> width <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">300</span>;
+<span style="color:#8be9fd;font-style:italic">var</span> height <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">200</span>;
+<span style="color:#ff79c6">const</span> padding <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">10</span>;
+<span style="color:#8be9fd;font-style:italic">var</span> margin <span style="color:#ff79c6">=</span> {
+  top<span style="color:#ff79c6">:</span> padding,
+  right<span style="color:#ff79c6">:</span> padding,
+  bottom<span style="color:#ff79c6">:</span> padding,
+  left<span style="color:#ff79c6">:</span> padding
+};
+width <span style="color:#ff79c6">-=</span> margin.left <span style="color:#ff79c6">+</span> margin.right;
+height <span style="color:#ff79c6">-=</span> margin.top <span style="color:#ff79c6">+</span> margin.bottom;
+
+<span style="color:#8be9fd;font-style:italic">var</span> svg <span style="color:#ff79c6">=</span> d3
+  .select(<span style="color:#f1fa8c">&#34;div#C&#34;</span>)
+  .append(<span style="color:#f1fa8c">&#34;svg&#34;</span>)
+  .attr(<span style="color:#f1fa8c">&#34;width&#34;</span>, width <span style="color:#ff79c6">+</span> margin.left <span style="color:#ff79c6">+</span> margin.right)
+  .attr(<span style="color:#f1fa8c">&#34;height&#34;</span>, height <span style="color:#ff79c6">+</span> margin.top <span style="color:#ff79c6">+</span> margin.bottom)
+  .append(<span style="color:#f1fa8c">&#34;g&#34;</span>)
+  .attr(<span style="color:#f1fa8c">&#34;transform&#34;</span>, <span style="color:#f1fa8c">&#34;translate(&#34;</span> <span style="color:#ff79c6">+</span> margin.left <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;,&#34;</span> <span style="color:#ff79c6">+</span> margin.top <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;)&#34;</span>);
+</code></pre></div><p>Setting the height, width, and margin is simple enough, but what&rsquo;s going on with <code>d3.select</code>? D3 select works just like <code>document.querySelector</code>, only it returns an empty selection instead of <code>null</code> if there are no matches. <code>d3.selectAll</code> works like <code>document.querySelectorAll</code>.</p>
+<p>To select all the paragraphs on a page in d3, use <code>d3.selectAll('p');</code> To select a DOM node stored in a variable <code>v</code>, use <code>d3.select(v)</code>.</p>
+<p>We append an <code>svg</code> element to our container div and adjust its position based on our margins.</p>
+<p>Now we just need to add some data to the picture. We&rsquo;ll define a function called <code>update</code> that takes the <code>data</code> array. Each time <code>update</code> is called, it will bind the data it is passed to DOM elements on the page and update those elements accordingly.</p>
+<h3 id="updatedata">updateData()</h3>
+<p>First we define a function for our <code>x</code> and <code>y</code> axis using d3&rsquo;s scaling functions. These functions scale the domain (input values) of our x and y coordinates to a specified range (output values) based on the dimensions of our graph.</p>
+<p>We also define <code>barHeight</code>, so that all the bars will be proportionately sized to fill the graph container.</p>
+<p>When we call <code>x(coord)</code> or <code>y(coord)</code>, <code>coord</code> is scaled appropriately to fit the graph on the screen.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> x <span style="color:#ff79c6">=</span> d3
+  .scaleLinear()
+  .domain([
+    <span style="color:#bd93f9">0</span>,
+    d3.max(data, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+      <span style="color:#ff79c6">return</span> d;
+    }),
+  ])
+  .range([<span style="color:#bd93f9">0</span>, width]);
+<span style="color:#8be9fd;font-style:italic">var</span> y <span style="color:#ff79c6">=</span> d3
+  .scaleBand()
+  .domain(
+    data.map(<span style="color:#8be9fd;font-style:italic">function</span> (d, i) {
+      <span style="color:#ff79c6">return</span> i;
+    })
+  )
+  .range([height, <span style="color:#bd93f9">0</span>]);
+<span style="color:#8be9fd;font-style:italic">var</span> barHeight <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor((height <span style="color:#ff79c6">-</span> padding) <span style="color:#ff79c6">/</span> data.length);
+</code></pre></div><p>Why is this necessary? For instance, in our case, the graph is <code>300px</code> wide. What if we want to display a value of <code>100,000</code>? We can&rsquo;t do that. In addition, we need to display data proportionately: if there are <code>300px</code> of width to display a value, a value A 10x bigger than B needs to have 10x the number of pixels of width. This would all get very messy, very fast.</p>
+<h4 id="bind-the-data">bind the data</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> bars <span style="color:#ff79c6">=</span> svg.selectAll(<span style="color:#f1fa8c">&#34;.bar&#34;</span>).data(data);
+</code></pre></div><h4 id="create-dom-elements-bars">create DOM elements (bars)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">bars
+  .enter()
+  .append(<span style="color:#f1fa8c">&#34;rect&#34;</span>)
+  .merge(bars)
+  .attr(<span style="color:#f1fa8c">&#34;class&#34;</span>, <span style="color:#f1fa8c">&#34;bar&#34;</span>)
+  .attr(<span style="color:#f1fa8c">&#34;y&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d, i) {
+    <span style="color:#ff79c6">return</span> i <span style="color:#ff79c6">*</span> barHeight <span style="color:#ff79c6">+</span> margin.top;
+  })
+  .attr(<span style="color:#f1fa8c">&#34;width&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+    <span style="color:#ff79c6">return</span> x(d);
+  })
+  .attr(<span style="color:#f1fa8c">&#34;x&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d, i) {
+    <span style="color:#ff79c6">return</span> margin.left;
+  })
+  .attr(<span style="color:#f1fa8c">&#34;height&#34;</span>, barHeight <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>);
+</code></pre></div><p><code>enter()</code> creates elements for each element of data that does not have a matching DOM element. In this case, that means each bar in our bar graph. It then passes this newborn element down the chain of methods. For each data element that does not have a matching DOM element, we append an SVG <code>rect</code> element, and we assign it attributes based on the data.</p>
+<p><code>merge</code> merges together the new data elements that are passed to the function with the existing dataset.</p>
+<p>We add a class to the <code>rect</code> element to style the bars. In our CSS, we can style the bar how we like using the <code>rect.bar</code> selector.</p>
+<p>There are four attributes for each data element we need to consider: x, y, height, and width.</p>
+<p>X and Y are the actual pixel positions of the bar on the page, starting at the upper-left corner.</p>
+<p>Height and width specify the size of the bar.</p>
+<p>The <code>.attr</code> method allows us to set the value of each of these attributes using a callback. The callback contains two values, <code>d</code>, and <code>i</code>. <code>d</code> is the actual value of the data at this point. In our case, this is just the array element, but in more complex data, it is whatever data keyed at this index, <code>i</code>, which is also passed.</p>
+<ul>
+<li>The <code>y</code> position of each element will just be the element index, multiplied by the <code>barHeight</code>, plus <code>margin.top</code>.</li>
+<li>The <code>width</code> of the element will be the scaled value of <code>d</code>, <code>x(d)</code></li>
+<li>The <code>x</code> position of the element will be the same for each. This is the &ldquo;baseline&rdquo; of the graph, so all bars start from the same place.</li>
+<li>The <code>height</code> of the element will be the bar height, with 1 pixel subtracted so there is padding between the bars.</li>
+</ul>
+<h4 id="remove-dom-elements-no-longer-needed">remove DOM elements no longer needed</h4>
+<p>When we update the data, we might have too many elements on the page. So we need to <code>.remove()</code> these elements.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">bars.exit().remove();
+</code></pre></div><p>That&rsquo;s it. If we wanted to do something special with those elements <code>.exit()</code>ing the page, we could do that before we call <code>.remove()</code> on them which removes them from the DOM.</p>
+<p>We throw in a <code>setInterval</code> to pass some random data to the function and add</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">.transition().duration(<span style="color:#bd93f9">700</span>)
+</code></pre></div><p>to the <code>enter()</code> selection to animate the newly-entered data in the graph.</p>
+<h4 id="next-steps">next steps</h4>
+<p>We&rsquo;ll add axes and data labels in the next tutorial. Try forking this CodePen and converting the graph into a vertical graph.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			<a href="/categories/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/codemorsels/"> codemorsels </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/d3/"> d3 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datavisualization/"> datavisualization </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

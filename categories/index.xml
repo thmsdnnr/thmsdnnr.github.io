@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Categories on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/categories/</link>
+		<description>Recent content in Categories on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 14 Jun 2019 19:20:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/categories/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>devtips</title>
+			<link>https://thmsdnnr.com/categories/devtips/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/devtips/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>computer science</title>
+			<link>https://thmsdnnr.com/categories/computer-science/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/computer-science/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>automata</title>
+			<link>https://thmsdnnr.com/categories/automata/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/automata/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>projects</title>
+			<link>https://thmsdnnr.com/categories/projects/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/projects/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>fundamentals</title>
+			<link>https://thmsdnnr.com/categories/fundamentals/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/fundamentals/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>javascript</title>
+			<link>https://thmsdnnr.com/categories/javascript/</link>
+			<pubDate>Sun, 04 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/javascript/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>tutorials</title>
+			<link>https://thmsdnnr.com/categories/tutorials/</link>
+			<pubDate>Sat, 24 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/tutorials/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>SVG</title>
+			<link>https://thmsdnnr.com/categories/svg/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/svg/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>algorithms</title>
+			<link>https://thmsdnnr.com/categories/algorithms/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/algorithms/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>codeMorsels</title>
+			<link>https://thmsdnnr.com/categories/codemorsels/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/categories/codemorsels/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="ES6 — Generator Functions">
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,generator"><meta name="description" content="Generator functions let programmers use yield to pause the execution of functions until they are called later."><meta property="og:title" content="ES6 — Generator Functions" />
+<meta property="og:description" content="Generator functions let programmers use yield to pause the execution of functions until they are called later." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/post/es6-generator-functions/" />
+<meta property="article:published_time" content="2018-02-24T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-02-24T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ES6 — Generator Functions"/>
+<meta name="twitter:description" content="Generator functions let programmers use yield to pause the execution of functions until they are called later."/>
+
+	
+
+	<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+	<title>ES6 — Generator Functions | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/post">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">24</span>
+				<span class="rest">Feb 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">ES6 — Generator Functions</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="generator-functions">Generator Functions</h2>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*" target="_blank">generator function</a> is a function that can exit and re-enter execution at a later time. When the function executes later on, it retains its memory of its local variables. In this sense, it acts like a <a href="http://localhost:4000/tutorials/javascript/fundamentals/2017/12/31/code-morsels-closures-let-vs-var.html#enter-closures" target="_blank">closure</a>.</p>
+<p>The best way to understand generators is with some simple examples.</p>
+<h3 id="defining-generation">Defining Generation</h3>
+<p>The syntax for defining a generator function is to use a <code>*</code> before the function name and then have <code>yield</code> statements in the function body.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> generate() {
+  <span style="color:#ff79c6">yield</span> <span style="color:#f1fa8c">&#34;this&#34;</span>;
+  <span style="color:#ff79c6">yield</span> <span style="color:#f1fa8c">&#34;is&#34;</span>;
+  <span style="color:#ff79c6">yield</span> <span style="color:#f1fa8c">&#34;a&#34;</span>;
+  <span style="color:#ff79c6">yield</span> <span style="color:#f1fa8c">&#34;sentence&#34;</span>;
+}
+</code></pre></div><p>We instantiate the generator like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> G <span style="color:#ff79c6">=</span> generate();
+G.next();
+</code></pre></div><p>Calling G.next() returns an object with a <code>value</code> and a <code>done</code> property. <code>value</code> corresponds to the current value yielded by the generator function. <code>done</code> is a boolean signifying whether the generator function is exhausted for not.</p>
+<p>Calling <code>G.next()</code> sequentially in our example function yields:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{value<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;this&#34;</span>, done<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>}
+{value<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;is&#34;</span>, done<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>}
+{value<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;a&#34;</span>, done<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>}
+{value<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;sentence&#34;</span>, done<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>}
+{value<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">undefined</span>, done<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>}
+</code></pre></div><p>Note that <code>done</code> is <em>not</em> true until we call the function and there are no more yields left.</p>
+<h3 id="generators-with-arguments">Generators With Arguments</h3>
+<p>Generators can also take arguments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> AddOneMore(a) {
+  <span style="color:#ff79c6">yield</span> a <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">yield</span> a <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span>;
+  <span style="color:#ff79c6">yield</span> a <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">3</span>;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> v <span style="color:#ff79c6">=</span> AddOneMore(<span style="color:#bd93f9">1</span>);
+v.next(); <span style="color:#6272a4">// {value: 2, done: false}
+</span><span style="color:#6272a4"></span>v.next(); <span style="color:#6272a4">// {value: 3, done: false}
+</span><span style="color:#6272a4"></span>v.next(); <span style="color:#6272a4">// {value: 4, done: false}
+</span></code></pre></div><h3 id="generators-with-returns">Generators With Returns</h3>
+<p>If a return statement is included in a generator, the generator will be exhausted when the return statement is reached. Unlike a generator that only contains yields, when the return statement is reached, the object will have <code>done</code> true and the value returned.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> returnedG(arg) {
+  <span style="color:#ff79c6">yield</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">return</span> arg;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> v <span style="color:#ff79c6">=</span> returnedG(<span style="color:#bd93f9">2</span>);
+v.next(); <span style="color:#6272a4">// {value: 1, done: false}
+</span><span style="color:#6272a4"></span>v.next(); <span style="color:#6272a4">// {value: 2, done: true}
+</span><span style="color:#6272a4"></span>v.next(); <span style="color:#6272a4">// {value: undefined, done: true}
+</span></code></pre></div><h3 id="infinite-generators">Infinite Generators</h3>
+<p>An infinite loop in a generator function can be used to return the results of an infinite series. For example, we can create an infinite list of IDs and return the next ID each time the generator function is called.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> idGenerator() {
+  <span style="color:#8be9fd;font-style:italic">let</span> id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">while</span> (<span style="color:#ff79c6">true</span>) {
+    <span style="color:#ff79c6">yield</span> <span style="color:#ff79c6">++</span>id;
+  }
+}
+</code></pre></div><blockquote>
+<p>Generate infinite sequence of numbers from 0 - 10</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> zeroToTen() {
+  <span style="color:#8be9fd;font-style:italic">let</span> id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">while</span> (<span style="color:#ff79c6">true</span>) {
+    <span style="color:#ff79c6">yield</span> id <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">10</span> <span style="color:#ff79c6">?</span> (id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">++</span>id;
+  }
+}
+</code></pre></div><blockquote>
+<p>Generate recurring numbers 0-10</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> fibbo() {
+  <span style="color:#8be9fd;font-style:italic">let</span> a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#8be9fd;font-style:italic">let</span> b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">while</span> (<span style="color:#ff79c6">true</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> current <span style="color:#ff79c6">=</span> a;
+    a <span style="color:#ff79c6">=</span> b;
+    b <span style="color:#ff79c6">=</span> current <span style="color:#ff79c6">+</span> a;
+    <span style="color:#ff79c6">yield</span> current;
+  }
+}
+</code></pre></div><blockquote>
+<p>Generator for the Fibonacci sequence</p>
+</blockquote>
+<h3 id="generators-yielding-to-other-generators">Generators Yielding To Other Generators</h3>
+<p>Generators can even yield execution to other generators.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> a() {
+  <span style="color:#ff79c6">yield</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">yield</span><span style="color:#ff79c6">*</span> b();
+  <span style="color:#ff79c6">yield</span> <span style="color:#f1fa8c">&#34;a is now in control&#34;</span>;
+}
+
+<span style="color:#8be9fd;font-style:italic">function</span><span style="color:#ff79c6">*</span> b() {
+  <span style="color:#ff79c6">yield</span> <span style="color:#f1fa8c">&#34;b is now in control&#34;</span>;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> backAndForth <span style="color:#ff79c6">=</span> a();
+backAndForth.next(); <span style="color:#6272a4">// 1
+</span><span style="color:#6272a4"></span>backAndForth.next(); <span style="color:#6272a4">// &#34;b is now in control&#34;
+</span><span style="color:#6272a4"></span>backAndForth.next(); <span style="color:#6272a4">// &#34;a is now in control&#34;
+</span><span style="color:#6272a4"></span>backAndForth.next(); <span style="color:#6272a4">// {value: undefined, done: true}
+</span></code></pre></div><h2 id="but-why">But, why?</h2>
+<p>Generators are more than just syntactic sugar. They are powerful tools for making infinite sequences or tasks manageable by implementing <a href="https://en.wikipedia.org/wiki/Lazy_evaluation" target="_blank">lazy evaluation</a>, the paradigm of only producing results when they are requested. Lazy Evaluation is why you can have a <code>while (true)</code> loop in the function that doesn&rsquo;t hang infinitely: <code>yield</code> breaks out of the while loop until the next time the function is called.</p>
+<p>Look for ways that you can implement generators to make your code more readable. Consider how you might use it with asynchronous code like fetch or use it to make more readable functions that perform similar tasks.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/generator/"> generator </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>
