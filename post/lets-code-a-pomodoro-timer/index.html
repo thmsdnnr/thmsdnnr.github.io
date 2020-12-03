@@ -143,7 +143,8 @@
     async
     src="//codepen.io/assets/embed/ei.js"
 ></script>
-<p>The <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">Pomodoro Technique</a> is a time management method that tracks the number of focused work periods you perform and rewards you periodically with breaks so that you stay refreshed.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank" rel="noreferrer noopener">Pomodoro Technique</a>
+ is a time management method that tracks the number of focused work periods you perform and rewards you periodically with breaks so that you stay refreshed.</p>
 <p>The technique is simple. Set a Work Timer (usually for 25 minutes). Work on the task.</p>
 <p>When the timer completes, evaluate your progress.</p>
 <p>Did you complete the period successfully, working on the task throughout? Then put a checkmark on a piece of paper.</p>
@@ -261,7 +262,8 @@ Pomodoro.prototype.displayTime <span style="color:#ff79c6">=</span> <span style=
 </code></pre></div><h3 id="updatetime">updateTime</h3>
 <p><code>updateTime</code> increments the elapsed time by adding the difference between the current instant and the last instant the function was called. We divide by 1000 because <code>Date.now()</code> returns milliseconds, and we are measuring elapsed time in seconds.</p>
 <p>Each tick we check if elapsed has exceeded the current timer length. If so, we stop the timer.</p>
-<p>Note that we do not assume that <code>updateTime</code> gets called every second, even though we define the interval as 1000ms. This is because the event loop timing is <a href="https://johnresig.com/blog/how-javascript-timers-work/" target="_blank">not that precise</a>. We can&rsquo;t just add <code>1</code> to secondsElapsed every time <code>updateTime</code> gets fired.</p>
+<p>Note that we do not assume that <code>updateTime</code> gets called every second, even though we define the interval as 1000ms. This is because the event loop timing is <a href="https://johnresig.com/blog/how-javascript-timers-work/" target="_blank" rel="noreferrer noopener">not that precise</a>
+. We can&rsquo;t just add <code>1</code> to secondsElapsed every time <code>updateTime</code> gets fired.</p>
 <p>Instead, each time the function is called, we calculate the difference between the two time points.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Pomodoro.prototype.updateTime <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
   <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.running) {
@@ -318,7 +320,9 @@ Pomodoro.prototype.displayTime <span style="color:#ff79c6">=</span> <span style=
 <h2 id="additional-features">Additional Features</h2>
 <ul>
 <li>We can enhance the UI to make it prettier.</li>
-<li>We can use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank">Notifications API</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API" target="_blank">Vibration API</a> to make subtle indications of the start and end of pomodoro periods.</li>
+<li>We can use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification" target="_blank" rel="noreferrer noopener">Notifications API</a>
+ and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API" target="_blank" rel="noreferrer noopener">Vibration API</a>
+ to make subtle indications of the start and end of pomodoro periods.</li>
 <li>We can use LocalStorage to track &ldquo;Pomodoros for the day&rdquo; so that users can leave the site and return later.</li>
 <li>We can establish &ldquo;daily pomodoro goals&rdquo;</li>
 <li>We can track Pomodoro success over time: days, Pomodoros completed, # times distracted</li>

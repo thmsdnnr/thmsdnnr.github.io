@@ -128,9 +128,13 @@
 		<h2 id="es6-morsels">ES6 Morsels?</h2>
 <p>In this series, I&rsquo;m going to cover one or two new ES6 features per post with a deep dive into code examples and consider when it makes sense to use new functionality.</p>
 <h2 id="whats-es6">What&rsquo;s ES6?</h2>
-<p>Javascript, like any language, evolves. The <a href="http://www.ecma-international.org/memento/TC39.htm" target="_blank">TC-39</a> meets to discuss changes to the language. The most recent version <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf" target="_blank">is here</a>, at a cool 885 pages long.</p>
-<p>Let&rsquo;s reduce this complexity a little bit. The language specification is implemented to varying extents in different browsers. <a href="http://kangax.github.io/compat-table/es6/" target="_blank">This compatibility table</a> is a great way to learn what you can and cannot implement natively.</p>
-<p>If a browser does not support a new feature yet, there&rsquo;s a tool called <a href="https://babeljs.io/" target="_blank">Babel</a> that lets you &ldquo;use next generation Javascript, today&rdquo;. It is a transpiler: it compiles JS written with new features into JS that browsers that do not implement these features can still understand.</p>
+<p>Javascript, like any language, evolves. The <a href="http://www.ecma-international.org/memento/TC39.htm" target="_blank" rel="noreferrer noopener">TC-39</a>
+ meets to discuss changes to the language. The most recent version <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf" target="_blank" rel="noreferrer noopener">is here</a>
+, at a cool 885 pages long.</p>
+<p>Let&rsquo;s reduce this complexity a little bit. The language specification is implemented to varying extents in different browsers. <a href="http://kangax.github.io/compat-table/es6/" target="_blank" rel="noreferrer noopener">This compatibility table</a>
+ is a great way to learn what you can and cannot implement natively.</p>
+<p>If a browser does not support a new feature yet, there&rsquo;s a tool called <a href="https://babeljs.io/" target="_blank" rel="noreferrer noopener">Babel</a>
+ that lets you &ldquo;use next generation Javascript, today&rdquo;. It is a transpiler: it compiles JS written with new features into JS that browsers that do not implement these features can still understand.</p>
 <p>Babel can be hooked into your development toolbox so that any code you write gets transpiled down in your final product.</p>
 <h2 id="isnt-this-needlessly-complex">Isn&rsquo;t this needlessly complex?</h2>
 <p>Maybe. The biggest draw toward new features is future compatibility. Where backwards compatibility seeks to make new code jive with older browsers (the hole that Babel fills), future compatibility aims to make code conversant in the &ldquo;languages of tomorrow&rdquo;. Whether this ad copy is needless headache, revelatory development, or fair to middling is a question for your project team. Even if you don&rsquo;t plan to use many of the new features, it&rsquo;s still good to know that they exist.</p>
@@ -138,7 +142,8 @@
 <p>With all of these new features, as with most anything in life, it&rsquo;s important to critically ask: am I using this because it&rsquo;s new and other people are adopting it, or because it truly makes sense for my life and will enrich it?</p>
 </blockquote>
 <h2 id="default-parameters">Default Parameters</h2>
-<p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters" target="_blank">Default parameters</a></strong> are exactly what they sound like: the values that things default to when no other values are provided.</p>
+<p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters" target="_blank" rel="noreferrer noopener">Default parameters</a>
+</strong> are exactly what they sound like: the values that things default to when no other values are provided.</p>
 <p>In ES6, they are syntactic sugar for checking whether a function is passed an undefined argument and, if so, setting a given default value. Take a look:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> treeFell(observer <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;me&#34;</span>) {
   <span style="color:#ff79c6">return</span> observer <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">true</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>;
@@ -156,7 +161,8 @@
 </code></pre></div><blockquote>
 <p>Babel-transpiled</p>
 </blockquote>
-<p>Hey, this function always returns true, thanks to the default value. Maybe <a href="https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest" target="_blank">essence is not perception</a> after all!</p>
+<p>Hey, this function always returns true, thanks to the default value. Maybe <a href="https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest" target="_blank" rel="noreferrer noopener">essence is not perception</a>
+ after all!</p>
 <p>Default arguments can refer to default arguments that <em>precede</em> them.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> pluralize(singular <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cat&#34;</span>, plural <span style="color:#ff79c6">=</span> singular <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;s&#34;</span>) {
   <span style="color:#ff79c6">return</span> { one<span style="color:#ff79c6">:</span> singular, many<span style="color:#ff79c6">:</span> plural };
@@ -172,7 +178,8 @@ newEachTime(<span style="color:#bd93f9">1</span>); <span style="color:#6272a4">/
 </span><span style="color:#6272a4"></span>newEachTime(<span style="color:#bd93f9">4</span>); <span style="color:#6272a4">// [4], NOT [1, 4]
 </span></code></pre></div><p>Default function parameters can be handy. However, they can also be dangerous. You should guard against relying upon them too heavily. Their use can both limit the generality of a function as well as obfuscate what happens when a function is called. This can make code more difficult to maintain.</p>
 <h2 id="destructuring">Destructuring</h2>
-<p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">Destructuring</a></strong> enables us to selectively extract properties from an object or entries from an array. Attempting to access properties that do not exist or indices out of range returns a value of undefined.</p>
+<p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" rel="noreferrer noopener">Destructuring</a>
+</strong> enables us to selectively extract properties from an object or entries from an array. Attempting to access properties that do not exist or indices out of range returns a value of undefined.</p>
 <h4 id="with-arrays">With Arrays</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> test <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>];
 <span style="color:#8be9fd;font-style:italic">let</span> [, two, three, , five] <span style="color:#ff79c6">=</span> test;
@@ -329,7 +336,8 @@ _cuteAnimalRatings$ca <span style="color:#ff79c6">=</span>
 </blockquote>
 <p>Wait, wait. Why these strange extra equals signs and brackets? They are providing default values in the event that a given property does not exist. We are guarding against the case where <code>cats</code> in <code>cuteAnimalRatings</code> is missing a <code>nestedWhy</code> or a <code>data</code> property.</p>
 <p>Good question: why do we need a default value to prevent against undefined values in this nested case, whereas we did not in the case of <code>iDoNotExist</code>? Notice that one is nested at just one level, while the other properties are more deeply nested.</p>
-<p>Why does this matter? Long answer: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank">prototypal inheritance</a> at work.</p>
+<p>Why does this matter? Long answer: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="noreferrer noopener">prototypal inheritance</a>
+ at work.</p>
 <p>The short answer is that <code>undefined</code> is not an object and does not have any properties. Actually, since it&rsquo;s not an object, it does not even have the <em>concept</em> of having properties.</p>
 <p>When we call <code>cuteAnimalRatings.cats</code>, we are asking whether the <code>cats</code> property exists in <code>cuteAnimalRatings</code>. We search in <code>cuteAnimalRatings</code> for the property and return it, if it exists. Otherwise, we return undefined. Under the hood, the code might look something like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> hasOwnProperty <span style="color:#ff79c6">=</span> (prop) =&gt;
@@ -337,8 +345,10 @@ _cuteAnimalRatings$ca <span style="color:#ff79c6">=</span>
 </code></pre></div><p><code>Object.keys(undefined)</code> gives us a TypeError though. An empty object <code>{}</code> is an object, and any properties that do not exist on that object will be undefined. So it&rsquo;s safe to check properties on it, even though it has none (<code>Object.keys({}).length</code> =&gt; 0). By inserting it as a default value in our lookup chain, it&rsquo;s a safe placeholder for null.</p>
 <p>If this seems like an awful lot of work, you&rsquo;re right.</p>
 <h4 id="what-problem-are-we-trying-to-solve">What problem are we trying to solve?</h4>
-<p>The pattern here is: how can we access nested properties of an object when we&rsquo;re not sure whether those properties are undefined? Wouldn&rsquo;t it be nice if objects had a property accessor that would <a href="https://en.wikipedia.org/wiki/Short-circuit_evaluation" target="_blank">short-circuit evaluate</a> at the first instance of undefined and would automatically check for property existence under the hood for us so we don&rsquo;t have to?</p>
-<p>Gratuitous segue to <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank">the proposal for optional chaining</a>.</p>
+<p>The pattern here is: how can we access nested properties of an object when we&rsquo;re not sure whether those properties are undefined? Wouldn&rsquo;t it be nice if objects had a property accessor that would <a href="https://en.wikipedia.org/wiki/Short-circuit_evaluation" target="_blank" rel="noreferrer noopener">short-circuit evaluate</a>
+ at the first instance of undefined and would automatically check for property existence under the hood for us so we don&rsquo;t have to?</p>
+<p>Gratuitous segue to <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noreferrer noopener">the proposal for optional chaining</a>
+.</p>
 <p>There&rsquo;s a proposal for syntax like this: <code>cuteAnimalRatings?.cats?.data?.nestedWhy</code>. You can read it as: check for existence of the previous value — if it exists, check for the property following the period.</p>
 <ol>
 <li>Does cuteAnimalRatings exist? Yes=&gt; check cats property. No=&gt; return undefined.</li>

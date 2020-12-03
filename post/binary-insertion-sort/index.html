@@ -125,20 +125,23 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p><a href="https://en.wikipedia.org/wiki/Insertion_sort" target="_blank">Binary Insertion Sort</a> is a more performant Insertion Sort implementation.</p>
+		<p><a href="https://en.wikipedia.org/wiki/Insertion_sort" target="_blank" rel="noreferrer noopener">Binary Insertion Sort</a>
+ is a more performant Insertion Sort implementation.</p>
 <p>You put a Binary Search in your Insertion Sort so you can Binary Search where to insert.</p>
 <p>Given an unsorted array <code>arr</code>, insertion sort builds up an array of sorted elements &ldquo;in-place&rdquo;, checking <em>every</em> previous value in the sorted section of the array to determine where to place a new element.</p>
 <p>Envision the partially-sorted array: <code>[1,3,4,0]</code>.</p>
 <p>Imagine that we are placing <code>0</code>, the last element. Insertion sort would have us compare 0 with 4&ndash;nope, still bigger!&ndash;then with 3, and then with 1.</p>
 <p>We can use a binary search technique with this sorted part of the array, <code>[1,3,4]</code> in order to divide-and-conquer to find the index of insertion so that we do not have to make as many comparisons.</p>
 <h3 id="tiny-modification-to-binary-search-algorithm">Tiny Modification to Binary Search Algorithm</h3>
-<p>The code is nearly identical. We rewrite our <a href="https://thmsdnnr.com/tutorials/javascript/codemorsels/algorithms/2017/12/15/code-morsels-binary-search.html" target="_blank">binary search</a> algorithm slightly.</p>
+<p>The code is nearly identical. We rewrite our <a href="https://thmsdnnr.com/tutorials/javascript/codemorsels/algorithms/2017/12/15/code-morsels-binary-search.html" target="_blank" rel="noreferrer noopener">binary search</a>
+ algorithm slightly.</p>
 <p>Previously, our search returned <code>false</code> if the element was missing from the array:</p>
 <p><code>if (L&gt;R) { return false; }</code></p>
 <p>Now, we return the <code>index</code> of <em>where the element would exist, if it did exist</em>:</p>
 <p><code>if (L&gt;=R) { return (target &gt; arr[L]) ? L+1 : L; }</code></p>
 <h3 id="tiny-modification-to-insertion-sort-algorithm">Tiny Modification to Insertion Sort Algorithm</h3>
-<p>We rewire our <a href="https://thmsdnnr.com/tutorials/javascript/codemorsels/algorithms/2017/12/18/code-morsels-insertion-sort.html" target="_blank">insertion sort</a> to use the index returned by our new Binary Search function.</p>
+<p>We rewire our <a href="https://thmsdnnr.com/tutorials/javascript/codemorsels/algorithms/2017/12/18/code-morsels-insertion-sort.html" target="_blank" rel="noreferrer noopener">insertion sort</a>
+ to use the index returned by our new Binary Search function.</p>
 <p>Previously, we checked every preceding value to find the index.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">while</span> (j <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> arr[j] <span style="color:#ff79c6">&gt;</span> key) {
   arr[j <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> arr[j];

@@ -126,7 +126,9 @@
 	</div>
 	<div class="markdown">
 		<h2 id="generator-functions">Generator Functions</h2>
-<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*" target="_blank">generator function</a> is a function that can exit and re-enter execution at a later time. When the function executes later on, it retains its memory of its local variables. In this sense, it acts like a <a href="http://localhost:4000/tutorials/javascript/fundamentals/2017/12/31/code-morsels-closures-let-vs-var.html#enter-closures" target="_blank">closure</a>.</p>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*" target="_blank" rel="noreferrer noopener">generator function</a>
+ is a function that can exit and re-enter execution at a later time. When the function executes later on, it retains its memory of its local variables. In this sense, it acts like a <a href="http://localhost:4000/tutorials/javascript/fundamentals/2017/12/31/code-morsels-closures-let-vs-var.html#enter-closures" target="_blank" rel="noreferrer noopener">closure</a>
+.</p>
 <p>The best way to understand generators is with some simple examples.</p>
 <h3 id="defining-generation">Defining Generation</h3>
 <p>The syntax for defining a generator function is to use a <code>*</code> before the function name and then have <code>yield</code> statements in the function body.</p>
@@ -221,7 +223,8 @@ backAndForth.next(); <span style="color:#6272a4">// 1
 </span><span style="color:#6272a4"></span>backAndForth.next(); <span style="color:#6272a4">// &#34;a is now in control&#34;
 </span><span style="color:#6272a4"></span>backAndForth.next(); <span style="color:#6272a4">// {value: undefined, done: true}
 </span></code></pre></div><h2 id="but-why">But, why?</h2>
-<p>Generators are more than just syntactic sugar. They are powerful tools for making infinite sequences or tasks manageable by implementing <a href="https://en.wikipedia.org/wiki/Lazy_evaluation" target="_blank">lazy evaluation</a>, the paradigm of only producing results when they are requested. Lazy Evaluation is why you can have a <code>while (true)</code> loop in the function that doesn&rsquo;t hang infinitely: <code>yield</code> breaks out of the while loop until the next time the function is called.</p>
+<p>Generators are more than just syntactic sugar. They are powerful tools for making infinite sequences or tasks manageable by implementing <a href="https://en.wikipedia.org/wiki/Lazy_evaluation" target="_blank" rel="noreferrer noopener">lazy evaluation</a>
+, the paradigm of only producing results when they are requested. Lazy Evaluation is why you can have a <code>while (true)</code> loop in the function that doesn&rsquo;t hang infinitely: <code>yield</code> breaks out of the while loop until the next time the function is called.</p>
 <p>Look for ways that you can implement generators to make your code more readable. Consider how you might use it with asynchronous code like fetch or use it to make more readable functions that perform similar tasks.</p>
 
 	</div>

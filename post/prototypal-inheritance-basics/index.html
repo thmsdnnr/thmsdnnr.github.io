@@ -143,12 +143,14 @@ cat.speak(); <span style="color:#6272a4">// Meow!
 <h2 id="walking-up-the-chain">Walking Up the Chain</h2>
 <p>When we attempt to access a property on an object, we first check that object to see if the property exists. If it does, we return the value.</p>
 <p>If it does not, we access the object&rsquo;s parent (prototype) and check all of <em>its</em> properties to see if the property exists there. If it does, we return the value. If not, we repeat the process, until we finally reach a parent of null and return undefined.</p>
-<p>In the case of <code>cat</code>, <code>hasOwnProperty</code> did not exist on the object we defined. However, <code>cat</code> is an Object, and so its prototype is the Object object. This makes sense: the blueprint for building a new object is an object! The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank">Object object</a> has the <code>hasOwnProperty</code> method, and so the method is executed.</p>
+<p>In the case of <code>cat</code>, <code>hasOwnProperty</code> did not exist on the object we defined. However, <code>cat</code> is an Object, and so its prototype is the Object object. This makes sense: the blueprint for building a new object is an object! The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="noreferrer noopener">Object object</a>
+ has the <code>hasOwnProperty</code> method, and so the method is executed.</p>
 <p>You might be scratching your head: okay, the cat did not have the property defined, so we looked at its prototype, the Object. We found the method there. But how come the method returned <code>true</code> when we called it?! Objects do not have a <code>speak</code> method!</p>
 <p><code>Object.speak()</code> // Uncaught TypeError: Object.speak is not a function</p>
 <p>This (no pun intended) is a key element to prototypal inheritance. If a function does not exist as a property of a given object, when it is found on a parent object and executed, it is executed <em>in the context of the inheriting object</em>.</p>
 <blockquote>
-<p>When an inherited function is executed, the value of this points to the inheriting object, not to the prototype object where the function is an own property. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain#Inherting_methods" target="_blank">MDN: Inheriting Methods</a></p>
+<p>When an inherited function is executed, the value of this points to the inheriting object, not to the prototype object where the function is an own property. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain#Inherting_methods" target="_blank" rel="noreferrer noopener">MDN: Inheriting Methods</a>
+</p>
 </blockquote>
 <p>Here&rsquo;s a function we can use to explore the methods on a given prototype chain.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> logProtoChain(thing) {
@@ -193,9 +195,12 @@ cat.hasOwnProperty(<span style="color:#f1fa8c">&#34;hasOwnProperty&#34;</span>);
 <p>How can we define our own prototypes for a given object?</p>
 <p>There are three ways:</p>
 <ol>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new" target="_blank">New operator</a></li>
-<li><code>Object.create()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank">(Docs)</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank">Class syntax</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noreferrer noopener">New operator</a>
+</li>
+<li><code>Object.create()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="noreferrer noopener">(Docs)</a>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer noopener">Class syntax</a>
+</li>
 </ol>
 <p>Onward!</p>
 <h3 id="1-new">1. New</h3>
@@ -213,7 +218,8 @@ Animal.prototype.greet <span style="color:#ff79c6">=</span> <span style="color:#
 <ol>
 <li>Creates a new object.</li>
 <li>Sets the object&rsquo;s prototype to that of the constructor function&rsquo;s prototype.</li>
-<li>Calls the constructor function with the given arguments, setting <code>this</code> to the context of the newly-created object. See the MDN docs for <code>.apply()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank">(Docs)</a>.</li>
+<li>Calls the constructor function with the given arguments, setting <code>this</code> to the context of the newly-created object. See the MDN docs for <code>.apply()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noreferrer noopener">(Docs)</a>
+.</li>
 <li>Returns the new object or, if the constructor function returned a non-null object, this returned object.</li>
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> makeNewObject(baseObj, ...args) {
@@ -232,7 +238,8 @@ ourNewCat.greet(); <span style="color:#6272a4">// meow
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">cat.greeting <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;ROAR I AM A LION!!&#34;</span>;
 cat.greet(); <span style="color:#6272a4">// ROAR I AM A LION!!
 </span></code></pre></div><h3 id="2-objectcreate">2. Object.create</h3>
-<p><code>Object.create()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank">(Docs)</a> takes a prototype object and returns an object with this prototype.</p>
+<p><code>Object.create()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ takes a prototype object and returns an object with this prototype.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> cat <span style="color:#ff79c6">=</span> {
   greeting<span style="color:#ff79c6">:</span> () =&gt; <span style="color:#f1fa8c">&#34;meow&#34;</span>,
   whereDoYouSeeYourself<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span> (years <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5</span>) {
@@ -248,7 +255,8 @@ cat.greet(); <span style="color:#6272a4">// ROAR I AM A LION!!
 fluffykins.whereDoYouSeeYourself();
 <span style="color:#6272a4">// In 5 years, I will be sitting on a windowsill watching squirrels.
 </span></code></pre></div><h3 id="3-class-syntax">3. Class Syntax</h3>
-<p>ES5 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank">class syntax</a> that is an overlay of prototypal inheritance.</p>
+<p>ES5 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer noopener">class syntax</a>
+ that is an overlay of prototypal inheritance.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">class</span> Point {
   constructor(pt) {
     <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>pt) {
@@ -300,7 +308,8 @@ fluffykins.whereDoYouSeeYourself();
 Q.length; <span style="color:#6272a4">// 6
 </span><span style="color:#6272a4"></span>Q.startQuadrant; <span style="color:#6272a4">// 3
 </span><span style="color:#6272a4"></span>Q.endQuadrant; <span style="color:#6272a4">// 4
-</span></code></pre></div><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static" target="_blank">Static methods</a> are functions that can be called only on the class for which they are defined, not by any of the individual instances of the class.</p>
+</span></code></pre></div><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static" target="_blank" rel="noreferrer noopener">Static methods</a>
+ are functions that can be called only on the class for which they are defined, not by any of the individual instances of the class.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> P <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point([<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">3</span>]);
 P.computeQuadrant(); <span style="color:#6272a4">// Error: P.computeQuadrant is not a function
 </span><span style="color:#6272a4"></span>P.quadrant; <span style="color:#6272a4">// 1

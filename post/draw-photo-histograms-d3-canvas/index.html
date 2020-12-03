@@ -145,7 +145,8 @@
     src="//codepen.io/assets/embed/ei.js"
 ></script>
 <h2 id="histograms-redux">Histograms Redux</h2>
-<p>We&rsquo;ve previously discussed histograms <a href="https://thmsdnnr.com/fundamentals/2018/03/05/histograms-frequency-analysis.html" target="_blank">in this tutorial</a>. Today, we&rsquo;ll use that knowledge and apply it to making a histogram that shows the RGB distribution of an image the user uploads in the browser. We&rsquo;ll graph all three components' frequencies with D3 and allow the user to highlight individual components. Sound like a lot of work? It&rsquo;s not too bad actually!</p>
+<p>We&rsquo;ve previously discussed histograms <a href="https://thmsdnnr.com/fundamentals/2018/03/05/histograms-frequency-analysis.html" target="_blank" rel="noreferrer noopener">in this tutorial</a>
+. Today, we&rsquo;ll use that knowledge and apply it to making a histogram that shows the RGB distribution of an image the user uploads in the browser. We&rsquo;ll graph all three components' frequencies with D3 and allow the user to highlight individual components. Sound like a lot of work? It&rsquo;s not too bad actually!</p>
 <h2 id="high-level-structure">High-Level Structure</h2>
 <p>Good code is like good plumbing. The memory doesn&rsquo;t leak. Things flow in the direction you&rsquo;d expect. Pipes do not simply terminate. Coding an app could be described simply as collating streams of data and creating pipes to make the data interact in meaningful ways to solve a task.</p>
 <p>So let&rsquo;s go with that: the task we want to solve is to display a histogram of a user-uploaded image. The image does not need to persist, so we can do it all in the browser.</p>
@@ -153,7 +154,8 @@
 <p>Then, we need to process that pixel data and pipe it into something that will allow us to display it. For this, we&rsquo;ll use D3.</p>
 <p>So the pipes are User -&gt; Canvas -&gt; Pixel Data -&gt; Histogram Data -&gt; D3.</p>
 <h2 id="pipe-1-user---canvas">Pipe 1: User -&gt; Canvas</h2>
-<p>We&rsquo;ll use a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file" target="_blank">file input</a> to allow the user to upload an image.</p>
+<p>We&rsquo;ll use a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file" target="_blank" rel="noreferrer noopener">file input</a>
+ to allow the user to upload an image.</p>
 <p><code>&lt;input type=&quot;file&quot; id=&quot;imageFile&quot; accept=&quot;.png, .jpg, .jpeg&quot;&gt;&lt;/input&gt;</code></p>
 <p>You can restrict the types of files a user can upload using the input. In this case, we&rsquo;ll limit it to images.</p>
 <p>We add an event listener to the input element for a <code>change</code> event.</p>
@@ -174,16 +176,21 @@
   }
 }
 </code></pre></div><p>The files are passed into the <code>files</code> array. We only are going to grab the first file, if the user selects more than one.</p>
-<p>Once we have the file, we have to use a <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank">FileReader</a> in order to asynchronously read its contents into memory.</p>
+<p>Once we have the file, we have to use a <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank" rel="noreferrer noopener">FileReader</a>
+ in order to asynchronously read its contents into memory.</p>
 <p>The FileReader returns a &ldquo;load&rdquo; event when the file is successfully read. The resulting data is present in the <code>result</code> property of the FileReader.</p>
-<p>We make sure that the user actually entered a file in the box (<code>if (theImage)</code>). If so, we initialize the FileReader with <code>readAsDataUrl</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL" target="_blank">(Docs)</a>. This reads the contents of the file and returns a result formatted as a base64 encoded data string. This string can be displayed directly as the <code>src</code> of an image tag.</p>
+<p>We make sure that the user actually entered a file in the box (<code>if (theImage)</code>). If so, we initialize the FileReader with <code>readAsDataUrl</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL" target="_blank" rel="noreferrer noopener">(Docs)</a>
+. This reads the contents of the file and returns a result formatted as a base64 encoded data string. This string can be displayed directly as the <code>src</code> of an image tag.</p>
 <p>We create this image tag, and when the file is successfully read, we set its src to the <code>reader.result</code>. When the image is successfully loaded, we pass it into our <code>calcAndGraph</code> function.</p>
 <h3 id="pipe-2-canvas---histogram-data">Pipe 2: Canvas -&gt; Histogram Data</h3>
 <p>Now that we have our image, we are going to put it into the canvas and generate a histogram from canvasData.</p>
-<p>We set our canvas height and width to that of the image&rsquo;s height and width. Then, we draw the image to the canvas with <code>drawImage</code>. Once the image is on the canvas, we can call <code>getImageData</code>, which will return an <code>ImageData</code> object <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData" target="_blank">(Docs)</a>. The object contains three properties: height, width, and data.</p>
-<p>Data is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray" target="_blank">Uint8ClampedArray</a>. This sounds complex, but it&rsquo;s quite simple. It&rsquo;s an 8-bit Unsigned Integer array. 8 bits can store 2^8 or 256 unique values (0-255). Unsigned means it cannot store negative numbers: all of the bits are used to store numeric values: there is no sign bit.</p>
+<p>We set our canvas height and width to that of the image&rsquo;s height and width. Then, we draw the image to the canvas with <code>drawImage</code>. Once the image is on the canvas, we can call <code>getImageData</code>, which will return an <code>ImageData</code> object <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData" target="_blank" rel="noreferrer noopener">(Docs)</a>
+. The object contains three properties: height, width, and data.</p>
+<p>Data is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray" target="_blank" rel="noreferrer noopener">Uint8ClampedArray</a>
+. This sounds complex, but it&rsquo;s quite simple. It&rsquo;s an 8-bit Unsigned Integer array. 8 bits can store 2^8 or 256 unique values (0-255). Unsigned means it cannot store negative numbers: all of the bits are used to store numeric values: there is no sign bit.</p>
 <p>Clamped means that attempting to place a non-integral entry in the array will round the value to the nearest integer (3.4 -&gt; 3, 3.51 -&gt; 4), and that all values below 0 will be set to zero. Similarly, all values greater than 255 will be set to 255.</p>
-<p>If you think about the <a href="https://en.wikipedia.org/wiki/RGB_color_model" target="_blank">RGB color model</a>, this is the perfect data structure. Each pixel in the image is represented by four entries in the array: a R, G, B, and A (alpha) value. To read sequential pixels' RGBA values, you skip ahead by 4.</p>
+<p>If you think about the <a href="https://en.wikipedia.org/wiki/RGB_color_model" target="_blank" rel="noreferrer noopener">RGB color model</a>
+, this is the perfect data structure. Each pixel in the image is represented by four entries in the array: a R, G, B, and A (alpha) value. To read sequential pixels' RGBA values, you skip ahead by 4.</p>
 <p>Now that we have the data, we create three dictionaries that we&rsquo;ll use to hold the number of occurrences of a red, green, and blue pixel of a given intensity, rD, gD, and bD, respectively.</p>
 <p>We instantiate the dictionaries by setting the initial frequency of every pixel to 0. We do this because it&rsquo;s possible that an image might not have all 256 values for a given color component.</p>
 <p>Finally, we iterate through the array, moving forward pixel by pixel (<code>i+=4</code>), assigning the i-th, i+1th, and i+2th pixel to the red, green, and blue dictionaries, respectively. The i+3th value is the alpha, or opacity. In our case, we&rsquo;re ignoring this channel.</p>

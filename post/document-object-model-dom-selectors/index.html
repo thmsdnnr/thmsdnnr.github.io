@@ -125,7 +125,8 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p>The <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">Document Object Model (DOM)</a> is how browsers turn your code into a user experience. I know, it&rsquo;s just one character away from &ldquo;doom&rdquo;, but I promise: after this tutorial, you&rsquo;ll gain some clarity.</p>
+		<p>The <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank" rel="noreferrer noopener">Document Object Model (DOM)</a>
+ is how browsers turn your code into a user experience. I know, it&rsquo;s just one character away from &ldquo;doom&rdquo;, but I promise: after this tutorial, you&rsquo;ll gain some clarity.</p>
 <h3 id="the-dom">The DOM</h3>
 <p>Here&rsquo;s a basic webpage.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML">&lt;<span style="color:#ff79c6">html</span>&gt;
@@ -179,7 +180,8 @@
 <li><code>value</code> is the value of an input element like a form or textarea</li>
 </ul>
 <h3 id="a-simple-example-word-frequency-with-getelementsbytagname">a simple example: word frequency with <code>getElementsByTagName</code></h3>
-<p>Paste this into the JS console when you&rsquo;re on any page with paragraphs. <a href="https://en.wikipedia.org/wiki/HTML" target="_blank">Wikipedia</a> is good:</p>
+<p>Paste this into the JS console when you&rsquo;re on any page with paragraphs. <a href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noreferrer noopener">Wikipedia</a>
+ is good:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> A <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Array</span>.from(<span style="color:#8be9fd;font-style:italic">document</span>.getElementsByTagName(<span style="color:#f1fa8c">&#34;p&#34;</span>));
 <span style="color:#8be9fd;font-style:italic">let</span> joinedWords <span style="color:#ff79c6">=</span> A.map((e) =&gt;
   e.textContent.split(<span style="color:#f1fa8c">&#34; &#34;</span>).filter((e) =&gt; e.length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>)

@@ -125,7 +125,8 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p>As we saw from the <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/02/binary-trees-part-two.html" target="_blank">previous tutorial on binary search trees</a>, when insertion into a tree is not random, we can end up with a long chain of nodes stretching out to the right or left. In these cases, we lose the <code>n*log(n)</code> search performance of a BST, since we no longer split the search space in half at each branch. We could randomize insert order, but this assumes we have all the data up front, and it requires an additional step.</p>
+		<p>As we saw from the <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/02/binary-trees-part-two.html" target="_blank" rel="noreferrer noopener">previous tutorial on binary search trees</a>
+, when insertion into a tree is not random, we can end up with a long chain of nodes stretching out to the right or left. In these cases, we lose the <code>n*log(n)</code> search performance of a BST, since we no longer split the search space in half at each branch. We could randomize insert order, but this assumes we have all the data up front, and it requires an additional step.</p>
 <p><figure>
   <img src="/assets/pics/btree/almost_ll.png" alt="Long chain of nodes in binary search tree, resembling a linked list."  />
 </figure></p>
@@ -142,7 +143,9 @@
 </figure></p>
 <p>It&rsquo;s still in order, but now there are only 3 steps to get to 10 instead of 5. We did have to perform three operations on the tree, but assuming that we look up 10 more than once, it&rsquo;ll more than pay off down the road to balance.</p>
 <h3 id="calculating-tree-height">Calculating Tree Height</h3>
-<p>One type balanced binary search tree is an <a href="https://en.wikipedia.org/wiki/AVL_tree" target="_blank">AVL tree</a>. It&rsquo;s very expensive to keep a tree perfectly balanced at all times. The strategy here is &ldquo;good enough&rdquo; or <a href="https://en.wikipedia.org/wiki/Satisficing" target="_blank">satisficing</a>: we don&rsquo;t have to keep the tree <em>perfectly</em> balanced — let&rsquo;s just not let it get out of hand. What&rsquo;s out of hand? For the AVL tree, it means the difference in max height between a node&rsquo;s left and right branches exceeds 1.</p>
+<p>One type balanced binary search tree is an <a href="https://en.wikipedia.org/wiki/AVL_tree" target="_blank" rel="noreferrer noopener">AVL tree</a>
+. It&rsquo;s very expensive to keep a tree perfectly balanced at all times. The strategy here is &ldquo;good enough&rdquo; or <a href="https://en.wikipedia.org/wiki/Satisficing" target="_blank" rel="noreferrer noopener">satisficing</a>
+: we don&rsquo;t have to keep the tree <em>perfectly</em> balanced — let&rsquo;s just not let it get out of hand. What&rsquo;s out of hand? For the AVL tree, it means the difference in max height between a node&rsquo;s left and right branches exceeds 1.</p>
 <p>NB: You&rsquo;ll see this a lot in algorithms: we might not care about 100% correctness (perhaps it&rsquo;s even impossible), but rather that we can attain some worst-case threshold of correctness that costs less to calculate yet provides acceptable results.</p>
 <p>We count the height of a node&rsquo;s branch by calculating the maximum distance from that node to a leaf node, including the leaf node. We go down toward the leaves, counting nodes, and return the maximum distance.</p>
 <p>We can calculate this maximum distance using a depth-first search like so:</p>
@@ -185,7 +188,8 @@
   <img src="/assets/pics/btree/generic_rotation.png" alt="Generalized form of left and right rotations for a node."  />
 </figure></p>
 <blockquote>
-<p>Drawn from <a href="https://www.amazon.com/Introduction-Algorithms-Second-Thomas-Cormen/dp/0262032937" target="_blank">Introduction to Algorithms 2nd Ed by Cormen, Leiserson, Rivest, and Stein</a> (pg. 278)</p>
+<p>Drawn from <a href="https://www.amazon.com/Introduction-Algorithms-Second-Thomas-Cormen/dp/0262032937" target="_blank" rel="noreferrer noopener">Introduction to Algorithms 2nd Ed by Cormen, Leiserson, Rivest, and Stein</a>
+ (pg. 278)</p>
 </blockquote>
 <p>Note here that in the left rotation:</p>
 <ol>

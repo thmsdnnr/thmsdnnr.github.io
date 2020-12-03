@@ -209,7 +209,8 @@
 <p>Then we set up a loop and draw a horizontal and vertical line at each point for our rows and columns, depending on the dimensions that we defined.</p>
 <h3 id="gathering-user-input">Gathering User Input</h3>
 <p>We have a grid, but there&rsquo;s no way to gather user input yet.</p>
-<p>We need to add a click <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventListener" target="_blank">Event Listener</a> to our canvas and then write a function to handle click events.</p>
+<p>We need to add a click <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventListener" target="_blank" rel="noreferrer noopener">Event Listener</a>
+ to our canvas and then write a function to handle click events.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleClick(e) {
   <span style="color:#6272a4">/* do something with our MouseEvent */</span>
 }
@@ -217,10 +218,14 @@ canvas.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, hand
 </code></pre></div><p>Our <code>MouseEvent</code> contains many different coordinates. There&rsquo;s <code>clientX/Y</code>, <code>pageX/Y</code>, <code>screenX/Y</code>, and <code>offsetX/Y</code>.</p>
 <p>Without going into too much detail:</p>
 <ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageX" target="_blank">pageX/Y</a> gives coordinates of the mouse <em>relative to the entire page, including scrolling</em>. This means that if your page is 2000px long and you are scrolled to the very bottom, clicking at the very top of your browser window will return a y coordinate of <code>2000px</code> - <code>browserWindowHeight</code></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX" target="_blank">clientX/Y</a>: gives coordinates of the mouse relative to the browser window area. Clicking on the upper-left corner of your browser window gives (0, 0).</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenX" target="_blank">screenX/Y</a>: gives coordinates of the mouse relative to the screen. Clicking on the upper-left corner of your browser window gives you the X and Y coordinates of the upper-left point of your browser window on your screen.</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX" target="_blank">offsetX/Y</a>: gives coordinates of the mouse <em>relative to the offset of the target node</em>.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageX" target="_blank" rel="noreferrer noopener">pageX/Y</a>
+ gives coordinates of the mouse <em>relative to the entire page, including scrolling</em>. This means that if your page is 2000px long and you are scrolled to the very bottom, clicking at the very top of your browser window will return a y coordinate of <code>2000px</code> - <code>browserWindowHeight</code></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX" target="_blank" rel="noreferrer noopener">clientX/Y</a>
+: gives coordinates of the mouse relative to the browser window area. Clicking on the upper-left corner of your browser window gives (0, 0).</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenX" target="_blank" rel="noreferrer noopener">screenX/Y</a>
+: gives coordinates of the mouse relative to the screen. Clicking on the upper-left corner of your browser window gives you the X and Y coordinates of the upper-left point of your browser window on your screen.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX" target="_blank" rel="noreferrer noopener">offsetX/Y</a>
+: gives coordinates of the mouse <em>relative to the offset of the target node</em>.</li>
 </ul>
 <p>We&rsquo;re using <code>offsetX</code> and <code>offsetY</code> because we put our event listener on the canvas element itself. This means that when we click the upper-left corner of the canvas, we&rsquo;ll get (0,0), and when we click on the bottom right, we&rsquo;ll get (CANVAS_WIDTH, CANVAS_HEIGHT). We&rsquo;ll get (0,0) when we click here regardless of browser window size, scroll status, or browser window position.</p>
 <p>This is what we need in order to translate click coordinates into box indices.</p>
@@ -329,7 +334,8 @@ canvas.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, hand
   requestAnimationFrame(drawData);
 }
 </code></pre></div><h3 id="requestanimationframe">requestAnimationFrame?</h3>
-<p><a href="http://creativejs.com/resources/requestanimationframe/index.html" target="_blank">requestAnimationFrame</a> is much kinder to the browser than <code>setInterval</code> when you&rsquo;re calling animation code. The timing of <code>setInterval</code> is not guaranteed, and it is not sync&rsquo;d up with the browser&rsquo;s native refresh rate (around 60 Hz). When you put your animation code in <code>setInerval</code>, you&rsquo;re often asking the browser to redraw when it&rsquo;s not ready.</p>
+<p><a href="http://creativejs.com/resources/requestanimationframe/index.html" target="_blank" rel="noreferrer noopener">requestAnimationFrame</a>
+ is much kinder to the browser than <code>setInterval</code> when you&rsquo;re calling animation code. The timing of <code>setInterval</code> is not guaranteed, and it is not sync&rsquo;d up with the browser&rsquo;s native refresh rate (around 60 Hz). When you put your animation code in <code>setInerval</code>, you&rsquo;re often asking the browser to redraw when it&rsquo;s not ready.</p>
 <p>This hogs CPU and GPU, not to mention making things look strange.</p>
 <p><code>requestAnimationFrame</code> tells the browser &ldquo;hey, when you&rsquo;re ready to update next, call this function to get the next frame of my animation.&rdquo; Less CPU usage. Things appear smoother. This is going to be especially important in Part Two of the tutorial when we have more things going on in each frame: mouse drag events, changing UI, etc.</p>
 <h3 id="further-refactoring">Further Refactoring</h3>

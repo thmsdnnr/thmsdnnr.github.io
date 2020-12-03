@@ -1,6 +1,5 @@
 @font-face {
   font-family: 'Roboto Regular';
-  font-display: auto;
   font-style:  normal;
   font-weight: 400;
   font-display: swap;
@@ -9,7 +8,6 @@
 
 @font-face {
   font-family: 'Roboto Medium';
-  font-display: auto;
   font-style:  normal;
   font-weight: 500;
   font-display: swap;
@@ -18,7 +16,6 @@
 
 @font-face {
   font-family: 'Roboto Bold';
-  font-display: auto;
   font-style:  normal;
   font-weight: 600;
   font-display: swap;
@@ -27,7 +24,6 @@
 
 @font-face {
   font-family: 'Roboto Slab Regular';
-  font-display: auto;
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -36,7 +32,6 @@
 
 @font-face {
   font-family: 'Roboto Mono';
-  font-display: auto;
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -71,7 +66,7 @@ footer {
   font-family: "Roboto Slab Regular", serif;
   text-align: right;
   font-size: 0.75em;
-  color: #999;
+  color: #420881;
   border-top: 1px solid #eee;
   margin-top: 10px;
   padding: 5px 0;
@@ -273,15 +268,17 @@ table th {
 }
 
 #mainmenu nav {
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  padding: 5px 0 5px 0;
+  border-top: 1px solid #eef;
+  border-bottom: 1px solid #eef;
+  padding: 24px 0 0 0;
 }
 
 #mainmenu nav li {
   display: inline-block;
   list-style: none;
   margin: 0 36px 0 0;
+  min-height: 48px;
+  min-width: 48px;
 }
 
 #mainmenu li:last-child {

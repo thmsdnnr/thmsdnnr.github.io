@@ -146,14 +146,19 @@
 <blockquote>
 <p>LCD display using dynamically-animated SVGs.</p>
 </blockquote>
-<p>A basic LCD digit consists of <a href="https://en.wikipedia.org/wiki/Seven-segment_display" target="_blank">7 segments</a>. Each segment can be toggled on or off to display a total of 128 (2^7) states. 16 of these states correspond to a visual display of the numbers 0-9 and A-F. We&rsquo;ll also include H, E, and L so we can spell &lsquo;HELL0&rsquo;).</p>
-<p>Some displays have <a href="https://en.wikipedia.org/wiki/Fourteen-segment_display" target="_blank">more segments</a>. Diagonal segments can be included to display a greater range of letters. Some also contain a decimal point, so that floating-point numbers can be displayed.</p>
+<p>A basic LCD digit consists of <a href="https://en.wikipedia.org/wiki/Seven-segment_display" target="_blank" rel="noreferrer noopener">7 segments</a>
+. Each segment can be toggled on or off to display a total of 128 (2^7) states. 16 of these states correspond to a visual display of the numbers 0-9 and A-F. We&rsquo;ll also include H, E, and L so we can spell &lsquo;HELL0&rsquo;).</p>
+<p>Some displays have <a href="https://en.wikipedia.org/wiki/Fourteen-segment_display" target="_blank" rel="noreferrer noopener">more segments</a>
+. Diagonal segments can be included to display a greater range of letters. Some also contain a decimal point, so that floating-point numbers can be displayed.</p>
 <p>To keep things simple, we&rsquo;ll just stick to 0-9, A-F. But after you read this tutorial, try extending the display yourself!</p>
 <p>How should we make these digits? We require segments that can easily be scaled to a large range of sizes while maintaining their position. We require segments that are individually manipulatable to generate patterns corresponding to letters. We want this to all happen without messy computation.</p>
-<p>We can describe the LCD as a vector. Let&rsquo;s use <a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" target="_blank">Scalable Vector Graphics</a>.</p>
+<p>We can describe the LCD as a vector. Let&rsquo;s use <a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" target="_blank" rel="noreferrer noopener">Scalable Vector Graphics</a>
+.</p>
 <h3 id="svg">SVG?</h3>
-<p><a href="https://developer.mozilla.org/en-US/docs/XML_introduction" target="_blank">SVG</a> is a an XML-derived markup language that tells browsers how to draw 2-D graphics.</p>
-<p>There are some <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes" target="_blank">SVG primitives</a> that can be used to draw pictures. These are <code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code>, and <code>&lt;path&gt;</code>.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/XML_introduction" target="_blank" rel="noreferrer noopener">SVG</a>
+ is a an XML-derived markup language that tells browsers how to draw 2-D graphics.</p>
+<p>There are some <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes" target="_blank" rel="noreferrer noopener">SVG primitives</a>
+ that can be used to draw pictures. These are <code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code>, and <code>&lt;path&gt;</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;svg</span> <span style="color:#50fa7b">xmlns=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#50fa7b">version=</span><span style="color:#f1fa8c">&#34;1.1&#34;</span>
      <span style="color:#50fa7b">viewBox=</span><span style="color:#f1fa8c">&#34;0 0 32 32&#34;</span> <span style="color:#50fa7b">height=</span><span style="color:#f1fa8c">&#34;32&#34;</span> <span style="color:#50fa7b">width=</span><span style="color:#f1fa8c">&#34;32&#34;</span> <span style="color:#50fa7b">style=</span><span style="color:#f1fa8c">&#34;border: 1px solid black&#34;</span><span style="color:#ff79c6">&gt;</span>
 <span style="color:#ff79c6">&lt;g&gt;&lt;circle</span> <span style="color:#50fa7b">cx=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">cy=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">r=</span><span style="color:#f1fa8c">&#34;11&#34;</span>
@@ -164,7 +169,8 @@
 </code></pre></div><h5 id="this-code-draws-a-black-circle-fill-color-with-center-16px-16px-radius-11px-and-a-5px-stroke-width-outline-stroke-it-draws-another-circle-at-48px-48px-that-you-cant-see-yet">This code draws a black circle (fill-color) with center (16px, 16px), radius 11px, and a 5px (stroke-width) outline (stroke). It draws another circle at (48px, 48px) that you can&rsquo;t see yet.</h5>
 <!-- raw HTML omitted -->
 <p>Cool, but wait: why do I only see one circle when there are two circles defined? <code>viewBox</code>.</p>
-<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox" target="_blank">viewBox</a> SVG tag specifies four values: <code>min-x, min-y, width, height</code>.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox" target="_blank" rel="noreferrer noopener">viewBox</a>
+ SVG tag specifies four values: <code>min-x, min-y, width, height</code>.</p>
 <p><code>viewBox</code> maps a rectangular area in user-space to the bounds of the SVG element.</p>
 <p>This means that if the viewport width and height are equal to the first circle&rsquo;s width and height, that circle fills the entire space. The second circle we drew at center (48px, 48px) exists, but it is hidden.</p>
 <p>If we change width and height to 64px each, the first circle will take up the upper-left quadrant of the square, and the second circle will come into view in the bottom-left quadrant:</p>
@@ -186,7 +192,8 @@
 </code></pre></div><h5 id="four-times-as-big-just-as-crisp-no-pixelation">Four times as big; just as crisp: no pixelation!</h5>
 <!-- raw HTML omitted -->
 <h3 id="okay-great-circles-but-what-about-the-lcd">okay great, circles, but what about the LCD?</h3>
-<p>To draw the LCD, we can describe each digit as a collection of seven paths in space. We&rsquo;ll compose seven <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths" target="_blank">path elements</a> per digit. I&rsquo;ll refer to these paths as grains, since they look a bit like grains of rice on the screen.</p>
+<p>To draw the LCD, we can describe each digit as a collection of seven paths in space. We&rsquo;ll compose seven <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths" target="_blank" rel="noreferrer noopener">path elements</a>
+ per digit. I&rsquo;ll refer to these paths as grains, since they look a bit like grains of rice on the screen.</p>
 <p>Path elements are the most powerful elements of SVG. They can be used to create complex paths like lines, curves, arcs, and LCD screens.</p>
 <p>A path has a <code>d</code> attribute. It contains a single string of browser instructions of how to draw the path.</p>
 <p>The string is a combination of numeric coordinates and letter commands. <code>M</code> means Move and is followed by an X and Y coordinate. <code>L</code> means line-to: draw a line from the current position to the X and Y specified. <code>h</code> means draw a horizontal line from the current X position to the given X position (the y-coordinate stays the same). <code>z</code> means &lsquo;close path&rsquo;, or go back to the start.</p>
@@ -225,7 +232,8 @@
 </code></pre></div><!-- raw HTML omitted -->
 <p>See how we can change color and opacity? See how each path is uniquely described by a single <code>d</code> attribute that tells the browser how to draw the path? Are you getting excited? We&rsquo;re almost there!</p>
 <h3 id="code-the-grains">Code the grains!</h3>
-<p>It is possible to code SVG without using a GUI, just like we did above with the circles. However, working out the details for drawing each path yourself is tedious and error-prone. An open-source tool like <a href="https://inkscape.org/en/" target="_blank">Inkscape</a> makes the task much more pleasant. It&rsquo;s how I generated the paths you see above.</p>
+<p>It is possible to code SVG without using a GUI, just like we did above with the circles. However, working out the details for drawing each path yourself is tedious and error-prone. An open-source tool like <a href="https://inkscape.org/en/" target="_blank" rel="noreferrer noopener">Inkscape</a>
+ makes the task much more pleasant. It&rsquo;s how I generated the paths you see above.</p>
 <p>This is not an in-depth Inkscape tutorial. But I will give a brief overview of how I drew the digit.</p>
 <h5 id="file--new-from-template--choose-default-px">File &gt; New From Template &gt; choose &ldquo;default px&rdquo;.</h5>
 <p>You&rsquo;ll be presented with a lovely blank canvas. Let&rsquo;s resize it to fit the shape we wish to draw.</p>
@@ -257,7 +265,8 @@
   <span style="color:#50fa7b">style=</span><span style="color:#f1fa8c">&#34;fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.01031554;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1&#34;</span>
 <span style="color:#ff79c6">/&gt;</span>
 </code></pre></div><p>Lots of decimal places and a strange transform applied. The transform is something that happens when you&rsquo;re drawing in Inkscape. The transform property, path data from <code>d</code> and <code>viewBox</code> all interact to make your element display properly. However, we don&rsquo;t want to have this excess. Can&rsquo;t we just convert the path based on the <code>transform</code> and get rid of the <code>transform</code> attribute altogether?</p>
-<p>Yes. We can use <a href="https://jakearchibald.github.io/svgomg/" target="_blank">SVGOMG</a> to clean this up.</p>
+<p>Yes. We can use <a href="https://jakearchibald.github.io/svgomg/" target="_blank" rel="noreferrer noopener">SVGOMG</a>
+ to clean this up.</p>
 <p>Go to the site and load your SVG file. In the toolbar on the right, Un-check &ldquo;Merge Paths&rdquo;. We need separate paths in order to manipulate them individually. You can play with the precision slider. This gets rid of some of the extra decimal places. Have a look at the preview image while you do this. At a certain point, the quality of the image starts to suffer when there&rsquo;s not enough information in the path to provide an accurate geometric description. This is a tradeoff between file-size and rendering precision.</p>
 <p>Grab the cleaned-up paths and you should have something like I posted above with your own SVG paths. You&rsquo;re now ready to wire up this display!</p>
 <h3 id="hit-me-with-those-digits--programatically-generating-svg">hit me with those digits ~ programatically generating svg</h3>
@@ -268,9 +277,12 @@
 </ol>
 <p><code>style</code> is invariant for each grain. We&rsquo;ll manipulate the fill-opacity later. All that differs is <code>d</code>.</p>
 <h3 id="i-need-some-space-for-my-na-me">i need some space for my na me</h3>
-<p>If you&rsquo;ve used VanillaJS to create an HTML element, this is similar. However, we&rsquo;re putting svg inside of HTML. That&rsquo;s fine to do, but svg and HTML do not have the same <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course" target="_blank">namespace</a>.</p>
+<p>If you&rsquo;ve used VanillaJS to create an HTML element, this is similar. However, we&rsquo;re putting svg inside of HTML. That&rsquo;s fine to do, but svg and HTML do not have the same <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course" target="_blank" rel="noreferrer noopener">namespace</a>
+.</p>
 <p>What the heck is a namespace? Imagine you have two people at the office named Bob. The boss calls out, &ldquo;Hey Bob, can you make me a copy of your report?&rdquo; There are two Bobs. There are two reports. Which Bob will think it&rsquo;s him? Which report(s) will the boss get? There is no way to tell!</p>
-<p>A code example: the HTML <code>&lt;title&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title" target="_blank">here</a> vs the SVG <code>&lt;title&gt;</code> tag, <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title" target="_blank">here</a>. Wait, did you mean &ldquo;Title of the document for the title bar&rdquo;, or &ldquo;Title of the SVG group&rdquo;? Oh, SVG namespace? Okay, title of the SVG group. Now we&rsquo;re sorted.</p>
+<p>A code example: the HTML <code>&lt;title&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title" target="_blank" rel="noreferrer noopener">here</a>
+ vs the SVG <code>&lt;title&gt;</code> tag, <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title" target="_blank" rel="noreferrer noopener">here</a>
+. Wait, did you mean &ldquo;Title of the document for the title bar&rdquo;, or &ldquo;Title of the SVG group&rdquo;? Oh, SVG namespace? Okay, title of the SVG group. Now we&rsquo;re sorted.</p>
 <p><em>Namespaces capture the notion that the same name can mean a different thing in a different context.</em> Here, the contexts are HTML and SVG. We use a namespace to define the context in which we are using a name, resolving ambiguity around its meaning. We get one report, and it&rsquo;s the one we want.</p>
 <p>Whenever we create an svg tag, we&rsquo;ll use <code>document.createElementNS()</code>, specifying the <code>svg</code> namespace before the tag name. Like this:</p>
 <p><code>var svg = document.createElementNS(&quot;http://www.w3.org/2000/svg&quot;, &quot;svg&quot;);</code></p>
@@ -279,7 +291,8 @@
 <p>We create an HTML container <code>div</code> to hold the digit.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> digit <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
 digit.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;digit&#34;</span>;
-</code></pre></div><p>We put the <code>svg</code> element into the container. We set the viewbox, width, and height. We set the <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course" target="_blank">xlink</a>.</p>
+</code></pre></div><p>We put the <code>svg</code> element into the container. We set the viewbox, width, and height. We set the <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course" target="_blank" rel="noreferrer noopener">xlink</a>
+.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> svg <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElementNS(<span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span>, <span style="color:#f1fa8c">&#34;svg&#34;</span>);
 svg.setAttribute(<span style="color:#f1fa8c">&#34;viewBox&#34;</span>, <span style="color:#f1fa8c">&#34;0 0 32 64&#34;</span>);
 svg.setAttribute(<span style="color:#f1fa8c">&#34;width&#34;</span>, <span style="color:#ff79c6">this</span>.width);
@@ -375,12 +388,18 @@ svg.appendChild(g);
   <span style="color:#ff79c6">return</span> LCD;
 })();
 </code></pre></div><h3 id="a-namespace-for-the-display">a namespace for the display</h3>
-<p>We wrapped this object in an <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank">IIFE (immediately-invoked function expression)</a>. This provides a private namespace for the variables within our class, allowing us to expose only certain methods. We don&rsquo;t want the user to be able to accidentally modify the number of digits in the display, for example.</p>
+<p>We wrapped this object in an <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank" rel="noreferrer noopener">IIFE (immediately-invoked function expression)</a>
+. This provides a private namespace for the variables within our class, allowing us to expose only certain methods. We don&rsquo;t want the user to be able to accidentally modify the number of digits in the display, for example.</p>
 <p>We can <em>expose</em> methods of our choice to the user. A common exposure technique is <code>get</code>ters and <code>set</code>ters that do just what they sound like: get or set values of variables within the object.</p>
-<p>I do not use the word class here. Why? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank">JavaScript does not have classes</a>, in the traditional object-oriented sense. Although there is a new <code>class</code> keyword in ES6, this is just syntactic sugar for <a href="https://en.wikipedia.org/wiki/Prototype-based_programming" target="_blank">prototypal inheritance</a>.</p>
+<p>I do not use the word class here. Why? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer noopener">JavaScript does not have classes</a>
+, in the traditional object-oriented sense. Although there is a new <code>class</code> keyword in ES6, this is just syntactic sugar for <a href="https://en.wikipedia.org/wiki/Prototype-based_programming" target="_blank" rel="noreferrer noopener">prototypal inheritance</a>
+.</p>
 <p>Objects inherit through other objects via the prototype chain. More to come on this topic, as it really deserves its own series.</p>
 <h3 id="a-touch-of-css">a touch of CSS</h3>
-<p>I have a <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank">CSS reset</a>, a little padding, and then two <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">flexboxes</a>: one to display the digits in each display, and one to display each display (how meta). I also added a CSS transition on <code>fill-opacity</code> for prettiness. The browser automatically <a href="http://easings.net/" target="_blank">tweens</a> the values for us. Less JS to manage!</p>
+<p>I have a <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank" rel="noreferrer noopener">CSS reset</a>
+, a little padding, and then two <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noreferrer noopener">flexboxes</a>
+: one to display the digits in each display, and one to display each display (how meta). I also added a CSS transition on <code>fill-opacity</code> for prettiness. The browser automatically <a href="http://easings.net/" target="_blank" rel="noreferrer noopener">tweens</a>
+ the values for us. Less JS to manage!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">body</span> {
   <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">10</span><span style="color:#8be9fd">px</span>;
   <span style="color:#ff79c6">background-color</span>: <span style="color:#bd93f9">#ffe</span>;
@@ -438,7 +457,8 @@ display.init(C);
 display.setCounter(<span style="color:#bd93f9">999</span>);
 <span style="color:#8be9fd;font-style:italic">document</span>.body.appendChild(C);
 </code></pre></div><h3 id="wait-though-you-coded-more">wait though, you coded more</h3>
-<p>You are correct. I included <a href="http://bgrins.github.io/TinyColor/" target="_blank">tinycolor</a> to dynamically generate random yet contrasty background and text colors for my random timers. I also set random values for the timers to start at and a random number of digits, and then I set up a <code>setInterval</code> to have them all count upwards in unison.</p>
+<p>You are correct. I included <a href="http://bgrins.github.io/TinyColor/" target="_blank" rel="noreferrer noopener">tinycolor</a>
+ to dynamically generate random yet contrasty background and text colors for my random timers. I also set random values for the timers to start at and a random number of digits, and then I set up a <code>setInterval</code> to have them all count upwards in unison.</p>
 
 	</div>
 	

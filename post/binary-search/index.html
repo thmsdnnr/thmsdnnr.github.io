@@ -146,8 +146,10 @@
 <blockquote>
 <p>Click the <code>result</code> tab on the codepen to see it in action.</p>
 </blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank">Binary search</a> is an algorithm used to find the position of an item in a sorted array.</p>
-<p>Given array <code>arr</code> and target <code>T</code>, we <a href="https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm" target="_blank">divide and conquer</a> to search for the index of a target value by iteratively applying the following operations (L and R are the lower and upper bounds of the search space, inclusive):</p>
+<p><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank" rel="noreferrer noopener">Binary search</a>
+ is an algorithm used to find the position of an item in a sorted array.</p>
+<p>Given array <code>arr</code> and target <code>T</code>, we <a href="https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm" target="_blank" rel="noreferrer noopener">divide and conquer</a>
+ to search for the index of a target value by iteratively applying the following operations (L and R are the lower and upper bounds of the search space, inclusive):</p>
 <ol>
 <li>Find the <code>midpoint</code> of the subarray <code>arr.slice(L, R)</code></li>
 </ol>
@@ -204,7 +206,8 @@
 <h1 id="aaaand-a-test-runner">aaaand a test runner!</h1>
 <p>We can also write a simple test runner to check the algorithm&rsquo;s output.</p>
 <p>A test runner is basically code that runs code and tells you what happened when it ran. Usually we have expectations about what code will do when it is given certain inputs, so you can supply the runner with these expectations, or <!-- raw HTML omitted -->expected results<!-- raw HTML omitted -->. The runner will run the code you provide with these inputs, compare them to the expected results, and then give you a list of code that <!-- raw HTML omitted -->passed<!-- raw HTML omitted --> (met the expected result) or <!-- raw HTML omitted -->failed<!-- raw HTML omitted --> (did not meet the expected result).</p>
-<p>This test runner is simple: we hard-code in the function call, and for each test, we use <code>.apply()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank">(docs)</a> to apply the arguments array to the function.</p>
+<p>This test runner is simple: we hard-code in the function call, and for each test, we use <code>.apply()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noreferrer noopener">(docs)</a>
+ to apply the arguments array to the function.</p>
 <p>We record the function outputs and compare them to the expected results for each test.</p>
 <p>Then, we&rsquo;ll write a simple function to list out the description for each test, expected and actual results, and a <em>pass</em> or <em>fail</em> formatting based on whether the tests matched or failed to match expectations.</p>
 

@@ -147,7 +147,8 @@
     src="//codepen.io/assets/embed/ei.js"
 ></script>
 <h2 id="lets-make-things-more-interesting">Let&rsquo;s make things more interesting</h2>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank">part one</a> of our tutorial, we got a pretty good start. We have a grid that refreshes gracefully based on a data array, and the user can toggle a single colors on and off for each pixel. Nice.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a>
+ of our tutorial, we got a pretty good start. We have a grid that refreshes gracefully based on a data array, and the user can toggle a single colors on and off for each pixel. Nice.</p>
 <p>But in order to let the user create a wider variety of art, we need two new features.</p>
 <ol>
 <li>More colors.</li>
@@ -160,8 +161,11 @@
   &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;swatch&#34;</span>&gt;
 &lt;/<span style="color:#ff79c6">div</span>&gt;
 </code></pre></div><p>We&rsquo;ll add a <code>div</code> to the top of our editor that will hold &ldquo;color chips&rdquo;, as well as buttons to generate a random palette and reset the current one.</p>
-<p>We&rsquo;re also introducing a tiny dependency called <a href="http://jscolor.com/" target="_blank">jscolor</a>. The <code>&lt;input type=&quot;color&quot;&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank">has poor cross-browser support</a>. We want to enable the user to select whatever colors they choose, so we&rsquo;re pulling in a simple colorpicker element.</p>
-<p>I&rsquo;m going to use a library called <a href="https://bgrins.github.io/TinyColor/" target="_blank">tinycolor</a> to generate random palettes of related colors.</p>
+<p>We&rsquo;re also introducing a tiny dependency called <a href="http://jscolor.com/" target="_blank" rel="noreferrer noopener">jscolor</a>
+. The <code>&lt;input type=&quot;color&quot;&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank" rel="noreferrer noopener">has poor cross-browser support</a>
+. We want to enable the user to select whatever colors they choose, so we&rsquo;re pulling in a simple colorpicker element.</p>
+<p>I&rsquo;m going to use a library called <a href="https://bgrins.github.io/TinyColor/" target="_blank" rel="noreferrer noopener">tinycolor</a>
+ to generate random palettes of related colors.</p>
 <p>Here&rsquo;s how it&rsquo;ll work.</p>
 <!-- raw HTML omitted -->
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> generatePalette(startColor <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;goldenrod&#34;</span>) {
@@ -254,9 +258,11 @@
     P.appendChild(chip);
   });
 }
-</code></pre></div><p>We&rsquo;re using the <code>dataset</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset" target="_blank">(Docs)</a> property here to store the hex color code for each div. This allows us to set and access custom <code>data-*</code> attributes on our HTML elements.</p>
+</code></pre></div><p>We&rsquo;re using the <code>dataset</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ property here to store the hex color code for each div. This allows us to set and access custom <code>data-*</code> attributes on our HTML elements.</p>
 <p>We also need a function to call when the user clicks the random palette button. Since we&rsquo;ve already called <code>populatePalette</code> on canvas initialization, we don&rsquo;t need to create all those divs again. Instead, we can just re-select them and update their values with the results of <code>generatePalette</code>.</p>
-<p>We write a one-liner to generate a <code>randomRGBA</code> (well, with opacity 1.0) using ES6 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank">template literals</a>.</p>
+<p>We write a one-liner to generate a <code>randomRGBA</code> (well, with opacity 1.0) using ES6 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank" rel="noreferrer noopener">template literals</a>
+.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> randomRGBA <span style="color:#ff79c6">=</span> () =&gt;
   <span style="color:#f1fa8c">`rgba(</span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(<span style="color:#bd93f9">3</span>)
     .fill()
@@ -283,7 +289,8 @@
 <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;button#reset&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, resetCanvas);
 <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;palette&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, switchColor);
 <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;swatch&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;change&#34;</span>, changeColorSwatch);
-</code></pre></div><p>We add a <code>change</code> event listener to the color picker element. <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank">(Docs)</a> gets fired when an element&rsquo;s value changes: in this case, when the user has chosen a color.</p>
+</code></pre></div><p>We add a <code>change</code> event listener to the color picker element. <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ gets fired when an element&rsquo;s value changes: in this case, when the user has chosen a color.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> changeColorSwatch(e) {
   currentColor <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;#&#34;</span> <span style="color:#ff79c6">+</span> e.target.value;
   currentColorDiv.classList.remove(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>);
@@ -294,7 +301,8 @@
   currentColorDiv <span style="color:#ff79c6">=</span> div;
   div.classList.add(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>);
 }
-</code></pre></div><p>In <code>switchColor</code> we use <a href="https://javascript.info/event-delegation" target="_blank">Event Delegation</a> to determine which chip is selected. We add a single event listener on the color chip container and then filter events on that container based on the class of the element clicked. We know it&rsquo;s a click on the color chip (and not the container itself) if <code>e.target.classList</code> contains our class of interest, <code>.chip</code>. The <code>classList</code> property has a handy method <code>contains</code> that returns a boolean based on whether or not the supplied class string is present in the element&rsquo;s class list.</p>
+</code></pre></div><p>In <code>switchColor</code> we use <a href="https://javascript.info/event-delegation" target="_blank" rel="noreferrer noopener">Event Delegation</a>
+ to determine which chip is selected. We add a single event listener on the color chip container and then filter events on that container based on the class of the element clicked. We know it&rsquo;s a click on the color chip (and not the container itself) if <code>e.target.classList</code> contains our class of interest, <code>.chip</code>. The <code>classList</code> property has a handy method <code>contains</code> that returns a boolean based on whether or not the supplied class string is present in the element&rsquo;s class list.</p>
 <p>If the event <em>is</em> a click on a color, we ensure that it&rsquo;s not a click on the <em>current</em> color by checking the <code>classList</code> for <code>.activeColor</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> switchColor(e) {
   <span style="color:#8be9fd;font-style:italic">let</span> cL <span style="color:#ff79c6">=</span> e.target.classList;

@@ -146,7 +146,8 @@
 <blockquote>
 <p>Live Demo</p>
 </blockquote>
-<p>A <a href="https://en.wikipedia.org/wiki/Trie" target="_blank">trie</a> is a search tree that is typically used to store string keys and facilitates fast lookup of values and partial matching. Tries can be used to store things besides words of course, like IP addresses in routers or numbers in algorithms, but for this tutorial, we&rsquo;ll keep it simple and just use words.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Trie" target="_blank" rel="noreferrer noopener">trie</a>
+ is a search tree that is typically used to store string keys and facilitates fast lookup of values and partial matching. Tries can be used to store things besides words of course, like IP addresses in routers or numbers in algorithms, but for this tutorial, we&rsquo;ll keep it simple and just use words.</p>
 <p>For example, I have a large list of words. How many of those words match the prefix &ldquo;ca+&rdquo;, where + is any number of further letters? Or, say I want to match words that have letters existing in fixed positions but could have any letter in other positions. For instance, l*****s should match &lsquo;letters&rsquo; and &lsquo;ladders&rsquo; but not &lsquo;levitations&rsquo;.</p>
 <p>You can think of a trie as an additional constraint added to a hash table. Unlike trees, the value of nodes is encoded directly into the tree structure itself rather than stored within the node&rsquo;s properties. The position of a letter in a word is given by its distance away from the root. The second letter is at level 2, the third level at level 3, etc.</p>
 <p>To store a tree with the words HALL, HALOES, HALO, HELL, and AIR, it&rsquo;d look like this:</p>
@@ -367,7 +368,8 @@ Trie.prototype.find <span style="color:#ff79c6">=</span> <span style="color:#8be
 </ol>
 <p>These cases correspond to the three if statements above. Note the need to store the deletion key here. This saves us the work of having to store pointers between nodes so that we can traverse backwards through the tree to identify parents.</p>
 <h2 id="printing-out-words-in-the-trie">Printing out words in the trie</h2>
-<p>In order to print words in the trie, we&rsquo;ll use a recursive method that implements pre-order depth-first traversal. We covered <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/01/binary-trees.html#traversal" target="_blank">different tree traversal methods</a> in a previous tutorial on binary search trees.</p>
+<p>In order to print words in the trie, we&rsquo;ll use a recursive method that implements pre-order depth-first traversal. We covered <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/01/binary-trees.html#traversal" target="_blank" rel="noreferrer noopener">different tree traversal methods</a>
+ in a previous tutorial on binary search trees.</p>
 <p>First we&rsquo;ll define a <code>getNode</code> helper function. It works a little like <code>search</code>, but all it&rsquo;s going to do is return a given node in the tree.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Trie.prototype.getNode <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (word) {
   word <span style="color:#ff79c6">=</span> word.split(<span style="color:#f1fa8c">&#34;&#34;</span>).map((e) =&gt; e.toUpperCase());
@@ -489,14 +491,16 @@ L^   O       L^
 };
 </code></pre></div><p>One key difference is that we allow the user to specify whether or not there is a desired word length, which is off by default.</p>
 <p>We use this <code>desiredLength</code> as an optional check on the words we build up, quitting early if the word exceeds or does not meet the <code>desiredLength</code>.</p>
-<p>Consider how you might modify this function slightly for <a href="https://en.wikipedia.org/wiki/Autocomplete" target="_blank">autocomplete</a>: maybe you want to suggest words that are 2 or 3 characters longer than the current word entered, so <code>desiredLength</code> could be set dynamically. This would also require some nuance: at a certain point, you&rsquo;d want to stop increasing <code>desiredLength</code>, since you&rsquo;ll overshoot the suggestions and display zero results, even when the user has typed in a suggested value.</p>
+<p>Consider how you might modify this function slightly for <a href="https://en.wikipedia.org/wiki/Autocomplete" target="_blank" rel="noreferrer noopener">autocomplete</a>
+: maybe you want to suggest words that are 2 or 3 characters longer than the current word entered, so <code>desiredLength</code> could be set dynamically. This would also require some nuance: at a certain point, you&rsquo;d want to stop increasing <code>desiredLength</code>, since you&rsquo;ll overshoot the suggestions and display zero results, even when the user has typed in a suggested value.</p>
 <p>Fun exercises:</p>
 <ul>
 <li>Implement dynamic <code>desiredLength</code> for more responsive autocomplete</li>
 <li>Implement wildcards in <code>prefixFind</code> so that, for example, <code>prefixFind('*')</code> returns everything in the trie, and <code>prefixFind('*',4)</code> returns all 4-letter words in the tree.</li>
 </ul>
 <h2 id="using-the-trie--codepen-demo">Using the Trie + CodePen Demo</h2>
-<p>We instantiate a tree object with <code>let T = new Trie();</code> and insert words with <code>T.insert('word')</code>. There&rsquo;s not much to it! The best way to see it in action is with the CodePen demo up top, where we put a ton of words in the trie and then use <code>prefixFind</code> to perform typeahead lookup in real-time. I added a few calls to <code>Performance.now()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now" target="_blank">(Docs)</a> so you can see how snappy our trie functions.</p>
+<p>We instantiate a tree object with <code>let T = new Trie();</code> and insert words with <code>T.insert('word')</code>. There&rsquo;s not much to it! The best way to see it in action is with the CodePen demo up top, where we put a ton of words in the trie and then use <code>prefixFind</code> to perform typeahead lookup in real-time. I added a few calls to <code>Performance.now()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ so you can see how snappy our trie functions.</p>
 <h2 id="wrapping-up">Wrapping Up</h2>
 <p>Congratulations! You&rsquo;ve gotten an introduction to another simple data structure, the trie.</p>
 <p>There are many variations of tries. We can encode the data we store in a trie more compactly, as well as store nodes that are only used by single elements to make the tree shorter. We&rsquo;ll discuss more later, but for now, consider our original tree:</p>

@@ -127,7 +127,8 @@
 	<div class="markdown">
 		<p>Map, filter, and reduce are useful tools that facilitate a coding ethos known as Functional Programming.</p>
 <blockquote>
-<p><a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">Functional programming</a> is a paradigm in which we create programs using expressions and declarations rather than statements.</p>
+<p><a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="noreferrer noopener">Functional programming</a>
+ is a paradigm in which we create programs using expressions and declarations rather than statements.</p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> cats <span style="color:#ff79c6">=</span> [
   <span style="color:#6272a4">// expression
@@ -164,7 +165,8 @@
 <li>a value to use as <code>this</code> when executing the function (optional)</li>
 </ul>
 <h2 id="map">Map</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank">Map</a> applies a function to every element of an array and returns an array containing the results of these applications. In FP, it is often called &ldquo;apply-to-all&rdquo;.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="noreferrer noopener">Map</a>
+ applies a function to every element of an array and returns an array containing the results of these applications. In FP, it is often called &ldquo;apply-to-all&rdquo;.</p>
 <h3 id="here-are-some-examples">Here are some examples.</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].map((num) =&gt; num <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>);
 <span style="color:#6272a4">// [2, 4, 6, 8, 10]
@@ -218,7 +220,8 @@
 <span style="color:#6272a4">// [1, 4, 6, 8, 5]
 </span></code></pre></div><p>Nice!</p>
 <h2 id="filter">Filter</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter" target="_blank">Filter</a> tests every element of an array against a callback function, returning all elements that pass the test. In FP, it is often called &ldquo;remove-if&rdquo;.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter" target="_blank" rel="noreferrer noopener">Filter</a>
+ tests every element of an array against a callback function, returning all elements that pass the test. In FP, it is often called &ldquo;remove-if&rdquo;.</p>
 <p>Filter passes its callback functions the same parameter as map. The only difference is that instead of returning a result array with the callback&rsquo;s return <em>value</em>, it returns a result array with the elements for which the callback&rsquo;s return value is <em>true</em>.</p>
 <h3 id="here-are-some-examples-1">Here are some examples.</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> firstFibs <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">8</span>, <span style="color:#bd93f9">13</span>, <span style="color:#bd93f9">21</span>, <span style="color:#bd93f9">34</span>, <span style="color:#bd93f9">55</span>, <span style="color:#bd93f9">89</span>, <span style="color:#bd93f9">144</span>, <span style="color:#bd93f9">233</span>];
@@ -271,7 +274,8 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">myOwnFilter([<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>], (e) =&gt; e <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">2</span>);
 <span style="color:#6272a4">// [3,4,5]
 </span></code></pre></div><h2 id="reduce">Reduce</h2>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank">Reduce</a> takes an array of elements and <code>reduce</code>s them to a single element, following the rule given by the callback function supplied. Reduce also takes an optional <code>initialValue</code>, the value of the accumulator before any operations are performed. It is often used to sum/multiply/subtract/divide.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noreferrer noopener">Reduce</a>
+ takes an array of elements and <code>reduce</code>s them to a single element, following the rule given by the callback function supplied. Reduce also takes an optional <code>initialValue</code>, the value of the accumulator before any operations are performed. It is often used to sum/multiply/subtract/divide.</p>
 <p>In FP, reduce is known as <code>fold</code>.</p>
 <p>Reduce passes its callback different parameters than <code>map</code> and <code>filter</code>.</p>
 <ul>
@@ -332,9 +336,13 @@
 );
 <span style="color:#6272a4">// 6
 </span></code></pre></div><h2 id="what-about-dot-notation">What about dot notation?</h2>
-<p>Our methods can be chained by <a href="https://en.wikipedia.org/wiki/Function_composition" target="_blank">functional composition</a>, but not with dot notation.</p>
-<p>If you wanted to write your own dot-chainable methods, <a href="http://xahlee.info/js/js_function_chaining.html" target="_blank">see this</a>. The reason that we are able to chain the native <code>.map</code> is because it is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype" target="_blank">prototype method</a> of the Array object.</p>
-<p>You can <strong>but should not</strong> <a href="https://en.wikipedia.org/wiki/Monkey_patch#Pitfalls" target="_blank">&amp;ldquo;monkey patch&amp;rdquo;</a> built-in JS methods in this way:</p>
+<p>Our methods can be chained by <a href="https://en.wikipedia.org/wiki/Function_composition" target="_blank" rel="noreferrer noopener">functional composition</a>
+, but not with dot notation.</p>
+<p>If you wanted to write your own dot-chainable methods, <a href="http://xahlee.info/js/js_function_chaining.html" target="_blank" rel="noreferrer noopener">see this</a>
+. The reason that we are able to chain the native <code>.map</code> is because it is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype" target="_blank" rel="noreferrer noopener">prototype method</a>
+ of the Array object.</p>
+<p>You can <strong>but should not</strong> <a href="https://en.wikipedia.org/wiki/Monkey_patch#Pitfalls" target="_blank" rel="noreferrer noopener">&ldquo;monkey patch&rdquo;</a>
+ built-in JS methods in this way:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JavaScript" data-lang="JavaScript"><span style="color:#8be9fd;font-style:italic">Array</span>.prototype.myOwnMap <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (callback, thisArg) {
   thisArg <span style="color:#ff79c6">=</span> thisArg <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
   <span style="color:#8be9fd;font-style:italic">let</span> results <span style="color:#ff79c6">=</span> [];
@@ -350,7 +358,8 @@
 </span></code></pre></div><p>However, monkey-patching is almost never a good idea, nor is it a good idea to define a &ldquo;special&rdquo; <code>map</code> behavior for your own objects. If you need a special behavior that <em>uses</em> map, write a function that describes the behavior and use map <em>inside</em> of it. It would be an especially bad idea to modify <code>Array.prototype.map</code> directly, since <em>every other instance</em> in your code that uses <code>map</code> will be effected, almost certainly for the worse.</p>
 <p>These are tenets of functional programming: create functions that do not create side-effects. Create small and maintainable functions that can be composed to create larger functions.</p>
 <h2 id="bring-it-all-together-calculating-standard-deviation">Bring it all together: Calculating Standard Deviation</h2>
-<p><a href="https://en.wikipedia.org/wiki/Standard_deviation" target="_blank">Standard deviation</a> is a common tool used to measure variance from a mean, assuming a normally distributed set of data. We&rsquo;ll write a function using <code>map</code>, <code>reduce</code>, and <code>filter</code> to calculate the standard deviation of a set of data, excluding data that lies outside the bounds passed to the function.</p>
+<p><a href="https://en.wikipedia.org/wiki/Standard_deviation" target="_blank" rel="noreferrer noopener">Standard deviation</a>
+ is a common tool used to measure variance from a mean, assuming a normally distributed set of data. We&rsquo;ll write a function using <code>map</code>, <code>reduce</code>, and <code>filter</code> to calculate the standard deviation of a set of data, excluding data that lies outside the bounds passed to the function.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> standardDeviation(data, lowerBound, upperBound) {
   lowerBound <span style="color:#ff79c6">=</span> lowerBound <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">Math</span>.min(...data);
   upperBound <span style="color:#ff79c6">=</span> upperBound <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">Math</span>.max(...data);
@@ -370,11 +379,15 @@
   <span style="color:#8be9fd;font-style:italic">let</span> division <span style="color:#ff79c6">=</span> numerator <span style="color:#ff79c6">/</span> denominator;
   <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(division);
 }
-</code></pre></div><p>We can use the ES6 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator" target="_blank">spread operator</a> with <code>Math.min()</code> and <code>Math.max()</code> to cleanly set default lower and upper bounds to the extent of the dataset, if no bounds are provided. Then, we just compose our previous functions to calculate the sample standard deviation.</p>
+</code></pre></div><p>We can use the ES6 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator" target="_blank" rel="noreferrer noopener">spread operator</a>
+ with <code>Math.min()</code> and <code>Math.max()</code> to cleanly set default lower and upper bounds to the extent of the dataset, if no bounds are provided. Then, we just compose our previous functions to calculate the sample standard deviation.</p>
 <h2 id="til">TIL</h2>
-<p>Today we learned about <code>map</code>, <code>filter</code>, and <code>reduce</code>, <a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank">higher-order functions</a> that facilitate FP.</p>
+<p>Today we learned about <code>map</code>, <code>filter</code>, and <code>reduce</code>, <a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank" rel="noreferrer noopener">higher-order functions</a>
+ that facilitate FP.</p>
 <p>One goal of functional programming is to create code that can be reused. This means coding small, functional units that can be composed in different ways to produce different results. This makes code easier to reason about, test, and debug.</p>
-<p>Try to identify places in your code where you can utilize a functional approach. If you&rsquo;re interested more, try playing with <a href="https://www.haskell.org/" target="_blank">Haskell</a>&hellip;see <a href="http://learnyouahaskell.com/" target="_blank">Learn You a Haskell For Great Good</a> for a fun starting point.</p>
+<p>Try to identify places in your code where you can utilize a functional approach. If you&rsquo;re interested more, try playing with <a href="https://www.haskell.org/" target="_blank" rel="noreferrer noopener">Haskell</a>
+&hellip;see <a href="http://learnyouahaskell.com/" target="_blank" rel="noreferrer noopener">Learn You a Haskell For Great Good</a>
+ for a fun starting point.</p>
 
 	</div>
 	

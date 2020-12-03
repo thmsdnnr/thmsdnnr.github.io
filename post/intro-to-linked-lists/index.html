@@ -125,7 +125,8 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p>A <a href="https://en.wikipedia.org/wiki/Linked_list" target="_blank">linked list</a> is a container that holds an ordered list of items called nodes. The nodes have the special characteristic that (unlike arrays) they do not have to be stored contiguously in memory.</p>
+		<p>A <a href="https://en.wikipedia.org/wiki/Linked_list" target="_blank" rel="noreferrer noopener">linked list</a>
+ is a container that holds an ordered list of items called nodes. The nodes have the special characteristic that (unlike arrays) they do not have to be stored contiguously in memory.</p>
 <h3 id="nodes">Nodes</h3>
 <p>Nodes minimally contain two properties.</p>
 <ol>
@@ -350,13 +351,16 @@
 </ol>
 <p>Note the termination condition here in the while loop: we are looking for <code>currentNode.next.next</code> equaling null. Why? Well, we want the second-to-last node to operate on, since we are removing the very last node from the list (that&rsquo;s what gets popped), and in order to do this, we set the second-to-last node&rsquo;s <code>next</code> to null.</p>
 <h2 id="big-o-complexity--comparison-with-arrays">Big-O Complexity &amp; Comparison with Arrays</h2>
-<p>First, a quick word about Big-O. <a href="https://en.wikipedia.org/wiki/Big_O_notation" target="_blank">Big-O notation</a> is not a scary monster. In short, it&rsquo;s simply a tool for us to <a href="https://en.wikipedia.org/wiki/Asymptotic_analysis" target="_blank">asymptotically compare</a> the performance of operations on sets of data. When you see <code>log</code> in Big-O, it&rsquo;s log base 2, written abbreviated as log.</p>
+<p>First, a quick word about Big-O. <a href="https://en.wikipedia.org/wiki/Big_O_notation" target="_blank" rel="noreferrer noopener">Big-O notation</a>
+ is not a scary monster. In short, it&rsquo;s simply a tool for us to <a href="https://en.wikipedia.org/wiki/Asymptotic_analysis" target="_blank" rel="noreferrer noopener">asymptotically compare</a>
+ the performance of operations on sets of data. When you see <code>log</code> in Big-O, it&rsquo;s log base 2, written abbreviated as log.</p>
 <p>Big-O gives us general comparisons, not strict results. We can determine whether an operation takes place in constant O(1) or O(log n), linear O(n), logarithmic O(n*log n), quadratic O(n^2), exponential O(2^n), or factorial O(n!) time.</p>
 <p>(There&rsquo;s a Big-O equivalent for space complexity: it&rsquo;s just another dimension of comparison.)</p>
 <p>What types of operations? When it comes to data structures it&rsquo;s things like insertion, deletion, access, or search. We compare in three dimensions: best case scenario, worst case scenario, and average case scenario. Practically though, we are most concerned about the worst-case scenario. The average case is hard to quantify. The best case scenario is rare. And if we&rsquo;re okay with the worst-case scenario, we&rsquo;ll always be pleasantly surprised (pessimistic, but true!).</p>
 <p>In short: if your algorithm runs in quadratic or slower time, there&rsquo;s probably a better way to do it. The most efficient sorting algorithms (quicksort and mergesort) work in logarithmic time. There are ways to make searching even faster than <code>n*log n</code>, but the algorithms are not generalizable since they leverage fixed characteristics of the data to optimize further.</p>
 <h3 id="comparing-big-o-of-linked-lists-and-arrays">Comparing Big-O of Linked Lists and Arrays</h3>
-<p>Let&rsquo;s take a look at the <a href="http://bigocheatsheet.com/" target="_blank">Big-O Cheat Sheet</a> and do a quick comparison of Singly Linked Lists with Arrays. Linked lists are similar to arrays, but use case dictates which is most performant.</p>
+<p>Let&rsquo;s take a look at the <a href="http://bigocheatsheet.com/" target="_blank" rel="noreferrer noopener">Big-O Cheat Sheet</a>
+ and do a quick comparison of Singly Linked Lists with Arrays. Linked lists are similar to arrays, but use case dictates which is most performant.</p>
 <p>Looking at the worst case scenarios, Linked Lists give us constant time insertion and deletion, and linear time access and search.
 Arrays give us constant time access, and linear time search, insertion, and deletion.</p>
 <p>Let&rsquo;s think about why this is the case.</p>

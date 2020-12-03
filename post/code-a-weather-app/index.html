@@ -128,21 +128,27 @@
 		<p>We often want to create applications that interact with external resources. We&rsquo;re Imgur, and we have images hosted on a file system somewhere in the cloud. Or we&rsquo;re Reddit, and we have a database of posts to request from when a user visits a page.</p>
 <p>A simpler example: a weather app that gets the user&rsquo;s current location and displays a forecast.</p>
 <p>We want to get weather information, but we do not want (and cannot afford!) to buy and maintain weather stations, network them wirelessly, power them, code them, and then call to them individually to display updates.</p>
-<p>An <a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank">Application Programming Interface (API)</a> allows us to interact with other programs through the Internet. The National Weather Service has plenty of weather stations, and it&rsquo;s set up a server from which we can request data. Now we don&rsquo;t have to buy the weather stations: we just have to tell the server the data we&rsquo;re interested in, wait for it to arrive, and then display it in the app how we&rsquo;d like.</p>
-<p>To be specific, this sort of API is called <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">RESTful</a>. That&rsquo;s an acronym for Representational State Transfer, which is really just a fancy term for a <em>contract that a server establishes for client requests</em>.</p>
+<p>An <a href="https://en.wikipedia.org/wiki/Application_programming_interface" target="_blank" rel="noreferrer noopener">Application Programming Interface (API)</a>
+ allows us to interact with other programs through the Internet. The National Weather Service has plenty of weather stations, and it&rsquo;s set up a server from which we can request data. Now we don&rsquo;t have to buy the weather stations: we just have to tell the server the data we&rsquo;re interested in, wait for it to arrive, and then display it in the app how we&rsquo;d like.</p>
+<p>To be specific, this sort of API is called <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank" rel="noreferrer noopener">RESTful</a>
+. That&rsquo;s an acronym for Representational State Transfer, which is really just a fancy term for a <em>contract that a server establishes for client requests</em>.</p>
 <p>The server says: &ldquo;here are my endpoints (routes you can call)&rdquo;, and here are the verbs you can call them with (GET/POST/PUT/DELETE). Also, here are the parameters that I understand.</p>
 <h3 id="real-world-example-national-weather-service-api">Real-world example: National Weather Service API</h3>
-<p>Check out the &ldquo;API Reference&rdquo; tab <a href="https://forecast-v3.weather.gov/documentation?redirect=legacy" target="_blank">here</a> for the National Weather Service.</p>
+<p>Check out the &ldquo;API Reference&rdquo; tab <a href="https://forecast-v3.weather.gov/documentation?redirect=legacy" target="_blank" rel="noreferrer noopener">here</a>
+ for the National Weather Service.</p>
 <p>You&rsquo;ll find a table with an <code>Endpoint</code> column, <code>Formats</code>, and <code>Details</code>. The endpoint is the URL where you request the resource from. In this case, the base URL is <code>https://api.weather.gov</code>. You append the endpoint you are interested in to the base URL.</p>
 <p>For example, if we want the weather forecast for a point (say latitude: 35.0693 longitude: -91.6716), we request from <code>https://api.weather.gov/points/35.0693,-91.6716/forecast</code>.</p>
 <p>Let&rsquo;s use the metaphor of a phone call to your health insurance company. You dial the number. This is the &ldquo;base URL&rdquo;. You hear a menu &ldquo;press 1 for&hellip; press 2 for&hellip;&rdquo;.</p>
 <p>You choose an option, and then tell the person what information you&rsquo;re interested in getting. Hey, I pressed 3 for weather info about a point. The latitude is X and the longitude is Y. In a moment, the person responds. &ldquo;Here&rsquo;s the forecast!&rdquo; Or, &ldquo;Hey, we don&rsquo;t have any data for that request.&rdquo;</p>
 <h3 id="json-responses">JSON responses</h3>
-<p>The server responds with <a href="http://www.json.org/" target="_blank">json</a> (JavaScript Object Notation), a common format for exchanging data on the web. It can be used with any language, not just JavaScript. It&rsquo;s <em>Js</em>on because it&rsquo;s based on a subset of the JavaScript language.</p>
+<p>The server responds with <a href="http://www.json.org/" target="_blank" rel="noreferrer noopener">json</a>
+ (JavaScript Object Notation), a common format for exchanging data on the web. It can be used with any language, not just JavaScript. It&rsquo;s <em>Js</em>on because it&rsquo;s based on a subset of the JavaScript language.</p>
 <p>There are two methods in JavaScript that we can use to deal with this format:</p>
 <ol>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">JSON.stringify()</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank">JSON.parse()</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank" rel="noreferrer noopener">JSON.stringify()</a>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank" rel="noreferrer noopener">JSON.parse()</a>
+</li>
 </ol>
 <p>JSON.stringify() does just what it sounds like: it turns an object into a string that we can send across a network. JSON.parse() turns that string back into an object when it arrives at its destination. If you remember high-school math, these functions are <em>inverses</em> of one another. That means that:</p>
 <ul>
@@ -177,7 +183,8 @@
 <blockquote>
 <p>We want to be able to put something in our code that says, &ldquo;We&rsquo;re going to request this data. It&rsquo;ll take a little bit for it to get back, but when it arrives, perform these actions&rdquo;. Meanwhile, we&rsquo;re moving on.</p>
 </blockquote>
-<p>Enter <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promises</a>.</p>
+<p>Enter <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noreferrer noopener">Promises</a>
+.</p>
 <h3 id="promises-promises">Promises promises&hellip;</h3>
 <p>Here&rsquo;s (one example of) what a promise looks like:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> fetchWeatherData(latitude, longitude) {
@@ -212,7 +219,8 @@
 </ol>
 <h3 id="chaining-promises--promise-ception">chaining Promises &gt; Promise-ception.</h3>
 <p>We can chain promises together, or have the <code>resolve()</code> of one promise await the resolution of earlier promises. In fact, this is exactly how our wrapper function <code>fetchWeatherData()</code> will work when we fill in the missing <code>//fetch the data</code> piece.</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" target="_blank">Fetch</a> is a Javascript interface for requesting data across a network. Hopefully you&rsquo;re thinking &ldquo;Wait though, that&rsquo;s asynchronous&rdquo;. You&rsquo;re correct. Can you guess what <code>fetch</code> returns? A promise. Bingo!</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="noreferrer noopener">Fetch</a>
+ is a Javascript interface for requesting data across a network. Hopefully you&rsquo;re thinking &ldquo;Wait though, that&rsquo;s asynchronous&rdquo;. You&rsquo;re correct. Can you guess what <code>fetch</code> returns? A promise. Bingo!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> fetchWeatherData(latitude, longitude) {
   <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Promise</span>(<span style="color:#8be9fd;font-style:italic">function</span> (resolve, reject) {
     fetch(
@@ -241,10 +249,13 @@
 <p><code>fetch</code>: &ldquo;Hey <code>fetchWeatherData</code>, I&rsquo;m going to request data from the server. It might take a while&rdquo;.
 <code>fetchWeatherData</code>: &ldquo;No problem fetch. When you get the response, here&rsquo;s what I&rsquo;ll do.&rdquo;</p>
 <h3 id="when-fetch-calls-us-back">when fetch calls us back</h3>
-<p>When we get the response back, it will be in the JSON format. We check the <code>status</code> of the response. This is the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank">HTTP status code</a> of the request. You&rsquo;re probably familiar with the good ol' 404. 200 means &ldquo;we&rsquo;re good everybody!&rdquo;. If the status is anything but this, we&rsquo;ll reject the promise with the status code.</p>
+<p>When we get the response back, it will be in the JSON format. We check the <code>status</code> of the response. This is the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank" rel="noreferrer noopener">HTTP status code</a>
+ of the request. You&rsquo;re probably familiar with the good ol' 404. 200 means &ldquo;we&rsquo;re good everybody!&rdquo;. If the status is anything but this, we&rsquo;ll reject the promise with the status code.</p>
 <p>If the status <em>is</em> 200, then we&rsquo;ll return <code>response.json()</code>, which parses the JSON and returns it in the object form we desire.</p>
 <blockquote>
-<p>Okay, in reality <code>.json()</code> does more than just parsing. The <code>response</code> body that <code>fetch</code> returns is actually a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API" target="_blank">Stream</a>. Using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Body/json" target="_blank">&lt;code&gt;.json()&lt;/code&gt;</a> method on the <code>response</code> object reads the stream so that we don&rsquo;t have to. More to come on Streams: they deserve their own series.</p>
+<p>Okay, in reality <code>.json()</code> does more than just parsing. The <code>response</code> body that <code>fetch</code> returns is actually a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API" target="_blank" rel="noreferrer noopener">Stream</a>
+. Using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Body/json" target="_blank" rel="noreferrer noopener"><code>.json()</code></a>
+ method on the <code>response</code> object reads the stream so that we don&rsquo;t have to. More to come on Streams: they deserve their own series.</p>
 </blockquote>
 <p>If you&rsquo;d like to visualize what&rsquo;s happening, paste this into the JavaScript console on your browser:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">fetch(<span style="color:#f1fa8c">&#34;https://api.weather.gov/points/35.0693,-91.6716/forecast&#34;</span>)
@@ -259,7 +270,8 @@
 </code></pre></div><!-- raw HTML omitted -->
 <p>See how initially it is a Pending Promise that then turns into the response? Cool, huh?</p>
 <h3 id="lets-apply-this">let&rsquo;s apply this.</h3>
-<p>To fetch weather forecasts for a user, we have to get their location. We can actually use something built in called the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition" target="_blank">Geolocation API</a> to grab the user&rsquo;s current position.</p>
+<p>To fetch weather forecasts for a user, we have to get their location. We can actually use something built in called the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition" target="_blank" rel="noreferrer noopener">Geolocation API</a>
+ to grab the user&rsquo;s current position.</p>
 <p>We call <code>navigator.geolocation.getCurrentPosition</code> and give it callback of <code>success</code> and <code>error</code> (another example of an asynchronous function!). On success, we receive an object that contains <code>pos.coords.latitude</code> and <code>pos.coords.longitude</code> which we can pass to the weather service API. We&rsquo;ll use the <code>fetchWeatherData</code> function we&rsquo;ve already written (not listed below):</p>
 <p>The Weather API&rsquo;s <code>properties.periods</code> is an array of objects like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON">{
@@ -308,7 +320,9 @@
   });
 }
 navigator.geolocation.getCurrentPosition(success, error);
-</code></pre></div><p>Note that we could extend this app to allow the user to input a zip code. You could use Geocoding with <a href="https://developers.google.com/maps/documentation/geocoding/intro" target="_blank">Google Geocoder</a>, or a simple dictionary mapping zip codes to a latitude and longitude, extracted from US Census Data like this <a href="https://gist.github.com/erichurst/7882666" target="_blank">github Gist by erichurst</a>. This would be another example of chaining promises. User enters City. Pass to Google Geocoder (or grab the lat/lon list), then await response. Then when you have the latitude and longitude, pass it to the Weather API. Await the response from that. Then pass the weather result to your user through the UI.</p>
+</code></pre></div><p>Note that we could extend this app to allow the user to input a zip code. You could use Geocoding with <a href="https://developers.google.com/maps/documentation/geocoding/intro" target="_blank" rel="noreferrer noopener">Google Geocoder</a>
+, or a simple dictionary mapping zip codes to a latitude and longitude, extracted from US Census Data like this <a href="https://gist.github.com/erichurst/7882666" target="_blank" rel="noreferrer noopener">github Gist by erichurst</a>
+. This would be another example of chaining promises. User enters City. Pass to Google Geocoder (or grab the lat/lon list), then await response. Then when you have the latitude and longitude, pass it to the Weather API. Await the response from that. Then pass the weather result to your user through the UI.</p>
 <p>ReverseGeocode looks just like <code>fetchWeatherData</code>. It returns a promise, we await the response, and if the data is there, we parse and display it. Easy.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON">{
   <span style="color:#ff79c6">&#34;city&#34;</span>: <span style="color:#f1fa8c">&#34;Chicago&#34;</span>,
@@ -328,7 +342,8 @@ navigator.geolocation.getCurrentPosition(success, error);
 <span style="color:#ff79c6">const</span> hideLoader <span style="color:#ff79c6">=</span> () =&gt;
   (<span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;div.loader&#34;</span>).style.display <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;none&#34;</span>);
 </code></pre></div><h3 id="next-steps">next steps</h3>
-<p>There are an <a href="https://www.programmableweb.com/apis" target="_blank">incredible number</a> of APIs on the web. Using what you&rsquo;ve just learned , you can now interact with <em>any</em> of them. Some require an API key or special headers, but these are just small tweaks to your <code>fetch</code> request. Try building an app that integrates data sources together in a new and exciting way. Once you learn how to interact with other services, you acquire a huge mechanical advantage when it comes to leveraging small bits of code to do great things. Code on!</p>
+<p>There are an <a href="https://www.programmableweb.com/apis" target="_blank" rel="noreferrer noopener">incredible number</a>
+ of APIs on the web. Using what you&rsquo;ve just learned , you can now interact with <em>any</em> of them. Some require an API key or special headers, but these are just small tweaks to your <code>fetch</code> request. Try building an app that integrates data sources together in a new and exciting way. Once you learn how to interact with other services, you acquire a huge mechanical advantage when it comes to leveraging small bits of code to do great things. Code on!</p>
 
 	</div>
 	

@@ -146,7 +146,8 @@
 <p>a provisioning script for a new computer pulls the config repo, restores the dotfiles, and reinstalls all the software packages and editor fixings I had on my machine, down to the last time my repo was updated</p>
 </li>
 </ol>
-<p>On a Mac, I use <a href="https://brew.sh/" target="_blank">brew</a> fairly extensively to handle package management. Brew has a nice feature called <code>brew bundle</code>, which enables you to make a list of all the current packages installed on the machine. <code>brew bundle dump</code> creates the list, and <code>brew bundle install</code> reinstalls every package on that list.</p>
+<p>On a Mac, I use <a href="https://brew.sh/" target="_blank" rel="noreferrer noopener">brew</a>
+ fairly extensively to handle package management. Brew has a nice feature called <code>brew bundle</code>, which enables you to make a list of all the current packages installed on the machine. <code>brew bundle dump</code> creates the list, and <code>brew bundle install</code> reinstalls every package on that list.</p>
 <p>Storing updates in git is also nice, because if you happen to mess up your configuration somehow, chances are you can track down the buggy commit in git and revert the changes.</p>
 <p>Also note that just because you are uploading your config to a &ldquo;private repo&rdquo;, it would be an <em>exceedingly awful idea</em> to use this method for things like ssh key management, or really anything at all that you wish to remain remotely private.</p>
 <h2 id="here-is-what-my-script-looks-like">Here is what my script looks like.</h2>
@@ -244,7 +245,8 @@ mkdir -p <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font
 <span style="color:#ff79c6">if</span> ! crontab -l | grep <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$THIS_SCRIPT_FULL_PATH</span><span style="color:#f1fa8c">&#34;</span>; <span style="color:#ff79c6">then</span>
   <span style="color:#ff79c6">(</span>crontab -l ; <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;0 * * * * </span><span style="color:#8be9fd;font-style:italic">$THIS_SCRIPT_FULL_PATH</span><span style="color:#f1fa8c"> &gt; /dev/null 2&gt;&amp;1&#34;</span><span style="color:#ff79c6">)</span> | sort - | uniq - | crontab - 2&gt;&amp;<span style="color:#bd93f9">1</span>
 <span style="color:#ff79c6">fi</span>
-</code></pre></div><p>If you&rsquo;re not familiar with crontab, <a href="https://en.wikipedia.org/wiki/Cron" target="_blank">read up on it here</a>. Aside from slightly unfamiliar syntax for defining times, it&rsquo;s basically a big to-do list for your computer for recurring tasks. It&rsquo;s very useful, easy to learn, and almost every server everywhere is probably running one. Before you know it, you&rsquo;ll be writing down <code>12 * * * * ./eat_lunch.sh</code> on your calendar for lunch dates.</p>
+</code></pre></div><p>If you&rsquo;re not familiar with crontab, <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noreferrer noopener">read up on it here</a>
+. Aside from slightly unfamiliar syntax for defining times, it&rsquo;s basically a big to-do list for your computer for recurring tasks. It&rsquo;s very useful, easy to learn, and almost every server everywhere is probably running one. Before you know it, you&rsquo;ll be writing down <code>12 * * * * ./eat_lunch.sh</code> on your calendar for lunch dates.</p>
 <p>Hopefully this article has given you some ideas to inspire your own backup strategy. It&rsquo;s worth the initial time investment. Just think about how many little things you&rsquo;ve customized on your machine, and imagine having to restore them all (much less: remember them all!) by hand, following a hardware failure.</p>
 
 	</div>

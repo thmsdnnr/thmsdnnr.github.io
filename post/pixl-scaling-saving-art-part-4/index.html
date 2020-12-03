@@ -152,13 +152,16 @@
 ></script>
 <ul>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a>
+ of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a>
+ we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank">part three</a> we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank" rel="noreferrer noopener">part three</a>
+ we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
 </li>
 </ul>
 <h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
@@ -187,7 +190,8 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;saveImage&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, saveImage);
 <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;loadImages&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, loadImages);
 </code></pre></div><p>Save image is our handler that fires when the user decides to save the current canvas image.</p>
-<p>If you aren&rsquo;t familiar with localStorage, check out <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/02/code-morsels-localstorage.html" target="_blank">my tutorial on it</a> <em>cough shameless plug</em>.</p>
+<p>If you aren&rsquo;t familiar with localStorage, check out <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/02/code-morsels-localstorage.html" target="_blank" rel="noreferrer noopener">my tutorial on it</a>
+ <em>cough shameless plug</em>.</p>
 <p>localStorage in one line: a key-value store persistent across browser sessions that our app can use to save data on the user&rsquo;s machine (until they clear out their cookies+other saved data of course).</p>
 <h4 id="save-the-image">Save the image</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> saveImage(e) {
@@ -212,13 +216,17 @@
 </code></pre></div><p>We store the images as an object with a key <code>images</code>, mapping to an array of <code>canvasData</code> arrays.</p>
 <p>When the user clicks <code>saveImage</code>, we first check to see if an array of saved images exists. If it does not, we initialize it with the <code>images</code> array containing only this current canvas. Then we use <code>setItem</code> to set our stringified object under the <code>pixl</code> key in storage.</p>
 <p>If the array already exists, we make a copy of <code>saved.images</code>, push our image onto the copy, and re-stringify the object with our new image, assigning it to localStorage.</p>
-<p>You might be asking yourself: &ldquo;Hey, what&rsquo;s all this <code>Object.assign()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank">(Doc)</a> mess?&rdquo;</p>
+<p>You might be asking yourself: &ldquo;Hey, what&rsquo;s all this <code>Object.assign()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank" rel="noreferrer noopener">(Doc)</a>
+ mess?&rdquo;</p>
 <p><code>Object.assign</code> is a shortcut to copy values from source objects to a target object.</p>
 <p>What if we decide to save other things in the <code>pixl</code> key in storage: say, the time the user last visited, or editor settings like the active color? I&rsquo;m defining my image storage as existing under the <code>images</code> key.</p>
 <p>Here, we copy everything from the saved object into an empty object <code>{}</code>. Then we copy everything from the <code>images</code> key we just modified into this new object. This means that if we have other keys in <code>saved</code>, they&rsquo;ll be preserved. We only save off the <code>images</code> &ldquo;slice&rdquo; of the program&rsquo;s state.</p>
 <h4 id="immutable-state">Immutable State</h4>
-<p>I&rsquo;m enforcing <a href="https://en.wikipedia.org/wiki/Immutable_object" target="_blank">immutability</a> here: the idea that once an object is created, it cannot be modified. Instead of mutating the original value I have stored in localStorage, I create a new object, explicitly assigning to one key of that object.</p>
-<p>If you use <a href="https://redux.js.org/" target="_blank">Redux</a> or <a href="https://facebook.github.io/immutable-js/" target="_blank">Immutable</a>, this pattern will already be familiar to you. If not, it&rsquo;s worth reading about. Having an immutable state as a single source of truth can save a lot of hair-pulling when you are debugging your code.</p>
+<p>I&rsquo;m enforcing <a href="https://en.wikipedia.org/wiki/Immutable_object" target="_blank" rel="noreferrer noopener">immutability</a>
+ here: the idea that once an object is created, it cannot be modified. Instead of mutating the original value I have stored in localStorage, I create a new object, explicitly assigning to one key of that object.</p>
+<p>If you use <a href="https://redux.js.org/" target="_blank" rel="noreferrer noopener">Redux</a>
+ or <a href="https://facebook.github.io/immutable-js/" target="_blank" rel="noreferrer noopener">Immutable</a>
+, this pattern will already be familiar to you. If not, it&rsquo;s worth reading about. Having an immutable state as a single source of truth can save a lot of hair-pulling when you are debugging your code.</p>
 <h4 id="load-the-images">Load the images</h4>
 <p>Loading images is a bit more complicated, since once we load them, we will have to display them in the pane on the left for the viewer to see. First, we&rsquo;ll grab them from localStorage, making sure that the data exists before we call <code>JSON.parse()</code> on it! If the data doesn&rsquo;t exist, we return false. We don&rsquo;t want to show an empty pane.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> loadImages(e) {
@@ -230,7 +238,8 @@
 }
 </code></pre></div><p>We create a <code>loadedImages</code> global variable to hold the currently loaded images.</p>
 <p>Okay, we&rsquo;ve got the data. Now how do we display it?</p>
-<p>You might remember the  <code>grabCanvas</code> <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html#2-scale-the-canvas" target="_blank">(link)</a> method from the last tutorial. It&rsquo;s what we used to grab <code>canvasData</code> and &ldquo;blit&rdquo; it onto a new canvas at the bottom of the screen at a user-specified size, background color, and transparency.</p>
+<p>You might remember the  <code>grabCanvas</code> <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html#2-scale-the-canvas" target="_blank" rel="noreferrer noopener">(link)</a>
+ method from the last tutorial. It&rsquo;s what we used to grab <code>canvasData</code> and &ldquo;blit&rdquo; it onto a new canvas at the bottom of the screen at a user-specified size, background color, and transparency.</p>
 <p>Previously, it took three arguments: width, transparency (true/false), and background color. I&rsquo;ve added a fourth argument, <code>data</code>, so that grabCanvas can now make us a canvas with an arbitrary data array. We have data arrays corresponding to saved images stored in localStorage&hellip;I think you see where we&rsquo;re going with this.</p>
 <p>We can draw arbitrary data by changing just two lines.</p>
 <p><code>function grabCanvas(width, transparent, bgColor) {</code></p>
@@ -241,7 +250,8 @@
 <p>becomes</p>
 <p><code>for (var i=0;i&lt;data.length;i++) {</code></p>
 <p>That&rsquo;s not quite enough though. I also modularized <code>grabCanvas</code>. Previously, I had the function not only grab the current canvas state and create a new canvas: I also had it <em>append that canvas to the DOM in the image pane at the bottom</em>.</p>
-<p>This is a <strong>side-effect</strong>. A function is said to have <a href="https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29" target="_blank">side effects</a> if it &ldquo;modifies state outside its scope&rdquo; or does something like a database call or a DOM manipulation.</p>
+<p>This is a <strong>side-effect</strong>. A function is said to have <a href="https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29" target="_blank" rel="noreferrer noopener">side effects</a>
+ if it &ldquo;modifies state outside its scope&rdquo; or does something like a database call or a DOM manipulation.</p>
 <p>Side effects are not bad. This is good, because they are inevitable. The key is to make them predictable and modular enough so that they do not impact how the rest of your code is structured.</p>
 <p>In this case the side effect is detrimental. Can you see why? We want to have a separate pane to display saved images, but the pane where <code>grabCanvas</code> writes to has been hard-coded in.</p>
 <p>Previously, we had this:</p>

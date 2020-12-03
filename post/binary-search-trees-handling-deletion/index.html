@@ -126,7 +126,8 @@
 	</div>
 	<div class="markdown">
 		<h2 id="deletion">Deletion</h2>
-<p>We saved deletion for last because, well, it&rsquo;s just a little tricky. It&rsquo;s similar to the deletion considerations we had for <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/31/linked-lists.html" target="_blank">linked lists</a>. We first find the node to delete. If it exists, we then consider how to handle the blank space left after its deletion. There are three possible cases:</p>
+<p>We saved deletion for last because, well, it&rsquo;s just a little tricky. It&rsquo;s similar to the deletion considerations we had for <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/31/linked-lists.html" target="_blank" rel="noreferrer noopener">linked lists</a>
+. We first find the node to delete. If it exists, we then consider how to handle the blank space left after its deletion. There are three possible cases:</p>
 <ol>
 <li>The node is a leaf node. It has 0 children. Simply remove the node from the tree.</li>
 <li>The node has one child. We splice it out, connecting its parent to its child.</li>
@@ -268,9 +269,12 @@
 }
 </code></pre></div><p>That&rsquo;s pretty easy, right? We find the successor and the parent of that successor. We determine which side of the parent that the successor lies on. Then, we swap out the deleted node with the successor.</p>
 <h3 id="sidenote-garbage-collection">Sidenote: Garbage Collection</h3>
-<p>It&rsquo;s important to note that not all languages will free a variable after you have removed a reference to it. <a href="https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" target="_blank">Garbage collection</a> is the process of freeing up memory that the program is no longer using but remains allocated as the result of previous operations. When we set the pointer to an item to null, this &ldquo;orphan&rdquo; item (which is no longer connected to anything else) will be cleared up by JavaScript&rsquo;s garbage collector. In some lower-level languages like C, the programmer must free memory manually.</p>
+<p>It&rsquo;s important to note that not all languages will free a variable after you have removed a reference to it. <a href="https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" target="_blank" rel="noreferrer noopener">Garbage collection</a>
+ is the process of freeing up memory that the program is no longer using but remains allocated as the result of previous operations. When we set the pointer to an item to null, this &ldquo;orphan&rdquo; item (which is no longer connected to anything else) will be cleared up by JavaScript&rsquo;s garbage collector. In some lower-level languages like C, the programmer must free memory manually.</p>
 <h3 id="congratulations">Congratulations</h3>
-<p>If you&rsquo;ve finished reading through this and <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/02/01/binary-trees.html" target="_blank">part one</a> of the Binary Search Trees tutorial, you&rsquo;ve learned yourself some powerful computer science tools. There&rsquo;s much more to learn: did you know that trees need <a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree" target="_blank">balancing</a> in order to maintain an optimal shape and performance? Consider if we just added node after node after node without reconfiguring the nodes' orientation. We&rsquo;d get a tree like this:</p>
+<p>If you&rsquo;ve finished reading through this and <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/02/01/binary-trees.html" target="_blank" rel="noreferrer noopener">part one</a>
+ of the Binary Search Trees tutorial, you&rsquo;ve learned yourself some powerful computer science tools. There&rsquo;s much more to learn: did you know that trees need <a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree" target="_blank" rel="noreferrer noopener">balancing</a>
+ in order to maintain an optimal shape and performance? Consider if we just added node after node after node without reconfiguring the nodes' orientation. We&rsquo;d get a tree like this:</p>
 <!-- raw HTML omitted -->
 <p>Search is no longer <code>O(n*log n)</code>. In fact, the performance is not much better than linear search on a linked list. What happened? All that work for nothing?</p>
 <p>Patience, young grasshopper. You&rsquo;ve earned yourself a break from the computer. Have a stretch and some coffee. We&rsquo;ll cover balanced binary search trees soon enough.</p>

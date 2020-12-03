@@ -143,9 +143,11 @@
 }
 </code></pre></div><p>Nope, still broken.</p>
 <p>What exactly is happening here?</p>
-<p>We throw five functions into the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop" target="_blank">Event Loop</a>, a queue of callback functions that JavaScript will execute in order when it has time.</p>
+<p>We throw five functions into the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop" target="_blank" rel="noreferrer noopener">Event Loop</a>
+, a queue of callback functions that JavaScript will execute in order when it has time.</p>
 <p>When the function executes, it looks for the variable <code>i</code>. It finds it, and it finds that <code>i</code> is equal to 5, because the for loop has already exited, running much faster than any of the functions within the loop.</p>
-<p>What we need to do is to connect the value of <code>i</code> somehow to the function we pass to <code>setTimeout</code>. We can do that by wrapping <code>setTimeout</code> in an <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank">IIFE</a>, or an Immediately Invoked Function Expression.</p>
+<p>What we need to do is to connect the value of <code>i</code> somehow to the function we pass to <code>setTimeout</code>. We can do that by wrapping <code>setTimeout</code> in an <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank" rel="noreferrer noopener">IIFE</a>
+, or an Immediately Invoked Function Expression.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">5</span>; i<span style="color:#ff79c6">++</span>) {
   (<span style="color:#8be9fd;font-style:italic">function</span> (i) {
     setTimeout(<span style="color:#8be9fd;font-style:italic">function</span> () {
@@ -156,9 +158,11 @@
 </code></pre></div><p><code>0, 1, 2, 3, 4</code>.</p>
 <p>Okay. It works. But <em>why</em> does this work?</p>
 <h3 id="enter-closures">Enter Closures</h3>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" target="_blank">Closures</a> combine the context in which a function is called with the function itself. It allows us to execute a function outside of the context in which it was defined <em>and still access that original context</em>.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" target="_blank" rel="noreferrer noopener">Closures</a>
+ combine the context in which a function is called with the function itself. It allows us to execute a function outside of the context in which it was defined <em>and still access that original context</em>.</p>
 <p>You might not have considered this, but the way in which you declare a variable affects its scope.</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var" target="_blank">var</a> is scoped to its &ldquo;execution context&rdquo;: either the function that it is enclosed by or, if it is outside of a function, the global scope.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var" target="_blank" rel="noreferrer noopener">var</a>
+ is scoped to its &ldquo;execution context&rdquo;: either the function that it is enclosed by or, if it is outside of a function, the global scope.</p>
 <p>Consider the context in which setTimeout callback was declared. The only variable declaration for <code>i</code> was that of the for loop index, which equals 5 when the for loop exits. When the setTimeout callback is invoked and it looks up the value of <code>i</code> its execution context, <code>i</code> is 5.</p>
 <p>When we wrap the function in an IIFE, we create a <em>new context for each callback</em> that we create. In these contexts, <code>i</code> is equal to the value that we pass the function <em>within the body of the for loop</em>. We bound the variable using closure by wrapping it in a function that we immediately execute.</p>
 <p>This is closure at work. By defining a new context for each function call in which <code>i</code> equals the value of the loop variable <em>in each loop</em>, we are able to log those values individually at a later time, even when the context in which the function was defined (namely, the for loop with i=0,1,2,3,4) no longer exists.</p>
@@ -169,13 +173,17 @@
   }, <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">*</span> i);
 }
 </code></pre></div><p>yields <code>0, 1, 2, 3, 4</code>. Why?</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let" target="_blank">let</a> is block-scoped, which means that when you define a variable using <code>let</code>, it is scoped to the block in which it is contained (defined by the <code>{</code> and <code>}</code>). In this case, it is scoped to the block of the for loop.</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const" target="_blank">const</a> is also block-scoped. It differs from <code>let</code> in that its value cannot be changed once assigned (hence the name constant).</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let" target="_blank" rel="noreferrer noopener">let</a>
+ is block-scoped, which means that when you define a variable using <code>let</code>, it is scoped to the block in which it is contained (defined by the <code>{</code> and <code>}</code>). In this case, it is scoped to the block of the for loop.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const" target="_blank" rel="noreferrer noopener">const</a>
+ is also block-scoped. It differs from <code>let</code> in that its value cannot be changed once assigned (hence the name constant).</p>
 <p>Using <code>let</code> as our loop variable means the <code>i</code> in our <code>setTimeout</code> is <em>automatically</em> bound to the value in <em>that iteration</em> of the loop. A new variable <code>i</code> is created every the loop runs, and this variable is bound to the block created by that iteration of the loop.</p>
 <p>This block is the execution context of the <code>setTimeout</code> callback: hence, when the callback is invoked and looks for <code>i</code>, it finds this closure-bound value.</p>
 <h3 id="you-dont-know-js">You don&rsquo;t know JS</h3>
-<p><a href="https://github.com/getify/You-Dont-Know-JS/tree/master/scope%20%26%20closures" target="_blank">There is an entire book on this topic</a>, and there are many areas in which scope and closure overlap, or a closure is created to maintain scope for a variable of interest. For instance, <em>You Don&rsquo;t Know JS</em> (previous link) suggests that an IIFE is not strictly a use of closure, since the function executes in the same context in which it is defined.</p>
-<p>It&rsquo;s good to get familiar with the use of closure in code. It enables things like the Module pattern (we export a function that has a closure over the instance of the module that we import). For instance, <a href="https://www.npmjs.com/" target="_blank">NPM</a>. Get familiar with closure and look for ways you already using it in your code.</p>
+<p><a href="https://github.com/getify/You-Dont-Know-JS/tree/master/scope%20%26%20closures" target="_blank" rel="noreferrer noopener">There is an entire book on this topic</a>
+, and there are many areas in which scope and closure overlap, or a closure is created to maintain scope for a variable of interest. For instance, <em>You Don&rsquo;t Know JS</em> (previous link) suggests that an IIFE is not strictly a use of closure, since the function executes in the same context in which it is defined.</p>
+<p>It&rsquo;s good to get familiar with the use of closure in code. It enables things like the Module pattern (we export a function that has a closure over the instance of the module that we import). For instance, <a href="https://www.npmjs.com/" target="_blank" rel="noreferrer noopener">NPM</a>
+. Get familiar with closure and look for ways you already using it in your code.</p>
 
 	</div>
 	

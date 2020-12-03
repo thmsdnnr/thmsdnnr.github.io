@@ -125,12 +125,17 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<h2 id="handy-dandy-observablehq-notebookhttpsbetaobservablehqcomthmsdnnrdivvy-rides-per-hour-in-chicago"><a href="https://beta.observablehq.com/@thmsdnnr/divvy-rides-per-hour-in-chicago" target="_blank">Handy Dandy (ObservableHQ) Notebook!</a></h2>
+		<h2 id="handy-dandy-observablehq-notebookhttpsbetaobservablehqcomthmsdnnrdivvy-rides-per-hour-in-chicago"><a href="https://beta.observablehq.com/@thmsdnnr/divvy-rides-per-hour-in-chicago" target="_blank" rel="noreferrer noopener">Handy Dandy (ObservableHQ) Notebook!</a>
+</h2>
 <!-- raw HTML omitted -->
 <h2 id="how-many-times-did-it-happen">How Many Times Did It Happen?</h2>
-<p><a href="https://en.wikipedia.org/wiki/Histogram" target="_blank">Histograms</a> visualize a collection of items based on the number of things from that collection that fit into given bins. The bins are most often of equal width. Histograms help <a href="http://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm" target="_blank">visualize the distribution of data</a> and can be used to estimate the probability distributions.</p>
+<p><a href="https://en.wikipedia.org/wiki/Histogram" target="_blank" rel="noreferrer noopener">Histograms</a>
+ visualize a collection of items based on the number of things from that collection that fit into given bins. The bins are most often of equal width. Histograms help <a href="http://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm" target="_blank" rel="noreferrer noopener">visualize the distribution of data</a>
+ and can be used to estimate the probability distributions.</p>
 <h2 id="getting-the-data">Getting The Data</h2>
-<p>I grabbed historical Divvy data from the <a href="https://data.cityofchicago.org/" target="_blank">City of Chicago Data Portal</a>, an awesome open-source resource with hundreds and hundreds of datasets to choose from. <a href="https://dev.socrata.com/foundry/data.cityofchicago.org/fg6s-gzvg" target="_blank">Here&#39;s the API docs</a> for Divvy trips in particular.</p>
+<p>I grabbed historical Divvy data from the <a href="https://data.cityofchicago.org/" target="_blank" rel="noreferrer noopener">City of Chicago Data Portal</a>
+, an awesome open-source resource with hundreds and hundreds of datasets to choose from. <a href="https://dev.socrata.com/foundry/data.cityofchicago.org/fg6s-gzvg" target="_blank" rel="noreferrer noopener">Here's the API docs</a>
+ for Divvy trips in particular.</p>
 <p>I&rsquo;m interested in calculating the data from a given date seven days into the future, so I need to filter my query by start_time. This is pretty simple.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> querystring <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`$where=start_time between &#39;</span><span style="color:#f1fa8c">${</span>startTime<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#39; and &#39;</span><span style="color:#f1fa8c">${</span>endTime<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#39;&amp;$limit=9999999`</span>;
 <span style="color:#8be9fd;font-style:italic">let</span> data <span style="color:#ff79c6">=</span> d3.json(
@@ -270,14 +275,18 @@
 | ${R[5].name} ${R[5].day} | ${graphData(R[5].data)} | ${R[5].statMd} |
 | ${R[6].name} ${R[6].day} | ${graphData(R[6].data)} | ${R[6].statMd} |
 </code></pre></div><p>Observable notebooks support markdown elements with the opening tag md` and closing tag `.</p>
-<p>We throw in a year, month, and date slider using <a href="https://beta.observablehq.com/@mbostock/a-brief-introduction-to-viewof" target="_blank">viewof</a> to dynamically track and set the value:</p>
+<p>We throw in a year, month, and date slider using <a href="https://beta.observablehq.com/@mbostock/a-brief-introduction-to-viewof" target="_blank" rel="noreferrer noopener">viewof</a>
+ to dynamically track and set the value:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">viewof year <span style="color:#ff79c6">=</span> html<span style="color:#f1fa8c">`&lt;input type=range min=2014 max=2018 step=1 value=2014&gt;`</span>
 </code></pre></div><h2 id="observables">Observables?</h2>
-<p>Observable notebooks keep track of updated values and update things accordingly. When we move the date sliders, it updates the start data, which updates the end date, which updates the querystring, which gets called by fetch, which updates data, which is called by binData, which is called by generateReport, which updates the data, which is referenced by the report. The notebook performs this <a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank">reactive pattern</a> handling for us.</p>
-<p>Observers make total sense for a Mathematica-like notebook. They&rsquo;re also handy for solving problems in day-to-day programming. <a href="http://reactivex.io/rxjs/" target="_blank">RxJS</a> is a popular library for using observers in JS. It&rsquo;s worth looking at to see how it can streamline and clarify your own code.</p>
+<p>Observable notebooks keep track of updated values and update things accordingly. When we move the date sliders, it updates the start data, which updates the end date, which updates the querystring, which gets called by fetch, which updates data, which is called by binData, which is called by generateReport, which updates the data, which is referenced by the report. The notebook performs this <a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank" rel="noreferrer noopener">reactive pattern</a>
+ handling for us.</p>
+<p>Observers make total sense for a Mathematica-like notebook. They&rsquo;re also handy for solving problems in day-to-day programming. <a href="http://reactivex.io/rxjs/" target="_blank" rel="noreferrer noopener">RxJS</a>
+ is a popular library for using observers in JS. It&rsquo;s worth looking at to see how it can streamline and clarify your own code.</p>
 <h2 id="til">TIL</h2>
 <p>That&rsquo;s about it! You can use Observable notebooks a lot like you can Mathematica. They&rsquo;re a great way to write about data in a manner that encourages exploration and discovery on the part of the reader.</p>
-<p>Check out the <a href="https://beta.observablehq.com/collection/introduction" target="_blank">introductory tutorials</a> and build a notebook of your own to explore some cool data that you&rsquo;re interested in.</p>
+<p>Check out the <a href="https://beta.observablehq.com/collection/introduction" target="_blank" rel="noreferrer noopener">introductory tutorials</a>
+ and build a notebook of your own to explore some cool data that you&rsquo;re interested in.</p>
 <p>Does your city have a great Open Data portal too? If so, use it. If not, advocate!</p>
 
 	</div>

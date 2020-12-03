@@ -145,16 +145,20 @@
 ></script>
 <ul>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a>
+ of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a>
+ we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank">part three</a> we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank" rel="noreferrer noopener">part three</a>
+ we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/12/html5-canvas-pixl-art-project-part-four.html" target="_blank">part four</a> we questioned whether we ought to be using React after all, and we added support for saving canvas images in localStorage.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/12/html5-canvas-pixl-art-project-part-four.html" target="_blank" rel="noreferrer noopener">part four</a>
+ we questioned whether we ought to be using React after all, and we added support for saving canvas images in localStorage.</p>
 </li>
 </ul>
 <h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
@@ -178,7 +182,8 @@
 </figure></p>
 </blockquote>
 <h3 id="media-queries">Media queries</h3>
-<p>A <a href="https://en.wikipedia.org/wiki/Media_queries" target="_blank">media query</a> allows us to define rules for styling elements differently depending on <em>media type</em> (e.g., print, screen, TV, braille) and a list of <em>media features</em> that include <code>color</code>, <code>width</code>, and <code>device-aspect-ratio</code>. Media queries allow us to define a an element once in our HTML, and then make it appear differently depending on context.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Media_queries" target="_blank" rel="noreferrer noopener">media query</a>
+ allows us to define rules for styling elements differently depending on <em>media type</em> (e.g., print, screen, TV, braille) and a list of <em>media features</em> that include <code>color</code>, <code>width</code>, and <code>device-aspect-ratio</code>. Media queries allow us to define a an element once in our HTML, and then make it appear differently depending on context.</p>
 <p>Here&rsquo;s a simple example.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#colorDemo {
   <span style="color:#ff79c6">background-color</span>: <span style="color:#ff79c6">white</span>;
@@ -278,7 +283,8 @@
   <span style="color:#ff79c6">font-family</span>: <span style="color:#f1fa8c">&#34;Lekton&#34;</span>, <span style="color:#ff79c6">sans-serif</span>;
 }
 </code></pre></div><h3 id="side-note--box-sizing-border-box">side note — box-sizing: border-box</h3>
-<p>Setting <code>box-sizing: border-box</code> allows us to &ldquo;unquirk&rdquo; the <a href="https://css-tricks.com/box-sizing/" target="_blank">typical CSS box sizing behavior</a>.</p>
+<p>Setting <code>box-sizing: border-box</code> allows us to &ldquo;unquirk&rdquo; the <a href="https://css-tricks.com/box-sizing/" target="_blank" rel="noreferrer noopener">typical CSS box sizing behavior</a>
+.</p>
 <p>Without this setting, the width and height of elements will not be what you specify. Rather, elements will take the specified width and height as a base, adding on any padding and border that you specify (or, if you do not do a CSS reset, that a browser stylesheet has by default).</p>
 <p>This can result in some strange behavior. Consider this box. Without <code>border-box</code> set, it will display as 106x106 px instead of 100x100.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#box {
@@ -485,7 +491,8 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#row_3 { <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">1</span>; }
 #row_2 { <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">0</span>; }
 </code></pre></div><p>Nice!</p>
-<p>By using <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">CSS flexbox</a> judiciously, we&rsquo;re able to define a simple, row-based layout that collapses to a single column of elements on smaller screens.</p>
+<p>By using <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noreferrer noopener">CSS flexbox</a>
+ judiciously, we&rsquo;re able to define a simple, row-based layout that collapses to a single column of elements on smaller screens.</p>
 <h3 id="making-the-canvas-smallerlarger">Making the canvas smaller/larger</h3>
 <p>We are able to toggle the canvas size and appearance using the JavaScript media query listener we defined earlier. Remember the <code>handleOrientationChange</code> bit we wrote earlier?</p>
 <p>We also wrote the method <code>redrawAtScale</code>. This function does the following:</p>

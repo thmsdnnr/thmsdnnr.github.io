@@ -125,7 +125,10 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" target="_blank">Web Storage API</a> allows you to store data for a given origin (page on your site) that can persist across sessions. Data is stored as key-value pairs. There can only be one value for a given key, although that value can be a <code>JSON.stringify()</code>d object. Web Storage is <a href="https://caniuse.com/#feat=namevalue-storage" target="_blank">well-supported across browsers</a> with few limitations, aside from <a href="http://dev-test.nemikor.com/web-storage/support-test/" target="_blank">browser-specific limits</a> on storage space.</p>
+		<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" target="_blank" rel="noreferrer noopener">Web Storage API</a>
+ allows you to store data for a given origin (page on your site) that can persist across sessions. Data is stored as key-value pairs. There can only be one value for a given key, although that value can be a <code>JSON.stringify()</code>d object. Web Storage is <a href="https://caniuse.com/#feat=namevalue-storage" target="_blank" rel="noreferrer noopener">well-supported across browsers</a>
+ with few limitations, aside from <a href="http://dev-test.nemikor.com/web-storage/support-test/" target="_blank" rel="noreferrer noopener">browser-specific limits</a>
+ on storage space.</p>
 <h2 id="two-types-long-session-and-longer-local">two types: long (session) and longer (local)</h2>
 <p>There are two types of storage that differ only in the amount of time their data is persisted.</p>
 <p><code>sessionStorage</code> maintains data so long as the browser program is open. It doesn&rsquo;t matter if the tab or window is closed. As long as the browser instance exists, <code>sessionStorage</code> persists. When the instance dies, so does the stored data.</p>

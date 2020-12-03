@@ -126,11 +126,13 @@
 	</div>
 	<div class="markdown">
 		<h2 id="what-is-a-database">What is a database?</h2>
-<p>A database is a hub for piping information to and from your app. A database performs many functions. Some of the most common operations are CRUD: <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank">create, read, update, and delete</a>.</p>
+<p>A database is a hub for piping information to and from your app. A database performs many functions. Some of the most common operations are CRUD: <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noreferrer noopener">create, read, update, and delete</a>
+.</p>
 <p>Imagine that you&rsquo;re creating an app to connect cat lovers. An enthusiastic user visits the site and enters her information, eager to join. When she clicks &ldquo;Join&rdquo;, the app does a couple of things.</p>
 <ol>
 <li>READ from the database to make sure the cat enthusiast&rsquo;s username (<code>caturday114</code>) is not already taken. In this case, we&rsquo;re good.</li>
-<li>CREATE a new record in the database with the user&rsquo;s username, password (<a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" target="_blank">hashed</a> so as not to be stored in plaintext), and other information.</li>
+<li>CREATE a new record in the database with the user&rsquo;s username, password (<a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" target="_blank" rel="noreferrer noopener">hashed</a>
+ so as not to be stored in plaintext), and other information.</li>
 </ol>
 <p>Our eager user has logged into the app. Hooray! She quickly clicks &ldquo;Upload&rdquo; to upload pictures of her kitten sleeping on the sofa. When she does, the app CREATEs a new record containing the image and meta information (title, caption, date and time uploaded).</p>
 <p>The photo now appears, but whoops, <code>caturday114</code> realized that she mistyped her cat&rsquo;s name in the photo. She clicks &ldquo;Edit&rdquo; and types in the correct name. The app tells the database to UPDATE the existing record for the photo with the correct spelling.</p>
@@ -146,12 +148,16 @@
 <p>Imagine you are checking your cat text files for JOIN_DATE, but now another user wants to see a list of all the users who they share a birthday with, so that they can plan a big cat celebration. What happens when your first request already has a file open? If you&rsquo;re just both reading at the same time, it&rsquo;s fine. But imagine you&rsquo;re both writing at the same time, and imagine that you might both be writing to the same field. Everyone&rsquo;s had this experience with Google Docs before. Chaos ensues.</p>
 <h3 id="optimized-storage">Optimized Storage</h3>
 <p>Since databases know what type of data they will store, they can optimize the arrangement of this information on the disk to minimize the number of times they will have to spin up a hard drive to gather information. If the database can deliver the result directly from memory, the query will execute faster, and fewer resources will be required to serve it.</p>
-<p>One key concept in database querying is indexing. We&rsquo;ve already talked about <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/01/binary-trees.html" target="_blank">Binary Search Trees</a> and <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/12/binary-heaps.html" target="_blank">heaps</a>. Enter the <a href="https://en.wikipedia.org/wiki/B-tree#B-tree_usage_in_databases" target="_blank">B-tree</a>. B-trees maintain an index of a given piece of information in the database that eases searching for records corresponding to that information. The strategy is to make the information accessible in O(log N) time with divide and conquer.</p>
+<p>One key concept in database querying is indexing. We&rsquo;ve already talked about <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/01/binary-trees.html" target="_blank" rel="noreferrer noopener">Binary Search Trees</a>
+ and <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/12/binary-heaps.html" target="_blank" rel="noreferrer noopener">heaps</a>
+. Enter the <a href="https://en.wikipedia.org/wiki/B-tree#B-tree_usage_in_databases" target="_blank" rel="noreferrer noopener">B-tree</a>
+. B-trees maintain an index of a given piece of information in the database that eases searching for records corresponding to that information. The strategy is to make the information accessible in O(log N) time with divide and conquer.</p>
 <h3 id="distributed-storage">Distributed Storage</h3>
 <p>It seems hard to imagine how we could run out of space to store text files containing user information. One billion users at 1 kB each, and we&rsquo;re looking at a terabyte. But imagine that each user also has on average 3 or 4 cat pictures at 1mb each. Suddenly, we&rsquo;re in the Petabyte range: 1,000 terabytes of data. Too big to store on any one hard drive.</p>
 <p>Even if we could, what happens when one of those hard drives goes down? Databases support horizontal scaling out of the box through clustering.</p>
 <h2 id="transactions">Transactions</h2>
-<p>Databases have rules for handling requests. Transactions are a key concept for maintaining <a href="https://en.wikipedia.org/wiki/Data_integrity" target="_blank">data integrity</a>. What&rsquo;s data with bad integrity? Data that does not reflect the actual state of the application due to a fault that occurred during storage.</p>
+<p>Databases have rules for handling requests. Transactions are a key concept for maintaining <a href="https://en.wikipedia.org/wiki/Data_integrity" target="_blank" rel="noreferrer noopener">data integrity</a>
+. What&rsquo;s data with bad integrity? Data that does not reflect the actual state of the application due to a fault that occurred during storage.</p>
 <p>The canonical example is the bank account funds transfer. Jim is sending money to Karen for her catsitting services. Jim requests to send $30. The pseudocode is something like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">1. Find Jim in Database. Check his account balance.
 2. Find Karen in Database. Load her account.
@@ -160,9 +166,12 @@
 X_X sysadmin trips over CAT-5 cord, plucking it from ethernet jack
 5. Add that $30 to Karen&#39;s account balance.
 </code></pre></div><p>Karen taps her foot anxiously. Where&rsquo;s the $30? Her own cat needs some Fancy Feast. She texts Jim. Jim checks his bank account. &ldquo;I already sent it, Karen. It&rsquo;s showing a withdrawal.&rdquo; Karen: &ldquo;Jim, that&rsquo;s impossible! I don&rsquo;t have the money!&rdquo;</p>
-<p>The bank should have implemented a database system that uses transactions. It sure would have prevented this fiasco. Transactions have four key concepts Atomicity, Consistency, Isolation, and Durability <a href="https://en.wikipedia.org/wiki/ACID" target="_blank">(ACID)</a>.</p>
+<p>The bank should have implemented a database system that uses transactions. It sure would have prevented this fiasco. Transactions have four key concepts Atomicity, Consistency, Isolation, and Durability <a href="https://en.wikipedia.org/wiki/ACID" target="_blank" rel="noreferrer noopener">(ACID)</a>
+.</p>
 <h3 id="atomicity">Atomicity</h3>
-<p>It&rsquo;s all or nothing. Wrap the above pseudocode into a transaction. Either all 5 steps happen and we <a href="https://en.wikipedia.org/wiki/Commit_%28data_management%29" target="_blank">commit</a> the changes, or none of them happen and we <a href="https://en.wikipedia.org/wiki/Rollback_%28data_management%29" target="_blank">rollback</a> to a previous state, where Jim&rsquo;s account balance does not have $30 withdrawn.</p>
+<p>It&rsquo;s all or nothing. Wrap the above pseudocode into a transaction. Either all 5 steps happen and we <a href="https://en.wikipedia.org/wiki/Commit_%28data_management%29" target="_blank" rel="noreferrer noopener">commit</a>
+ the changes, or none of them happen and we <a href="https://en.wikipedia.org/wiki/Rollback_%28data_management%29" target="_blank" rel="noreferrer noopener">rollback</a>
+ to a previous state, where Jim&rsquo;s account balance does not have $30 withdrawn.</p>
 <h3 id="consistency">Consistency</h3>
 <p>Consistency requires data to meet certain constraints. In the case of a transfer, the constraints might include:</p>
 <ul>
@@ -181,7 +190,8 @@ X_X sysadmin trips over CAT-5 cord, plucking it from ethernet jack
 <p>What&rsquo;s SQL? Structured Query Language. Relational databases. What&rsquo;s NoSQL? Non-SQL. Non-relational databases.</p>
 <p>What&rsquo;s relational? Related data is held in tables. Imagine that we have an Excel spreadsheet for each slice of data we&rsquo;re interested in for the cat app. There&rsquo;d be a Users spreadsheet, a Cats spreadsheet, a Photos spreadsheet, and so on.</p>
 <h3 id="relational-databases">Relational Databases</h3>
-<p>In a few sentences. Tables are made of rows. Each row contains data elements designated by columns. Our Users table would have columns firstName, lastName, username, password, etc. Good table design mandates that as many values as possible are filled out for each row (minimize nulls). Data is stored in a <a href="https://en.wikipedia.org/wiki/Database_normalization" target="_blank">normalized fashion</a>. This means:</p>
+<p>In a few sentences. Tables are made of rows. Each row contains data elements designated by columns. Our Users table would have columns firstName, lastName, username, password, etc. Good table design mandates that as many values as possible are filled out for each row (minimize nulls). Data is stored in a <a href="https://en.wikipedia.org/wiki/Database_normalization" target="_blank" rel="noreferrer noopener">normalized fashion</a>
+. This means:</p>
 <ul>
 <li>No duplicated column data (e.g., storing cell # and home # in the same column)</li>
 <li>Rows have an identifier known as a Primary Key that uniquely identifies a row.</li>
@@ -205,7 +215,8 @@ X_X sysadmin trips over CAT-5 cord, plucking it from ethernet jack
 <li>Indexing: speeding up data retrieval by storing values in a readily-traversed structure</li>
 <li>Relational vs Non-Relational Databases: tabular vs non-tabular storage</li>
 </ul>
-<p>Databases might seem really complex and scary. In fact, they are simple and useful. Have a look at these <a href="https://en.wikipedia.org/wiki/Database_model" target="_blank">different database model types</a> to familiarize yourself with the concepts.</p>
+<p>Databases might seem really complex and scary. In fact, they are simple and useful. Have a look at these <a href="https://en.wikipedia.org/wiki/Database_model" target="_blank" rel="noreferrer noopener">different database model types</a>
+ to familiarize yourself with the concepts.</p>
 <p>We intentionally left out the specifics of query syntax and database vendors in this tutorial. If you understand the basic concepts behind databases and, most important, the why behind them, you&rsquo;ll see which solutions make sense to solve your problem. From there, with a well-founded approach, basic data modeling and coding simple queries is (almost) trivial.</p>
 
 	</div>

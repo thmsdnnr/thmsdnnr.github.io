@@ -169,7 +169,8 @@
 <p>Imagine if we implemented a four-way stop as a <strong>stack</strong>. One driver would roll up, then another, then another, until finally the last driver arrives. The last driver to arrive would be the first to leave, followed by the next-to-last, until finally we get back to the poor first driver, who&rsquo;s had to watch three other cars come and go before he can go.</p>
 <p>Oops! We can see from these examples how a either a stack or a queue is the obvious chose for modeling real-world situations.</p>
 <h2 id="code-linting">Code linting</h2>
-<p>Let&rsquo;s get more abstract and write a quick code linter. <a href="https://en.wikipedia.org/wiki/Lint_%28software%29" target="_blank">Code linters</a> are scripts that you can run on your code to make sure it follows a set of stylistic constraints (such as number of indentations, no unused variables, naming conventions, etc.).</p>
+<p>Let&rsquo;s get more abstract and write a quick code linter. <a href="https://en.wikipedia.org/wiki/Lint_%28software%29" target="_blank" rel="noreferrer noopener">Code linters</a>
+ are scripts that you can run on your code to make sure it follows a set of stylistic constraints (such as number of indentations, no unused variables, naming conventions, etc.).</p>
 <p>We&rsquo;ll write a linter to ensure that opening and closing brackets are matched.</p>
 <p>In programming, you can use parentheses and brackets (both curly and flat) to separate statements or blocks of code. There is often no restriction to the degree of nesting: <code>(((((2+2)))))</code> would be considered valid, for instance.</p>
 <p>However, the thing you cannot do is have something like this: <code>(2+2]</code> or this: <code>((2+2)</code>, in which the opening and closing bracket types are mismatched, either in type or number.</p>
@@ -230,7 +231,8 @@
 }
 </code></pre></div><p>Let&rsquo;s walk through this code. First, we define a simple mapping from opening brackets to closing brackets and vice versa. This way, when we consider a bracket, we know its partner. We can also use the dictionaries to test the characters in the string that we parse for matching a bracket.</p>
 <p>We take in the string we&rsquo;ve been passed. We break the code up into an array with elements corresponding to lines. For each line, we break it into another array with elements at the character level. Then we do our parsing.</p>
-<p>If we have an opening bracket, we push it on the stack! If we have a closing bracket, we <code>.pop()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop" target="_blank">(Docs)</a> the last-encountered opening bracket off the stack. We look it up in our dictionary to see what closing bracket we expect, and then we compare our expectation with the actual bracket we encountered.</p>
+<p>If we have an opening bracket, we push it on the stack! If we have a closing bracket, we <code>.pop()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ the last-encountered opening bracket off the stack. We look it up in our dictionary to see what closing bracket we expect, and then we compare our expectation with the actual bracket we encountered.</p>
 <p>If they match, no problem! If not, there&rsquo;s an error. We push an error object into our errors array with the line (incremented by one, since line-numbers are not zero-based), character, and &ldquo;missing closing bracket&rdquo;. We&rsquo;ll return this array at the end so the user knows where to go into the code to fix the error.</p>
 <p>We finish running through all the lines, but we&rsquo;re not done quite yet. If the stack isn&rsquo;t empty, this means that there are not enough closing brackets (even if we&rsquo;ve matched all our openers and closers thus far). Consider this: <code>[[]</code>. There&rsquo;s an extra <code>[</code> that never gets closed. To handle this case, we run a while loop over <code>stack.length</code> and pop each of the remaining items off the top.</p>
 <p>We know that each one is an error because there&rsquo;s nothing else left in the code to close it out with, so we record each instance.</p>
@@ -258,7 +260,8 @@ bracketLint(testInvalidString);
 </span></code></pre></div><h2 id="wrapping-up">Wrapping up</h2>
 <p>Stacks and queues are incredibly practical. Try to look around in the world and imagine some examples of stacks and queues you encounter every day. Consider how you can make your code more efficient by leveraging these structures.</p>
 <h3 id="abstract-data-types-and-implementations">Abstract Data Types and Implementations</h3>
-<p>Note that we have specified these data structures but nothing about their implementations. Strictly speaking, stacks and queues as discussed are <a href="https://en.wikipedia.org/wiki/Abstract_data_type" target="_blank">Abstract Data Types</a>, or implementation-independent structures. We&rsquo;ll get more in depth on <strong>how</strong> you actually implement a stack and a queue in memory soon, but it gets a little complex. This article covers the basics, helps build a foundation, and motivates further study of the nitty gritty details of what&rsquo;s going on under the hood.</p>
+<p>Note that we have specified these data structures but nothing about their implementations. Strictly speaking, stacks and queues as discussed are <a href="https://en.wikipedia.org/wiki/Abstract_data_type" target="_blank" rel="noreferrer noopener">Abstract Data Types</a>
+, or implementation-independent structures. We&rsquo;ll get more in depth on <strong>how</strong> you actually implement a stack and a queue in memory soon, but it gets a little complex. This article covers the basics, helps build a foundation, and motivates further study of the nitty gritty details of what&rsquo;s going on under the hood.</p>
 
 	</div>
 	

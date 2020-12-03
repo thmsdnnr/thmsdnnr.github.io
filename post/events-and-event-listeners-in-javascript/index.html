@@ -146,17 +146,21 @@
 <blockquote>
 <p>An example using a <code>mousemove</code> listener and <code>debounce</code> to bring it all together</p>
 </blockquote>
-<p>JavaScript uses an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop" target="_blank">Event Loop</a> to provide concurrency: managing multiple tasks at the same time.</p>
+<p>JavaScript uses an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop" target="_blank" rel="noreferrer noopener">Event Loop</a>
+ to provide concurrency: managing multiple tasks at the same time.</p>
 <p>Concurrency (management) is not the same thing as execution (performance). Rather, it&rsquo;s a means for JavaScript to arrange tasks in an ordered way and execute them singly when there is time available.</p>
 <h5 id="kind-of-like-how-your-managers-tell-you-what-to-do-but-never-do-it-themselvesjoking-joking">Kind of like how your managers tell you what to do but never do it themselves&hellip;joking joking.</h5>
 <p>JavaScript still only has one <em>thread</em>, meaning that it can only do one thing at a time. The Event Loop is a queue of &ldquo;things to do&rdquo; when JS is not doing something else.</p>
-<p>A <a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29" target="_blank">queue</a> is an Abstract Data Type that JS implements to handle events. You&rsquo;re familiar with queues already. Just imagine a line in the grocery store. The first person to get in line is the first person to leave. First in, first out (FIFO). This means that events get handled as close to the time they were added to the queue as possible.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29" target="_blank" rel="noreferrer noopener">queue</a>
+ is an Abstract Data Type that JS implements to handle events. You&rsquo;re familiar with queues already. Just imagine a line in the grocery store. The first person to get in line is the first person to leave. First in, first out (FIFO). This means that events get handled as close to the time they were added to the queue as possible.</p>
 <h3 id="if-an-event-happens-in-the-browser-and-no-ones-listening">If an event happens in the browser and no one&rsquo;s listening&hellip;</h3>
 <p>Is it still an event? No.</p>
 <p>In the event model, there are emitters and event listeners. Listeners <em>subscribe</em> to emitters, just like you&rsquo;d subscribe to someone&rsquo;s Twitter feed. You only get updates from feeds that you&rsquo;ve subscribed to, and you only get updates when tweets are sent.</p>
-<p>Here&rsquo;s a <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">list of events</a> or &ldquo;tweets&rdquo; that elements can send.</p>
+<p>Here&rsquo;s a <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank" rel="noreferrer noopener">list of events</a>
+ or &ldquo;tweets&rdquo; that elements can send.</p>
 <p>Subscribing to an event emitter means <em>registering</em> a handler. Confusing terminology, but this just means passing a function to be called (a good ol' callback!) with the event, whenever the event occurs.</p>
-<p>You&rsquo;ve already seen event listeners. Remember <code>window.onload = function() {}</code>? The function you&rsquo;re passing to the <code>onload</code> event is the <a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload" target="_blank">event handler</a>. Since <code>window</code> is global, the event handler is often the entirety of your program&rsquo;s code. It&rsquo;s still operating within the evented paradigm.</p>
+<p>You&rsquo;ve already seen event listeners. Remember <code>window.onload = function() {}</code>? The function you&rsquo;re passing to the <code>onload</code> event is the <a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload" target="_blank" rel="noreferrer noopener">event handler</a>
+. Since <code>window</code> is global, the event handler is often the entirety of your program&rsquo;s code. It&rsquo;s still operating within the evented paradigm.</p>
 <h3 id="adding-listeners">Adding listeners</h3>
 <p>Let&rsquo;s look at an example for a submit button.</p>
 <p><code>&lt;button id=&quot;submit&quot;&gt;submit&lt;/button&gt;</code></p>
@@ -173,7 +177,8 @@ sButton.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, <sp
 });
 <span style="color:#ff79c6">&lt;</span>/script&gt;
 </code></pre></div><p>Sometimes we only want a listener to fire once. If you click the &ldquo;Submit&rdquo; button above, it launches an alert dialog each time. Imagine this was a Submit button for a payment processing platform. You wouldn&rsquo;t want to issue multiple orders if the user kept clicking because the site was slow.</p>
-<p>Instead, we can register an event listener that detaches after it fires once (burn after reading) by using the <code>once</code> boolean in the <code>options</code> parameter of <code>addEventListener</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" target="_blank">(Docs)</a>:</p>
+<p>Instead, we can register an event listener that detaches after it fires once (burn after reading) by using the <code>once</code> boolean in the <code>options</code> parameter of <code>addEventListener</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" target="_blank" rel="noreferrer noopener">(Docs)</a>
+:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> oneTime <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;submitOnce&#34;</span>);
 oneTime.addEventListener(
   <span style="color:#f1fa8c">&#34;click&#34;</span>,
@@ -195,11 +200,14 @@ oneTime.addEventListener(
 <span style="color:#ff79c6">&lt;</span>/script&gt;
 </code></pre></div><p>Try clicking multiple times. The alert fires once and only once.</p>
 <h3 id="removing-listeners">Removing Listeners</h3>
-<p>One event can have multiple listeners. We can use <code>removeEventListener</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener" target="_blank">(Docs)</a> to remove listeners we have added. <code>removeEventListener</code> requires two parameters to find the listener to remove: the event type, and the callback function registered to the event.</p>
+<p>One event can have multiple listeners. We can use <code>removeEventListener</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ to remove listeners we have added. <code>removeEventListener</code> requires two parameters to find the listener to remove: the event type, and the callback function registered to the event.</p>
 <p>For example, in our button case: <code>sButton.removeEventListener('click', handleClick)</code>.</p>
-<p>Do not use <a href="https://en.wikibooks.org/wiki/JavaScript/Anonymous_functions" target="_blank">anonymous functions</a> for event handlers, since it makes removing them tricky. We can&rsquo;t just call <code>sButton.removeEventListener('click')</code>, for instance.</p>
+<p>Do not use <a href="https://en.wikibooks.org/wiki/JavaScript/Anonymous_functions" target="_blank" rel="noreferrer noopener">anonymous functions</a>
+ for event handlers, since it makes removing them tricky. We can&rsquo;t just call <code>sButton.removeEventListener('click')</code>, for instance.</p>
 <h3 id="okay-its-a-little-more-complex-bubbling">Okay, it&rsquo;s a little more complex. Bubbling.</h3>
-<p>We know that the DOM <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/04/fundamentals-dom-selectors.html" target="_blank">is a tree of tags</a>. What happens in the tree when there&rsquo;s a <code>click</code> event on one of its innermost leaves (say, a child <code>div</code> inside a container)?</p>
+<p>We know that the DOM <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/04/fundamentals-dom-selectors.html" target="_blank" rel="noreferrer noopener">is a tree of tags</a>
+. What happens in the tree when there&rsquo;s a <code>click</code> event on one of its innermost leaves (say, a child <code>div</code> inside a container)?</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;container&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;c1&#34;</span>&gt;
   &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;child&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;c1_child1&#34;</span>&gt;1&lt;/<span style="color:#ff79c6">div</span>&gt;
   &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;child&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;c1_child2&#34;</span>&gt;2&lt;/<span style="color:#ff79c6">div</span>&gt;
@@ -363,7 +371,8 @@ c3.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, limitPro
 <p>It often happens that you are listening to an event which fires many times. <code>mousemove</code> is a good example. This event fires whenever the user moves the mouse, with pixel-level precision. If you call a function each time the mouse is moved, the function will be called thousands of times per seconds and overflow the stack.</p>
 <p>What we want to do in these cases is <code>debounce</code> the function. Debouncing simply means wrapping the function in another function that keeps track of how often its child function was called. It only passes through calls when the inner function has <em>not</em> been called for a specified interval.</p>
 <p>For instance, if mousemove is calling 50 times per second and your debounce is set to an interval of 500ms, your function will only be called twice, instead of 50 times. Obviously with this decreased granularity, your data will be updated less frequently. However, it&rsquo;s often possible to make a tradeoff that doesn&rsquo;t affect performance or user experience. In the case of <code>mousemove</code>, the function call overhead will slow down the app far more than a ms delay between updates.</p>
-<p><a href="http://underscorejs.org/" target="_blank">Underscore</a> is a JS utility library that implements debounce. We can write it for fun though, too.</p>
+<p><a href="http://underscorejs.org/" target="_blank" rel="noreferrer noopener">Underscore</a>
+ is a JS utility library that implements debounce. We can write it for fun though, too.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> debounce <span style="color:#ff79c6">=</span> (fn, intervalMs, ...args) =&gt; {
   <span style="color:#8be9fd;font-style:italic">let</span> lastCalled <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Date</span>.now();
   <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">function</span> debounced(args) {
@@ -429,7 +438,8 @@ clicking this refreshes the page: &lt;<span style="color:#ff79c6">button</span>&
   f.addEventListener(<span style="color:#f1fa8c">&#34;submit&#34;</span>, preventRefresh);
 &lt;/<span style="color:#ff79c6">script</span>&gt;
 </code></pre></div><h3 id="as-always-only-scratching-the-surface">As always, only scratching the surface</h3>
-<p>Explore the <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">events list</a> and try experimenting on CodePen. Understanding the event model is not only key to understanding how modern, client-side, interactive JavaScript functions, but also it&rsquo;s a paradigm used by NodeJS. You can even define your own events (tutorial soon)!</p>
+<p>Explore the <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank" rel="noreferrer noopener">events list</a>
+ and try experimenting on CodePen. Understanding the event model is not only key to understanding how modern, client-side, interactive JavaScript functions, but also it&rsquo;s a paradigm used by NodeJS. You can even define your own events (tutorial soon)!</p>
 
 	</div>
 	

@@ -125,8 +125,10 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p><em>I owe much of my learning &amp; implementation to <a href="http://eloquentjavascript.net/1st_edition/appendix2.html" target="_blank">Eloquent Javascript</a> by Marijn Haverbeke.</em></p>
-<p><a href="https://en.wikipedia.org/wiki/Binary_heap" target="_blank">Binary heaps</a> are partially ordered data structures in the form of binary trees. A binary heap orders elements such that parent nodes are either greater than/equal to their child nodes (max heap), or less than/equal to their child nodes (min heap).</p>
+		<p><em>I owe much of my learning &amp; implementation to <a href="http://eloquentjavascript.net/1st_edition/appendix2.html" target="_blank" rel="noreferrer noopener">Eloquent Javascript</a>
+ by Marijn Haverbeke.</em></p>
+<p><a href="https://en.wikipedia.org/wiki/Binary_heap" target="_blank" rel="noreferrer noopener">Binary heaps</a>
+ are partially ordered data structures in the form of binary trees. A binary heap orders elements such that parent nodes are either greater than/equal to their child nodes (max heap), or less than/equal to their child nodes (min heap).</p>
 <p>A heap is a <em>full</em> binary tree (every node except leaves have two children) and <em>complete</em> binary tree (every level except possibly the last is filled; all nodes are as far left as they can be).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">min-heap:
       1
@@ -156,7 +158,9 @@ max-heap:
 <p>To insert an element, we add it to the very end of the tree and then swap its position with adjacent nodes until it satisfies the ordering property of the heap.</p>
 <p>We can delete a specified element from the heap in O(log n) time by performing a binary search for the element and then removing it. However, min and max heaps are optimized for removal of the root element in O(1) time, rather than supporting arbitrary deletion.</p>
 <h2 id="implementing-heaps">Implementing Heaps</h2>
-<p>Heaps are <a href="https://en.wikipedia.org/wiki/Binary_heap#Heap_implementation" target="_blank">often implemented using an array</a>. When implementing a heap as an array, we&rsquo;re creating what&rsquo;s called an <a href="https://en.wikipedia.org/wiki/Implicit_data_structure" target="_blank">implicit data structure</a>. Whereas in a traditional binary tree implementation</p>
+<p>Heaps are <a href="https://en.wikipedia.org/wiki/Binary_heap#Heap_implementation" target="_blank" rel="noreferrer noopener">often implemented using an array</a>
+. When implementing a heap as an array, we&rsquo;re creating what&rsquo;s called an <a href="https://en.wikipedia.org/wiki/Implicit_data_structure" target="_blank" rel="noreferrer noopener">implicit data structure</a>
+. Whereas in a traditional binary tree implementation</p>
 <p>Given a tree array with index starting at 1, for any element with index idx, its parent is located at <code>Math.floor(idx/2)</code>, and its two children are located at <code>2*idx</code> and <code>2*idx+1</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">min-heap:
 
@@ -334,7 +338,8 @@ rightChild is 12. swap is null, so we compare the rightChild score with the elem
 <h2 id="heapsort">HeapSort</h2>
 <p>Organizing elements in a binary heap gives them the convenient property of being able to be sorted very quickly. Notice that each time we perform a <code>pop</code> operation on a min-heap, we retrieve the next ascending sorted element of the heap&rsquo;s values; similarly, when we <code>pop</code> a max-heap, we retrieve the next descending sorted element.</p>
 <p>This can be used to implement a priority queue by high or low priority.</p>
-<p>We can also use this ordered property of heaps to implement <a href="https://en.wikipedia.org/wiki/Heapsort" target="_blank">HeapSort</a>.</p>
+<p>We can also use this ordered property of heaps to implement <a href="https://en.wikipedia.org/wiki/Heapsort" target="_blank" rel="noreferrer noopener">HeapSort</a>
+.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">BinaryHeap.prototype.heapSort <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
   <span style="color:#ff79c6">const</span> copy <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.heap.slice(<span style="color:#bd93f9">0</span>);
   <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> [];
@@ -356,7 +361,8 @@ rightChild is 12. swap is null, so we compare the rightChild score with the elem
 <li>We might think that we can copy the heap like this: <code>const copy = this.heap</code>.</li>
 </ol>
 <ul>
-<li>This would be incorrect: <code>copy</code> would hold a <em>reference</em> to <code>this.heap</code>, but not the <em>value</em> of <code>this.heap</code>. Using <code>array.slice()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice" target="_blank">(Docs)</a> solves this problem, but with a caveat! Note from the documentation that <code>Array.slice</code> will copy strings, numbers, and booleans, <em>but not objects</em>.</li>
+<li>This would be incorrect: <code>copy</code> would hold a <em>reference</em> to <code>this.heap</code>, but not the <em>value</em> of <code>this.heap</code>. Using <code>array.slice()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ solves this problem, but with a caveat! Note from the documentation that <code>Array.slice</code> will copy strings, numbers, and booleans, <em>but not objects</em>.</li>
 </ul>
 <p>If our heap contains an array of objects that we order by a given key, say <code>priority</code>, heapSort will wipe out each of these elements, because <code>copy</code> will contain an array of <em>references</em>, not a deep copy of the objects contained.</p>
 <p>To implement this copying in a robust manner, we should really define a custom copy method for our array, so that we could simply say: <code>copy = this.copyHeap()</code>.</p>
@@ -404,7 +410,8 @@ T.comparator <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;fon
 }
 console.log(T.heapSort());
 <span style="color:#6272a4">// [22, 13, 7, 5, 4, 3]
-</span></code></pre></div><p>This is an application of <a href="https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap" target="_blank">Floyd&#39;s method of heap construction</a> applied in-place to an existing heap structure. Kinda cool!</p>
+</span></code></pre></div><p>This is an application of <a href="https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap" target="_blank" rel="noreferrer noopener">Floyd's method of heap construction</a>
+ applied in-place to an existing heap structure. Kinda cool!</p>
 <h2 id="wrapping-up">Wrapping Up</h2>
 <p>Congratulations! You&rsquo;ve mastered yet another simple data structure. Try reviewing the structures you&rsquo;ve already learned and, most important, <em>coding them from scratch</em>, perhaps even with a pen and paper. It&rsquo;s one thing to read code and conceptually understand. It&rsquo;s far different to wrestle with off-by-one errors and indexing foibles.</p>
 <p>Practice hones intuition, and sufficient intuition is indiscernible from mastery.</p>

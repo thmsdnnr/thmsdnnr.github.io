@@ -127,7 +127,8 @@
 	<div class="markdown">
 		<p>Caching data is the process of saving data in memory that we will use again soon. It provides the advantage of speed, since a memory lookup is much faster than retrieving data from disk or over a network. In addition, caching data rather than fetching and processing it saves CPU cycles for serving more users.</p>
 <p>The main thing to know is that caching (like most everything in computing) is a time-space tradeoff. If you have extra space, you can use it up to save time.</p>
-<p>Caching is related to <a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">memoization</a>: saving the result of expensive computations so that you do not have to perform them again. The general consensus from Wikipedia and StackOverflow is that caching is more general (can be for both input and output) and usually refers to saving the result of data that <em>another service</em> has computed, and that this output is non-deterministic (it varies with time).</p>
+<p>Caching is related to <a href="https://en.wikipedia.org/wiki/Memoization" target="_blank" rel="noreferrer noopener">memoization</a>
+: saving the result of expensive computations so that you do not have to perform them again. The general consensus from Wikipedia and StackOverflow is that caching is more general (can be for both input and output) and usually refers to saving the result of data that <em>another service</em> has computed, and that this output is non-deterministic (it varies with time).</p>
 <p>Memoization would be saving the result of a factorial function so you don&rsquo;t have to recalculate it for values you&rsquo;ve already computed.</p>
 <p>Caching would be saving the result that&rsquo;s going to change, say a weather report that&rsquo;s updated every hour.</p>
 <p>You&rsquo;ve experienced caching yourself (your browser is doing it right now). If you&rsquo;re a developer, you&rsquo;ve likely made changes to an existing script, hit refresh, and &hellip; nothing happens. Your browser&rsquo;s stashed a local copy that it&rsquo;s accessing instead of requesting it fresh from the server.</p>
@@ -136,7 +137,8 @@
 <p>Caching is limited by memory (you&rsquo;ll run out eventually!) and the time-expiration of information. If you&rsquo;re a weather website and you get reports from a station every 5 minutes, it&rsquo;s fine to cache for that long, but after 5 minutes, you better request it fresh.</p>
 <h2 id="eviction-strategies">Eviction Strategies</h2>
 <p>An eviction strategy is simply: when the cache is full, and we add another item, how do we decide which element to remove? The best answer is: whichever element we&rsquo;re never going to need again! This would, of course, require us to know the future, so it&rsquo;s impossible. Instead, we can try to get close to the optimal based on probabilities.</p>
-<p>There are <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Policies" target="_blank">a lot of strategies</a> to remove items from a cache.</p>
+<p>There are <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Policies" target="_blank" rel="noreferrer noopener">a lot of strategies</a>
+ to remove items from a cache.</p>
 <p>All these strategies that are not simply random typically consider two factors:</p>
 <ol>
 <li>Frequency of use: count the number of times a cache item is requested; discard the item with the lowest number of requests</li>
@@ -232,7 +234,10 @@ console.log(<span style="color:#f1fa8c">&#34;Hit ratio: &#34;</span> <span style
 <p>The big takeaway here is that if you&rsquo;ve got the space, saving 32% of your elements means you&rsquo;ll have the element you need 70% of the time! If it takes 50ms to make a data-heavy network request when there&rsquo;s a cache miss, this can save you 3.5 seconds per 100 requests, or an average of 35ms/request.</p>
 <p>Caching allows us to bargain with time-space complexity: when time is important and space is inexpensive, they often offer a solution.</p>
 <h2 id="caching-in-the-real-world">Caching in the real world</h2>
-<p>Like more or less everything that involves a doubly-linked list, don&rsquo;t write it yourself (but it&rsquo;s good to understand it). There are a lot of libraries out there that can do this stuff for you like <a href="https://memcached.org/" target="_blank">Memcached</a>, <a href="https://redis.io/" target="_blank">Redis</a>, or <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache" target="_blank">Python&#39;s functools</a>.</p>
+<p>Like more or less everything that involves a doubly-linked list, don&rsquo;t write it yourself (but it&rsquo;s good to understand it). There are a lot of libraries out there that can do this stuff for you like <a href="https://memcached.org/" target="_blank" rel="noreferrer noopener">Memcached</a>
+, <a href="https://redis.io/" target="_blank" rel="noreferrer noopener">Redis</a>
+, or <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache" target="_blank" rel="noreferrer noopener">Python's functools</a>
+.</p>
 
 	</div>
 	

@@ -169,9 +169,11 @@
 <p>So there&rsquo;s the question: how can we make our code figure out what, in this basic case, was easy for us to calculate by hand?</p>
 <h2 id="solving-the-problem">Solving the Problem</h2>
 <p>A naive solution would be to generate all possible combinations of the given items, calculate each combination&rsquo;s value, and return the maximum.</p>
-<p>To do this, we&rsquo;d need to calculate the <a href="https://en.wikipedia.org/wiki/Power_set" target="_blank">Power Set</a> of the items, which is the set of all subsets of the items. This makes sense: if we are naively grouping the items and checking all possible combinations, we&rsquo;re not excluding cases where the pack isn&rsquo;t full. So, we have one group with each item individually. One group with item one and item two, item one and item three, item one and item four, etc. etc.</p>
+<p>To do this, we&rsquo;d need to calculate the <a href="https://en.wikipedia.org/wiki/Power_set" target="_blank" rel="noreferrer noopener">Power Set</a>
+ of the items, which is the set of all subsets of the items. This makes sense: if we are naively grouping the items and checking all possible combinations, we&rsquo;re not excluding cases where the pack isn&rsquo;t full. So, we have one group with each item individually. One group with item one and item two, item one and item three, item one and item four, etc. etc.</p>
 <p>The Power Set is on the order of 2^n, or an <strong>exponential</strong> runtime. This is completely prohibitive for solving any but the most trivial of problems. It&rsquo;s not uncommon to have a set of 100 items you need to maximize. Assuming those items were merely 1 byte each (numbers between 0-255), the operation would take 2^30 bytes, or just over a gigabyte of memory.</p>
-<p>Clearly we need a way to generate combinations relative to the constraints <em>as</em> we construct the solution, not after the fact. <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank">Dynamic Programming</a> is a paradigm that allows us to do this: we can use the solution to previously calculated problems to dictate the space over which we search for the next steps in the solution.</p>
+<p>Clearly we need a way to generate combinations relative to the constraints <em>as</em> we construct the solution, not after the fact. <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noreferrer noopener">Dynamic Programming</a>
+ is a paradigm that allows us to do this: we can use the solution to previously calculated problems to dictate the space over which we search for the next steps in the solution.</p>
 <p>How does this apply to the knapsack problem?</p>
 <p>At a high level, how do we go about filling the knapsack? We iterate through the items and look at the current state of the knapsack. We ask these questions:</p>
 <ol>
@@ -184,7 +186,8 @@
 <p>If value A &gt; value B, we don&rsquo;t add the item and copy down the value of the row above.</p>
 <p>If value B &gt; value A, we add the item and record the combined value in the cell.</p>
 <p>The beauty of this algorithm is that we assemble the answers we need to determine whether or not to add an item <em>as we iterate through the items</em>. When we finish filling out the array, we&rsquo;ll have our answer of the maximum value: it&rsquo;s just the <code>[last row][last column]</code>.</p>
-<p>There are a few relations that make this algorithm work that you can <a href="https://en.wikipedia.org/wiki/Knapsack_problem#0/1_knapsack_problem" target="_blank">find here on the Wikipedia</a>.</p>
+<p>There are a few relations that make this algorithm work that you can <a href="https://en.wikipedia.org/wiki/Knapsack_problem#0/1_knapsack_problem" target="_blank" rel="noreferrer noopener">find here on the Wikipedia</a>
+.</p>
 <p>Straight from the wiki:</p>
 <ul>
 <li>m[i, w] is the maximum value using i items for a given weight.</li>
@@ -292,7 +295,8 @@
 ]​​
 </code></pre></div><h2 id="knapsack-problem-variants">Knapsack Problem Variants</h2>
 <p>We just solved the 0-1 knapsack problem: items in the collection exist either zero or one times. We don&rsquo;t have two cat dishes or two laptops.</p>
-<p>There are a few other variants <a href="https://en.wikipedia.org/wiki/List_of_knapsack_problems" target="_blank">(list of them here)</a>, including:</p>
+<p>There are a few other variants <a href="https://en.wikipedia.org/wiki/List_of_knapsack_problems" target="_blank" rel="noreferrer noopener">(list of them here)</a>
+, including:</p>
 <ul>
 <li>the bounded knapsack problem: there can be more than one of a given item in the collection, but no more than some max quantity (bound)</li>
 </ul>
@@ -307,7 +311,8 @@
 <li><code>{name: 'cat dish', value: 4, size: 1, qty: -4}</code></li>
 </ul>
 <h2 id="til">TIL</h2>
-<p>Dynamic programming is a technique that uses <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals,/2018/01/24/fundamentals-memoizing.html" target="_blank">memoization</a>, allowing us to solve problems much more quickly and efficiently than we might otherwise have been able. In this case, we memoized answers to the question &ldquo;What&rsquo;s the largest-value knapsack of weight W that I can assemble given a consideration of all previous items?&rdquo;. Doing so allowed us to avoid having to generate a complexity-prohibitive power set to solve an optimization problem.</p>
+<p>Dynamic programming is a technique that uses <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals,/2018/01/24/fundamentals-memoizing.html" target="_blank" rel="noreferrer noopener">memoization</a>
+, allowing us to solve problems much more quickly and efficiently than we might otherwise have been able. In this case, we memoized answers to the question &ldquo;What&rsquo;s the largest-value knapsack of weight W that I can assemble given a consideration of all previous items?&rdquo;. Doing so allowed us to avoid having to generate a complexity-prohibitive power set to solve an optimization problem.</p>
 <p>While you might not use this algorithm the next time you&rsquo;re headed to the airport, you certainly could in order to allocate limited resources in the most effective manner.</p>
 
 	</div>

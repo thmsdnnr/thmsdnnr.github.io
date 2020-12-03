@@ -125,7 +125,8 @@
 		</div>
 	</div>
 	<div class="markdown">
-		<p>A <a href="https://en.wikipedia.org/wiki/Binary_tree" target="_blank">binary tree</a> is a tree data structure composed of nodes that contain two branches, a <code>left</code> and a <code>right</code>. The tree consists of a top-level or root node. Each branch from the root can hold nodes that themselves have arbitrarily many children.</p>
+		<p>A <a href="https://en.wikipedia.org/wiki/Binary_tree" target="_blank" rel="noreferrer noopener">binary tree</a>
+ is a tree data structure composed of nodes that contain two branches, a <code>left</code> and a <code>right</code>. The tree consists of a top-level or root node. Each branch from the root can hold nodes that themselves have arbitrarily many children.</p>
 <p>By convention, the root of a binary tree is drawn at the top, with branches proceeding downward.</p>
 <p>In a <em>Full binary tree</em>, every node except the leaves have two children. Nodes with zero children (where <code>left</code> and <code>right</code> are null) are called leaf nodes.</p>
 <p>A <em>Complete binary tree</em> is a full binary tree in which every level of the tree is filled (except perhaps the last), and nodes are populated from left-to-right.</p>
@@ -155,7 +156,8 @@
 </blockquote>
 <p>A binary tree is an abstract structure whose use can be leveraged for different ends, particularly when ordering is applied to the tree&rsquo;s nodes. One such ordering creates a structure called a <em>Binary Search Tree</em>, which we will discuss here.</p>
 <h2 id="binary-search-trees">Binary Search Trees</h2>
-<p>In a <a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank">binary search tree</a>, an &ldquo;ordered&rdquo; or &ldquo;sorted&rdquo; binary tree, the child nodes are kept in an order relative to their parents. The left child is always less than the parent, and the right child is always greater than or equal to the parent. We create an insert method to insert data in this ordered fashion.</p>
+<p>In a <a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noreferrer noopener">binary search tree</a>
+, an &ldquo;ordered&rdquo; or &ldquo;sorted&rdquo; binary tree, the child nodes are kept in an order relative to their parents. The left child is always less than the parent, and the right child is always greater than or equal to the parent. We create an insert method to insert data in this ordered fashion.</p>
 <p>For inserting item A in tree T, we proceed down the tree. For each node we encounter, we compare the value of A with the value of that node. If A is less than the node, we go left. If A is greater than the node, we go right.</p>
 <p>We repeat this process until we reach leaf nodes (a node where one or both children are null). Then we compare the value of A to this final node. If A is less than the leaf node value, we set A as the new left child of this leaf node. If A is greater than the leaf node value, we set A as the new right child of this leaf node.</p>
 <p>Let&rsquo;s look at the node structure and then consider a more concrete example for search and insertion.</p>
@@ -286,7 +288,9 @@
   }
   <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
 }
-</code></pre></div><p>Easy enough! NB: The search we are talking about here is <a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank">depth-first</a>. There is another style of traversing, <a href="https://en.wikipedia.org/wiki/Breadth-first_search" target="_blank">breadth-first</a>, which we will discuss in a later tutorial.</p>
+</code></pre></div><p>Easy enough! NB: The search we are talking about here is <a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank" rel="noreferrer noopener">depth-first</a>
+. There is another style of traversing, <a href="https://en.wikipedia.org/wiki/Breadth-first_search" target="_blank" rel="noreferrer noopener">breadth-first</a>
+, which we will discuss in a later tutorial.</p>
 <h2 id="traversal">Traversal</h2>
 <p>What good is having a tree if you can&rsquo;t climb it?</p>
 <p>There are three common types of traversal:</p>

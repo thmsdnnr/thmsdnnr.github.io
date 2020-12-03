@@ -148,10 +148,12 @@
 ></script>
 <ul>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a>
+ of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a>
+ we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
 </li>
 </ul>
 <h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
@@ -179,7 +181,8 @@
 &lt;/<span style="color:#ff79c6">div</span>&gt;
 &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;imageTray&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
 </code></pre></div><p>Note the use of <code>checked</code> and <code>selected</code> in our <code>input</code> and <code>options</code> tags: this attribute specifies the default selected value. We&rsquo;re allowing the user to scale the drawing to some select multiples of 16. You could enable the user to input a number and scale to any size they&rsquo;d like, but for simplicity, we&rsquo;re limiting the range to four options.</p>
-<p>See <a href="https://www.interaction-design.org/literature/article/hick-s-law-making-the-choice-easier-for-users" target="_blank">Hick&#39;s Law</a>: the more choices you give the user, the longer it takes them to make a decision. <strong>Corollary: if you give a user too many choices, they might make the decision to close the tab.</strong></p>
+<p>See <a href="https://www.interaction-design.org/literature/article/hick-s-law-making-the-choice-easier-for-users" target="_blank" rel="noreferrer noopener">Hick's Law</a>
+: the more choices you give the user, the longer it takes them to make a decision. <strong>Corollary: if you give a user too many choices, they might make the decision to close the tab.</strong></p>
 <p>Generating the canvases requires two steps.</p>
 <ol>
 <li>Listen to the &ldquo;get image&rdquo; click event &amp; get the parameters from the user</li>
@@ -211,7 +214,9 @@
 <p>Now that we know what size canvas the user wants, we need to scale it and set the background color (either to transparent or to the selected color).</p>
 <p>We&rsquo;ll write a function <code>grabCanvas</code> that takes a width, transparent flag (true/false) an a bgColor from the user. It will output a canvas to the display that is scaled and has the specified background color.</p>
 <p>In order to scale the main canvas, we&rsquo;re going to create a second, smaller canvas. We number it with a unique id that we increment on the page with the creation of each canvas, <code>cvsID</code>. We give the canvas a height &amp; width based on the user selection. We add a class to the canvas so that we can style it with CSS, and then we use <code>prepend</code> to add it to the <code>imageTray</code> div.</p>
-<p>We use <code>prepend</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/prepend" target="_blank">(Docs)</a> to add the canvases instead of <code>appendChild</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild" target="_blank">(Docs)</a> because we want the newest canvases to appear on the leftmost side of the div. When more canvases are added than can be viewed, we&rsquo;ll automatically scroll to the far left of the div so the most recent canvas can be viewed.</p>
+<p>We use <code>prepend</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/prepend" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ to add the canvases instead of <code>appendChild</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild" target="_blank" rel="noreferrer noopener">(Docs)</a>
+ because we want the newest canvases to appear on the leftmost side of the div. When more canvases are added than can be viewed, we&rsquo;ll automatically scroll to the far left of the div so the most recent canvas can be viewed.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">cvsID<span style="color:#ff79c6">++</span>;
 <span style="color:#8be9fd;font-style:italic">let</span> blit <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;canvas&#34;</span>);
 blit.height <span style="color:#ff79c6">=</span> width; <span style="color:#6272a4">// px
