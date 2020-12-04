@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Convert Hexadecimal String to Base-64">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set1"><meta name="description" content="Calculate a Fixed XOR between two strings and solve Cryptopals Set 1 Challenge 1."><meta property="og:title" content="Convert Hexadecimal String to Base-64" />
+<meta property="og:description" content="Calculate a Fixed XOR between two strings and solve Cryptopals Set 1 Challenge 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/convert-hexadecimal-string-to-base-64/" />
+<meta property="article:published_time" content="2017-09-14T10:47:06+00:00" />
+<meta property="article:modified_time" content="2017-09-14T10:47:06+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Convert Hexadecimal String to Base-64"/>
+<meta name="twitter:description" content="Calculate a Fixed XOR between two strings and solve Cryptopals Set 1 Challenge 1."/>
+
+	
+	
+
+	<title>Convert Hexadecimal String to Base-64 | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">14</span>
+				<span class="rest">Sep 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Convert Hexadecimal String to Base-64</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/1/challenges/1" target="_blank" rel="noreferrer noopener">Cryptopals Set 1 Challenge 1</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s1c1" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s1c1/" target="_blank" rel="noreferrer noopener">working demo</a></p>
+<p>Here&rsquo;s a <a href="https://blogs.oracle.com/rammenon/base64-explained" target="_blank" rel="noreferrer noopener">good blog post</a> from Oracle to understand the maths behind the conversion:</p>
+<p>First, we have to split the hex (Base-16) string into groups of two characters each.  We do some simple length and regexp validation and display error messages if the input string contains an odd number of characters or invalid characters.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">if</span> (hStr.match(<span style="color:#f1fa8c">/[^0-9a-f]/gi</span>) <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span>) {
+  <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Hex string can only contain characters 0-9 and A-F.&#34;</span>;
+}
+hStr <span style="color:#ff79c6">=</span> hStr.split(<span style="color:#f1fa8c">&#34;&#34;</span>);
+<span style="color:#ff79c6">if</span> (hStr.length <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span>) {
+  <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Hex string must contain an even number of characters&#34;</span>;
+}
+</code></pre></div><p>The meat of the conversion happens in this function that calls helper functions (explained in depth below).
+Note that this is an extremely verbose way of performing conversion that shows all the steps.
+The process can be abbreviated with bitwise operators.</p>
+<p>Also, where you see code like this: <code>decBin.innerHTML=JSON.stringify(arr);</code>, that&rsquo;s me breaking out variable contents in intermediate steps to display on the page. I added a simple event listener on the text box to update all these variables each time the text is modified, so that you can see the different steps of code running and their effects in real-time.</p>
+<p>For a small project like this, manually updating the view is super straightforward and makes sense, but it&rsquo;s the fundamental problem that a DOM-diffing view like React sets out to solve. Rather than manually figuring out what changed and updating it yourself, React will &ldquo;do it for you&rdquo; when state changes.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> calcB64(hStr) {
+  <span style="color:#8be9fd;font-style:italic">let</span> arr <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> hStr.length; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">2</span>) {
+    arr.push([hStr[i], hStr[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>]].join(<span style="color:#f1fa8c">&#34;&#34;</span>));
+  } <span style="color:#6272a4">// base-16 chars
+</span><span style="color:#6272a4"></span>  hBytes.innerHTML <span style="color:#ff79c6">=</span> JSON.stringify(arr); <span style="color:#6272a4">// 1. Hexstring to Hex Bytes
+</span><span style="color:#6272a4"></span>  arr <span style="color:#ff79c6">=</span> arr.map((e) =&gt; hexToDec(e)); <span style="color:#6272a4">// base-16 to base-10
+</span><span style="color:#6272a4"></span>  decBin.innerHTML <span style="color:#ff79c6">=</span> JSON.stringify(arr); <span style="color:#6272a4">// 2. Hex Bytes to Decimal
+</span><span style="color:#6272a4"></span>  arr <span style="color:#ff79c6">=</span> arr.map((e) =&gt; decToBin(e)); <span style="color:#6272a4">// base-10 to base-2
+</span><span style="color:#6272a4"></span>  hexBinary.innerHTML <span style="color:#ff79c6">=</span> JSON.stringify(arr); <span style="color:#6272a4">// 3. Decimal to Binary
+</span><span style="color:#6272a4"></span>  arr <span style="color:#ff79c6">=</span> binTo64(arr); <span style="color:#6272a4">// 3x8 (24-bit) string into 4x6 (24-bit) strings and pad out with two bits
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">return</span> arr;
+}
+</code></pre></div><p>We verify the hexstring is valid, split it into two-byte groups, map the groups to base-10, map the base 10 groups to base-2, combine adjacent 8-bit base-2 groups to form 24-bit base-2 groups (handling padding when there are fewer than 24-bits in the input stream or a # of bits not divisible by 24), split each of these 3x8-bit base-2 groups into 4x6-bit base-2 groups, zero pad each 6 bit group so they are now a 4x8-bit group, convert each number in this new group back to decimal, and then we map this decimal 1-&gt;1 with the base64 character set. Finally, if padding was required, this is appended to the end of the string, and the converted base-64 string is returned! Hooray!</p>
+<p>Here are the individual steps broken down:</p>
+<h3 id="step-1-hexstring-to-hex-bytes">Step 1: Hexstring to Hex Bytes</h3>
+<p>Convert the string to an array of individual characters.
+Create a new array with two-character groups.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">hStr <span style="color:#ff79c6">=</span> hStr.split(<span style="color:#f1fa8c">&#34;&#34;</span>);
+<span style="color:#8be9fd;font-style:italic">let</span> arr <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> hStr.length; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">2</span>) {
+  arr.push([hStr[i], hStr[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>]]);
+}
+</code></pre></div><h3 id="step-2-hex-bytes-to-decimal">Step 2: Hex Bytes to Decimal</h3>
+<p>We map the two-character groups with .toUpperCase() so that we only have to have upper-case letters in our map.</p>
+<p>The nMap array maps array index -&gt; hexadecimal value, 0 through 15.</p>
+<p>We break the hexadecimal into two and convert into hexadecimal (first character decimal equivalent times 16^1 plus second character decimal equivalent times 16^0).</p>
+<p>We return the decimal. There are two ways to do this. First, a concise way using ES6:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> hexToDec <span style="color:#ff79c6">=</span> (hex) =&gt; <span style="color:#8be9fd;font-style:italic">parseInt</span>(hex, <span style="color:#bd93f9">16</span>).toString(<span style="color:#bd93f9">10</span>);
+</code></pre></div><p>A more verbose way: something similar happens behind the scenes when using parseInt and toString functions:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">hex <span style="color:#ff79c6">=</span> hex.split(<span style="color:#f1fa8c">&#34;&#34;</span>);
+hex <span style="color:#ff79c6">=</span> hex.map((e) =&gt; e.toUpperCase());
+<span style="color:#ff79c6">if</span> (hex.length <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">2</span>) {
+  console.error(<span style="color:#f1fa8c">&#34;wrong string length&#34;</span>, hex, hex.length);
+}
+<span style="color:#ff79c6">const</span> nMap <span style="color:#ff79c6">=</span> [
+  <span style="color:#f1fa8c">&#34;0&#34;</span>,
+  <span style="color:#f1fa8c">&#34;1&#34;</span>,
+  <span style="color:#f1fa8c">&#34;2&#34;</span>,
+  <span style="color:#f1fa8c">&#34;3&#34;</span>,
+  <span style="color:#f1fa8c">&#34;4&#34;</span>,
+  <span style="color:#f1fa8c">&#34;5&#34;</span>,
+  <span style="color:#f1fa8c">&#34;6&#34;</span>,
+  <span style="color:#f1fa8c">&#34;7&#34;</span>,
+  <span style="color:#f1fa8c">&#34;8&#34;</span>,
+  <span style="color:#f1fa8c">&#34;9&#34;</span>,
+  <span style="color:#f1fa8c">&#34;A&#34;</span>,
+  <span style="color:#f1fa8c">&#34;B&#34;</span>,
+  <span style="color:#f1fa8c">&#34;C&#34;</span>,
+  <span style="color:#f1fa8c">&#34;D&#34;</span>,
+  <span style="color:#f1fa8c">&#34;E&#34;</span>,
+  <span style="color:#f1fa8c">&#34;F&#34;</span>,
+];
+<span style="color:#8be9fd;font-style:italic">let</span> dec;
+dec <span style="color:#ff79c6">=</span> nMap.indexOf(hex[<span style="color:#bd93f9">0</span>]) <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">+</span> nMap.indexOf(hex[<span style="color:#bd93f9">1</span>]);
+<span style="color:#ff79c6">return</span> dec;
+</code></pre></div><h3 id="step-3-decimal-to-binary">Step 3: Decimal to Binary</h3>
+<p>Now that we have the decimal value of each hex byte we need to convert to binary, base-2.
+We do this by iterating through powers of 2 for a byte and, if the value we want to represent is greater than or equal to the power of two at this position, we flip the bit to one, subtract this value from the value we wish to represent, and continue.</p>
+<p>Clearly we can represent between 0 (00000000) and 255 (11111111) here.</p>
+<p>Then we return the binary representation of the decimal as a string. Once again, it can be simple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> decToBin(dec) {
+  dec <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">parseInt</span>(dec, <span style="color:#bd93f9">10</span>).toString(<span style="color:#bd93f9">2</span>);
+  <span style="color:#ff79c6">while</span> (dec.length <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">8</span>) {
+    dec <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;0&#34;</span> <span style="color:#ff79c6">+</span> dec;
+  }
+  <span style="color:#ff79c6">return</span> dec;
+}
+
+<span style="color:#6272a4">// or verbose:
+</span><span style="color:#6272a4"></span>
+<span style="color:#8be9fd;font-style:italic">let</span> binArr <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">8</span>; i <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span>; i<span style="color:#ff79c6">--</span>) {
+  <span style="color:#ff79c6">if</span> (dec <span style="color:#ff79c6">&gt;=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#bd93f9">2</span>, i)) {
+    binArr[<span style="color:#bd93f9">7</span> <span style="color:#ff79c6">-</span> i] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+    dec <span style="color:#ff79c6">-=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#bd93f9">2</span>, i);
+  }
+}
+<span style="color:#ff79c6">return</span> binArr.join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+</code></pre></div><h3 id="steps-4-5-and-6-binary-octets-to-24-bit-groups-24-bit-groups-to-6-bit-groups-zero-pad-6-bit-groups">Steps 4, 5, and 6: Binary Octets to 24-bit Groups, 24-bit Groups to 6-bit Groups, zero-Pad 6-bit groups</h3>
+<p>Now that we have an array of base-2 binary octets, we need to convert its elements into 24-bit groups by merging every three adjacent bytes.</p>
+<p>Then we turn each 24-bit group into 4 6-bit groups (3 octets turn into 4 encoded characters in base-64).</p>
+<p>Each 6-bit group is zero-padded at the front with &ldquo;00&rdquo;.</p>
+<p>There&rsquo;s a bit of a catch, because there are cases where the mapping from 3x24-bit groups to 4x6-bit groups does not map one-to-one. There are two cases:</p>
+<ol>
+<li>input string contains fewer than 24 bits</li>
+<li>the input string contains &gt; 24 bits and is not an even multiple of 24, so that bits are left over as part of an incomplete group.</li>
+</ol>
+<p>In either case, we have to add padding. We treat this last group that may need padding separately, outside of the main loop. It&rsquo;s called <code>lastSixSlice</code> in the code below.</p>
+<p>First, we loop over everything but the last group of three 8-bytes. This loop will only happen if there are three or more bytes in the input stream. We split the 3x8-byte group into 4x6-byte groups and zero pad each 6-byte group with two leading bits. We keep track of the last index if this loop runs in lastI, since we&rsquo;ll need it to figure out where to start in the array find the &ldquo;last&rdquo; octets.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> dec.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">2</span>; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">3</span>) {
+  jBin.push(dec[i].concat(dec[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>], dec[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span>]));
+  lastI <span style="color:#ff79c6">=</span> i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">3</span>;
+}
+
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> jBin.length; i<span style="color:#ff79c6">++</span>) {
+  sixSlice <span style="color:#ff79c6">=</span> [
+    jBin[i].slice(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">6</span>),
+    jBin[i].slice(<span style="color:#bd93f9">6</span>, <span style="color:#bd93f9">12</span>),
+    jBin[i].slice(<span style="color:#bd93f9">12</span>, <span style="color:#bd93f9">18</span>),
+    jBin[i].slice(<span style="color:#bd93f9">18</span>, <span style="color:#bd93f9">24</span>),
+  ];
+  sixSlice <span style="color:#ff79c6">=</span> sixSlice.map((e) =&gt; <span style="color:#f1fa8c">&#34;00&#34;</span> <span style="color:#ff79c6">+</span> e); <span style="color:#6272a4">// pad with two leading zero bits before binary conversion
+</span><span style="color:#6272a4"></span>  b64Res <span style="color:#ff79c6">=</span> b64Res.concat(sixSlice);
+}
+</code></pre></div><p>Now for the tricky part. <code>numLastOctets</code> holds the number of leftover octets. If it&rsquo;s zero, we&rsquo;re good, and we don&rsquo;t need any padding, so we throw all the padding logic in an if block to check this.</p>
+<p>The first line of code in this block sets the number of remaining octets. If the remainder of the # of octets when divided by 3 isn&rsquo;t zero, there will be leftovers to handle.</p>
+<p>Then we follow the padding algorithm for leftovers which is:</p>
+<ol>
+<li>distribute the available bits from the final octets into the 4 6-bit containers, left-to-right</li>
+<li>when you run out of bits, if a container is partially filled, pad it out to the right with zeroes until it is 6 bits long</li>
+<li>if a container is completely empty, use the &ldquo;=&rdquo; character for padding</li>
+</ol>
+<p>The only question is, where to find the last octets. From cases 1 and 2 above, are they:</p>
+<ol>
+<li>
+<p>at the beginning of a short string (1. input string contains fewer than 24 bits)? lastI will have been set, so we offset the array index by this much.</p>
+</li>
+<li>
+<p>at the end of a string of complete octets (2. the input string contains &gt; 24 bits and is not an even multiple of 24)? lastI will NOT have been set, so we so we start at the beginning.</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">numLastOctets <span style="color:#ff79c6">=</span> dec.length <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">3</span>;
+<span style="color:#ff79c6">if</span> (numLastOctets) {
+  <span style="color:#8be9fd;font-style:italic">let</span> lastOct <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> numLastOctets; i<span style="color:#ff79c6">++</span>) {
+    lastI <span style="color:#ff79c6">?</span> lastOct.push(dec[lastI <span style="color:#ff79c6">+</span> i]) <span style="color:#ff79c6">:</span> lastOct.push(dec[i]);
+  }
+  lastOct <span style="color:#ff79c6">=</span> lastOct.join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> lastOct.length; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">6</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> cSlice <span style="color:#ff79c6">=</span> lastOct.slice(i, i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">6</span>);
+    <span style="color:#ff79c6">if</span> (cSlice.length <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">6</span>) {
+      lastSixSlice.push(b64[binToDec(<span style="color:#f1fa8c">&#34;00&#34;</span> <span style="color:#ff79c6">+</span> cSlice)]);
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (cSlice.length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#6272a4">//pad end until length is 6
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">while</span> (cSlice.length <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">6</span>) {
+        cSlice <span style="color:#ff79c6">=</span> cSlice <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">&#34;0&#34;</span>;
+      }
+      lastSixSlice.push(b64[binToDec(<span style="color:#f1fa8c">&#34;00&#34;</span> <span style="color:#ff79c6">+</span> cSlice)]);
+    }
+  }
+  <span style="color:#ff79c6">while</span> (lastSixSlice.length <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">4</span>) {
+    lastSixSlice <span style="color:#ff79c6">=</span> lastSixSlice.concat(<span style="color:#f1fa8c">&#34;=&#34;</span>);
+  }
+  lastSixSlice <span style="color:#ff79c6">=</span> lastSixSlice.join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+}
+</code></pre></div><h3 id="step-7-convert-to-base-64">Step 7: Convert to Base-64</h3>
+<p>Once we have the binary representation of the base-64 characters, all we have to do is translate it back to base-10, and then use the map defined up top to obtain the base-64 representation of the hex string. We add on the string containing the last slice that we calculated separately (since we saw from Step 6 that it&rsquo;s not a simple 1-to-1 map and requires special handling, depending on the number of input bits).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> b64 <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#34;</span>.split(
+  <span style="color:#f1fa8c">&#34;&#34;</span>
+); <span style="color:#6272a4">//global b64 map at top of code
+</span><span style="color:#6272a4"></span>
+<span style="color:#8be9fd;font-style:italic">let</span> b64Arr <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> b64Res.length; i<span style="color:#ff79c6">++</span>) {
+  b64Arr.push(binToDec(b64Res[i]));
+}
+<span style="color:#ff79c6">return</span> b64Arr.map((e) =&gt; b64[e]).join(<span style="color:#f1fa8c">&#34;&#34;</span>) <span style="color:#ff79c6">+</span> lastSixSlice;
+</code></pre></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set1/"> cryptopals-set1 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>
