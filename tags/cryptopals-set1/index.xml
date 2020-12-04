@@ -7,10 +7,22 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
-		<lastBuildDate>Thu, 21 Sep 2017 21:16:04 +0000</lastBuildDate>
+		<lastBuildDate>Thu, 21 Sep 2017 22:16:04 +0000</lastBuildDate>
 		
 		<atom:link href="https://thmsdnnr.com/tags/cryptopals-set1/index.xml" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>Let&#39;s Detect AES! (AES in ECB Mode)</title>
+			<link>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</link>
+			<pubDate>Thu, 21 Sep 2017 22:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</guid>
+			<description>
+				
+				We learn how to detect AES encryption when used in its less-secure form, ECB mode. In the process, we solve Cryptopals Set 1 Challenge 8.
+				
+			</description>
+		</item>
 		<item>
 			<title>Let&#39;s Code AES! (AES in ECB Mode)</title>
 			<link>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</link>
@@ -20,18 +32,6 @@
 			<description>
 				
 				As an exercise, we code AES in ECB mode from scratch in JavaScript, and we use the results to solve Cryptopals Set 1 Challenge 7.
-				
-			</description>
-		</item>
-		<item>
-			<title>Let&#39;s Detect AES! (AES in ECB Mode)</title>
-			<link>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</link>
-			<pubDate>Thu, 21 Sep 2017 21:16:04 +0000</pubDate>
-			
-			<guid>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</guid>
-			<description>
-				
-				We learn how to detect AES encryption when used in its less-secure form, ECB mode. In the process, we solve Cryptopals Set 1 Challenge 8.
 				
 			</description>
 		</item>
@@ -67,7 +67,7 @@
 			<guid>https://thmsdnnr.com/blog/detecting-the-single-byte-xor-cipher/</guid>
 			<description>
 				
-				Find the secret text encrypted using a single-byte XOR cipher and solve Cryptopals Set 1 Challenge 3.
+				Find the secret text encrypted using a single-byte XOR cipher and solve Cryptopals Set 1 Challenge 4.
 				
 			</description>
 		</item>

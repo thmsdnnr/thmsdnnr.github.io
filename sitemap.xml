@@ -988,12 +988,17 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/tags/aes/</loc>
-    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
+    <loc>https://thmsdnnr.com/tags/cryptopals-set1/</loc>
+    <lastmod>2017-09-21T22:16:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/tags/cryptopals-set1/</loc>
+    <loc>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</loc>
+    <lastmod>2017-09-21T22:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/aes/</loc>
     <lastmod>2017-09-21T21:16:04+00:00</lastmod>
   </url>
   
@@ -1004,11 +1009,6 @@
   
   <url>
     <loc>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</loc>
-    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</loc>
     <lastmod>2017-09-21T21:16:04+00:00</lastmod>
   </url>
   

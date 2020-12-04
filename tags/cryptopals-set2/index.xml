@@ -67,7 +67,7 @@
 			<guid>https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/</guid>
 			<description>
 				
-				We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC!
+				We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC! Cryptopals Set 2 Challenge 12.
 				
 			</description>
 		</item>
