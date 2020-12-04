@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Intro to Linked Lists</title>
-			<link>https://thmsdnnr.com/post/intro-to-linked-lists/</link>
+			<link>https://thmsdnnr.com/blog/intro-to-linked-lists/</link>
 			<pubDate>Wed, 31 Jan 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/intro-to-linked-lists/</guid>
+			<guid>https://thmsdnnr.com/blog/intro-to-linked-lists/</guid>
 			<description>
 				
 				The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays.

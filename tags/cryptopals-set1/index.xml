@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>cryptopals-set1 on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/cryptopals-set1/</link>
+		<description>Recent content in cryptopals-set1 on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Thu, 21 Sep 2017 21:16:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/cryptopals-set1/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Let&#39;s Code AES! (AES in ECB Mode)</title>
+			<link>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</link>
+			<pubDate>Thu, 21 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</guid>
+			<description>
+				
+				As an exercise, we code AES in ECB mode from scratch in JavaScript, and we use the results to solve Cryptopals Set 1 Challenge 7.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Detect AES! (AES in ECB Mode)</title>
+			<link>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</link>
+			<pubDate>Thu, 21 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</guid>
+			<description>
+				
+				We learn how to detect AES encryption when used in its less-secure form, ECB mode. In the process, we solve Cryptopals Set 1 Challenge 8.
+				
+			</description>
+		</item>
+		<item>
+			<title>Break Repeating-Key XOR</title>
+			<link>https://thmsdnnr.com/blog/break-repeating-key-xor/</link>
+			<pubDate>Sat, 16 Sep 2017 11:26:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/break-repeating-key-xor/</guid>
+			<description>
+				
+				How is repeating-key XOR is vulnerable to attack. Find out by Solving Cryptopals Set 1 Challenge 6.
+				
+			</description>
+		</item>
+		<item>
+			<title>Implement Repeating-Key XOR</title>
+			<link>https://thmsdnnr.com/blog/implement-repeating-key-xor/</link>
+			<pubDate>Thu, 14 Sep 2017 21:21:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/implement-repeating-key-xor/</guid>
+			<description>
+				
+				Implement Repeating-key XOR, a slightly more secure version of the single-byte XOR cipher, and solve Cryptopals Set 1 Challenge 5.
+				
+			</description>
+		</item>
+		<item>
+			<title>Detecting The Single-Byte XOR Cipher</title>
+			<link>https://thmsdnnr.com/blog/detecting-the-single-byte-xor-cipher/</link>
+			<pubDate>Thu, 14 Sep 2017 16:01:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/detecting-the-single-byte-xor-cipher/</guid>
+			<description>
+				
+				Find the secret text encrypted using a single-byte XOR cipher and solve Cryptopals Set 1 Challenge 3.
+				
+			</description>
+		</item>
+		<item>
+			<title>Cracking the Single-Byte XOR Cipher</title>
+			<link>https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/</link>
+			<pubDate>Thu, 14 Sep 2017 15:09:06 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/</guid>
+			<description>
+				
+				Find the secret text encrypted using a single-byte XOR cipher and solve Cryptopals Set 1 Challenge 3.
+				
+			</description>
+		</item>
+		<item>
+			<title>Calculating Fixed XOR</title>
+			<link>https://thmsdnnr.com/blog/calculating-fixed-xor/</link>
+			<pubDate>Thu, 14 Sep 2017 13:09:06 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/calculating-fixed-xor/</guid>
+			<description>
+				
+				Calculate a Fixed XOR between two strings and solve Cryptopals Set 1 Challenge 2.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Pixl: Scaling &amp; Saving Art [part 3]">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,pixelArt,pixl,UI"><meta name="description" content="Canvas scaling, transparent backgrounds, and a first step at saving the images."><meta property="og:title" content="Pixl: Scaling &amp; Saving Art [part 3]" />
+<meta property="og:description" content="Canvas scaling, transparent backgrounds, and a first step at saving the images." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/" />
+<meta property="article:published_time" content="2018-01-09T09:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-09T09:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pixl: Scaling &amp; Saving Art [part 3]"/>
+<meta name="twitter:description" content="Canvas scaling, transparent backgrounds, and a first step at saving the images."/>
+
+	
+	
+
+	<title>Pixl: Scaling &amp; Saving Art [part 3] | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">09</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Pixl: Scaling &amp; Saving Art [part 3]</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><figure>
+  <img src="/assets/pics/pixl_3.png#400-high" alt="Image of pixel editor displaying a greeting"  />
+</figure></p>
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="dJdRap"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<ul>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+</li>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+</li>
+</ul>
+<h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
+<p>Now we&rsquo;re going to enable the user to save their masterpiece. We&rsquo;ll offer the option to scale to 16px, 32px, 64px, or 128px and the choice of transparent vs solid color backgrounds. Finally, we&rsquo;ll display all the generated canvases in a tray at the bottom of the app.</p>
+<h3 id="lets-get-started">Let&rsquo;s get started.</h3>
+<p>First we&rsquo;ll create a div to hold the controls and the image tray of completed canvases.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;controls&#34;</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;getImage&#34;</span>&gt;get image&lt;/<span style="color:#ff79c6">button</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;transparent
+    &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;transparent&#34;</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;checkbox&#34;</span> <span style="color:#50fa7b">checked</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;bgcolor
+    &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;bgColor&#34;</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;width
+     &lt;<span style="color:#ff79c6">select</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;pxWidth&#34;</span>&gt;
+         &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;16&#34;</span>&gt;16px&lt;/<span style="color:#ff79c6">option</span>&gt;
+         &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;32&#34;</span>&gt;32px&lt;/<span style="color:#ff79c6">option</span>&gt;
+         &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;64&#34;</span>&gt;64px&lt;/<span style="color:#ff79c6">option</span>&gt;
+         &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;128&#34;</span> <span style="color:#50fa7b">selected</span>&gt;128px&lt;/<span style="color:#ff79c6">option</span>&gt;
+     &lt;/<span style="color:#ff79c6">select</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+&lt;/<span style="color:#ff79c6">div</span>&gt;
+&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;imageTray&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+</code></pre></div><p>Note the use of <code>checked</code> and <code>selected</code> in our <code>input</code> and <code>options</code> tags: this attribute specifies the default selected value. We&rsquo;re allowing the user to scale the drawing to some select multiples of 16. You could enable the user to input a number and scale to any size they&rsquo;d like, but for simplicity, we&rsquo;re limiting the range to four options.</p>
+<p>See <a href="https://www.interaction-design.org/literature/article/hick-s-law-making-the-choice-easier-for-users" target="_blank" rel="noreferrer noopener">Hick's Law</a>: the more choices you give the user, the longer it takes them to make a decision. <strong>Corollary: if you give a user too many choices, they might make the decision to close the tab.</strong></p>
+<p>Generating the canvases requires two steps.</p>
+<ol>
+<li>Listen to the &ldquo;get image&rdquo; click event &amp; get the parameters from the user</li>
+<li>Scale the canvas based on these parameters and display it in the <code>imageTray</code></li>
+</ol>
+<p>Let&rsquo;s do the easy part first.</p>
+<h4 id="1-listen-and-fetch-parameters">1. Listen and Fetch Parameters</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>
+  .getElementById(<span style="color:#f1fa8c">&#34;getImage&#34;</span>)
+  .addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, getUserImageParameters);
+<span style="color:#8be9fd;font-style:italic">document</span>
+  .getElementById(<span style="color:#f1fa8c">&#34;bgColor&#34;</span>)
+  .addEventListener(<span style="color:#f1fa8c">&#34;change&#34;</span>, updateBackgroundColor);
+</code></pre></div><p>We add a listener to the background color picker. By default, backgrounds are transparent, and we have the transparency checkbox ticked. When the user changes the background color, we simply untick the transparency box. If the user re-checks transparency, we will not display any background color, even if the user has already selected one.</p>
+<p>Unchecking the box is one way to help out the user by anticipating their intention&ndash;choosing a background color for the image means they probably want one—-but providing a quick visual if they change their minds.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> updateBackgroundColor(e) {
+  <span style="color:#8be9fd;font-style:italic">let</span> T <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;input#transparent&#34;</span>);
+  T.checked <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+}
+</code></pre></div><p>Our <code>getUserImageParameters</code> handler grabs the values of the pixel width, transparency, and background color at the time the button is clicked and calls <code>grabCanvas</code> to display the user&rsquo;s image: the function that we&rsquo;re about to write!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> getUserImageParameters(e) {
+  e.preventDefault();
+  <span style="color:#8be9fd;font-style:italic">let</span> W <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;select#pxWidth&#34;</span>).value;
+  <span style="color:#8be9fd;font-style:italic">let</span> T <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;input#transparent&#34;</span>).checked;
+  <span style="color:#8be9fd;font-style:italic">let</span> BG <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;#&#34;</span> <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;input#bgColor&#34;</span>).value;
+  grabCanvas(W, T, BG);
+}
+</code></pre></div><h4 id="2-scale-the-canvas">2. Scale the canvas</h4>
+<p>Now that we know what size canvas the user wants, we need to scale it and set the background color (either to transparent or to the selected color).</p>
+<p>We&rsquo;ll write a function <code>grabCanvas</code> that takes a width, transparent flag (true/false) an a bgColor from the user. It will output a canvas to the display that is scaled and has the specified background color.</p>
+<p>In order to scale the main canvas, we&rsquo;re going to create a second, smaller canvas. We number it with a unique id that we increment on the page with the creation of each canvas, <code>cvsID</code>. We give the canvas a height &amp; width based on the user selection. We add a class to the canvas so that we can style it with CSS, and then we use <code>prepend</code> to add it to the <code>imageTray</code> div.</p>
+<p>We use <code>prepend</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/prepend" target="_blank" rel="noreferrer noopener">(Docs)</a> to add the canvases instead of <code>appendChild</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild" target="_blank" rel="noreferrer noopener">(Docs)</a> because we want the newest canvases to appear on the leftmost side of the div. When more canvases are added than can be viewed, we&rsquo;ll automatically scroll to the far left of the div so the most recent canvas can be viewed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">cvsID<span style="color:#ff79c6">++</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> blit <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;canvas&#34;</span>);
+blit.height <span style="color:#ff79c6">=</span> width; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span>blit.width <span style="color:#ff79c6">=</span> width;
+blit.classList.add(<span style="color:#f1fa8c">&#34;c-output&#34;</span>);
+blit.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cvs_no&#34;</span> <span style="color:#ff79c6">+</span> cvsID;
+<span style="color:#8be9fd;font-style:italic">let</span> blitCtx <span style="color:#ff79c6">=</span> blit.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+<span style="color:#ff79c6">const</span> cellDim <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.ceil(width <span style="color:#ff79c6">/</span> NUM_COLS);
+<span style="color:#8be9fd;font-style:italic">let</span> tray <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;imageTray&#34;</span>);
+tray.prepend(blit);
+tray.scrollLeft <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</code></pre></div><p>Now that we have the canvas on screen, we just have to draw the cells.</p>
+<p>To do that I wrote a box-drawing function called <code>colorScaledBox</code>. It&rsquo;s very similar to <code>colorBox</code>. Indeed, we could have simply refactored <code>colorBox</code>, but there would be a bit of complication involved: we&rsquo;d have to rework <code>colorBox</code> to take a context and a flag for whether a grid should be drawn.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> cellDim <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.ceil(width <span style="color:#ff79c6">/</span> NUM_COLS);
+<span style="color:#8be9fd;font-style:italic">function</span> colorScaledBox(box, color) {
+  <span style="color:#ff79c6">const</span> { row, col } <span style="color:#ff79c6">=</span> box;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>isValidCol(col) <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">!</span>isValidRow(row)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  blitCtx.fillStyle <span style="color:#ff79c6">=</span> color <span style="color:#ff79c6">||</span> currentColor;
+  blitCtx.clearRect(col <span style="color:#ff79c6">*</span> cellDim, row <span style="color:#ff79c6">*</span> cellDim, cellDim, cellDim);
+  blitCtx.beginPath();
+  blitCtx.fillRect(col <span style="color:#ff79c6">*</span> cellDim, row <span style="color:#ff79c6">*</span> cellDim, cellDim, cellDim);
+  blitCtx.closePath();
+}
+</code></pre></div><p>Setting the background color is actually quite easy. We loop through the canvas data and use our new function <code>colorScaledBox</code>.</p>
+<p>To determine which colors to change (either to a specified background color, or to a transparent square), we compare the color of each square to the <code>DEFAULT_COLOR</code>. If the square&rsquo;s color is the same as <code>DEFAULT_COLOR</code>, this means that the user never painted here. We either set the square to transparent or to the specified background color.</p>
+<p>Otherwise, the user did paint here. We ignore the background color parameters since this square is not part of the background and we paint the user&rsquo;s color selection.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> canvasData.length; i<span style="color:#ff79c6">++</span>) {
+  <span style="color:#8be9fd;font-style:italic">let</span> row <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(i <span style="color:#ff79c6">/</span> NUM_ROWS);
+  <span style="color:#8be9fd;font-style:italic">let</span> col <span style="color:#ff79c6">=</span> i <span style="color:#ff79c6">%</span> NUM_COLS;
+  <span style="color:#8be9fd;font-style:italic">let</span> color <span style="color:#ff79c6">=</span> canvasData[i];
+  <span style="color:#ff79c6">if</span> (transparent) {
+    <span style="color:#ff79c6">if</span> (color <span style="color:#ff79c6">===</span> DEFAULT_COLOR) {
+      colorScaledBox({ row, col }, <span style="color:#f1fa8c">&#34;rgba(255,255,255,0)&#34;</span>);
+    } <span style="color:#ff79c6">else</span> {
+      colorScaledBox({ row, col }, color);
+    }
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#ff79c6">if</span> (color <span style="color:#ff79c6">===</span> DEFAULT_COLOR) {
+      colorScaledBox({ row, col }, bgColor);
+    } <span style="color:#ff79c6">else</span> {
+      colorScaledBox({ row, col }, color);
+    }
+  }
+}
+</code></pre></div><h3 id="saving-off-images">Saving Off Images</h3>
+<p>The user can now just Right-click &gt; Save Image on a canvas, and they get precisely-sized pixel art:</p>
+<blockquote>
+<!-- raw HTML omitted -->
+</blockquote>
+<!-- raw HTML omitted -->
+<h3 id="right-click-save-as">Right click <em>save-as</em>?!</h3>
+<p>I hear ya. You&rsquo;re groaning at the desk. Is this 1995? I thought this was a web app! Never fear my friend. In the next part of the tutorial, we&rsquo;ll cover usability enhancements such as these:</p>
+<ul>
+<li>allowing the user to delete canvases from the <code>imageTray</code></li>
+<li>maintaining a &ldquo;gallery&rdquo; of art (saving and deleting via localStorage for later editing)</li>
+<li>a more graceful way to save images from the app</li>
+</ul>
+<h3 id="and-what-about-the-css">And what about the CSS?!</h3>
+<p>It&rsquo;s true that I have not covered styling for the app yet and am just throwing in some basic CSS to make things look decent as we move along. At the end of the tutorial series, I will cover styling extensively and show how we can make the app appear responsive at different screen sizes using mobile-first design and media queries. Stay tuned!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixelart/"> pixelart </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixl/"> pixl </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/ui/"> ui </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

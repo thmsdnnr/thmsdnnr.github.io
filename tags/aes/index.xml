@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>AES on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/aes/</link>
+		<description>Recent content in AES on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Thu, 21 Sep 2017 21:16:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/aes/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Let&#39;s Code AES! (AES in ECB Mode)</title>
+			<link>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</link>
+			<pubDate>Thu, 21 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</guid>
+			<description>
+				
+				As an exercise, we code AES in ECB mode from scratch in JavaScript, and we use the results to solve Cryptopals Set 1 Challenge 7.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

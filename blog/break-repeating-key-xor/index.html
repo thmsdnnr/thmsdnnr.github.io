@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Break Repeating-Key XOR">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set1"><meta name="description" content="How is repeating-key XOR is vulnerable to attack. Find out by Solving Cryptopals Set 1 Challenge 6."><meta property="og:title" content="Break Repeating-Key XOR" />
+<meta property="og:description" content="How is repeating-key XOR is vulnerable to attack. Find out by Solving Cryptopals Set 1 Challenge 6." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/break-repeating-key-xor/" />
+<meta property="article:published_time" content="2017-09-16T11:26:04+00:00" />
+<meta property="article:modified_time" content="2017-09-16T11:26:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Break Repeating-Key XOR"/>
+<meta name="twitter:description" content="How is repeating-key XOR is vulnerable to attack. Find out by Solving Cryptopals Set 1 Challenge 6."/>
+
+	
+	
+
+	<title>Break Repeating-Key XOR | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">16</span>
+				<span class="rest">Sep 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Break Repeating-Key XOR</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/1/challenges/6" target="_blank" rel="noreferrer noopener">Cryptopals Set 1 Challenge 6</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s1c6" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s1c6/" target="_blank" rel="noreferrer noopener">working demo</a></p>
+<p>It&rsquo;s easy enough to implement repeating key XOR when encoding a plaintext. But what about recovering a plaintext from a ciphertext that has been encoded this way? Ah ah, a little trickier.</p>
+<p>I found the tricky part of this challenge to be passing intermediate results in between functions in code, particularly functions we wrote in previous challenges.</p>
+<p>For instance, in Javascript, the XOR (^) operator only works on a bit level. The encoded text in the challenge is encoded base64. It&rsquo;s easy to forget whether you should be working with bits and bytes (e.g., the blocks should be blocks of bytes, eight bits, but when you do XOR, you are manipulating bitwise, so you probably have an array with bit elements instead of byte elements).</p>
+<p>You&rsquo;ll see this as we go through the steps. The challenge text gives pretty good instructions to follow for each phase, so let&rsquo;s go through each one.</p>
+<h3 id="step-1-write-a-function-to-caculate-hamming-distance">Step 1: Write a Function to Caculate Hamming Distance</h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank" rel="noreferrer noopener">Hamming Distance</a> is calculated by comparing two strings and counting the number of changes one string must undergo (specifically, the number of bits that must be mutated) to become the same as another string. Sound similar? It&rsquo;s XOR again! If the bits are different, the distance is 1. If the bits are the same, the distance is 0. So to calculate the Hamming Distance, just convert the text to binary (we&rsquo;ve seen this before), and compare each bit.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> hamming(a, b) {
+  <span style="color:#8be9fd;font-style:italic">let</span> dist <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  a <span style="color:#ff79c6">=</span> a.split(<span style="color:#f1fa8c">&#34;&#34;</span>).reduce((a, b) =&gt; a.concat(b));
+  b <span style="color:#ff79c6">=</span> b.split(<span style="color:#f1fa8c">&#34;&#34;</span>).reduce((a, b) =&gt; a.concat(b));
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> a.length; i<span style="color:#ff79c6">++</span>) {
+    dist <span style="color:#ff79c6">+=</span> a[i] <span style="color:#ff79c6">^</span> b[i];
+  }
+  <span style="color:#ff79c6">return</span> dist;
+}
+</code></pre></div><p>We could write the distance calculation in the loop two ways (same thing):</p>
+<p><code>if (a[i]!==b[i]) { dist+=1; }</code> or <code>dist+=a[i]^b[i];</code>
+Cool, huh?</p>
+<h3 id="step-2-convert-the-base64-ciphertext-to-binary">Step 2: Convert the Base64 Ciphertext to Binary</h3>
+<p>We use the <code>.atob()</code> function <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding" target="_blank" rel="noreferrer noopener">(MDN docs)</a> to decode the base64 string, then split the array into single characters, convert each character into its ASCII code (a base-10 decimal value) with <code>.charCodeAt()</code>, and finally convert each ASCII code to binary.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> binaryArr <span style="color:#ff79c6">=</span> atob(b64cipher)
+  .split(<span style="color:#f1fa8c">&#34;&#34;</span>)
+  .map((e) =&gt; decToBin(e.charCodeAt()))
+  .reduce((a, b) =&gt; a.concat(b));
+</code></pre></div><h3 id="step-3-guess-the-encrypted-texts-key-size">Step 3: Guess the Encrypted Text&rsquo;s Key Size</h3>
+<p>Now things get a little bit tricky. Frankly, this was one of the hardest parts to wrap my mind around. The challenge suggests the following algorithm to guess the key size.</p>
+<p>We know the ciphertext has been encoded with repeating-key XOR. This means that the key (of some length, we don&rsquo;t know what) is iterated over and sequentially XOR&rsquo;d with the plaintext. For instance, if the key is 4 bytes long, plaintext byte 1 is XOR&rsquo;d with the same byte as byte 5, 9, 13, and so on.</p>
+<p>So we&rsquo;ll try a whole bunch of key sizes, from 2 bytes to 40. We&rsquo;ll break the ciphertext&rsquo;s bytes up into blocks of each one of these sizes, and then we&rsquo;ll compare each pair of bytes by using the Hamming function we wrote. In order to make these comparisons meaningful, we&rsquo;ll normalize each comparison by dividing by key size.</p>
+<p>On each go, we&rsquo;ll store the result in a dictionary with the score and the guessed keysize. We can sort the dictionary in descending order of score and then grab the top (i.e., lowest) few scores. The lowest score is most likely to be the block size. In this case, I got 29.</p>
+<p>Here&rsquo;s what I got when I console.logged my ham:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">{score: 2.5172413793103448, keysize: 29}
+{score: 2.8333333333333335, keysize: 24}
+{score: 2.8421052631578947, keysize: 19}
+{score: 2.888888888888889, keysize: 18}
+</code></pre></div><p>Looks like the key size might be 29. Unlike the Cryptopals challenge suggestion to compare just the first two or four blocks of the ciphertext, I calculated <em>all</em> the blocks in the ciphertext. The first few blocks were not enough to give me the correct answer for block size.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> ham <span style="color:#ff79c6">=</span> [];
+<span style="color:#8be9fd;font-style:italic">let</span> one, two;
+<span style="color:#8be9fd;font-style:italic">let</span> runningT <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>; i <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">40</span>; i<span style="color:#ff79c6">++</span>) {
+  <span style="color:#6272a4">// try keysizes from 2 thru 40
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; j <span style="color:#ff79c6">&lt;</span> binaryArr.length <span style="color:#ff79c6">-</span> j <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">24</span> <span style="color:#ff79c6">*</span> i; j <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">*</span> i) {
+    one <span style="color:#ff79c6">=</span> binaryArr.slice(j <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">*</span> i, j <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">*</span> i);
+    two <span style="color:#ff79c6">=</span> binaryArr.slice(j <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">*</span> i, j <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">24</span> <span style="color:#ff79c6">*</span> i);
+    runningT.push(hamming(one, two) <span style="color:#ff79c6">/</span> i);
+  }
+  runningT <span style="color:#ff79c6">=</span> runningT.reduce((a, b) =&gt; a <span style="color:#ff79c6">+</span> b, <span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">/</span> runningT.length;
+  ham.push({ score<span style="color:#ff79c6">:</span> runningT, keysize<span style="color:#ff79c6">:</span> i });
+  runningT <span style="color:#ff79c6">=</span> [];
+}
+ham <span style="color:#ff79c6">=</span> ham
+  .sort((a, b) =&gt; {
+    <span style="color:#ff79c6">if</span> (a.score <span style="color:#ff79c6">&gt;</span> b.score) {
+      <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>;
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (b.score <span style="color:#ff79c6">&gt;</span> a.score) {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+    } <span style="color:#ff79c6">else</span> {
+      <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+    }
+  })
+  .slice(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">4</span>);
+
+<span style="color:#8be9fd;font-style:italic">let</span> blockSz <span style="color:#ff79c6">=</span> ham[<span style="color:#bd93f9">0</span>].keysize;
+</code></pre></div><p><a href="https://crypto.stackexchange.com/a/8118" target="_blank" rel="noreferrer noopener">Here&rsquo;s a great explanation</a> of why guessing the right key size shortens the Hamming Distance. There are two reasons:</p>
+<ol>
+<li>
+<p>If you XOR a thing with itself, the result is zero. So if you guess the correct block size, XORing the ciphertext sized to this block length means that the key &ldquo;drops out&rdquo; of the Hamming calculation, reducing the Hamming distance. If you guess the wrong block size, then the two blocks you compare each have a <em>different</em> key.</p>
+</li>
+<li>
+<p>Intelligible English text exhibits more uniformity than randomly chosen bits. If we guess the block size correctly, it&rsquo;ll fall within the ASCII values for A-Za-z0-9 instead of being anywhere between 0 and 255.</p>
+</li>
+</ol>
+<h3 id="step-4-break-the-ciphertext-into-blocks-of-keysize-length">Step 4: Break the ciphertext into blocks of KEYSIZE length.</h3>
+<p>This is a simple FOR loop. The key is to make sure that each block contains KEYSIZE <strong>bytes</strong>, not KEYSIZE bits. I pad out the last block with one 1 and then 0s <a href="https://en.wikipedia.org/wiki/Padding_%28cryptography%29#Bit_padding" target="_blank" rel="noreferrer noopener">per the Wikipedia</a>!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> blockedBarre <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> binaryArr.length; i <span style="color:#ff79c6">+=</span> blockSz <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">8</span>) {
+  blockedBarre.push(binaryArr.slice(i, i <span style="color:#ff79c6">+</span> blockSz <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">8</span>));
+}
+blockedBarre[blockedBarre.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span>
+  blockedBarre[blockedBarre.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;1&#34;</span>;
+<span style="color:#ff79c6">while</span> (blockedBarre[blockedBarre.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>].length <span style="color:#ff79c6">&lt;</span> blockSz <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">8</span>) {
+  blockedBarre[blockedBarre.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span>
+    blockedBarre[blockedBarre.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;0&#34;</span>;
+}
+</code></pre></div><h3 id="step-5-transpose-the-blocks">Step 5: Transpose the blocks</h3>
+<p>e.g., &ldquo;make a block that is the first byte of every block, and a block that is the second byte of every block, and so on.&rdquo;</p>
+<p>This step was easy to implement but its purpose was not intuitive to me at first. What&rsquo;s happening here is that since we know the key length, we know what parts of the ciphertext were encoded with the same character of the key: namely, every <code>i-th</code> character of the ciphertext, where <code>i</code> is the index of this repeated character in the key.</p>
+<p>This transposition groups together all the bytes that were encoded with the same character of the key. This way, we can try every possibility for this key character (ASCII 0-255) on each group.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> transposedBytes <span style="color:#ff79c6">=</span> [];
+<span style="color:#8be9fd;font-style:italic">let</span> interN <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> blockSz; i<span style="color:#ff79c6">++</span>) {
+  <span style="color:#6272a4">// loop 29 times
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> blockedBarre.length; j<span style="color:#ff79c6">++</span>) {
+    <span style="color:#6272a4">// through each block of size 29*8
+</span><span style="color:#6272a4"></span>    <span style="color:#6272a4">// each time take the i-th byte and assemble new array
+</span><span style="color:#6272a4"></span>    interN.push(blockedBarre[j].slice(i <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">8</span>, i <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>));
+  }
+  transposedBytes.push(interN);
+  interN <span style="color:#ff79c6">=</span> [];
+}
+</code></pre></div><h3 id="step-6-solve-each-block-with-single-character-xor-technique">Step 6: Solve Each Block with Single-Character XOR Technique</h3>
+<p>We transpose, and then we use the same code as from <a href="http://localhost:4000/tutorials/javascript/cryptopals/2017/09/14/cryptopals-set1-challenge-3-single-byte-XOR-cipher.html" target="_blank" rel="noreferrer noopener">challenge 3</a> to try each possible character (ASCII 0-255) for each byte position of the key. Each character is XOR&rsquo;d with the corresponding blocks in the cryptotext, the XOR result is converted to ASCII, and this string is scored using English language text character frequencies.</p>
+<p>When we use the correct key, we will obtain the greatest number of commonly-appearing letters in an English text (since the correct key decodes a plaintext). We pick the highest scoring character for each position in the key.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> keys <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">256</span>; i<span style="color:#ff79c6">++</span>) {
+  keys.push(decToBin(i));
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> keyChars <span style="color:#ff79c6">=</span> [];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> transposedBytes.length; i<span style="color:#ff79c6">++</span>) {
+  keyChars.push(guessTheKey(transposedBytes[i]));
+}
+keyChars <span style="color:#ff79c6">=</span> keyChars.map((e) =&gt; <span style="color:#8be9fd;font-style:italic">String</span>.fromCharCode(e)).join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+</code></pre></div><p>keyChars holds the secret key! Vanilla Ice again. <code>Terminator X: Bring the noise</code>. In order to decrypt the original texts given the key, we</p>
+<p>That&rsquo;s really all there is to it. The bass kicked in and the fingers are jumping. Don&rsquo;t worry, it&rsquo;ll get trickier soon when we try to reverse this process :)</p>
+<h3 id="step-7-we-have-the-key-unlock-the-door">Step 7: We Have the Key. Unlock the Door!</h3>
+<p>Once we obtain the key, we can decrypt the original text by simply replying XOR again between the ciphertext and the key we discovered. This works because XOR is commutative.</p>
+<p>To get a little more intuition and see visually how repeating-key XOR works, I recommend going to the <a href="https://thmsdnnr.github.io/cryptopals/s1c6/index.html" target="_blank" rel="noreferrer noopener">working demo</a>. You&rsquo;ll start off getting a full decryption of the text. Try substituting a single character of the key. Note the periodicity with which the plain text is disturbed &amp; becomes intelligible (this is the effect of the key size). Awesome!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set1/"> cryptopals-set1 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

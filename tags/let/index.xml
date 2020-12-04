@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Scope &amp; Closures: let vs var in JavaScript</title>
-			<link>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</link>
+			<link>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</link>
 			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</guid>
+			<guid>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</guid>
 			<description>
 				
 				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>cryptopals-set2 on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/cryptopals-set2/</link>
+		<description>Recent content in cryptopals-set2 on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 29 Sep 2017 13:24:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/cryptopals-set2/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>CBC Bitflipping Attacks</title>
+			<link>https://thmsdnnr.com/blog/cbc-bitflipping-attacks/</link>
+			<pubDate>Fri, 29 Sep 2017 13:24:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/cbc-bitflipping-attacks/</guid>
+			<description>
+				
+				Even though CBC is more secure than ECB, it is still vulnerable to attacks without taking additional precautions like using a Message Authentication Code (MAC). Cryptopals Set 2 Challenge 16.
+				
+			</description>
+		</item>
+		<item>
+			<title>PKCS7 Padding Validation</title>
+			<link>https://thmsdnnr.com/blog/pkcs7-padding-validation/</link>
+			<pubDate>Thu, 28 Sep 2017 11:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pkcs7-padding-validation/</guid>
+			<description>
+				
+				Yet Another demonstration of why you shouldn&#39;t use ECB, even when some random-sized block of padding is prepended to the message. Cryptopals Set 2 Challenge 15.
+				
+			</description>
+		</item>
+		<item>
+			<title>ECB Byte At a Time (Harder!)</title>
+			<link>https://thmsdnnr.com/blog/ecb-byte-at-a-time-harder/</link>
+			<pubDate>Thu, 28 Sep 2017 07:24:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/ecb-byte-at-a-time-harder/</guid>
+			<description>
+				
+				Yet Another demonstration of why you shouldn&#39;t use ECB, even when some random-sized block of padding is prepended to the message. Cryptopals Set 2 Challenge 14.
+				
+			</description>
+		</item>
+		<item>
+			<title>ECB Cut and Paste</title>
+			<link>https://thmsdnnr.com/blog/ecb-cut-and-paste/</link>
+			<pubDate>Wed, 27 Sep 2017 21:00:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/ecb-cut-and-paste/</guid>
+			<description>
+				
+				Another demonstration of why you shouldn&#39;t use ECB! Cryptopals Set 2 Challenge 13.
+				
+			</description>
+		</item>
+		<item>
+			<title>Byte at a Time ECB Decryption</title>
+			<link>https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/</link>
+			<pubDate>Tue, 26 Sep 2017 12:03:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/</guid>
+			<description>
+				
+				We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC!
+				
+			</description>
+		</item>
+		<item>
+			<title>An AES CBC/ECB Detection Oracle!</title>
+			<link>https://thmsdnnr.com/blog/an-aes-cbc/ecb-detection-oracle/</link>
+			<pubDate>Sun, 24 Sep 2017 10:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/an-aes-cbc/ecb-detection-oracle/</guid>
+			<description>
+				
+				We implement an ECB/CBC detection oracle for use in future challenges. This solves Cryptopals Set 2 Challenge 11.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Implement Cipher Block Chaining!</title>
+			<link>https://thmsdnnr.com/blog/lets-implement-cipher-block-chaining/</link>
+			<pubDate>Sun, 24 Sep 2017 10:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-implement-cipher-block-chaining/</guid>
+			<description>
+				
+				We implement AES-CBC, a more secure mode of AES than ECB, to solve Cryptopals Set 2 Challenge 10.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Implement PKCS7 Padding!</title>
+			<link>https://thmsdnnr.com/blog/lets-implement-pkcs7-padding/</link>
+			<pubDate>Fri, 22 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-implement-pkcs7-padding/</guid>
+			<description>
+				
+				We implement PKCS7, a commonly used padding in cryptography. And we solve Cryptopals Set 2 Challenge 9!
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

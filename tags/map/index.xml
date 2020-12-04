@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Map, Filter, and Reduce: Functional Programming Gems</title>
-			<link>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</link>
+			<link>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</link>
 			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</guid>
+			<guid>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</guid>
 			<description>
 				
 				Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation.

@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Speeding Up Repetitive Calculations with Memoization</title>
-			<link>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</link>
+			<link>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</link>
 			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</guid>
+			<guid>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</guid>
 			<description>
 				
 				Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization.

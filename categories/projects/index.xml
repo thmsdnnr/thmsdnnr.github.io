@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Boids: A Bird Flock Simulator</title>
-			<link>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</link>
+			<link>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</link>
 			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</guid>
+			<guid>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</guid>
 			<description>
 				
 				We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>Draw Photo Histograms: D3 &#43; Canvas</title>
-			<link>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</link>
+			<link>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</link>
 			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</guid>
+			<guid>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</guid>
 			<description>
 				
 				Exploring histograms using vanilla JavaScript, D3, and the FileReader API.
@@ -37,10 +37,10 @@
 		</item>
 		<item>
 			<title>Koch Snowflakes</title>
-			<link>https://thmsdnnr.com/post/koch-snowflakes/</link>
+			<link>https://thmsdnnr.com/blog/koch-snowflakes/</link>
 			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/koch-snowflakes/</guid>
+			<guid>https://thmsdnnr.com/blog/koch-snowflakes/</guid>
 			<description>
 				
 				Building Fractal Art with Koch Snowflakes on HTML5 Canvas.
@@ -49,10 +49,10 @@
 		</item>
 		<item>
 			<title>Pixl: A Sea of CSS [part 5]</title>
-			<link>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</link>
+			<link>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</link>
 			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</guid>
 			<description>
 				
 				Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox.
@@ -61,10 +61,10 @@
 		</item>
 		<item>
 			<title>Pixl: Scaling &amp; Saving Art [part 4]</title>
-			<link>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</link>
+			<link>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</link>
 			<pubDate>Fri, 12 Jan 2018 09:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</guid>
 			<description>
 				
 				Enabling save and restore of images using the browser&#39;s localStorage API.
@@ -73,10 +73,10 @@
 		</item>
 		<item>
 			<title>Pixl: Scaling &amp; Saving Art [part 3]</title>
-			<link>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</link>
+			<link>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</link>
 			<pubDate>Tue, 09 Jan 2018 09:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</guid>
 			<description>
 				
 				Canvas scaling, transparent backgrounds, and a first step at saving the images.
@@ -85,10 +85,10 @@
 		</item>
 		<item>
 			<title>Pixl: Color Palette &amp; Enhanced UI [part 2]</title>
-			<link>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</link>
+			<link>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</link>
 			<pubDate>Mon, 08 Jan 2018 19:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</guid>
 			<description>
 				
 				Adding a randomized color palette selector using jscolor.
@@ -97,10 +97,10 @@
 		</item>
 		<item>
 			<title>Pixl: A Pixel Art Editor w/Canvas [part 1]</title>
-			<link>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
+			<link>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
 			<pubDate>Sun, 07 Jan 2018 14:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
 			<description>
 				
 				A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more.
@@ -109,10 +109,10 @@
 		</item>
 		<item>
 			<title>Fractal Art and Sierpinski Triangles</title>
-			<link>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</link>
+			<link>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</link>
 			<pubDate>Sat, 06 Jan 2018 14:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</guid>
+			<guid>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</guid>
 			<description>
 				
 				Building a Sierpinski Triangle with HTML5 Canvas and JavaScript.
@@ -121,10 +121,10 @@
 		</item>
 		<item>
 			<title>Let&#39;s Code a Pomodoro Timer</title>
-			<link>https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/</link>
+			<link>https://thmsdnnr.com/blog/lets-code-a-pomodoro-timer/</link>
 			<pubDate>Mon, 01 Jan 2018 19:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/</guid>
+			<guid>https://thmsdnnr.com/blog/lets-code-a-pomodoro-timer/</guid>
 			<description>
 				
 				We build a Pomodoro Timer, a popular time-management tool that breaks work in to 25 minutes segments of work combined with 5 minute periods of rest.
@@ -133,10 +133,10 @@
 		</item>
 		<item>
 			<title>Code a Weather App</title>
-			<link>https://thmsdnnr.com/post/code-a-weather-app/</link>
+			<link>https://thmsdnnr.com/blog/code-a-weather-app/</link>
 			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/code-a-weather-app/</guid>
+			<guid>https://thmsdnnr.com/blog/code-a-weather-app/</guid>
 			<description>
 				
 				We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs).
@@ -145,10 +145,10 @@
 		</item>
 		<item>
 			<title>John Conway&#39;s Game of Life: Cellular Automata</title>
-			<link>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</link>
+			<link>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</link>
 			<pubDate>Fri, 29 Dec 2017 08:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</guid>
+			<guid>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</guid>
 			<description>
 				
 				John Conway&#39;s Game of Life simulation implemented in JavaScript.
@@ -157,10 +157,10 @@
 		</item>
 		<item>
 			<title>Create an Animated LCD Display</title>
-			<link>https://thmsdnnr.com/post/create-an-animated-lcd-display/</link>
+			<link>https://thmsdnnr.com/blog/create-an-animated-lcd-display/</link>
 			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/create-an-animated-lcd-display/</guid>
+			<guid>https://thmsdnnr.com/blog/create-an-animated-lcd-display/</guid>
 			<description>
 				
 				We build a retro look-and-feel LCD display using dynamically-animated SVG with JavaScript.

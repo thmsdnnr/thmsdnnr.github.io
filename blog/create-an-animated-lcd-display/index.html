@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Create an Animated LCD Display">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="SVG,CSS,LCD,javascript,tutorial,generativeSVG"><meta name="description" content="We build a retro look-and-feel LCD display using dynamically-animated SVG with JavaScript."><meta property="og:title" content="Create an Animated LCD Display" />
+<meta property="og:description" content="We build a retro look-and-feel LCD display using dynamically-animated SVG with JavaScript." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/create-an-animated-lcd-display/" />
+<meta property="article:published_time" content="2017-12-28T09:15:04+00:00" />
+<meta property="article:modified_time" content="2017-12-28T09:15:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Create an Animated LCD Display"/>
+<meta name="twitter:description" content="We build a retro look-and-feel LCD display using dynamically-animated SVG with JavaScript."/>
+
+	
+	
+
+	<title>Create an Animated LCD Display | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">28</span>
+				<span class="rest">Dec 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Create an Animated LCD Display</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="JMWPOM"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p>LCD display using dynamically-animated SVGs.</p>
+</blockquote>
+<p>A basic LCD digit consists of <a href="https://en.wikipedia.org/wiki/Seven-segment_display" target="_blank" rel="noreferrer noopener">7 segments</a>. Each segment can be toggled on or off to display a total of 128 (2^7) states. 16 of these states correspond to a visual display of the numbers 0-9 and A-F. We&rsquo;ll also include H, E, and L so we can spell &lsquo;HELL0&rsquo;).</p>
+<p>Some displays have <a href="https://en.wikipedia.org/wiki/Fourteen-segment_display" target="_blank" rel="noreferrer noopener">more segments</a>. Diagonal segments can be included to display a greater range of letters. Some also contain a decimal point, so that floating-point numbers can be displayed.</p>
+<p>To keep things simple, we&rsquo;ll just stick to 0-9, A-F. But after you read this tutorial, try extending the display yourself!</p>
+<p>How should we make these digits? We require segments that can easily be scaled to a large range of sizes while maintaining their position. We require segments that are individually manipulatable to generate patterns corresponding to letters. We want this to all happen without messy computation.</p>
+<p>We can describe the LCD as a vector. Let&rsquo;s use <a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" target="_blank" rel="noreferrer noopener">Scalable Vector Graphics</a>.</p>
+<h3 id="svg">SVG?</h3>
+<p><a href="https://developer.mozilla.org/en-US/docs/XML_introduction" target="_blank" rel="noreferrer noopener">SVG</a> is a an XML-derived markup language that tells browsers how to draw 2-D graphics.</p>
+<p>There are some <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes" target="_blank" rel="noreferrer noopener">SVG primitives</a> that can be used to draw pictures. These are <code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code>, and <code>&lt;path&gt;</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;svg</span> <span style="color:#50fa7b">xmlns=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#50fa7b">version=</span><span style="color:#f1fa8c">&#34;1.1&#34;</span>
+     <span style="color:#50fa7b">viewBox=</span><span style="color:#f1fa8c">&#34;0 0 32 32&#34;</span> <span style="color:#50fa7b">height=</span><span style="color:#f1fa8c">&#34;32&#34;</span> <span style="color:#50fa7b">width=</span><span style="color:#f1fa8c">&#34;32&#34;</span> <span style="color:#50fa7b">style=</span><span style="color:#f1fa8c">&#34;border: 1px solid black&#34;</span><span style="color:#ff79c6">&gt;</span>
+<span style="color:#ff79c6">&lt;g&gt;&lt;circle</span> <span style="color:#50fa7b">cx=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">cy=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">r=</span><span style="color:#f1fa8c">&#34;11&#34;</span>
+    <span style="color:#50fa7b">fill-color=</span><span style="color:#f1fa8c">&#34;black&#34;</span> <span style="color:#50fa7b">stroke=</span><span style="color:#f1fa8c">&#34;gold&#34;</span> <span style="color:#50fa7b">stroke-width=</span><span style="color:#f1fa8c">&#34;5&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;circle</span> <span style="color:#50fa7b">cx=</span><span style="color:#f1fa8c">&#34;48&#34;</span> <span style="color:#50fa7b">cy=</span><span style="color:#f1fa8c">&#34;48&#34;</span> <span style="color:#50fa7b">r=</span><span style="color:#f1fa8c">&#34;11&#34;</span>
+        <span style="color:#50fa7b">fill-color=</span><span style="color:#f1fa8c">&#34;black&#34;</span> <span style="color:#50fa7b">stroke=</span><span style="color:#f1fa8c">&#34;gold&#34;</span> <span style="color:#50fa7b">stroke-width=</span><span style="color:#f1fa8c">&#34;5&#34;</span><span style="color:#ff79c6">/&gt;&lt;/g&gt;</span>
+<span style="color:#ff79c6">&lt;/svg&gt;</span>
+</code></pre></div><h5 id="this-code-draws-a-black-circle-fill-color-with-center-16px-16px-radius-11px-and-a-5px-stroke-width-outline-stroke-it-draws-another-circle-at-48px-48px-that-you-cant-see-yet">This code draws a black circle (fill-color) with center (16px, 16px), radius 11px, and a 5px (stroke-width) outline (stroke). It draws another circle at (48px, 48px) that you can&rsquo;t see yet.</h5>
+<!-- raw HTML omitted -->
+<p>Cool, but wait: why do I only see one circle when there are two circles defined? <code>viewBox</code>.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox" target="_blank" rel="noreferrer noopener">viewBox</a> SVG tag specifies four values: <code>min-x, min-y, width, height</code>.</p>
+<p><code>viewBox</code> maps a rectangular area in user-space to the bounds of the SVG element.</p>
+<p>This means that if the viewport width and height are equal to the first circle&rsquo;s width and height, that circle fills the entire space. The second circle we drew at center (48px, 48px) exists, but it is hidden.</p>
+<p>If we change width and height to 64px each, the first circle will take up the upper-left quadrant of the square, and the second circle will come into view in the bottom-left quadrant:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;svg</span> <span style="color:#50fa7b">xmlns=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#50fa7b">version=</span><span style="color:#f1fa8c">&#34;1.1&#34;</span>
+     <span style="color:#50fa7b">viewBox=</span><span style="color:#f1fa8c">&#34;0 0 64 64&#34;</span> <span style="color:#50fa7b">height=</span><span style="color:#f1fa8c">&#34;32&#34;</span> <span style="color:#50fa7b">width=</span><span style="color:#f1fa8c">&#34;32&#34;</span> <span style="color:#50fa7b">style=</span><span style="color:#f1fa8c">&#34;border: 1px solid black&#34;</span><span style="color:#ff79c6">&gt;</span>
+<span style="color:#ff79c6">&lt;g&gt;&lt;circle</span> <span style="color:#50fa7b">cx=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">cy=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">r=</span><span style="color:#f1fa8c">&#34;11&#34;</span>
+    <span style="color:#50fa7b">fill-color=</span><span style="color:#f1fa8c">&#34;black&#34;</span> <span style="color:#50fa7b">stroke=</span><span style="color:#f1fa8c">&#34;gold&#34;</span> <span style="color:#50fa7b">stroke-width=</span><span style="color:#f1fa8c">&#34;5&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;circle</span> <span style="color:#50fa7b">cx=</span><span style="color:#f1fa8c">&#34;48&#34;</span> <span style="color:#50fa7b">cy=</span><span style="color:#f1fa8c">&#34;48&#34;</span> <span style="color:#50fa7b">r=</span><span style="color:#f1fa8c">&#34;11&#34;</span>
+        <span style="color:#50fa7b">fill-color=</span><span style="color:#f1fa8c">&#34;black&#34;</span> <span style="color:#50fa7b">stroke=</span><span style="color:#f1fa8c">&#34;gold&#34;</span> <span style="color:#50fa7b">stroke-width=</span><span style="color:#f1fa8c">&#34;5&#34;</span><span style="color:#ff79c6">/&gt;&lt;/g&gt;</span>
+<span style="color:#ff79c6">&lt;/svg&gt;</span>
+</code></pre></div><!-- raw HTML omitted -->
+<p>If you think through it, this makes sense. We&rsquo;re mapping a rectangle 2x larger to our drawing, which has the effect of &ldquo;zooming out&rdquo; by a factor of 4 (we decreased width by a factor of 2 and area by 2^2).</p>
+<p>Takeaway: we can set the viewBox to the bounds of our SVG element. When we change the height and width of the SVG, the element will be <strong>Scaled</strong> according to its <strong>Vector Graphic</strong> definition.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;svg</span> <span style="color:#50fa7b">xmlns=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#50fa7b">version=</span><span style="color:#f1fa8c">&#34;1.1&#34;</span>
+     <span style="color:#50fa7b">viewBox=</span><span style="color:#f1fa8c">&#34;0 0 32 32&#34;</span> <span style="color:#50fa7b">height=</span><span style="color:#f1fa8c">&#34;128&#34;</span> <span style="color:#50fa7b">width=</span><span style="color:#f1fa8c">&#34;128&#34;</span> <span style="color:#50fa7b">style=</span><span style="color:#f1fa8c">&#34;border: 1px solid black&#34;</span><span style="color:#ff79c6">&gt;</span>
+<span style="color:#ff79c6">&lt;g&gt;&lt;circle</span> <span style="color:#50fa7b">cx=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">cy=</span><span style="color:#f1fa8c">&#34;16&#34;</span> <span style="color:#50fa7b">r=</span><span style="color:#f1fa8c">&#34;11&#34;</span>
+    <span style="color:#50fa7b">fill-color=</span><span style="color:#f1fa8c">&#34;black&#34;</span> <span style="color:#50fa7b">stroke=</span><span style="color:#f1fa8c">&#34;gold&#34;</span> <span style="color:#50fa7b">stroke-width=</span><span style="color:#f1fa8c">&#34;5&#34;</span><span style="color:#ff79c6">/&gt;&lt;/g&gt;</span>
+<span style="color:#ff79c6">&lt;/svg&gt;</span>
+</code></pre></div><h5 id="four-times-as-big-just-as-crisp-no-pixelation">Four times as big; just as crisp: no pixelation!</h5>
+<!-- raw HTML omitted -->
+<h3 id="okay-great-circles-but-what-about-the-lcd">okay great, circles, but what about the LCD?</h3>
+<p>To draw the LCD, we can describe each digit as a collection of seven paths in space. We&rsquo;ll compose seven <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths" target="_blank" rel="noreferrer noopener">path elements</a> per digit. I&rsquo;ll refer to these paths as grains, since they look a bit like grains of rice on the screen.</p>
+<p>Path elements are the most powerful elements of SVG. They can be used to create complex paths like lines, curves, arcs, and LCD screens.</p>
+<p>A path has a <code>d</code> attribute. It contains a single string of browser instructions of how to draw the path.</p>
+<p>The string is a combination of numeric coordinates and letter commands. <code>M</code> means Move and is followed by an X and Y coordinate. <code>L</code> means line-to: draw a line from the current position to the X and Y specified. <code>h</code> means draw a horizontal line from the current X position to the given X position (the y-coordinate stays the same). <code>z</code> means &lsquo;close path&rsquo;, or go back to the start.</p>
+<p>So for this grain:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M2.1 2L.2 0h31.6l-1.9 2L28 4H4z&#34;</span> <span style="color:#50fa7b">fill=</span><span style="color:#f1fa8c">&#34;tomato&#34;</span><span style="color:#ff79c6">/&gt;</span>
+</code></pre></div><ol>
+<li>Move to (2.1, 2).</li>
+<li>Draw a line to (0.2, 0).</li>
+<li>Draw a horizontal line to x=31.6.</li>
+<li>Draw a line to (1.9, 2).</li>
+<li>Draw a line to (28, 4).</li>
+<li>Draw a horizontal line to x=4.</li>
+<li>Return to the original point, (2.1, 2).</li>
+<li>Fill the enclosed space with tomato.</li>
+</ol>
+<p>Profit:
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+<h5 id="look-at-the-picture-above-and-go-through-the-eight-steps-hint-it-starts-at-the-bottom-left">look at the picture above and go through the eight steps. Hint: it starts at the bottom-left.</h5>
+<p>Every path has its own fill color and fill-opacity. We can set the fill color to be whatever color we&rsquo;d like the digits to appear as, and then we can toggle the fill-opacity to turn a path &ldquo;on&rdquo; or &ldquo;off&rdquo;.</p>
+<p>Here&rsquo;s what the entire digit looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;svg</span> <span style="color:#50fa7b">xmlns=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span> <span style="color:#50fa7b">height=</span><span style="color:#f1fa8c">&#34;64&#34;</span> <span style="color:#50fa7b">width=</span><span style="color:#f1fa8c">&#34;32&#34;</span><span style="color:#ff79c6">&gt;</span>
+  <span style="color:#ff79c6">&lt;g</span> <span style="color:#50fa7b">fill=</span><span style="color:#f1fa8c">&#34;#0f0&#34;</span><span style="color:#ff79c6">&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M2.1 2L.2 0h31.6l-1.9 2L28 4H4z&#34;</span> <span style="color:#50fa7b">fill=</span><span style="color:#f1fa8c">&#34;tomato&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M0 16V1.2L2 3l1.9 2V29l-2 1-1.8.9z&#34;</span> <span style="color:#50fa7b">fill-opacity=</span><span style="color:#f1fa8c">&#34;0.1&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M30 30l-2-1V5l2-1.9 2-2V31l-2-1z&#34;</span> <span style="color:#50fa7b">fill-opacity=</span><span style="color:#f1fa8c">&#34;0.3&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M16 33.9H3.9l-1.9-1L.2 32l.2-.1 1.8-1 1.7-.8H28l1.9 1 1.8 1-1.9.9-1.9 1z&#34;</span> <span style="color:#50fa7b">fill-opacity=</span><span style="color:#f1fa8c">&#34;0.5&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M0 48L.2 33l2 1 1.8 1v24l-2 1.8-1.8 2z&#34;</span> <span style="color:#50fa7b">fill-opacity=</span><span style="color:#f1fa8c">&#34;0.6&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M30 60.9l-2-2V35l2-.9 2-1V62.9z&#34;</span> <span style="color:#50fa7b">fill-opacity=</span><span style="color:#f1fa8c">&#34;0.8&#34;</span><span style="color:#ff79c6">/&gt;</span>
+    <span style="color:#ff79c6">&lt;path</span> <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M1.5 62.6l1.9-2 .6-.5h24l1.4 1.4 1.9 1.9.5.5H.2z&#34;</span> <span style="color:#50fa7b">fill-opacity=</span><span style="color:#f1fa8c">&#34;1.0&#34;</span><span style="color:#ff79c6">/&gt;</span>
+  <span style="color:#ff79c6">&lt;/g&gt;</span>
+<span style="color:#ff79c6">&lt;/svg&gt;</span>
+</code></pre></div><!-- raw HTML omitted -->
+<p>See how we can change color and opacity? See how each path is uniquely described by a single <code>d</code> attribute that tells the browser how to draw the path? Are you getting excited? We&rsquo;re almost there!</p>
+<h3 id="code-the-grains">Code the grains!</h3>
+<p>It is possible to code SVG without using a GUI, just like we did above with the circles. However, working out the details for drawing each path yourself is tedious and error-prone. An open-source tool like <a href="https://inkscape.org/en/" target="_blank" rel="noreferrer noopener">Inkscape</a> makes the task much more pleasant. It&rsquo;s how I generated the paths you see above.</p>
+<p>This is not an in-depth Inkscape tutorial. But I will give a brief overview of how I drew the digit.</p>
+<h5 id="file--new-from-template--choose-default-px">File &gt; New From Template &gt; choose &ldquo;default px&rdquo;.</h5>
+<p>You&rsquo;ll be presented with a lovely blank canvas. Let&rsquo;s resize it to fit the shape we wish to draw.</p>
+<h5 id="file--document-properties--page-tab">File &gt; Document Properties &gt; Page tab.</h5>
+<p>Change the units from &ldquo;mm&rdquo; to &ldquo;px&rdquo; and set the width and height to 32px and 64px.</p>
+<h5 id="-grid-tab">&gt; Grid tab</h5>
+<p>Click &ldquo;New&rdquo; to generate a rectangular grid. This will give us something for our paths' lines to snap to. Close out of the Properties pane.</p>
+<h5 id="edit--create-guides-around-the-page">Edit &gt; Create Guides Around the Page.</h5>
+<p>Now zoom in and you should have a nice grid on which to begin drawing your crystal.</p>
+<p>I made each of my crystal elements 5px wide, with a slight gap between them of about a pixel. I drew the left side and then used Edit &gt; Duplicate (Ctrl+D) and Object &gt; Flip Horizontal (H) to mirror on the right side what I drew on the left to ensure symmetry.</p>
+<p>I did the same thing with the top and bottom elements + a flip vertical instead.</p>
+<p>All of my grains had four sides, except the middle crossbar: a rectangle with a triangle on other end.</p>
+<p>Don&rsquo;t worry if it&rsquo;s not quite perfect. A pixel off here or there will make it look more natural, since a real LCD is going to have a few imperfections too. Experiment with shapes. Give it your own style.</p>
+<h3 id="when-you-finish-drawing">When you finish drawing:</h3>
+<h5 id="edit--xml-editor">Edit &gt; XML Editor.</h5>
+<p>See those seven paths under the <code>svg:g id=&quot;layer1&quot;</code> dropdown? Bingo! Each one of these paths corresponds to the outline of one of our seven grains.</p>
+<p>Once you have drawn the seven grains, use the fill tool to fill in the background.</p>
+<p>Now check XML editor again. See how it&rsquo;s put in new paths for the fill? Since all that we care about is the fill, and we only used the outline to build containers to fill out, we can &ldquo;Delete Node&rdquo; on the top seven items in the list. As you delete each one, the outline will disappear from the picture.</p>
+<p>Now you&rsquo;re ready to save the SVG and grab the code.</p>
+<h5 id="file--save-a-copy">File &gt; Save A Copy</h5>
+<p>Choose Plain SVG (*.svg) for the format. This will get rid of extra Inkscape metadata.</p>
+<h3 id="open-that-file">open that file!</h3>
+<p>Go ahead and open up the .svg file in an editor of your choice. Interesting, huh? At the bottom, you&rsquo;ll see a <code>&lt;g&gt;</code> tag that contains seven <code>&lt;path&gt;</code> tags. <code>&lt;g&gt;</code> is just a way of telling SVG that you are grouping related elements: in this case, seven <code>&lt;path&gt;</code> grains into a digit.</p>
+<p>You want to grab the path information. It won&rsquo;t look quite the same as my example above though. Here&rsquo;s what one of my paths looked like before I cleaned it up:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;path</span>
+  <span style="color:#50fa7b">transform=</span><span style="color:#f1fa8c">&#34;translate(0,1058.5196)&#34;</span>
+  <span style="color:#50fa7b">id=</span><span style="color:#f1fa8c">&#34;path5715&#34;</span>
+  <span style="color:#50fa7b">d=</span><span style="color:#f1fa8c">&#34;M 3.6841521,2.5178497 1.2616471,0.09369836 H 16.01122 30.760792 L 28.338287,2.5178497 25.915782,4.942001 H 16.01122 6.1066572 Z&#34;</span>
+  <span style="color:#50fa7b">style=</span><span style="color:#f1fa8c">&#34;fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.01031554;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1&#34;</span>
+<span style="color:#ff79c6">/&gt;</span>
+</code></pre></div><p>Lots of decimal places and a strange transform applied. The transform is something that happens when you&rsquo;re drawing in Inkscape. The transform property, path data from <code>d</code> and <code>viewBox</code> all interact to make your element display properly. However, we don&rsquo;t want to have this excess. Can&rsquo;t we just convert the path based on the <code>transform</code> and get rid of the <code>transform</code> attribute altogether?</p>
+<p>Yes. We can use <a href="https://jakearchibald.github.io/svgomg/" target="_blank" rel="noreferrer noopener">SVGOMG</a> to clean this up.</p>
+<p>Go to the site and load your SVG file. In the toolbar on the right, Un-check &ldquo;Merge Paths&rdquo;. We need separate paths in order to manipulate them individually. You can play with the precision slider. This gets rid of some of the extra decimal places. Have a look at the preview image while you do this. At a certain point, the quality of the image starts to suffer when there&rsquo;s not enough information in the path to provide an accurate geometric description. This is a tradeoff between file-size and rendering precision.</p>
+<p>Grab the cleaned-up paths and you should have something like I posted above with your own SVG paths. You&rsquo;re now ready to wire up this display!</p>
+<h3 id="hit-me-with-those-digits--programatically-generating-svg">hit me with those digits ~ programatically generating svg</h3>
+<p>We dynamically generate digits in the display using JS. Each path will have two attributes:</p>
+<ol>
+<li><code>d</code> to provide the browser data on how to draw the path</li>
+<li><code>style</code> to tell the browser how to style and fill the path it draws</li>
+</ol>
+<p><code>style</code> is invariant for each grain. We&rsquo;ll manipulate the fill-opacity later. All that differs is <code>d</code>.</p>
+<h3 id="i-need-some-space-for-my-na-me">i need some space for my na me</h3>
+<p>If you&rsquo;ve used VanillaJS to create an HTML element, this is similar. However, we&rsquo;re putting svg inside of HTML. That&rsquo;s fine to do, but svg and HTML do not have the same <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course" target="_blank" rel="noreferrer noopener">namespace</a>.</p>
+<p>What the heck is a namespace? Imagine you have two people at the office named Bob. The boss calls out, &ldquo;Hey Bob, can you make me a copy of your report?&rdquo; There are two Bobs. There are two reports. Which Bob will think it&rsquo;s him? Which report(s) will the boss get? There is no way to tell!</p>
+<p>A code example: the HTML <code>&lt;title&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title" target="_blank" rel="noreferrer noopener">here</a> vs the SVG <code>&lt;title&gt;</code> tag, <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title" target="_blank" rel="noreferrer noopener">here</a>. Wait, did you mean &ldquo;Title of the document for the title bar&rdquo;, or &ldquo;Title of the SVG group&rdquo;? Oh, SVG namespace? Okay, title of the SVG group. Now we&rsquo;re sorted.</p>
+<p><em>Namespaces capture the notion that the same name can mean a different thing in a different context.</em> Here, the contexts are HTML and SVG. We use a namespace to define the context in which we are using a name, resolving ambiguity around its meaning. We get one report, and it&rsquo;s the one we want.</p>
+<p>Whenever we create an svg tag, we&rsquo;ll use <code>document.createElementNS()</code>, specifying the <code>svg</code> namespace before the tag name. Like this:</p>
+<p><code>var svg = document.createElementNS(&quot;http://www.w3.org/2000/svg&quot;, &quot;svg&quot;);</code></p>
+<h3 id="createdigit">createDigit</h3>
+<p>This is the core of the display code. It generates a 7-grained digit with a unique ID per grain. We stored each of the <code>d</code> elements from the paths we created in an array, in order in which we are going to address them (top, top-left, top-right, middle, bottom-left, bottom-right, bottom).</p>
+<p>We create an HTML container <code>div</code> to hold the digit.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> digit <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+digit.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;digit&#34;</span>;
+</code></pre></div><p>We put the <code>svg</code> element into the container. We set the viewbox, width, and height. We set the <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course" target="_blank" rel="noreferrer noopener">xlink</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> svg <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElementNS(<span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span>, <span style="color:#f1fa8c">&#34;svg&#34;</span>);
+svg.setAttribute(<span style="color:#f1fa8c">&#34;viewBox&#34;</span>, <span style="color:#f1fa8c">&#34;0 0 32 64&#34;</span>);
+svg.setAttribute(<span style="color:#f1fa8c">&#34;width&#34;</span>, <span style="color:#ff79c6">this</span>.width);
+svg.setAttribute(<span style="color:#f1fa8c">&#34;height&#34;</span>, <span style="color:#ff79c6">this</span>.height);
+svg.setAttributeNS(
+  <span style="color:#f1fa8c">&#34;http://www.w3.org/2000/xmlns/&#34;</span>,
+  <span style="color:#f1fa8c">&#34;xmlns:xlink&#34;</span>,
+  <span style="color:#f1fa8c">&#34;http://www.w3.org/1999/xlink&#34;</span>
+);
+digit.appendChild(svg);
+</code></pre></div><p>We append a <code>g</code> element to the <code>svg</code> element to hold our seven grains.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> g <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElementNS(<span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span>, <span style="color:#f1fa8c">&#34;g&#34;</span>);
+g.setAttributeNS(<span style="color:#ff79c6">null</span>, <span style="color:#f1fa8c">&#34;id&#34;</span>, layerID);
+svg.appendChild(g);
+</code></pre></div><p>We append each of the seven <code>path</code> elements to the <code>g</code> element. We stored those path <code>d</code> elements from the Inkscape file in an array.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> path_d <span style="color:#ff79c6">=</span> [
+  <span style="color:#f1fa8c">&#34;M 2.102706,2.0144078 0.21966194,0.08855428 8.1139619,0.07386242 c 4.3418651,-0.0080805 11.4445871,-0.0080805 15.7838261,0 L 31.787315,0.08855428 29.918288,2.0150532 28.049261,3.9415521 16.017505,3.9409067 3.98575,3.9402615 Z&#34;</span>,
+  <span style="color:#6272a4">// ... //
+</span><span style="color:#6272a4"></span>  <span style="color:#f1fa8c">&#34;last path&#34;</span>,
+];
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">6</span>; i<span style="color:#ff79c6">++</span>) {
+  <span style="color:#8be9fd;font-style:italic">var</span> path <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElementNS(<span style="color:#f1fa8c">&#34;http://www.w3.org/2000/svg&#34;</span>, <span style="color:#f1fa8c">&#34;path&#34;</span>);
+  path.setAttributeNS(<span style="color:#ff79c6">null</span>, <span style="color:#f1fa8c">&#34;id&#34;</span>, <span style="color:#f1fa8c">&#34;c_&#34;</span> <span style="color:#ff79c6">+</span> containerID <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;_d_&#34;</span> <span style="color:#ff79c6">+</span> id <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;_&#34;</span> <span style="color:#ff79c6">+</span> i);
+  path.setAttributeNS(<span style="color:#ff79c6">null</span>, <span style="color:#f1fa8c">&#34;d&#34;</span>, path_d[i]);
+  path.setAttributeNS(
+    <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;style&#34;</span>,
+    <span style="color:#f1fa8c">&#34;fill:&#34;</span> <span style="color:#ff79c6">+</span> <span style="color:#ff79c6">this</span>.GRAIN_COLOR <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;;fill-opacity:0.3;stroke:none&#34;</span>
+  );
+  g.appendChild(path);
+}
+</code></pre></div><p>Finally, we return the <code>div</code> container from the function.</p>
+<p>We can call this function as many times as we want to generate the digits for our counter. We&rsquo;ll get a <code>div</code> for each digit which we can then mount in a container box holding all the digits: our display.</p>
+<h3 id="why-is-the-first-argument-to-setattributens-null">why is the first argument to <code>setAttributeNS</code> null?!</h3>
+<p>We do not need to provide a namespace prefix to <code>id</code>, <code>d</code>, or <code>style</code> attributes, since there is no ambiguity around their usage within our <code>&lt;svg&gt;</code> tag. Also, we do not want to namespace these attributes, because it will make selecting them with <code>document.querySelector</code> incredibly tricky.</p>
+<h3 id="what-about-the-weird-ids">what about the weird IDs?</h3>
+<p>In order to display numbers on the LCD, we have to programmatically manipulate individual grains of digits. This means we need a unique ID for each grain and also for each digit.</p>
+<p>In the demo you saw at the top of the page, we had to support the case of multiple counters per page. We must ensure uniqueness across these IDs as well.</p>
+<p>This generates three levels of ID:</p>
+<ol>
+<li>container (holding an arbitrary number of displays, which are instances of our LCD object)</li>
+<li>digit (within container)</li>
+<li>grain (within digit)</li>
+</ol>
+<p>I represent these IDs as numeric and zero-indexed in this format: <code>c_{containerID}_d_{digitID}_i_{grainID}</code>. If there is a 3-digit display in the first container, we can access the 7 grains of the first (leftmost) digit by <code>c_0_d_0_i_0</code> through <code>c_0_d_0_i_6</code>.</p>
+<h3 id="lets-wire-up-the-display">let&rsquo;s wire up the display!</h3>
+<p>Things are going to get fairly messy if we try to code things without organization, so let&rsquo;s create an Object called <code>LCD</code>. Inside the object we&rsquo;ll define variables and methods to display output.</p>
+<p>We <em>construct</em> this object by giving it a number of digits, a color, a height, and a background color.</p>
+<p>We will make everything but the number of digits optional.</p>
+<p>We define the width in terms of the height, so we only require a height for the display.</p>
+<p><code>instanceID</code> is a unique numeric ID that is incremented once each time an LCD is created. We will also refer to it as <code>containerID</code>: it is what we use to uniquely access a container of digits, or a display.</p>
+<p><code>digitsOn</code> is an object that maps human-readable digits or letters we want to display to the indices of grains that must be turned on to display this digit (or letter). Try working your way through one of the numbers, envisioning the array&rsquo;s indices turned on. Remember, we index in this order: top, top-left, top-right, middle, bottom-left, bottom-right, bottom.</p>
+<p>We set <code>fill-opacity</code> values for on (HIGH) and off (LOW).</p>
+<p>We define a variable to hold the current value of the counter.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> LCD <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">var</span> id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#8be9fd;font-style:italic">function</span> LCD(config <span style="color:#ff79c6">=</span> {}) {
+    <span style="color:#ff79c6">const</span> { numDigits, color, height, bgColor } <span style="color:#ff79c6">=</span> config;
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">Number</span>.isInteger(numDigits) <span style="color:#ff79c6">||</span> numDigits <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">1</span>) {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;Cannot have non-integral number of digits&#34;</span>);
+    }
+    <span style="color:#ff79c6">this</span>.backgroundColor <span style="color:#ff79c6">=</span> bgColor;
+    <span style="color:#ff79c6">this</span>.instanceID <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">++</span>id;
+    <span style="color:#ff79c6">this</span>.numDigits <span style="color:#ff79c6">=</span> numDigits <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">3</span>;
+    <span style="color:#ff79c6">this</span>.GRAIN_COLOR <span style="color:#ff79c6">=</span> color <span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#34;#00FF00&#34;</span>;
+    <span style="color:#ff79c6">this</span>.height <span style="color:#ff79c6">=</span> height <span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#34;64&#34;</span>; <span style="color:#6272a4">//aspect ratio for the SVG is 1:2
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">this</span>.width <span style="color:#ff79c6">=</span> height <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>;
+    <span style="color:#ff79c6">this</span>.padding <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">8</span>;
+    <span style="color:#ff79c6">this</span>.digitsOn <span style="color:#ff79c6">=</span> {
+      <span style="color:#bd93f9">0</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      <span style="color:#bd93f9">1</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">5</span>],
+      <span style="color:#bd93f9">2</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">6</span>],
+      <span style="color:#bd93f9">3</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      <span style="color:#bd93f9">4</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">5</span>],
+      <span style="color:#bd93f9">5</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      <span style="color:#bd93f9">6</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      <span style="color:#bd93f9">7</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">5</span>],
+      <span style="color:#bd93f9">8</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      <span style="color:#bd93f9">9</span><span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">5</span>],
+      A<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>],
+      B<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      C<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">6</span>],
+      D<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>],
+      E<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">6</span>],
+      F<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>],
+      H<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>],
+      L<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">6</span>],
+    };
+    <span style="color:#ff79c6">this</span>.HIGH_OPACITY <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;1.0&#34;</span>;
+    <span style="color:#ff79c6">this</span>.LOW_OPACITY <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;0.15&#34;</span>;
+    <span style="color:#ff79c6">this</span>.value <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  }
+  <span style="color:#ff79c6">return</span> LCD;
+})();
+</code></pre></div><h3 id="a-namespace-for-the-display">a namespace for the display</h3>
+<p>We wrapped this object in an <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank" rel="noreferrer noopener">IIFE (immediately-invoked function expression)</a>. This provides a private namespace for the variables within our class, allowing us to expose only certain methods. We don&rsquo;t want the user to be able to accidentally modify the number of digits in the display, for example.</p>
+<p>We can <em>expose</em> methods of our choice to the user. A common exposure technique is <code>get</code>ters and <code>set</code>ters that do just what they sound like: get or set values of variables within the object.</p>
+<p>I do not use the word class here. Why? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer noopener">JavaScript does not have classes</a>, in the traditional object-oriented sense. Although there is a new <code>class</code> keyword in ES6, this is just syntactic sugar for <a href="https://en.wikipedia.org/wiki/Prototype-based_programming" target="_blank" rel="noreferrer noopener">prototypal inheritance</a>.</p>
+<p>Objects inherit through other objects via the prototype chain. More to come on this topic, as it really deserves its own series.</p>
+<h3 id="a-touch-of-css">a touch of CSS</h3>
+<p>I have a <a href="http://meyerweb.com/eric/tools/css/reset/" target="_blank" rel="noreferrer noopener">CSS reset</a>, a little padding, and then two <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noreferrer noopener">flexboxes</a>: one to display the digits in each display, and one to display each display (how meta). I also added a CSS transition on <code>fill-opacity</code> for prettiness. The browser automatically <a href="http://easings.net/" target="_blank" rel="noreferrer noopener">tweens</a> the values for us. Less JS to manage!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">body</span> {
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">10</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">background-color</span>: <span style="color:#bd93f9">#ffe</span>;
+}
+
+#pageContainer {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">700</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">10</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">wrap</span>;
+  <span style="color:#ff79c6">border</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">black</span>;
+}
+
+.<span style="color:#50fa7b">lcd-container</span> {
+  <span style="color:#ff79c6">margin</span>: <span style="color:#bd93f9">10</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">black</span>;
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">nowrap</span>;
+  <span style="color:#ff79c6">border-style</span>: <span style="color:#ff79c6">groove</span>;
+  <span style="color:#ff79c6">justify-content</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">align-items</span>: <span style="color:#ff79c6">center</span>;
+}
+
+<span style="color:#ff79c6">div</span>#digit {
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">4</span><span style="color:#8be9fd">px</span>;
+}
+
+<span style="color:#ff79c6">svg</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">path</span> {
+  <span style="color:#ff79c6">transition</span>: <span style="color:#ff79c6">fill</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">opacity</span> <span style="color:#bd93f9">250</span><span style="color:#8be9fd">ms</span> <span style="color:#ff79c6">ease</span><span style="color:#ff79c6">-</span>in;
+}
+</code></pre></div><h3 id="a-good-place-for-you-to-begin">A good place for you to begin.</h3>
+<p>Here&rsquo;s a CodePen that&rsquo;s unfinished. Fork it, and try building out the rest of the class.</p>
+<p>Here are some method names that might help get you going:</p>
+<ul>
+<li>init</li>
+<li>unmount</li>
+<li>getSize</li>
+<li>getValue</li>
+<li>setDigit</li>
+<li>setCounter</li>
+<li>resetDigit</li>
+<li>resetDisplay</li>
+<li>displayError</li>
+</ul>
+<p>You can always peek at the finished product for hints. But imagine that you can use the object to display &lsquo;999&rsquo; on the screen like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> display <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> LCD({
+  numDigits<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span>,
+  color<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;#000000&#34;</span>,
+  height<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">40</span>,
+  bgColor<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;#FFFFFF&#34;</span>,
+});
+<span style="color:#8be9fd;font-style:italic">let</span> C <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+display.init(C);
+display.setCounter(<span style="color:#bd93f9">999</span>);
+<span style="color:#8be9fd;font-style:italic">document</span>.body.appendChild(C);
+</code></pre></div><h3 id="wait-though-you-coded-more">wait though, you coded more</h3>
+<p>You are correct. I included <a href="http://bgrins.github.io/TinyColor/" target="_blank" rel="noreferrer noopener">tinycolor</a> to dynamically generate random yet contrasty background and text colors for my random timers. I also set random values for the timers to start at and a random number of digits, and then I set up a <code>setInterval</code> to have them all count upwards in unison.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			<a href="/categories/svg/"> svg </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/css/"> css </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/generativesvg/"> generativesvg </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/lcd/"> lcd </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/svg/"> svg </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

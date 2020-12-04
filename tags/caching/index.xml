@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Caching and the Least Recently Used Replacement Policy</title>
-			<link>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</link>
+			<link>https://thmsdnnr.com/blog/caching-and-the-least-recently-used-replacement-policy/</link>
 			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</guid>
+			<guid>https://thmsdnnr.com/blog/caching-and-the-least-recently-used-replacement-policy/</guid>
 			<description>
 				
 				What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?

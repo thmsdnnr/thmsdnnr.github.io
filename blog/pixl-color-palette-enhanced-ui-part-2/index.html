@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Pixl: Color Palette &amp; Enhanced UI [part 2]">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,pixelArt,pixl,UI"><meta name="description" content="Adding a randomized color palette selector using jscolor."><meta property="og:title" content="Pixl: Color Palette &amp; Enhanced UI [part 2]" />
+<meta property="og:description" content="Adding a randomized color palette selector using jscolor." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/" />
+<meta property="article:published_time" content="2018-01-08T19:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-08T19:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pixl: Color Palette &amp; Enhanced UI [part 2]"/>
+<meta name="twitter:description" content="Adding a randomized color palette selector using jscolor."/>
+
+	
+	
+
+	<title>Pixl: Color Palette &amp; Enhanced UI [part 2] | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">08</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Pixl: Color Palette &amp; Enhanced UI [part 2]</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><figure>
+  <img src="/assets/pics/pixl_pt2.gif" alt="Gif of mouse drag drawing a red smiley face using pixl"  />
+</figure></p>
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="aEERVa"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<h2 id="lets-make-things-more-interesting">Let&rsquo;s make things more interesting</h2>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start. We have a grid that refreshes gracefully based on a data array, and the user can toggle a single colors on and off for each pixel. Nice.</p>
+<p>But in order to let the user create a wider variety of art, we need two new features.</p>
+<ol>
+<li>More colors.</li>
+<li>Mouse-dragging: the user can hold down the cursor, drag the mouse, and paint multiple squares.</li>
+</ol>
+<h4 id="1-add-more-colors">1. Add More Colors!</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;palette&#34;</span>&gt;
+  &lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;randomPalette&#34;</span>&gt;rando&lt;/<span style="color:#ff79c6">button</span>&gt;
+  &lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;reset&#34;</span>&gt;reset&lt;/<span style="color:#ff79c6">button</span>&gt;
+  &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;swatch&#34;</span>&gt;
+&lt;/<span style="color:#ff79c6">div</span>&gt;
+</code></pre></div><p>We&rsquo;ll add a <code>div</code> to the top of our editor that will hold &ldquo;color chips&rdquo;, as well as buttons to generate a random palette and reset the current one.</p>
+<p>We&rsquo;re also introducing a tiny dependency called <a href="http://jscolor.com/" target="_blank" rel="noreferrer noopener">jscolor</a>. The <code>&lt;input type=&quot;color&quot;&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank" rel="noreferrer noopener">has poor cross-browser support</a>. We want to enable the user to select whatever colors they choose, so we&rsquo;re pulling in a simple colorpicker element.</p>
+<p>I&rsquo;m going to use a library called <a href="https://bgrins.github.io/TinyColor/" target="_blank" rel="noreferrer noopener">tinycolor</a> to generate random palettes of related colors.</p>
+<p>Here&rsquo;s how it&rsquo;ll work.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> generatePalette(startColor <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;goldenrod&#34;</span>) {
+  <span style="color:#8be9fd;font-style:italic">let</span> lastC <span style="color:#ff79c6">=</span> tinycolor(startColor);
+  <span style="color:#8be9fd;font-style:italic">let</span> analogues <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">let</span> temp <span style="color:#ff79c6">=</span> lastC.analogous();
+  analogues.push(temp[temp.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>]);
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>) {
+      temp <span style="color:#ff79c6">=</span> analogues[i].analogous();
+    } <span style="color:#ff79c6">else</span> {
+      temp <span style="color:#ff79c6">=</span> analogues[i].tetrad();
+    }
+    analogues.push(temp[temp.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>].spin(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">20</span>));
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> analogues.map((e) =&gt; e.toHexString());
+  <span style="color:#ff79c6">return</span> res;
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CSS" data-lang="CSS"><span style="color:#ff79c6">div</span>#rainbow {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">100</span><span style="color:#8be9fd">%</span>;
+  <span style="color:#ff79c6">justify-content</span>: <span style="color:#ff79c6">space</span><span style="color:#ff79c6">-</span>evenly;
+}
+<span style="color:#ff79c6">div</span>#outputColors {
+  <span style="color:#ff79c6">font-size</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">em</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">80</span><span style="color:#8be9fd">%</span>;
+}
+</code></pre></div><blockquote>
+<!-- raw HTML omitted -->
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> randomRGBA <span style="color:#ff79c6">=</span> () =&gt;
+  <span style="color:#f1fa8c">`rgba(</span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(<span style="color:#bd93f9">3</span>)
+    .fill()
+    .map((e) =&gt; <span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">255</span>))
+    .concat(<span style="color:#bd93f9">1.0</span>)
+    .join(<span style="color:#f1fa8c">&#34;,&#34;</span>)<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">)`</span>;
+
+<span style="color:#8be9fd;font-style:italic">var</span> startingColor <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;goldenrod&#34;</span>;
+
+<span style="color:#8be9fd;font-style:italic">function</span> randomize() {
+  <span style="color:#ff79c6">const</span> rainbow <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;rainbow&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> lastC <span style="color:#ff79c6">=</span> tinycolor(startingColor);
+  <span style="color:#8be9fd;font-style:italic">let</span> analogues <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">let</span> temp <span style="color:#ff79c6">=</span> lastC.analogous();
+  analogues.push(temp[temp.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>]);
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>) {
+      temp <span style="color:#ff79c6">=</span> analogues[i].analogous();
+    } <span style="color:#ff79c6">else</span> {
+      temp <span style="color:#ff79c6">=</span> analogues[i].tetrad();
+    }
+    analogues.push(temp[temp.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>].spin(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">20</span>));
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> analogues.map((e) =&gt; e.toHexString());
+  rainbow.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  res.forEach((c) =&gt; {
+    <span style="color:#8be9fd;font-style:italic">let</span> d <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+    d.style.width <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">20</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;px&#34;</span>;
+    d.style.height <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">20</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;px&#34;</span>;
+    d.style.borderRadius <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;5%&#34;</span>;
+    d.style.backgroundColor <span style="color:#ff79c6">=</span> c;
+    d.display <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;inline-block&#34;</span>;
+    rainbow.appendChild(d);
+  });
+  <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;outputColors&#34;</span>).textContent <span style="color:#ff79c6">=</span> JSON.stringify(res);
+}
+
+<span style="color:#8be9fd;font-style:italic">window</span>.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  randomize(<span style="color:#f1fa8c">&#34;goldenrod&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;randomDemo&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, randomize);
+  <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;randomStart&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, () =&gt; {
+    startingColor <span style="color:#ff79c6">=</span> randomRGBA();
+    randomize();
+  });
+};
+</code></pre></div><p>See how this works? I&rsquo;m using the <code>analogues</code>, <code>tetrad</code>, and <code>spin</code> methods of tinycolor. I take a starting color. I then want to generate ten colors (<code>analogues</code>) that are visually related. If the index  is even, I push the last analog generated by tinycolor into the array. If the index is odd, I push the last of the tetrads from that color into the array. Then I spin the hue by a random amount within 20 degrees to add a touch more variation. There&rsquo;s no algorithm behind this. I just played around with the color transformation functions until I got something that looked nice.</p>
+<p>Try playing with the buttons. &ldquo;Randomize start color&rdquo; is what the user can select to refresh the entire palette. &ldquo;Randomize relative&rdquo; leaves the start color intact but randomizes the remaining colors in a (IMO) visually pleasing way.</p>
+<p>Once we generate this array of random colors, all that&rsquo;s left to do is to display those colors to the user, allow the user to select from them, and update the <code>currentColor</code> of our editor to the selected color. Pretty simple, right?</p>
+<h3 id="coding-the-palette">Coding the palette</h3>
+<p>We need a function to populate a random palette. Each color will have its own color &ldquo;chip&rdquo;, a small div with its background color equal to the palette color.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> populatePalette() {
+  <span style="color:#8be9fd;font-style:italic">let</span> pals <span style="color:#ff79c6">=</span> generatePalette();
+  <span style="color:#ff79c6">const</span> P <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;palette&#34;</span>);
+  pals.forEach((c, idx) =&gt; {
+    <span style="color:#8be9fd;font-style:italic">let</span> chip <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+    chip.classList.add(<span style="color:#f1fa8c">&#34;chip&#34;</span>);
+    chip.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;c_&#34;</span> <span style="color:#ff79c6">+</span> idx;
+    chip.dataset.hex <span style="color:#ff79c6">=</span> c;
+    chip.style.backgroundColor <span style="color:#ff79c6">=</span> c;
+    P.appendChild(chip);
+  });
+}
+</code></pre></div><p>We&rsquo;re using the <code>dataset</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset" target="_blank" rel="noreferrer noopener">(Docs)</a> property here to store the hex color code for each div. This allows us to set and access custom <code>data-*</code> attributes on our HTML elements.</p>
+<p>We also need a function to call when the user clicks the random palette button. Since we&rsquo;ve already called <code>populatePalette</code> on canvas initialization, we don&rsquo;t need to create all those divs again. Instead, we can just re-select them and update their values with the results of <code>generatePalette</code>.</p>
+<p>We write a one-liner to generate a <code>randomRGBA</code> (well, with opacity 1.0) using ES6 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank" rel="noreferrer noopener">template literals</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> randomRGBA <span style="color:#ff79c6">=</span> () =&gt;
+  <span style="color:#f1fa8c">`rgba(</span><span style="color:#f1fa8c">${</span><span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(<span style="color:#bd93f9">3</span>)
+    .fill()
+    .map((e) =&gt; <span style="color:#8be9fd;font-style:italic">Math</span>.floor(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">255</span>))
+    .concat(<span style="color:#bd93f9">1.0</span>)
+    .join(<span style="color:#f1fa8c">&#34;,&#34;</span>)<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">)`</span>;
+
+<span style="color:#8be9fd;font-style:italic">function</span> randomizePalette() {
+  <span style="color:#8be9fd;font-style:italic">let</span> rColor <span style="color:#ff79c6">=</span> randomRGBA();
+  <span style="color:#8be9fd;font-style:italic">let</span> randos <span style="color:#ff79c6">=</span> generatePalette(rColor);
+  <span style="color:#ff79c6">const</span> P <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelectorAll(<span style="color:#f1fa8c">&#34;div.chip&#34;</span>);
+  P.forEach((c, idx) =&gt; {
+    c.dataset.hex <span style="color:#ff79c6">=</span> randos[idx];
+    c.style.backgroundColor <span style="color:#ff79c6">=</span> randos[idx];
+    c.classList.remove(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>);
+  });
+  setColor(<span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;c_0&#34;</span>)); <span style="color:#6272a4">// set default color;
+</span><span style="color:#6272a4"></span>}
+</code></pre></div><h3 id="listen-my-code-and-ye-shall-hear">Listen my code, and ye shall hear!</h3>
+<p>All we have to do to wire up the palette is set listeners on all the color chips, the random palette button, and the reset button for good measure.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>
+  .querySelector(<span style="color:#f1fa8c">&#34;button#randomPalette&#34;</span>)
+  .addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, randomizePalette);
+<span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;button#reset&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, resetCanvas);
+<span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;palette&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, switchColor);
+<span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;swatch&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;change&#34;</span>, changeColorSwatch);
+</code></pre></div><p>We add a <code>change</code> event listener to the color picker element. <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank" rel="noreferrer noopener">(Docs)</a> gets fired when an element&rsquo;s value changes: in this case, when the user has chosen a color.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> changeColorSwatch(e) {
+  currentColor <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;#&#34;</span> <span style="color:#ff79c6">+</span> e.target.value;
+  currentColorDiv.classList.remove(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>);
+}
+</code></pre></div><p>And now the handler for switching colors. We define a <code>currentColorDiv</code> so that when the colors change, we can remove the <code>.activeColor</code> CSS class, and we add the <code>.activeColor</code> class to the currently selected color.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> setColor(div) {
+  currentColor <span style="color:#ff79c6">=</span> div.dataset.hex;
+  currentColorDiv <span style="color:#ff79c6">=</span> div;
+  div.classList.add(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>);
+}
+</code></pre></div><p>In <code>switchColor</code> we use <a href="https://javascript.info/event-delegation" target="_blank" rel="noreferrer noopener">Event Delegation</a> to determine which chip is selected. We add a single event listener on the color chip container and then filter events on that container based on the class of the element clicked. We know it&rsquo;s a click on the color chip (and not the container itself) if <code>e.target.classList</code> contains our class of interest, <code>.chip</code>. The <code>classList</code> property has a handy method <code>contains</code> that returns a boolean based on whether or not the supplied class string is present in the element&rsquo;s class list.</p>
+<p>If the event <em>is</em> a click on a color, we ensure that it&rsquo;s not a click on the <em>current</em> color by checking the <code>classList</code> for <code>.activeColor</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> switchColor(e) {
+  <span style="color:#8be9fd;font-style:italic">let</span> cL <span style="color:#ff79c6">=</span> e.target.classList;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>cL.contains(<span style="color:#f1fa8c">&#34;chip&#34;</span>) <span style="color:#ff79c6">||</span> cL.contains(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  currentColorDiv.classList.remove(<span style="color:#f1fa8c">&#34;activeColor&#34;</span>);
+  setColor(e.target);
+}
+</code></pre></div><p>Finally, we add one line to our <code>initEditor</code> function that calls <code>setColor</code> onload to set the default color to the first swatch:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">setColor(<span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;c_0&#34;</span>)); <span style="color:#6272a4">// set default color;
+</span></code></pre></div><h4 id="2-mouse-dragging">2. Mouse Dragging</h4>
+<p>We&rsquo;ve talked before about the <code>mousemove</code> event and the need to &ldquo;debounce&rdquo; or not respond to every single event that this listener emits. We also need to distinguish between the user clicking a square on and off and the user holding down the mouse and dragging across multiple squares.</p>
+<p>In the first case, we want to erase a square if the user clicks in a square with the same color as the current color. When dragging, we do not want to have this behavior.</p>
+<p>We&rsquo;ll set some flags, as well as an amount of time after which we consider the user to be clicking-and-dragging instead of just clicking. We set it to 50ms.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> mouseDown <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> mouseDownAt <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> clickAndDrag <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> DRAG_DELAY_MS <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">50</span>; <span style="color:#6272a4">// ms before mouse &#34;click-and-drag&#34; event is handled
+</span></code></pre></div><p>There are three phases to a mouse click-and-drag event, so we add a listener to the canvas for all three events: <code>mousemove</code>, <code>mousedown</code>, and <code>mouseup</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">canvas.addEventListener(<span style="color:#f1fa8c">&#34;mousemove&#34;</span>, handleMouseMove);
+canvas.addEventListener(<span style="color:#f1fa8c">&#34;mousedown&#34;</span>, handleMouseDown);
+canvas.addEventListener(<span style="color:#f1fa8c">&#34;mouseup&#34;</span>, handleMouseUp);
+
+<span style="color:#8be9fd;font-style:italic">function</span> handleMouseDown(e) {
+  mouseDown <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  mouseDownAt <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Date</span>.now();
+}
+</code></pre></div><p>When the mouse is clicked, we set <code>mouseDown</code> and record the time at which the click occurred.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleMouseUp(e) {
+  <span style="color:#ff79c6">if</span> (clickAndDrag) {
+    <span style="color:#8be9fd;font-style:italic">let</span> X <span style="color:#ff79c6">=</span> e.offsetX;
+    <span style="color:#8be9fd;font-style:italic">let</span> Y <span style="color:#ff79c6">=</span> e.offsetY;
+    <span style="color:#ff79c6">if</span> (X <span style="color:#ff79c6">&gt;=</span> WIDTH <span style="color:#ff79c6">||</span> X <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">||</span> Y <span style="color:#ff79c6">&gt;=</span> HEIGHT <span style="color:#ff79c6">||</span> Y <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+    }
+    setData(coordsToIdx(X, Y), currentColor);
+  }
+  mouseDown <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+  mouseDownAt <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">null</span>;
+  clickAndDrag <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+}
+</code></pre></div><p>When the mouse is released, we unset <code>mouseDown</code> and reset the time at which the original mouseDown event occurred. If the user was clicking and dragging during the mouse event (<code>clickAndDrag===true</code>), we record the final square that the mouse was over when the button was released. If we did not do this, clicking and dragging would always leave an empty square wherever the mouse was when the button was released on the end of the drag.</p>
+<p>As always, we validate the coordinates of the drag so that there is no spillover.</p>
+<p>Finally, we define a handler for <code>mouseMove</code>. If the mouse is not down, we ignore the event entirely. If the mouse <em>is</em> down, we determine how long it has been held for. If it has been held longer than 50ms, we set <code>clickAndDrag</code> to true, validate the mouse coordinates, and call <code>setData</code> to color in the squares the mouse drags over while held.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleMouseMove(e) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>mouseDown) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#ff79c6">if</span> (<span style="color:#8be9fd;font-style:italic">Date</span>.now() <span style="color:#ff79c6">-</span> mouseDownAt <span style="color:#ff79c6">&gt;</span> DRAG_DELAY_MS) {
+    <span style="color:#8be9fd;font-style:italic">let</span> X <span style="color:#ff79c6">=</span> e.offsetX;
+    <span style="color:#8be9fd;font-style:italic">let</span> Y <span style="color:#ff79c6">=</span> e.offsetY;
+    clickAndDrag <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+    <span style="color:#ff79c6">if</span> (X <span style="color:#ff79c6">&gt;=</span> WIDTH <span style="color:#ff79c6">||</span> X <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">||</span> Y <span style="color:#ff79c6">&gt;=</span> HEIGHT <span style="color:#ff79c6">||</span> Y <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+    } <span style="color:#ff79c6">else</span> {
+      setData(coordsToIdx(X, Y), currentColor);
+    }
+  }
+}
+</code></pre></div><p>What about <code>setData</code> though: won&rsquo;t there be multiple calls there? Good thinking. We refactor our <code>setData</code> function slightly to include the new <code>clickAndDrag</code> functionality. Now it looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> setData(idx, color) {
+  <span style="color:#ff79c6">if</span> (dirtyIndices.includes(idx)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> currentColor <span style="color:#ff79c6">=</span> canvasData[idx];
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>clickAndDrag) {
+    <span style="color:#ff79c6">if</span> (color <span style="color:#ff79c6">!==</span> currentColor) {
+      canvasData[idx] <span style="color:#ff79c6">=</span> color;
+    } <span style="color:#ff79c6">else</span> {
+      canvasData[idx] <span style="color:#ff79c6">=</span> DEFAULT_COLOR;
+    }
+  } <span style="color:#ff79c6">else</span> {
+    canvasData[idx] <span style="color:#ff79c6">=</span> color;
+  }
+  dirtyIndices.push(idx);
+}
+</code></pre></div><p>What&rsquo;s the big difference? Here, we add a flag to filter out <code>clickAndDrag</code> events. If the user is clicking and dragging, we ignore the code that erases squares when they are clicked with the same color. If we didn&rsquo;t do this, the square would be toggled on and off a heck of a lot of times per second: every time that <code>mousemove</code> fired, in fact. Finally, we don&rsquo;t need to worry about the data array being needlessly toggled back and forth, because once we call setData prior to the square being drawn, the index is added to our <code>dirtyIndices</code> array.</p>
+<p><code>setData</code> ignores calls to make changes to the <code>dirtyIndices</code> array, as we discussed, until the <code>dirtyIndices</code> have been redrawn and the array emptied with the next tick of <code>requestAnimationFrame</code>.</p>
+<h3 id="step-back--take-a-deep-breath">Step back &amp; take a deep breath</h3>
+<p>Whew. That is a <em>lot</em> of code. But look at this cool thing that we&rsquo;ve made! There are only a few steps left to turning this into a really sweet pixel art generator.</p>
+<p>In the next tutorial, we&rsquo;ll look at how to extract data into a .png from the canvas once an artwork has been drawn, scale the image to selected sizes, apply transparency or a background color, and display these finished product canvases in a tray so the user can save their masterpieces.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixelart/"> pixelart </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixl/"> pixl </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/ui/"> ui </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

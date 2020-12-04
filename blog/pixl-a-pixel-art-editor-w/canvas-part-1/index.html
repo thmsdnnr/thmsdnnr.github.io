@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Pixl: A Pixel Art Editor w/Canvas [part 1]">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,pixelArt,pixl"><meta name="description" content="A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more."><meta property="og:title" content="Pixl: A Pixel Art Editor w/Canvas [part 1]" />
+<meta property="og:description" content="A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/" />
+<meta property="article:published_time" content="2018-01-07T14:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-07T14:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pixl: A Pixel Art Editor w/Canvas [part 1]"/>
+<meta name="twitter:description" content="A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more."/>
+
+	
+	
+
+	<title>Pixl: A Pixel Art Editor w/Canvas [part 1] | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">07</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Pixl: A Pixel Art Editor w/Canvas [part 1]</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="WddbeW"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p>By the end of this article you&rsquo;ll have this!</p>
+</blockquote>
+<p>Requirements: It should be like a photo booth for pixel art. It should support multiple sizes of art with both transparent and solid backgrounds. The user should be able to save art created with the editor to resume work later on, as well as to copy or &ldquo;fork&rdquo; other users' work and make their own derivations.</p>
+<blockquote>
+<p>Maybe it&rsquo;ll look something neat like this when we&rsquo;re done.</p>
+</blockquote>
+<p><figure>
+  <img src="/assets/pics/pixl.png#400-high" alt="Pixel editor finished product screenshot"  />
+</figure></p>
+<h3 id="but-first-we-need-a-grid">But first, we need a grid.</h3>
+<p>We&rsquo;re going to draw a square grid of squares on an HTML canvas. Each square will represent a pixel. We&rsquo;ll scale each pixel up by a factor of 30 (so each square has side length=30px). This makes the grid 480px by 480px (with 1px added so the canvas border is visible).</p>
+<p>Let&rsquo;s set up some dimensions and then adjust the canvas size to fit.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6272a4">// Global reference to canvas and context
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> ctx;
+<span style="color:#8be9fd;font-style:italic">let</span> canvas;
+<span style="color:#6272a4">// -&gt; WIDTH and HEIGHT have to be even multiple of NUM_ROWS &amp; NUM_COLS
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">const</span> WIDTH <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">480</span>; <span style="color:#6272a4">//px
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">const</span> HEIGHT <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">480</span>; <span style="color:#6272a4">//px
+</span><span style="color:#6272a4">// -&gt; NUM_ROWS &amp; NUM_COLS have to be even multiple of 16
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">const</span> NUM_ROWS <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">16</span>;
+<span style="color:#ff79c6">const</span> NUM_COLS <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">16</span>;
+<span style="color:#ff79c6">const</span> BOX_SIDE_LENGTH <span style="color:#ff79c6">=</span> WIDTH <span style="color:#ff79c6">/</span> NUM_ROWS; <span style="color:#6272a4">//px
+</span><span style="color:#6272a4"></span>
+<span style="color:#8be9fd;font-style:italic">function</span> getCanvasAndContext() {
+  canvas <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;editor&#34;</span>);
+  ctx <span style="color:#ff79c6">=</span> canvas.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+  ctx.imageSmoothingEnabled <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+  canvas.width <span style="color:#ff79c6">=</span> NUM_COLS <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>; <span style="color:#6272a4">// +1 to display border
+</span><span style="color:#6272a4"></span>  canvas.height <span style="color:#ff79c6">=</span> NUM_ROWS <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>;
+}
+</code></pre></div><h3 id="a-place-to-put-our-data">A Place to Put our Data</h3>
+<p>We&rsquo;ll store the data for the canvas in an array with length <code>NUM_ROWS * NUM_COLS</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6272a4">// Default color and canvas data array
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> currentColor <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;#AAEEBB&#34;</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> DEFAULT_COLOR <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;#FFFFFF&#34;</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> canvasData <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(NUM_ROWS <span style="color:#ff79c6">*</span> NUM_COLS).fill(DEFAULT_COLOR);
+</code></pre></div><p>Each array element holds a hex value (e.g., <code>#FFCCEE</code>) corresponding to its square&rsquo;s color.</p>
+<h3 id="lets-draw-that-grid">Let&rsquo;s Draw that Grid!</h3>
+<p>Here&rsquo;s how we draw the grid:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> drawGrid() {
+  ctx.lineWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.5</span>;
+  ctx.setTransform(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>); <span style="color:#6272a4">// reset transform
+</span><span style="color:#6272a4"></span>  ctx.translate(<span style="color:#bd93f9">0.5</span>, <span style="color:#bd93f9">0.5</span>); <span style="color:#6272a4">// make lines sharp
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;=</span> WIDTH; i <span style="color:#ff79c6">+=</span> SQUARE_SIDE) {
+    <span style="color:#6272a4">// draw vertical line HEIGHT length, x=i
+</span><span style="color:#6272a4"></span>    ctx.beginPath();
+    ctx.moveTo(i, <span style="color:#bd93f9">0</span>);
+    ctx.lineTo(i, HEIGHT);
+    ctx.stroke();
+    ctx.closePath();
+    <span style="color:#6272a4">// draw horizontal line WIDTH length, y=i
+</span><span style="color:#6272a4"></span>    ctx.beginPath();
+    ctx.moveTo(<span style="color:#bd93f9">0</span>, i);
+    ctx.lineTo(WIDTH, i);
+    ctx.stroke();
+    ctx.closePath();
+  }
+  ctx.lineWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+}
+</code></pre></div><p>Since <code>drawGrid</code> will be called multiple times, we have to reset the drawing context&rsquo;s transformation on each function call. Canvas transformations are cumulative. We translate the canvas by 0.5px in the x and y directions in order to make the lines appear sharper: so that the lines appear <em>at</em> a pixel rather than between two pixels.</p>
+<p>This is what it&rsquo;d look like if you didn&rsquo;t reset the transform:</p>
+<!-- raw HTML omitted -->
+<p>Then we set up a loop and draw a horizontal and vertical line at each point for our rows and columns, depending on the dimensions that we defined.</p>
+<h3 id="gathering-user-input">Gathering User Input</h3>
+<p>We have a grid, but there&rsquo;s no way to gather user input yet.</p>
+<p>We need to add a click <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventListener" target="_blank" rel="noreferrer noopener">Event Listener</a> to our canvas and then write a function to handle click events.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleClick(e) {
+  <span style="color:#6272a4">/* do something with our MouseEvent */</span>
+}
+canvas.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, handleClick);
+</code></pre></div><p>Our <code>MouseEvent</code> contains many different coordinates. There&rsquo;s <code>clientX/Y</code>, <code>pageX/Y</code>, <code>screenX/Y</code>, and <code>offsetX/Y</code>.</p>
+<p>Without going into too much detail:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageX" target="_blank" rel="noreferrer noopener">pageX/Y</a> gives coordinates of the mouse <em>relative to the entire page, including scrolling</em>. This means that if your page is 2000px long and you are scrolled to the very bottom, clicking at the very top of your browser window will return a y coordinate of <code>2000px</code> - <code>browserWindowHeight</code></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientX" target="_blank" rel="noreferrer noopener">clientX/Y</a>: gives coordinates of the mouse relative to the browser window area. Clicking on the upper-left corner of your browser window gives (0, 0).</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenX" target="_blank" rel="noreferrer noopener">screenX/Y</a>: gives coordinates of the mouse relative to the screen. Clicking on the upper-left corner of your browser window gives you the X and Y coordinates of the upper-left point of your browser window on your screen.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX" target="_blank" rel="noreferrer noopener">offsetX/Y</a>: gives coordinates of the mouse <em>relative to the offset of the target node</em>.</li>
+</ul>
+<p>We&rsquo;re using <code>offsetX</code> and <code>offsetY</code> because we put our event listener on the canvas element itself. This means that when we click the upper-left corner of the canvas, we&rsquo;ll get (0,0), and when we click on the bottom right, we&rsquo;ll get (CANVAS_WIDTH, CANVAS_HEIGHT). We&rsquo;ll get (0,0) when we click here regardless of browser window size, scroll status, or browser window position.</p>
+<p>This is what we need in order to translate click coordinates into box indices.</p>
+<p>We will be doing a lot of conversion from an index to a row + column, so we&rsquo;ll create two functions: one that converts an index into a row and column number (<code>idxToRowCol</code>), and one that converts mouse coordinates into an index (<code>coordsToIdx</code>).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> idxToRowCol(idx) {
+  <span style="color:#8be9fd;font-style:italic">let</span> row <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(idx <span style="color:#ff79c6">/</span> NUM_ROWS);
+  <span style="color:#8be9fd;font-style:italic">let</span> col <span style="color:#ff79c6">=</span> idx <span style="color:#ff79c6">%</span> NUM_COLS;
+  <span style="color:#ff79c6">return</span> { row, col };
+}
+
+<span style="color:#8be9fd;font-style:italic">function</span> coordsToIdx(X, Y) {
+  <span style="color:#8be9fd;font-style:italic">let</span> col <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(X <span style="color:#ff79c6">/</span> BOX_SIDE_LENGTH);
+  <span style="color:#8be9fd;font-style:italic">let</span> row <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(Y <span style="color:#ff79c6">/</span> BOX_SIDE_LENGTH);
+  <span style="color:#ff79c6">return</span> row <span style="color:#ff79c6">*</span> NUM_ROWS <span style="color:#ff79c6">+</span> col;
+}
+</code></pre></div><p>When the user clicks a square, we look up which square was clicked and set the data array. We bounds check the coordinates in our <code>handleClick</code> to make sure the click is in bounds and is not right on the margin. If we didn&rsquo;t do this, users could click the rightmost or leftmost boundary and have the row calculation &ldquo;bump over&rdquo; into the next/previous row at the opposite column. Consider a click at <code>480px</code>. 480/30 is 16, not 15 (rows are indexed 0-15).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleClick(e) {
+  <span style="color:#8be9fd;font-style:italic">let</span> X <span style="color:#ff79c6">=</span> e.offsetX;
+  <span style="color:#8be9fd;font-style:italic">let</span> Y <span style="color:#ff79c6">=</span> e.offsetY;
+  <span style="color:#ff79c6">if</span> (X <span style="color:#ff79c6">&gt;=</span> WIDTH <span style="color:#ff79c6">||</span> X <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">||</span> Y <span style="color:#ff79c6">&gt;=</span> HEIGHT <span style="color:#ff79c6">||</span> Y <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span>) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  setData(coordsToIdx(X, Y), currentColor);
+}
+</code></pre></div><h3 id="now-we-just-need-to-write-setdata">Now we just need to write setData&hellip;</h3>
+<p>Once we find out <em>which</em> square was clicked, we decide <em>how</em> to fill the square.</p>
+<p>We want to allow the user to erase colors that have been painted. We&rsquo;ll do this by checking to see if <code>currentColor</code> is the same as the color of the square being clicked. If so, we turn the square back to the default color. If not, we set the square equal to <code>currentColor</code>. This gives an &ldquo;eraser&rdquo; functionality without much overhead.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> setData(coords, color) {
+  <span style="color:#8be9fd;font-style:italic">let</span> idx <span style="color:#ff79c6">=</span> boxIdxFromCoords(coords);
+  <span style="color:#8be9fd;font-style:italic">let</span> currentColor <span style="color:#ff79c6">=</span> canvasData[idx];
+  <span style="color:#ff79c6">if</span> (color <span style="color:#ff79c6">!==</span> currentColor) {
+    canvasData[idx] <span style="color:#ff79c6">=</span> color;
+  } <span style="color:#ff79c6">else</span> {
+    canvasData[idx] <span style="color:#ff79c6">=</span> DEFAULT_COLOR;
+  }
+}
+</code></pre></div><h3 id="displaying-the-contents-of-our-data-array">Displaying the Contents of our Data Array</h3>
+<p>We&rsquo;ll write a function <code>colorBox</code> that colors in <code>box</code> with <code>color</code>, along with two helper functions to make sure that the row and column are in bounds.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> isValidCol <span style="color:#ff79c6">=</span> (col) =&gt; col <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> col <span style="color:#ff79c6">&lt;=</span> NUM_COLS <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>;
+<span style="color:#ff79c6">const</span> isValidRow <span style="color:#ff79c6">=</span> (row) =&gt; row <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> row <span style="color:#ff79c6">&lt;=</span> NUM_ROWS <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>;
+
+<span style="color:#8be9fd;font-style:italic">function</span> colorBox(box, color) {
+  <span style="color:#ff79c6">const</span> { row, col } <span style="color:#ff79c6">=</span> box;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>isValidCol(col) <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">!</span>isValidRow(row)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  ctx.fillStyle <span style="color:#ff79c6">=</span> color <span style="color:#ff79c6">||</span> currentColor;
+  ctx.clearRect(
+    col <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH,
+    row <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH,
+    BOX_SIDE_LENGTH,
+    BOX_SIDE_LENGTH
+  );
+  ctx.beginPath();
+  ctx.fillRect(
+    col <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH,
+    row <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH,
+    BOX_SIDE_LENGTH,
+    BOX_SIDE_LENGTH
+  );
+  ctx.closePath();
+}
+</code></pre></div><p>We have the data in an array, and we have a way to color in a box. Now all we have to do is write a for loop and color away at each box, right?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> drawData() {
+  ctx.clearRect(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">500</span>, <span style="color:#bd93f9">500</span>);
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> canvasData.length; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> row <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(i <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">16</span>);
+    <span style="color:#8be9fd;font-style:italic">let</span> col <span style="color:#ff79c6">=</span> i <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">16</span>;
+    <span style="color:#8be9fd;font-style:italic">let</span> color <span style="color:#ff79c6">=</span> canvasData[i];
+    colorBox({ row, col }, color);
+  }
+  drawGrid();
+}
+</code></pre></div><h2 id="no-no-no-no-no">NO NO NO NO NO.</h2>
+<p>Although this method of drawing data <em>will work</em>, it is not a fantastic idea. For several reasons.</p>
+<p>First, we are redrawing <em>every single box</em>, regardless of whether that box was changed. There&rsquo;s no need to redraw boxes that haven&rsquo;t changed.</p>
+<p>Secondly, we want to put our <code>drawData</code> in some sort of loop.</p>
+<p>Here&rsquo;s the thing: <strong>the entire program is a loop.</strong> Event listeners for user input. Change squares' values. Redraw changed squares. User selects another color: update UI, update current color. Update Canvas.</p>
+<p>We want to write all of our rendering functions in an efficient way so that we can call them over and over, and they will <em>only act on changed elements</em>.</p>
+<p>We&rsquo;ll refactor our <code>setData</code> function slightly. When we set a value of the data array, we will push the index into an array called <code>dirtyIndices</code>.</p>
+<p>Each time we call <code>drawData</code>, we will iterate through <code>dirtyIndices</code> instead of <code>canvasData</code>. We&rsquo;ll draw the <code>dirtyIndices</code>, and then we&rsquo;ll reset the <code>dirtyIndices</code> list to zero.</p>
+<p>In <code>setData</code>, we&rsquo;ll also refuse to change our data array for an index that is dirty. This means that the data cannot be modified until the user sees the result of the last modification on the canvas.</p>
+<p>This is what it&rsquo;s going to look like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> dirtyIndices <span style="color:#ff79c6">=</span> [];
+
+<span style="color:#8be9fd;font-style:italic">function</span> setData(idx, color) {
+  <span style="color:#ff79c6">if</span> (dirtyIndices.includes(idx)) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> currentColor <span style="color:#ff79c6">=</span> canvasData[idx];
+  <span style="color:#ff79c6">if</span> (color <span style="color:#ff79c6">!==</span> currentColor) {
+    canvasData[idx] <span style="color:#ff79c6">=</span> color;
+  } <span style="color:#ff79c6">else</span> {
+    canvasData[idx] <span style="color:#ff79c6">=</span> DEFAULT_COLOR;
+  }
+  dirtyIndices.push(idx);
+}
+
+<span style="color:#8be9fd;font-style:italic">function</span> drawData() {
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> dirtyIndices.length; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> color <span style="color:#ff79c6">=</span> canvasData[dirtyIndices[i]];
+    colorBox(idxToRowCol(dirtyIndices[i]), color);
+  }
+  dirtyIndices <span style="color:#ff79c6">=</span> [];
+  drawGrid();
+  requestAnimationFrame(drawData);
+}
+</code></pre></div><h3 id="requestanimationframe">requestAnimationFrame?</h3>
+<p><a href="http://creativejs.com/resources/requestanimationframe/index.html" target="_blank" rel="noreferrer noopener">requestAnimationFrame</a> is much kinder to the browser than <code>setInterval</code> when you&rsquo;re calling animation code. The timing of <code>setInterval</code> is not guaranteed, and it is not sync&rsquo;d up with the browser&rsquo;s native refresh rate (around 60 Hz). When you put your animation code in <code>setInerval</code>, you&rsquo;re often asking the browser to redraw when it&rsquo;s not ready.</p>
+<p>This hogs CPU and GPU, not to mention making things look strange.</p>
+<p><code>requestAnimationFrame</code> tells the browser &ldquo;hey, when you&rsquo;re ready to update next, call this function to get the next frame of my animation.&rdquo; Less CPU usage. Things appear smoother. This is going to be especially important in Part Two of the tutorial when we have more things going on in each frame: mouse drag events, changing UI, etc.</p>
+<h3 id="further-refactoring">Further Refactoring</h3>
+<p>Y&rsquo;know what&hellip;we can even refactor our grid drawing code. From <code>colorBox</code>, we&rsquo;ll call <code>reOutline</code> with the row and column. <code>reOutline</code> will do just that: re-outline the given square.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> reOutline(row, col) {
+  ctx.lineWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.5</span>;
+  ctx.setTransform(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>);
+  ctx.translate(<span style="color:#bd93f9">0.5</span>, <span style="color:#bd93f9">0.5</span>);
+  ctx.beginPath();
+  ctx.moveTo(col <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH, row <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH);
+  ctx.lineTo(col <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH, (row <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH);
+  ctx.stroke();
+  ctx.lineTo((col <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH, (row <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH);
+  ctx.stroke();
+  ctx.lineTo((col <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH, row <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH);
+  ctx.stroke();
+  ctx.lineTo(col <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH, row <span style="color:#ff79c6">*</span> BOX_SIDE_LENGTH);
+  ctx.stroke();
+  ctx.closePath();
+}
+</code></pre></div><p>Finally, we can write a <code>resetCanvas</code> function that will redraw the entire canvas with the grid. <code>resetCanvas</code> is just a special case of <code>drawData()</code>, where <em>all the cells</em> are dirty.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6272a4">/* Reset canvas: mark all as dirty */</span>
+<span style="color:#8be9fd;font-style:italic">function</span> resetCanvas() {
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> canvasData.length; i<span style="color:#ff79c6">++</span>) {
+    canvasData[i] <span style="color:#ff79c6">=</span> DEFAULT_COLOR;
+    dirtyIndices.push(i);
+  }
+}
+</code></pre></div><p>Ahh, so much better.</p>
+<h3 id="were-off">We&rsquo;re Off!</h3>
+<p>We&rsquo;ll write a function to initialize the editor and one to set Event Listeners. It might seem like overkill now, but we&rsquo;ll build them out later on to finish off the app.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> addListeners() {
+  canvas.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, handleClick);
+}
+<span style="color:#8be9fd;font-style:italic">function</span> initEditor() {
+  getCanvasAndContext();
+  resetCanvas();
+  addListeners();
+}
+</code></pre></div><p>All we need to start the app now is two simple calls. The loop runs, updates only when it needs to, and the user is happy!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">window</span>.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  initEditor();
+  drawData();
+};
+</code></pre></div><p>Stay tuned for Parts Two and Three, where we will continue to build out the UI, allow the user to choose different colors, add mouse drag support, and more.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixelart/"> pixelart </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixl/"> pixl </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

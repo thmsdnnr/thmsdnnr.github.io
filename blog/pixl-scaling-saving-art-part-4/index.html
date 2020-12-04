@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Pixl: Scaling &amp; Saving Art [part 4]">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,pixelArt,pixl,UI"><meta name="description" content="Enabling save and restore of images using the browser&#39;s localStorage API."><meta property="og:title" content="Pixl: Scaling &amp; Saving Art [part 4]" />
+<meta property="og:description" content="Enabling save and restore of images using the browser&#39;s localStorage API." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/" />
+<meta property="article:published_time" content="2018-01-12T09:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-12T09:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pixl: Scaling &amp; Saving Art [part 4]"/>
+<meta name="twitter:description" content="Enabling save and restore of images using the browser&#39;s localStorage API."/>
+
+	
+	
+
+	<title>Pixl: Scaling &amp; Saving Art [part 4] | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">12</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Pixl: Scaling &amp; Saving Art [part 4]</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h3 id="a-note-to-the-reader">A note to the reader.</h3>
+<p>To be frank, this project was an experiment to see how far one could go with VanillaJS without using any outside frameworks like React, Redux, Angular, or Vue. I think it has been an interesting exercise. You can get quite far! It also becomes clear that after trying to juggle events and showing/hiding divs that it&rsquo;d be nice to have components for UI that updated automatically when they received a change in their slice of state.</p>
+<p>Perhaps these exercises can, in addition to showing you some techniques of JS and Canvas, also illustrate the problems that these view frameworks were designed to solve. A potential topic for a future tutorial would be a rewrite of Pixl in React+Redux, showing how the UI is simplified and we can more easily add features to the app.</p>
+<h2 id="now-on-to-part-4">Now on to part 4!</h2>
+<p><figure>
+  <img src="/assets/pics/pixl_4.png#400-high" alt="Image of pixel editor displaying a greeting with saved image pane on the left"  />
+</figure></p>
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="MrXemo"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<ul>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+</li>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+</li>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank" rel="noreferrer noopener">part three</a> we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
+</li>
+</ul>
+<h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
+<p>Now we&rsquo;re going to enable the user to save off their masterpiece in localStorage and restore these saved images at a later date for further editing. In addition to loading images, we&rsquo;ll also support the deletion of these images in case the user does not want them any longer.</p>
+<h3 id="lets-get-started">Let&rsquo;s get started.</h3>
+<p>First we&rsquo;ll create a div to hold the saved image pane on the left-hand side of the canvas. We&rsquo;ll put it right between the color palette and the canvas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;palette&#34;</span>&gt;&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;randomPalette&#34;</span>&gt;rando&lt;/<span style="color:#ff79c6">button</span>&gt;/
+&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;reset&#34;</span>&gt;reset&lt;/<span style="color:#ff79c6">button</span>&gt;&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;swatch&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;savedImages&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;canvas&#34;</span>&gt;&lt;<span style="color:#ff79c6">canvas</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;editor&#34;</span>&gt;&lt;/<span style="color:#ff79c6">canvas</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+</code></pre></div><p>We&rsquo;ll also add two buttons to the toolbar. One will save the current image to the list of images in localStorage. The other will toggle open the saved image pane for the user to select from.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;saveImage&#34;</span>&gt;save image&lt;/<span style="color:#ff79c6">button</span>&gt;
+&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;loadImages&#34;</span>&gt;load images&lt;/<span style="color:#ff79c6">button</span>&gt;
+</code></pre></div><p>In order to make these new buttons work, we have to:</p>
+<ol>
+<li>Listen to the two new buttons we created.</li>
+<li>When the user clicks &ldquo;Save Image&rdquo;, we must take the current <code>canvasData</code> array and save it off to an array of images in localStorage.</li>
+<li>When the user clicks &ldquo;Load Images&rdquo;, we must grab the canvasData from localStorage (if it exists), and display each image in the preview pane.</li>
+</ol>
+<p>In the preview pane, we allow users to:</p>
+<ol>
+<li>Select an image for editing</li>
+<li>Delete an image from storage</li>
+</ol>
+<h4 id="1-listen-and-fetch-parameters">1. Listen and Fetch Parameters</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;saveImage&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, saveImage);
+<span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;loadImages&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, loadImages);
+</code></pre></div><p>Save image is our handler that fires when the user decides to save the current canvas image.</p>
+<p>If you aren&rsquo;t familiar with localStorage, check out <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/02/code-morsels-localstorage.html" target="_blank" rel="noreferrer noopener">my tutorial on it</a> <em>cough shameless plug</em>.</p>
+<p>localStorage in one line: a key-value store persistent across browser sessions that our app can use to save data on the user&rsquo;s machine (until they clear out their cookies+other saved data of course).</p>
+<h4 id="save-the-image">Save the image</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> saveImage(e) {
+  <span style="color:#8be9fd;font-style:italic">let</span> saved <span style="color:#ff79c6">=</span> localStorage.getItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>);
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>saved) {
+    <span style="color:#6272a4">// initialize save object
+</span><span style="color:#6272a4"></span>    <span style="color:#8be9fd;font-style:italic">let</span> saveObj <span style="color:#ff79c6">=</span> JSON.stringify({
+      images<span style="color:#ff79c6">:</span> [canvasData],
+    });
+    localStorage.setItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>, saveObj);
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#6272a4">// retrieve image array and place new image at the front
+</span><span style="color:#6272a4"></span>    saved <span style="color:#ff79c6">=</span> JSON.parse(saved);
+    <span style="color:#8be9fd;font-style:italic">let</span> newImages <span style="color:#ff79c6">=</span> saved.images.slice();
+    newImages.push(canvasData);
+    <span style="color:#8be9fd;font-style:italic">let</span> saveObj <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, saved, { images<span style="color:#ff79c6">:</span> newImages });
+    localStorage.setItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>, JSON.stringify(saveObj));
+  }
+  loadImages();
+}
+
+</code></pre></div><p>We store the images as an object with a key <code>images</code>, mapping to an array of <code>canvasData</code> arrays.</p>
+<p>When the user clicks <code>saveImage</code>, we first check to see if an array of saved images exists. If it does not, we initialize it with the <code>images</code> array containing only this current canvas. Then we use <code>setItem</code> to set our stringified object under the <code>pixl</code> key in storage.</p>
+<p>If the array already exists, we make a copy of <code>saved.images</code>, push our image onto the copy, and re-stringify the object with our new image, assigning it to localStorage.</p>
+<p>You might be asking yourself: &ldquo;Hey, what&rsquo;s all this <code>Object.assign()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank" rel="noreferrer noopener">(Doc)</a> mess?&rdquo;</p>
+<p><code>Object.assign</code> is a shortcut to copy values from source objects to a target object.</p>
+<p>What if we decide to save other things in the <code>pixl</code> key in storage: say, the time the user last visited, or editor settings like the active color? I&rsquo;m defining my image storage as existing under the <code>images</code> key.</p>
+<p>Here, we copy everything from the saved object into an empty object <code>{}</code>. Then we copy everything from the <code>images</code> key we just modified into this new object. This means that if we have other keys in <code>saved</code>, they&rsquo;ll be preserved. We only save off the <code>images</code> &ldquo;slice&rdquo; of the program&rsquo;s state.</p>
+<h4 id="immutable-state">Immutable State</h4>
+<p>I&rsquo;m enforcing <a href="https://en.wikipedia.org/wiki/Immutable_object" target="_blank" rel="noreferrer noopener">immutability</a> here: the idea that once an object is created, it cannot be modified. Instead of mutating the original value I have stored in localStorage, I create a new object, explicitly assigning to one key of that object.</p>
+<p>If you use <a href="https://redux.js.org/" target="_blank" rel="noreferrer noopener">Redux</a> or <a href="https://facebook.github.io/immutable-js/" target="_blank" rel="noreferrer noopener">Immutable</a>, this pattern will already be familiar to you. If not, it&rsquo;s worth reading about. Having an immutable state as a single source of truth can save a lot of hair-pulling when you are debugging your code.</p>
+<h4 id="load-the-images">Load the images</h4>
+<p>Loading images is a bit more complicated, since once we load them, we will have to display them in the pane on the left for the viewer to see. First, we&rsquo;ll grab them from localStorage, making sure that the data exists before we call <code>JSON.parse()</code> on it! If the data doesn&rsquo;t exist, we return false. We don&rsquo;t want to show an empty pane.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> loadImages(e) {
+  <span style="color:#8be9fd;font-style:italic">let</span> saved <span style="color:#ff79c6">=</span> localStorage.getItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>);
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>saved) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  loadedImages <span style="color:#ff79c6">=</span> JSON.parse(saved);
+}
+</code></pre></div><p>We create a <code>loadedImages</code> global variable to hold the currently loaded images.</p>
+<p>Okay, we&rsquo;ve got the data. Now how do we display it?</p>
+<p>You might remember the  <code>grabCanvas</code> <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html#2-scale-the-canvas" target="_blank" rel="noreferrer noopener">(link)</a> method from the last tutorial. It&rsquo;s what we used to grab <code>canvasData</code> and &ldquo;blit&rdquo; it onto a new canvas at the bottom of the screen at a user-specified size, background color, and transparency.</p>
+<p>Previously, it took three arguments: width, transparency (true/false), and background color. I&rsquo;ve added a fourth argument, <code>data</code>, so that grabCanvas can now make us a canvas with an arbitrary data array. We have data arrays corresponding to saved images stored in localStorage&hellip;I think you see where we&rsquo;re going with this.</p>
+<p>We can draw arbitrary data by changing just two lines.</p>
+<p><code>function grabCanvas(width, transparent, bgColor) {</code></p>
+<p>becomes</p>
+<p><code>function grabCanvas(width, transparent, bgColor, data) {</code>,</p>
+<p>and</p>
+<p><code>for (var i=0;i&lt;canvasData.length;i++) {</code></p>
+<p>becomes</p>
+<p><code>for (var i=0;i&lt;data.length;i++) {</code></p>
+<p>That&rsquo;s not quite enough though. I also modularized <code>grabCanvas</code>. Previously, I had the function not only grab the current canvas state and create a new canvas: I also had it <em>append that canvas to the DOM in the image pane at the bottom</em>.</p>
+<p>This is a <strong>side-effect</strong>. A function is said to have <a href="https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29" target="_blank" rel="noreferrer noopener">side effects</a> if it &ldquo;modifies state outside its scope&rdquo; or does something like a database call or a DOM manipulation.</p>
+<p>Side effects are not bad. This is good, because they are inevitable. The key is to make them predictable and modular enough so that they do not impact how the rest of your code is structured.</p>
+<p>In this case the side effect is detrimental. Can you see why? We want to have a separate pane to display saved images, but the pane where <code>grabCanvas</code> writes to has been hard-coded in.</p>
+<p>Previously, we had this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> blit <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;canvas&#34;</span>);
+blit.height <span style="color:#ff79c6">=</span> width; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span>blit.width <span style="color:#ff79c6">=</span> width;
+blit.classList.add(<span style="color:#f1fa8c">&#34;c-output&#34;</span>);
+blit.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cvs_no&#34;</span> <span style="color:#ff79c6">+</span> cvsID;
+<span style="color:#8be9fd;font-style:italic">let</span> blitCtx <span style="color:#ff79c6">=</span> blit.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+<span style="color:#ff79c6">const</span> cellDim <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.ceil(width <span style="color:#ff79c6">/</span> NUM_COLS);
+
+<span style="color:#6272a4">// We hard-coded in imageTray and
+</span><span style="color:#6272a4">// added our new canvas to it directly. SIDE EFFECT!
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> tray <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;imageTray&#34;</span>);
+tray.prepend(blit); 
+tray.scrollLeft <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</code></pre></div><p>Why not just <strong>return</strong> blit (scaled canvas) and let the calling code decide where (or if!) to place it?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> blit <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;canvas&#34;</span>);
+blit.height <span style="color:#ff79c6">=</span> width; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span>blit.width <span style="color:#ff79c6">=</span> width;
+blit.classList.add(<span style="color:#f1fa8c">&#34;c-preview&#34;</span>);
+blit.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cvs_&#34;</span> <span style="color:#ff79c6">+</span> cvsID;
+<span style="color:#8be9fd;font-style:italic">let</span> blitCtx <span style="color:#ff79c6">=</span> blit.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+<span style="color:#ff79c6">const</span> cellDim <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.ceil(width <span style="color:#ff79c6">/</span> NUM_COLS);
+<span style="color:#6272a4">// ... //
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">return</span> blit;
+</code></pre></div><p>We can make use of our new function to draw saved images in the pane we added on the left side of the page.</p>
+<p>Let&rsquo;s finish up <code>loadImages</code>. For each image, we:</p>
+<ol>
+<li>Create a container div</li>
+<li>Give that div a unique id (which we&rsquo;ll use to enable click-and-select + delete saved)</li>
+<li>Add a close box div (a little circular &ldquo;click to delete&rdquo; div)</li>
+<li>Append the close box to the container</li>
+<li>Grab the scaled-down canvas from <code>grabCanvas</code>, passing in <code>img</code> (the imageData for this image)</li>
+<li>Append the canvas to the container from Step 1</li>
+<li>Append the container div to the saved image pane to the left of the canvas.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> sI <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;savedImages&#34;</span>);
+sI.innerHTML <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;&#34;</span>; <span style="color:#6272a4">// clear out contents of div, if already populated
+</span><span style="color:#6272a4"></span>loadedImages.images.map((img, idx) =&gt; {
+  <span style="color:#8be9fd;font-style:italic">let</span> blitContainer <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+  blitContainer.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;container_close_&#34;</span> <span style="color:#ff79c6">+</span> idx;
+  blitContainer.classList.add(<span style="color:#f1fa8c">&#34;blit-container&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> closeBox <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.createElement(<span style="color:#f1fa8c">&#34;div&#34;</span>);
+  closeBox.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;close_&#34;</span> <span style="color:#ff79c6">+</span> idx;
+  closeBox.classList.add(<span style="color:#f1fa8c">&#34;close&#34;</span>);
+  blitContainer.appendChild(closeBox);
+  <span style="color:#8be9fd;font-style:italic">let</span> canvas <span style="color:#ff79c6">=</span> grabCanvas(<span style="color:#bd93f9">128</span>, <span style="color:#ff79c6">true</span>, <span style="color:#ff79c6">null</span>, img);
+  canvas.id <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;close_&#34;</span> <span style="color:#ff79c6">+</span> idx;
+  blitContainer.appendChild(canvas);
+  sI.prepend(blitContainer);
+});
+sI.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, handleSavedPaneClick);
+sI.style.display <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;flex&#34;</span>;
+</code></pre></div><p>We make sure to clear out the saved images div prior to writing these images (say it&rsquo;s already been populated!).</p>
+<p>We also add an event listener to handle clicks on the saved images pane and set the images pane display style to <code>'flex'</code> (previously it did not appear, because its CSS display is <code>'none'</code>).</p>
+<p>We refactor our old function to use our newly refactored <code>grabCanvas</code> method. Instead of just calling <code>grabCanvas</code>, it calls <code>grabCanvas</code> and then mounts the returned canvas in its right place.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> getUserImageParameters(e) {
+  e.preventDefault();
+  <span style="color:#8be9fd;font-style:italic">let</span> W <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;select#pxWidth&#34;</span>).value;
+  <span style="color:#8be9fd;font-style:italic">let</span> T <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;input#transparent&#34;</span>).checked;
+  <span style="color:#8be9fd;font-style:italic">let</span> BG <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;#&#34;</span> <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;input#bgColor&#34;</span>).value;
+  <span style="color:#8be9fd;font-style:italic">let</span> tray <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;imageTray&#34;</span>);
+  tray.prepend(grabCanvas(W, T, BG, canvasData));
+  tray.scrollLeft <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+}
+</code></pre></div><p>Phew, things are less messy and interrelated now.</p>
+<h4 id="loading-saved-images-on-user-click">Loading saved images on user click</h4>
+<p>Now our images will display in the pane on the left, but that&rsquo;s rather boring. Wouldn&rsquo;t it be nice if the user could scroll through the saved images, click on one, and have it appear back in the canvas for editing?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> forceRedraw() {
+  dirtyIndices <span style="color:#ff79c6">=</span> canvasData.map((e, idx) =&gt; idx);
+}
+
+<span style="color:#8be9fd;font-style:italic">function</span> selectImage(e) {
+  <span style="color:#8be9fd;font-style:italic">let</span> saved <span style="color:#ff79c6">=</span> localStorage.getItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>);
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>saved) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  saved <span style="color:#ff79c6">=</span> JSON.parse(saved);
+  <span style="color:#8be9fd;font-style:italic">let</span> savedIdx <span style="color:#ff79c6">=</span> e.target.id.split(<span style="color:#f1fa8c">&#34;_&#34;</span>)[<span style="color:#bd93f9">1</span>];
+  canvasData <span style="color:#ff79c6">=</span> saved.images[savedIdx];
+  forceRedraw();
+  <span style="color:#6272a4">// close saved images pane
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;savedImages&#34;</span>).style.display <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;none&#34;</span>;
+}
+</code></pre></div><p>We&rsquo;ve assigned each preview image a unique ID which we can access by splitting the ID on <code>_</code> and grabbing the second part of that split, the ID number. If we want to load up the image, we set <code>canvasData</code> equal to that entry in our <code>savedImages</code> array and call <code>forceRedraw</code>. <code>forceRedraw</code> marks all the canvas indices as dirty. The next <code>requestAnimationFrame</code>, all the canvas squares will be redrawn, displaying our newly-loaded image on the canvas.</p>
+<p>When we load the image, we close the preview pane, setting the display style back to <code>'none'</code>.</p>
+<p>We write the first part of our <code>handleSavedPaneClick</code> handler to invoke <code>selectImage</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleSavedPaneClick(e) {
+  <span style="color:#ff79c6">if</span> (e.target.classList.contains(<span style="color:#f1fa8c">&#34;c-preview&#34;</span>)) {
+    selectImage(e);
+  }
+}
+</code></pre></div><h4 id="deleting-saved-images-on-user-click">Deleting saved images on user click</h4>
+<p>First we need a function to delete an image from localStorage. Just as we did with loading images, we pick out this image based on its index, which we can get from the click event.</p>
+<p>To delete the image, we simply call <code>filter</code> on the <code>loadedImages.images</code> array to return an array with everything but the image of the index we want to remove. Then we write this filtered array to localStorage.</p>
+<p>To make the UI reflect the changed state, we also must remove the preview canvas from the pane.</p>
+<p>Here&rsquo;s the function to delete the image, given its index, and save the updated array back to localStorage:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> deleteImageByIdx(imgIdx) {
+  <span style="color:#6272a4">// remove image from localStorage
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> saved <span style="color:#ff79c6">=</span> localStorage.getItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>);
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>saved) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  saved <span style="color:#ff79c6">=</span> JSON.parse(saved);
+  <span style="color:#8be9fd;font-style:italic">let</span> filtered <span style="color:#ff79c6">=</span> saved.images.filter((e, idx) =&gt; idx <span style="color:#ff79c6">!==</span> imgIdx);
+  <span style="color:#8be9fd;font-style:italic">let</span> saveObj <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, filtered, { images<span style="color:#ff79c6">:</span> filtered });
+  localStorage.setItem(<span style="color:#f1fa8c">&#34;pixl&#34;</span>, JSON.stringify(saveObj));
+}
+</code></pre></div><p>And here&rsquo;s the second part of this logic in our <code>handleSavedPaneClick</code> method. We only want to delete the image if the user clicked delete (if the user clicked the image itself, we want to <strong>load</strong> the image!). SO we only listen to click events with the class <code>close</code>. If this click happens, we grab the index based on the <code>id</code> of the click event and invoke <code>deleteImageByIdx</code> with the id.</p>
+<p>Then, we select the <code>div</code> that holds the saved images, select the div that holds the image we wish to delete, and call <code>parent.removeChild(child)</code> to remove the deleted div from the DOM.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">if</span> (e.target.classList.contains(<span style="color:#f1fa8c">&#34;close&#34;</span>)) {
+  <span style="color:#8be9fd;font-style:italic">let</span> imgIdx <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Number</span>(e.target.id.split(<span style="color:#f1fa8c">&#34;_&#34;</span>)[<span style="color:#bd93f9">1</span>]);
+  deleteImageByIdx(imgIdx);
+  <span style="color:#8be9fd;font-style:italic">let</span> savedPane <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;savedImages&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> closing <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;container_close_&#34;</span> <span style="color:#ff79c6">+</span> imgIdx);
+  savedPane.removeChild(closing);
+}
+</code></pre></div><h3 id="stay-tuned-for-css">Stay tuned for CSS</h3>
+<p>We&rsquo;ve added all the features to this project for now. It&rsquo;s been a good run. In the last installment, we&rsquo;ll cover project styling and optimize the CSS.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixelart/"> pixelart </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixl/"> pixl </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/ui/"> ui </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

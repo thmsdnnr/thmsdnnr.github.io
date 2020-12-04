@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Let&#39;s Implement PKCS7 Padding!">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set2"><meta name="description" content="We implement PKCS7, a commonly used padding in cryptography. And we solve Cryptopals Set 2 Challenge 9!"><meta property="og:title" content="Let&#39;s Implement PKCS7 Padding!" />
+<meta property="og:description" content="We implement PKCS7, a commonly used padding in cryptography. And we solve Cryptopals Set 2 Challenge 9!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/lets-implement-pkcs7-padding/" />
+<meta property="article:published_time" content="2017-09-22T21:16:04+00:00" />
+<meta property="article:modified_time" content="2017-09-22T21:16:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s Implement PKCS7 Padding!"/>
+<meta name="twitter:description" content="We implement PKCS7, a commonly used padding in cryptography. And we solve Cryptopals Set 2 Challenge 9!"/>
+
+	
+	
+
+	<title>Let&#39;s Implement PKCS7 Padding! | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">22</span>
+				<span class="rest">Sep 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Let&#39;s Implement PKCS7 Padding!</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/2/challenges/9" target="_blank" rel="noreferrer noopener">Cryptopals Set 2 Challenge 9</a></p>
+<h3 id="step-0-we-basically-already-did-this-in-challenge-7">Step 0: We Basically Already Did This in Challenge 7</h3>
+<p>But here we&rsquo;ll focus on it primarily. And cover the purpose behind cryptographic padding in a block cipher for purposes of both encryption and decryption. You can read more about PKCS7 padding in <a href="https://en.wikipedia.org/wiki/Padding_%28cryptography%29#PKCS7" target="_blank" rel="noreferrer noopener">this Wikipedia article</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> padToN(msg, num, padC) {
+  <span style="color:#6272a4">// pads array msg num bytes with padC hexadecimal character
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (
+    <span style="color:#ff79c6">!</span>msg <span style="color:#ff79c6">||</span>
+    num <span style="color:#ff79c6">&lt;</span> msg.length <span style="color:#ff79c6">||</span>
+    <span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">Array</span>.isArray(msg) <span style="color:#ff79c6">||</span>
+    padC.length <span style="color:#ff79c6">!==</span> msg[<span style="color:#bd93f9">0</span>].length
+  ) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#ff79c6">while</span> (msg.length <span style="color:#ff79c6">&lt;</span> num) {
+      msg.push(padC);
+    }
+  }
+  <span style="color:#ff79c6">return</span> msg;
+}
+
+<span style="color:#8be9fd;font-style:italic">function</span> PKCS7(arr, blockSz) {
+  <span style="color:#6272a4">// returns PKCS7 padded array
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>arr <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">!</span>blockSz <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">Array</span>.isArray(arr) <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">!</span>arr.length) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> padN <span style="color:#ff79c6">=</span> blockSz <span style="color:#ff79c6">*</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(arr.length <span style="color:#ff79c6">/</span> blockSz) <span style="color:#ff79c6">+</span> blockSz;
+  <span style="color:#8be9fd;font-style:italic">let</span> fillCharacter <span style="color:#ff79c6">=</span> hexPad(<span style="color:#8be9fd;font-style:italic">parseInt</span>(padN <span style="color:#ff79c6">-</span> arr.length, <span style="color:#bd93f9">10</span>).toString(<span style="color:#bd93f9">16</span>));
+  <span style="color:#ff79c6">if</span> (arr.length <span style="color:#ff79c6">%</span> blockSz <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span>) {
+    arr <span style="color:#ff79c6">=</span> padToN(arr, padN, fillCharacter);
+  } <span style="color:#6272a4">// add fillCharacter bytes to make len%16==0
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">else</span> {
+    arr <span style="color:#ff79c6">=</span> arr.concat(<span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Array</span>(blockSz).fill(<span style="color:#f1fa8c">&#34;10&#34;</span>));
+  } <span style="color:#6272a4">// add a new 16-byte block
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">return</span> arr;
+}
+
+</code></pre></div><p>Above is my implementation. You can see some of the helper functions going on here (hexPad to make sure each hex character is length==2). I generalized the padding behavior in <code>padToN</code> to pad any array with any number of characters. I then used this to pad out the key used if it is fewer than the number of bits of encryption, or to slice it if it is greater than the number of bits of encryption.</p>
+<p>PKCS7 padding is simple to understand. If the size of the message is not an integer multiple of the block size, bytes are added until it becomes an integer multiple. The value of each added byte is the total number of bytes that were added. For example, if the message is 3 bytes short of an integer multiple of 16, three 0x03 bytes are added to the end of the block.</p>
+<p>On the other hand, if the message <em>is</em> an integer multiple of the block size, an entire block of 0x15 is added (16 0x15 characters) to the end of the message. Why? It&rsquo;s a sort of checksum, to signify that you&rsquo;ve reached the end of the message during decryption and that no more data follows. The assumption here is that the encrypted message (at least the <em>end</em> of it) does not contain ASCII characters 0-15. Here&rsquo;s an example of how you can code the chopping:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> chopPKCS7(padArr) {
+  <span style="color:#6272a4">//  accepts padded hex array, returns non-padded array
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">Array</span>.isArray(padArr) <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">!</span>padArr.length) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> last <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Number</span>(<span style="color:#8be9fd;font-style:italic">parseInt</span>(padArr[padArr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>], <span style="color:#bd93f9">16</span>).toString(<span style="color:#bd93f9">10</span>));
+  <span style="color:#ff79c6">if</span> (last <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> last <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">16</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> possibleSlice <span style="color:#ff79c6">=</span> padArr.slice(padArr.length <span style="color:#ff79c6">-</span> last);
+    <span style="color:#8be9fd;font-style:italic">let</span> lastCh <span style="color:#ff79c6">=</span> padArr[padArr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>];
+    <span style="color:#ff79c6">if</span> (last <span style="color:#ff79c6">&gt;=</span> padArr.length) {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(
+        <span style="color:#f1fa8c">&#34;Padding &gt;= array length! Are you sure you wanna do that?&#34;</span>
+      );
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>possibleSlice.every((c) =&gt; c <span style="color:#ff79c6">==</span> lastCh)) {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;String is not PKCS7-padded.&#34;</span>);
+    }
+    <span style="color:#ff79c6">return</span> padArr.slice(<span style="color:#bd93f9">0</span>, padArr.length <span style="color:#ff79c6">-</span> last);
+  }
+  <span style="color:#ff79c6">return</span> padArr;
+}
+
+</code></pre></div><p>This is a lot of function for what it does, which is this:</p>
+<ul>
+<li>Read the last character (N) of the decoded message.</li>
+<li>If it is between [0x00&hellip;0x0F], determine if the message is PKCS7-padded</li>
+<li>If it is, chop off N characters from the end &amp; return</li>
+<li>If it seems like it&rsquo;s a malformed PKCS7 message, throw an error</li>
+<li>If it is not PKCS7-padded, return the decoded message unmodified</li>
+</ul>
+<p>Error checks are important whenever you&rsquo;re truncating strings. Even though it&rsquo;s rare to have the ASCII characters 0-15 in a string, it could still happen. PKCS7 says we only chop off these characters <em>if there are that many</em> characters. If there aren&rsquo;t, it could indicate that e.g., if the message is being transmitted over a network, we are in the middle of a block of ASCII 0-15 and <em>not</em> at the end of the message. While it&rsquo;s not the job of the padding code to ensure proper network transmission, error checks here make the code more robust and bugs easier to identify.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set2/"> cryptopals-set2 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

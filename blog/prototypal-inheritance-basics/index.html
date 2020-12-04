@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Prototypal Inheritance Basics">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,fundamentals,inheritance,objects,classes,prototypes,inheritance,new"><meta name="description" content="What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax."><meta property="og:title" content="Prototypal Inheritance Basics" />
+<meta property="og:description" content="What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/prototypal-inheritance-basics/" />
+<meta property="article:published_time" content="2018-03-05T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-03-05T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Prototypal Inheritance Basics"/>
+<meta name="twitter:description" content="What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax."/>
+
+	
+	
+
+	<title>Prototypal Inheritance Basics | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">05</span>
+				<span class="rest">Mar 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Prototypal Inheritance Basics</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>When you define an object in Javascript, it has properties.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> cat <span style="color:#ff79c6">=</span> {};
+cat.speak <span style="color:#ff79c6">=</span> () =&gt; <span style="color:#f1fa8c">&#34;Meow!&#34;</span>;
+cat.speak(); <span style="color:#6272a4">// Meow!
+</span></code></pre></div><p>Here we have a cat object. We define and call a speak property. We get what we expect. Meow!</p>
+<p>Now let&rsquo;s experiment. What do you think will happen when we run this code?</p>
+<p><code>cat.hasOwnProperty('speak');</code></p>
+<p>It returns true. But how? We didn&rsquo;t define <code>hasOwnProperty</code> for cat. Where did that function come from?</p>
+<p><code>console.log(cat.__proto__); // {}</code></p>
+<p>Can you guess what&rsquo;s happening here?</p>
+<h2 id="inheritance-through-the-prototype-chain">Inheritance Through The Prototype Chain</h2>
+<p>What is inheritance? Receiving things from your parents you didn&rsquo;t create for yourself.</p>
+<p>You might be able to override some of those things (cut your hair, wear glasses or contacts, spend your trust fund), but your parents set that initial state.</p>
+<p>Things that we do not explicitly alter end up staying the same as when we inherited them.</p>
+<p>Unless we override behaviors, we become our parents.</p>
+<h2 id="walking-up-the-chain">Walking Up the Chain</h2>
+<p>When we attempt to access a property on an object, we first check that object to see if the property exists. If it does, we return the value.</p>
+<p>If it does not, we access the object&rsquo;s parent (prototype) and check all of <em>its</em> properties to see if the property exists there. If it does, we return the value. If not, we repeat the process, until we finally reach a parent of null and return undefined.</p>
+<p>In the case of <code>cat</code>, <code>hasOwnProperty</code> did not exist on the object we defined. However, <code>cat</code> is an Object, and so its prototype is the Object object. This makes sense: the blueprint for building a new object is an object! The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="noreferrer noopener">Object object</a> has the <code>hasOwnProperty</code> method, and so the method is executed.</p>
+<p>You might be scratching your head: okay, the cat did not have the property defined, so we looked at its prototype, the Object. We found the method there. But how come the method returned <code>true</code> when we called it?! Objects do not have a <code>speak</code> method!</p>
+<p><code>Object.speak()</code> // Uncaught TypeError: Object.speak is not a function</p>
+<p>This (no pun intended) is a key element to prototypal inheritance. If a function does not exist as a property of a given object, when it is found on a parent object and executed, it is executed <em>in the context of the inheriting object</em>.</p>
+<blockquote>
+<p>When an inherited function is executed, the value of this points to the inheriting object, not to the prototype object where the function is an own property. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain#Inherting_methods" target="_blank" rel="noreferrer noopener">MDN: Inheriting Methods</a></p>
+</blockquote>
+<p>Here&rsquo;s a function we can use to explore the methods on a given prototype chain.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> logProtoChain(thing) {
+  console.log(<span style="color:#f1fa8c">&#34;the things properties: &#34;</span>, <span style="color:#8be9fd;font-style:italic">Object</span>.getOwnPropertyNames(thing));
+  <span style="color:#8be9fd;font-style:italic">let</span> thisProto <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.getPrototypeOf(thing);
+  <span style="color:#ff79c6">while</span> (thisProto <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    console.log(<span style="color:#f1fa8c">&#34;prototype properties:&#34;</span>, <span style="color:#8be9fd;font-style:italic">Object</span>.getOwnPropertyNames(thisProto));
+    thisProto <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.getPrototypeOf(thisProto);
+  }
+  console.log(thisProto);
+}
+</code></pre></div><h4 id="logprotochain">logProtoChain([])</h4>
+<p>prototype chain: Array -&gt; Object -&gt; null</p>
+<p><code>[&quot;length&quot;]</code></p>
+<h5 id="the-things-properties">The thing&rsquo;s properties</h5>
+<p><code>[&quot;length&quot;, &quot;constructor&quot;, &quot;concat&quot;, &quot;pop&quot;, &quot;push&quot;, &quot;shift&quot;, &quot;unshift&quot;, &quot;slice&quot;, &quot;splice&quot;, &quot;includes&quot;, &quot;indexOf&quot;, &quot;keys&quot;, &quot;entries&quot;, &quot;forEach&quot;, &quot;filter&quot;, &quot;map&quot;, &quot;every&quot;, &quot;some&quot;, &quot;reduce&quot;, &quot;reduceRight&quot;, &quot;toString&quot;, &quot;toLocaleString&quot;, &quot;join&quot;, &quot;reverse&quot;, &quot;sort&quot;, &quot;lastIndexOf&quot;, &quot;copyWithin&quot;, &quot;find&quot;, &quot;findIndex&quot;, &quot;fill&quot;]</code></p>
+<h5 id="array-methods">Array methods</h5>
+<p><code>[&quot;constructor&quot;, &quot;__defineGetter__&quot;, &quot;__defineSetter__&quot;, &quot;hasOwnProperty&quot;, &quot;__lookupGetter__&quot;, &quot;__lookupSetter__&quot;, &quot;isPrototypeOf&quot;, &quot;propertyIsEnumerable&quot;, &quot;toString&quot;, &quot;valueOf&quot;, &quot;__proto__&quot;, &quot;toLocaleString&quot;]</code></p>
+<h5 id="object-methods">Object methods</h5>
+<p>and then null.</p>
+<h4 id="logprotochainfluffykins">logProtoChain(&ldquo;fluffykins&rdquo;)</h4>
+<p>prototype chain: String -&gt; Object -&gt; null</p>
+<p><code>[&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;length&quot;]</code></p>
+<h5 id="the-things-properties-1">The thing&rsquo;s properties</h5>
+<p><code>[&quot;length&quot;, &quot;constructor&quot;, &quot;anchor&quot;, &quot;big&quot;, &quot;blink&quot;, &quot;bold&quot;, &quot;charAt&quot;, &quot;charCodeAt&quot;, &quot;codePointAt&quot;, &quot;concat&quot;, &quot;endsWith&quot;, &quot;fontcolor&quot;, &quot;fontsize&quot;, &quot;fixed&quot;, &quot;includes&quot;, &quot;indexOf&quot;, &quot;italics&quot;, &quot;lastIndexOf&quot;, &quot;link&quot;, &quot;localeCompare&quot;, &quot;match&quot;, &quot;normalize&quot;, &quot;padEnd&quot;, &quot;padStart&quot;, &quot;repeat&quot;, &quot;replace&quot;, &quot;search&quot;, &quot;slice&quot;, &quot;small&quot;, &quot;split&quot;, &quot;strike&quot;, &quot;sub&quot;, &quot;substr&quot;, &quot;substring&quot;, &quot;sup&quot;, &quot;startsWith&quot;, &quot;toString&quot;, &quot;trim&quot;, &quot;trimLeft&quot;, &quot;trimRight&quot;, &quot;toLowerCase&quot;, &quot;toUpperCase&quot;, &quot;valueOf&quot;, &quot;toLocaleLowerCase&quot;, &quot;toLocaleUpperCase&quot;]</code></p>
+<h5 id="string-methods">String methods</h5>
+<p><code>[&quot;constructor&quot;, &quot;__defineGetter__&quot;, &quot;__defineSetter__&quot;, &quot;hasOwnProperty&quot;, &quot;__lookupGetter__&quot;, &quot;__lookupSetter__&quot;, &quot;isPrototypeOf&quot;, &quot;propertyIsEnumerable&quot;, &quot;toString&quot;, &quot;valueOf&quot;, &quot;__proto__&quot;, &quot;toLocaleString&quot;]</code></p>
+<h5 id="object-methods-1">Object methods</h5>
+<p>and then null.</p>
+<p>Try calling <code>logProtoChain</code> on a function. Yes, functions <em>are objects</em>.</p>
+<p>prototype chain: Function -&gt; Object -&gt; null</p>
+<p><code>[&quot;length&quot;, &quot;name&quot;, &quot;arguments&quot;, &quot;caller&quot;, &quot;constructor&quot;, &quot;apply&quot;, &quot;bind&quot;, &quot;call&quot;, &quot;toString&quot;]</code></p>
+<h5 id="function-methods">Function methods</h5>
+<h2 id="property-shadowing--method-overriding">Property Shadowing / Method Overriding</h2>
+<p>Continuing the above example, what do you think will happen if we do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">cat.hasOwnProperty <span style="color:#ff79c6">=</span> () =&gt; <span style="color:#ff79c6">false</span>;
+cat.hasOwnProperty(<span style="color:#f1fa8c">&#34;hasOwnProperty&#34;</span>); <span style="color:#6272a4">// false
+</span></code></pre></div><p>Since we no longer have to look up the prototype chain from cat to find <code>hasOwnProperty</code>, we return the <code>hasOwnProperty</code> defined on the object itself. For comic relief, it&rsquo;s defined in a manner that is both logically true and semantically false.</p>
+<h2 id="assigning-prototypes">Assigning Prototypes</h2>
+<p>We&rsquo;ve seen how when we create an array or a string, the language automatically assigns a prototype that provides the object with handy methods.</p>
+<p>The real power comes from defining our own prototypes to create object hierarchies that can inherit from each other in meaningful ways.</p>
+<p>How can we define our own prototypes for a given object?</p>
+<p>There are three ways:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noreferrer noopener">New operator</a></li>
+<li><code>Object.create()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="noreferrer noopener">(Docs)</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer noopener">Class syntax</a></li>
+</ol>
+<p>Onward!</p>
+<h3 id="1-new">1. New</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> Animal(name, age, greeting) {
+  <span style="color:#ff79c6">this</span>.name <span style="color:#ff79c6">=</span> name <span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#34;anon&#34;</span>;
+  <span style="color:#ff79c6">this</span>.age <span style="color:#ff79c6">=</span> age <span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#34;4&#34;</span>;
+  <span style="color:#ff79c6">this</span>.greeting <span style="color:#ff79c6">=</span> greeting <span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#34;hello good sir&#34;</span>;
+}
+Animal.prototype.greet <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.greeting;
+};
+</code></pre></div><h5 id="our-animal-constructor">Our Animal constructor</h5>
+<p>We can create a new object by using the new keyword. New is nothing magical.</p>
+<p>Let&rsquo;s write our <em>own</em> new function, then, so that we can understand it. New does a few things:</p>
+<ol>
+<li>Creates a new object.</li>
+<li>Sets the object&rsquo;s prototype to that of the constructor function&rsquo;s prototype.</li>
+<li>Calls the constructor function with the given arguments, setting <code>this</code> to the context of the newly-created object. See the MDN docs for <code>.apply()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noreferrer noopener">(Docs)</a>.</li>
+<li>Returns the new object or, if the constructor function returned a non-null object, this returned object.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> makeNewObject(baseObj, ...args) {
+  <span style="color:#8be9fd;font-style:italic">let</span> newObj <span style="color:#ff79c6">=</span> {};
+  newObj.__proto__ <span style="color:#ff79c6">=</span> baseObj.prototype;
+  <span style="color:#8be9fd;font-style:italic">let</span> construct <span style="color:#ff79c6">=</span> newObj.constructor.apply(newObj, args);
+  <span style="color:#ff79c6">return</span> construct <span style="color:#ff79c6">?</span> construct <span style="color:#ff79c6">:</span> newObj;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> cat <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Animal(<span style="color:#f1fa8c">&#34;kevin&#34;</span>, <span style="color:#bd93f9">33</span>, <span style="color:#f1fa8c">&#34;meow&#34;</span>);
+cat.greet(); <span style="color:#6272a4">// meow
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> ourNewCat <span style="color:#ff79c6">=</span> makeNewObject(Animal, <span style="color:#f1fa8c">&#34;kevin&#34;</span>, <span style="color:#bd93f9">33</span>, <span style="color:#f1fa8c">&#34;meow&#34;</span>);
+ourNewCat.greet(); <span style="color:#6272a4">// meow
+</span></code></pre></div><p>These two are equivalent.</p>
+<p>Note that if we change the cat&rsquo;s greeting, the greeting function is updated accordingly. As discussed before, <code>this</code> is bound to the object instance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">cat.greeting <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;ROAR I AM A LION!!&#34;</span>;
+cat.greet(); <span style="color:#6272a4">// ROAR I AM A LION!!
+</span></code></pre></div><h3 id="2-objectcreate">2. Object.create</h3>
+<p><code>Object.create()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="noreferrer noopener">(Docs)</a> takes a prototype object and returns an object with this prototype.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> cat <span style="color:#ff79c6">=</span> {
+  greeting<span style="color:#ff79c6">:</span> () =&gt; <span style="color:#f1fa8c">&#34;meow&#34;</span>,
+  whereDoYouSeeYourself<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span> (years <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5</span>) {
+    <span style="color:#ff79c6">return</span> (
+      <span style="color:#f1fa8c">&#34;In &#34;</span> <span style="color:#ff79c6">+</span>
+      years <span style="color:#ff79c6">+</span>
+      <span style="color:#f1fa8c">&#34; years, I will be sitting on a windowsill watching squirrels.&#34;</span>
+    );
+  },
+};
+
+<span style="color:#ff79c6">const</span> fluffykins <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.create(cat);
+fluffykins.whereDoYouSeeYourself();
+<span style="color:#6272a4">// In 5 years, I will be sitting on a windowsill watching squirrels.
+</span></code></pre></div><h3 id="3-class-syntax">3. Class Syntax</h3>
+<p>ES5 introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer noopener">class syntax</a> that is an overlay of prototypal inheritance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">class</span> Point {
+  constructor(pt) {
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>pt) {
+      <span style="color:#ff79c6">return</span>;
+    }
+    <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">=</span> pt[<span style="color:#bd93f9">0</span>];
+    <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">=</span> pt[<span style="color:#bd93f9">1</span>];
+  }
+  <span style="color:#ff79c6">static</span> computeQuadrant(x, y) {
+    <span style="color:#ff79c6">if</span> (x <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">||</span> y <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+    } <span style="color:#6272a4">// quadrant boundary
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">else</span> {
+      <span style="color:#6272a4">/* 1st q: x&gt;0 y&gt;0, 4th q: x&gt;0, y&lt;0
+</span><span style="color:#6272a4">           2nd q: x&lt;0 y&gt;0, 3rd q: x&lt;0 y&lt;0 */</span>
+      <span style="color:#ff79c6">if</span> (x <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>) {
+        <span style="color:#ff79c6">return</span> y <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">4</span>;
+      } <span style="color:#ff79c6">else</span> {
+        <span style="color:#ff79c6">return</span> y <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span>;
+      }
+    }
+  }
+  get quadrant() {
+    <span style="color:#ff79c6">return</span> Point.computeQuadrant(<span style="color:#ff79c6">this</span>.x, <span style="color:#ff79c6">this</span>.y);
+  }
+}
+
+<span style="color:#ff79c6">class</span> Line <span style="color:#ff79c6">extends</span> Point {
+  constructor(startPt, endPt) {
+    <span style="color:#ff79c6">super</span>();
+    <span style="color:#ff79c6">this</span>.a <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(startPt);
+    <span style="color:#ff79c6">this</span>.b <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(endPt);
+  }
+  get length() {
+    <span style="color:#6272a4">// Pythagoras
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(
+      <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#ff79c6">this</span>.b.x <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.a.x, <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#ff79c6">this</span>.b.y <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.a.y, <span style="color:#bd93f9">2</span>)
+    );
+  }
+  get startQuadrant() {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.a.quadrant;
+  }
+  get endQuadrant() {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.b.quadrant;
+  }
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> Q <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Line([<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>], [<span style="color:#bd93f9">5</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]);
+Q.length; <span style="color:#6272a4">// 6
+</span><span style="color:#6272a4"></span>Q.startQuadrant; <span style="color:#6272a4">// 3
+</span><span style="color:#6272a4"></span>Q.endQuadrant; <span style="color:#6272a4">// 4
+</span></code></pre></div><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static" target="_blank" rel="noreferrer noopener">Static methods</a> are functions that can be called only on the class for which they are defined, not by any of the individual instances of the class.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> P <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point([<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">3</span>]);
+P.computeQuadrant(); <span style="color:#6272a4">// Error: P.computeQuadrant is not a function
+</span><span style="color:#6272a4"></span>P.quadrant; <span style="color:#6272a4">// 1
+</span></code></pre></div><p>It is worth taking a look at the MDN docs for classes, since there&rsquo;s a bit more nuance here.</p>
+<h2 id="updating-prototypes">Updating Prototypes</h2>
+<p>What do you think will happen if we add to the Animal prototype after we&rsquo;ve already created objects based off of it?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> cat <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Animal(<span style="color:#f1fa8c">&#34;kevin&#34;</span>, <span style="color:#bd93f9">33</span>, <span style="color:#f1fa8c">&#34;meow&#34;</span>);
+cat.greet(); <span style="color:#6272a4">// meow
+</span><span style="color:#6272a4"></span>Animal.prototype.sayGoodbye <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#f1fa8c">&#34;Farewell, human.&#34;</span>;
+};
+cat.sayGoodbye(); <span style="color:#6272a4">// ?
+</span></code></pre></div><p>Well, think about what happens when a property doesn&rsquo;t exist on an object. We check the prototype. Did we define <code>sayGoodbye</code> on the prototype? Yes! So even objects that are already created will have the <code>sayGoodbye</code> method. Since we are looking up a method rather than recreating it with each new instance of an object, it is far more memory-efficient.</p>
+<p>If necessary, objects can override parent behavior on an instance-level:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">cat.sayGoodbye <span style="color:#ff79c6">=</span> () =&gt; <span style="color:#f1fa8c">&#34;I don&#39;t know why you say goodbye; I say hello!&#34;</span>;
+cat.sayGoodbye(); <span style="color:#6272a4">// Beatles lyrics
+</span></code></pre></div><h2 id="performance">Performance</h2>
+<p>Prototype chain lookup can be expensive: the farther up you have to look, the longer the code will take to run. This can be a factor with long chains or a large number of objects. Also, whenever you attempt to look up undefined values, the entire chain is traversed (we have to look <em>everywhere</em> until we reach a null prototype).</p>
+<h2 id="monkey-patching-never-ever">Monkey-patching (never ever)</h2>
+<p>It is a bad idea to extend existing prototypes. For example, don&rsquo;t redefine <code>Object.prototype.hasOwnProperty=()=&gt;false</code>. If you require special behavior, override existing methods in a class that inherits from the parent class. Otherwise, you break encapsulation and defeat the purpose of inheritance altogether (not to mention incur the wrath of your fellow programmers who expect built-in language contracts to obtain).</p>
+<h2 id="til">TIL</h2>
+<p>Prototypal inheritance is fundamentally pretty simple. Key takeaways:</p>
+<ol>
+<li>Blueprints within blueprints. A chain of lookups, stopping at the first value we find, or null, whichever comes first.</li>
+<li>If we do not explicitly set a prototype, the language will do it for us based on variable type (string, array, function, etc.).</li>
+<li>Almost every object has Object object as its highest-level prototype.</li>
+<li>Whenever we find a method in an object lookup, any <code>this</code> references in that method refer to the <em>inheriting object</em>, not the object on which the method is found.</li>
+<li>Three ways to harness: new, Object.create, and class syntax.</li>
+</ol>
+<p>Gaining an understanding of the prototype chain is key to leveling up your understanding of Javascript. There is a ton more nuance than discussed here, but if you understand this content, you&rsquo;re well on your way to more advanced applications.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/classes/"> classes </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/inheritance/"> inheritance </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/new/"> new </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/objects/"> objects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/prototypes/"> prototypes </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

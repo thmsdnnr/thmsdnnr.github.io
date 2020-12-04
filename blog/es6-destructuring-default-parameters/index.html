@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="ES6 — Destructuring &#43; Default Parameters">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,ES6-morsel,destructuring"><meta name="description" content="Object and Array destructuring in ES6 allows you to easily extract selected properties of nested objects."><meta property="og:title" content="ES6 — Destructuring &#43; Default Parameters" />
+<meta property="og:description" content="Object and Array destructuring in ES6 allows you to easily extract selected properties of nested objects." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/es6-destructuring-default-parameters/" />
+<meta property="article:published_time" content="2018-03-04T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-03-04T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ES6 — Destructuring &#43; Default Parameters"/>
+<meta name="twitter:description" content="Object and Array destructuring in ES6 allows you to easily extract selected properties of nested objects."/>
+
+	
+	
+
+	<title>ES6 — Destructuring &#43; Default Parameters | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">04</span>
+				<span class="rest">Mar 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">ES6 — Destructuring &#43; Default Parameters</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="es6-morsels">ES6 Morsels?</h2>
+<p>In this series, I&rsquo;m going to cover one or two new ES6 features per post with a deep dive into code examples and consider when it makes sense to use new functionality.</p>
+<h2 id="whats-es6">What&rsquo;s ES6?</h2>
+<p>Javascript, like any language, evolves. The <a href="http://www.ecma-international.org/memento/TC39.htm" target="_blank" rel="noreferrer noopener">TC-39</a> meets to discuss changes to the language. The most recent version <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf" target="_blank" rel="noreferrer noopener">is here</a>, at a cool 885 pages long.</p>
+<p>Let&rsquo;s reduce this complexity a little bit. The language specification is implemented to varying extents in different browsers. <a href="http://kangax.github.io/compat-table/es6/" target="_blank" rel="noreferrer noopener">This compatibility table</a> is a great way to learn what you can and cannot implement natively.</p>
+<p>If a browser does not support a new feature yet, there&rsquo;s a tool called <a href="https://babeljs.io/" target="_blank" rel="noreferrer noopener">Babel</a> that lets you &ldquo;use next generation Javascript, today&rdquo;. It is a transpiler: it compiles JS written with new features into JS that browsers that do not implement these features can still understand.</p>
+<p>Babel can be hooked into your development toolbox so that any code you write gets transpiled down in your final product.</p>
+<h2 id="isnt-this-needlessly-complex">Isn&rsquo;t this needlessly complex?</h2>
+<p>Maybe. The biggest draw toward new features is future compatibility. Where backwards compatibility seeks to make new code jive with older browsers (the hole that Babel fills), future compatibility aims to make code conversant in the &ldquo;languages of tomorrow&rdquo;. Whether this ad copy is needless headache, revelatory development, or fair to middling is a question for your project team. Even if you don&rsquo;t plan to use many of the new features, it&rsquo;s still good to know that they exist.</p>
+<blockquote>
+<p>With all of these new features, as with most anything in life, it&rsquo;s important to critically ask: am I using this because it&rsquo;s new and other people are adopting it, or because it truly makes sense for my life and will enrich it?</p>
+</blockquote>
+<h2 id="default-parameters">Default Parameters</h2>
+<p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters" target="_blank" rel="noreferrer noopener">Default parameters</a></strong> are exactly what they sound like: the values that things default to when no other values are provided.</p>
+<p>In ES6, they are syntactic sugar for checking whether a function is passed an undefined argument and, if so, setting a given default value. Take a look:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> treeFell(observer <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;me&#34;</span>) {
+  <span style="color:#ff79c6">return</span> observer <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">true</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>;
+}
+</code></pre></div><blockquote>
+<p>ES6</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#f1fa8c">&#34;use strict&#34;</span>;
+
+<span style="color:#8be9fd;font-style:italic">function</span> treeFell() {
+  <span style="color:#8be9fd;font-style:italic">var</span> observer <span style="color:#ff79c6">=</span>
+    arguments.length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> arguments[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">undefined</span> <span style="color:#ff79c6">?</span> arguments[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;me&#34;</span>;
+  <span style="color:#ff79c6">return</span> observer <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">true</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>;
+}
+</code></pre></div><blockquote>
+<p>Babel-transpiled</p>
+</blockquote>
+<p>Hey, this function always returns true, thanks to the default value. Maybe <a href="https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest" target="_blank" rel="noreferrer noopener">essence is not perception</a> after all!</p>
+<p>Default arguments can refer to default arguments that <em>precede</em> them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> pluralize(singular <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;cat&#34;</span>, plural <span style="color:#ff79c6">=</span> singular <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;s&#34;</span>) {
+  <span style="color:#ff79c6">return</span> { one<span style="color:#ff79c6">:</span> singular, many<span style="color:#ff79c6">:</span> plural };
+}
+console.log(pluralize(<span style="color:#f1fa8c">&#34;house&#34;</span>)); <span style="color:#6272a4">// {one: &#39;house&#39;, many: &#39;houses&#39;}
+</span></code></pre></div><p>Note the importance of order here. <code>pluralize(plural=singular+&quot;s&quot;, singular=&quot;cat&quot;) {</code> will <em>not</em> work: instead, it returns <code>{one: 'cat', many: 'house'}</code>.</p>
+<p>Finally, the default argument does not persist once the function returns. If you need to maintain the state, you should use a closure or store the value somewhere else.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> newEachTime(valToPush, array <span style="color:#ff79c6">=</span> []) {
+  array.push(valToPush);
+  <span style="color:#ff79c6">return</span> array;
+}
+newEachTime(<span style="color:#bd93f9">1</span>); <span style="color:#6272a4">// [1]
+</span><span style="color:#6272a4"></span>newEachTime(<span style="color:#bd93f9">4</span>); <span style="color:#6272a4">// [4], NOT [1, 4]
+</span></code></pre></div><p>Default function parameters can be handy. However, they can also be dangerous. You should guard against relying upon them too heavily. Their use can both limit the generality of a function as well as obfuscate what happens when a function is called. This can make code more difficult to maintain.</p>
+<h2 id="destructuring">Destructuring</h2>
+<p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" rel="noreferrer noopener">Destructuring</a></strong> enables us to selectively extract properties from an object or entries from an array. Attempting to access properties that do not exist or indices out of range returns a value of undefined.</p>
+<h4 id="with-arrays">With Arrays</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> test <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>];
+<span style="color:#8be9fd;font-style:italic">let</span> [, two, three, , five] <span style="color:#ff79c6">=</span> test;
+console.log(two <span style="color:#ff79c6">+</span> three); <span style="color:#6272a4">// 5
+</span><span style="color:#6272a4"></span>console.log(five); <span style="color:#6272a4">// 5
+</span></code></pre></div><blockquote>
+<p>ES6</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#f1fa8c">&#34;use strict&#34;</span>;
+<span style="color:#8be9fd;font-style:italic">var</span> test <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>];
+<span style="color:#8be9fd;font-style:italic">var</span> two <span style="color:#ff79c6">=</span> test[<span style="color:#bd93f9">1</span>],
+  three <span style="color:#ff79c6">=</span> test[<span style="color:#bd93f9">2</span>],
+  five <span style="color:#ff79c6">=</span> test[<span style="color:#bd93f9">4</span>];
+</code></pre></div><blockquote>
+<p>Babel-transpiled</p>
+</blockquote>
+<p>You can perform nested extraction from arrays as well.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> test <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, [<span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">2.1</span>, <span style="color:#bd93f9">2.2</span>, <span style="color:#bd93f9">2.3</span>, <span style="color:#bd93f9">2.4</span>, <span style="color:#bd93f9">2.5</span>], <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>];
+<span style="color:#8be9fd;font-style:italic">let</span> [, [, , , , , twoPointFive], three, , five, six] <span style="color:#ff79c6">=</span> test;
+console.log(twoPointFive); <span style="color:#6272a4">// 2.5
+</span></code></pre></div><blockquote>
+<p>ES6</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#f1fa8c">&#34;use strict&#34;</span>;
+
+<span style="color:#8be9fd;font-style:italic">var</span> _slicedToArray <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">function</span> sliceIterator(arr, i) {
+    <span style="color:#8be9fd;font-style:italic">var</span> _arr <span style="color:#ff79c6">=</span> [];
+    <span style="color:#8be9fd;font-style:italic">var</span> _n <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+    <span style="color:#8be9fd;font-style:italic">var</span> _d <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    <span style="color:#8be9fd;font-style:italic">var</span> _e <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">undefined</span>;
+    <span style="color:#ff79c6">try</span> {
+      <span style="color:#ff79c6">for</span> (
+        <span style="color:#8be9fd;font-style:italic">var</span> _i <span style="color:#ff79c6">=</span> arr[Symbol.iterator](), _s;
+        <span style="color:#ff79c6">!</span>(_n <span style="color:#ff79c6">=</span> (_s <span style="color:#ff79c6">=</span> _i.next()).done);
+        _n <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>
+      ) {
+        _arr.push(_s.value);
+        <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">&amp;&amp;</span> _arr.length <span style="color:#ff79c6">===</span> i) <span style="color:#ff79c6">break</span>;
+      }
+    } <span style="color:#ff79c6">catch</span> (err) {
+      _d <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+      _e <span style="color:#ff79c6">=</span> err;
+    } <span style="color:#ff79c6">finally</span> {
+      <span style="color:#ff79c6">try</span> {
+        <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>_n <span style="color:#ff79c6">&amp;&amp;</span> _i[<span style="color:#f1fa8c">&#34;return&#34;</span>]) _i[<span style="color:#f1fa8c">&#34;return&#34;</span>]();
+      } <span style="color:#ff79c6">finally</span> {
+        <span style="color:#ff79c6">if</span> (_d) <span style="color:#ff79c6">throw</span> _e;
+      }
+    }
+    <span style="color:#ff79c6">return</span> _arr;
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">function</span> (arr, i) {
+    <span style="color:#ff79c6">if</span> (<span style="color:#8be9fd;font-style:italic">Array</span>.isArray(arr)) {
+      <span style="color:#ff79c6">return</span> arr;
+    } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (Symbol.iterator <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">Object</span>(arr)) {
+      <span style="color:#ff79c6">return</span> sliceIterator(arr, i);
+    } <span style="color:#ff79c6">else</span> {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> TypeError(
+        <span style="color:#f1fa8c">&#34;Invalid attempt to destructure non-iterable instance&#34;</span>
+      );
+    }
+  };
+})();
+
+<span style="color:#8be9fd;font-style:italic">var</span> test <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, [<span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">2.1</span>, <span style="color:#bd93f9">2.2</span>, <span style="color:#bd93f9">2.3</span>, <span style="color:#bd93f9">2.4</span>, <span style="color:#bd93f9">2.5</span>], <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>];
+
+<span style="color:#8be9fd;font-style:italic">var</span> _test$ <span style="color:#ff79c6">=</span> _slicedToArray(test[<span style="color:#bd93f9">1</span>], <span style="color:#bd93f9">6</span>),
+  twoPointFive <span style="color:#ff79c6">=</span> _test$[<span style="color:#bd93f9">5</span>],
+  three <span style="color:#ff79c6">=</span> test[<span style="color:#bd93f9">2</span>],
+  five <span style="color:#ff79c6">=</span> test[<span style="color:#bd93f9">4</span>],
+  six <span style="color:#ff79c6">=</span> test[<span style="color:#bd93f9">5</span>];
+</code></pre></div><blockquote>
+<p>Babel-transpiled</p>
+</blockquote>
+<p>Whether this is worth it or not is questionable. You can write five commas or <code>test[1][5]</code>. I prefer the latter.</p>
+<h4 id="with-objects">With Objects</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> cuteAnimalRatings <span style="color:#ff79c6">=</span> {
+  cats<span style="color:#ff79c6">:</span> [
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Fluffykins&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">10</span> },
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hugo&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">6</span> },
+  ],
+  dogs<span style="color:#ff79c6">:</span> [
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Errol&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span> },
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hedwig&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">11</span> },
+  ],
+};
+
+<span style="color:#ff79c6">const</span> { cats, dogs, iDoNotExist } <span style="color:#ff79c6">=</span> cuteAnimalRatings;
+console.log(cats);
+<span style="color:#6272a4">// [{name: &#34;Fluffykins&#34;, rating: 10}, {name: &#34;Hugo&#34;, rating: 6}],
+</span><span style="color:#6272a4"></span>
+console.log(dogs);
+<span style="color:#6272a4">// [{name: &#34;Errol&#34;, rating: 3}, {name:&#34;Hedwig&#34;, rating:11}]
+</span><span style="color:#6272a4"></span>
+console.log(iDoNotExist);
+<span style="color:#6272a4">// undefined
+</span></code></pre></div><blockquote>
+<p>ES6</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> cuteAnimalRatings <span style="color:#ff79c6">=</span> {
+  cats<span style="color:#ff79c6">:</span> [
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Fluffykins&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">10</span> },
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hugo&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">6</span> },
+  ],
+  dogs<span style="color:#ff79c6">:</span> [
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Errol&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span> },
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hedwig&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">11</span> },
+  ],
+};
+
+<span style="color:#8be9fd;font-style:italic">var</span> cats <span style="color:#ff79c6">=</span> cuteAnimalRatings.cats,
+  dogs <span style="color:#ff79c6">=</span> cuteAnimalRatings.dogs,
+  iDoNotExist <span style="color:#ff79c6">=</span> cuteAnimalRatings.iDoNotExist;
+</code></pre></div><blockquote>
+<p>Babel-transpiled</p>
+</blockquote>
+<p>But what if the object is nested? Well, it works, but it gets pretty ugly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> cuteAnimalRatings <span style="color:#ff79c6">=</span> {
+  cats<span style="color:#ff79c6">:</span> {
+    data<span style="color:#ff79c6">:</span> {
+      nestedWhy<span style="color:#ff79c6">:</span> [
+        { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Fluffykins&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">10</span> },
+        { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hugo&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">6</span> },
+      ],
+    },
+  },
+  dogs<span style="color:#ff79c6">:</span> [
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Errol&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span> },
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hedwig&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">11</span> },
+  ],
+};
+<span style="color:#ff79c6">const</span> {
+  cats<span style="color:#ff79c6">:</span> { data<span style="color:#ff79c6">:</span> { nestedWhy } <span style="color:#ff79c6">=</span> {} } <span style="color:#ff79c6">=</span> {},
+  dogs,
+  iDoNotExist,
+} <span style="color:#ff79c6">=</span> cuteAnimalRatings;
+
+console.log(nestedWhy);
+<span style="color:#6272a4">//[{name: &#34;Fluffykins&#34;, rating: 10}, {name: &#34;Hugo&#34;, rating: 6}]
+</span></code></pre></div><blockquote>
+<p>ES6</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> _cuteAnimalRatings$ca <span style="color:#ff79c6">=</span> cuteAnimalRatings.cats.data;
+_cuteAnimalRatings$ca <span style="color:#ff79c6">=</span>
+  _cuteAnimalRatings$ca <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">undefined</span> <span style="color:#ff79c6">?</span> {} <span style="color:#ff79c6">:</span> _cuteAnimalRatings$ca;
+<span style="color:#8be9fd;font-style:italic">var</span> _cuteAnimalRatings$ca2 <span style="color:#ff79c6">=</span> _cuteAnimalRatings$ca.nestedWhy,
+  nestedWhy <span style="color:#ff79c6">=</span>
+    _cuteAnimalRatings$ca2 <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">undefined</span> <span style="color:#ff79c6">?</span> {} <span style="color:#ff79c6">:</span> _cuteAnimalRatings$ca2,
+  dogs <span style="color:#ff79c6">=</span> cuteAnimalRatings.dogs,
+  iDoNotExist <span style="color:#ff79c6">=</span> cuteAnimalRatings.iDoNotExist;
+</code></pre></div><blockquote>
+<p>Babel-transpiled</p>
+</blockquote>
+<p>Wait, wait. Why these strange extra equals signs and brackets? They are providing default values in the event that a given property does not exist. We are guarding against the case where <code>cats</code> in <code>cuteAnimalRatings</code> is missing a <code>nestedWhy</code> or a <code>data</code> property.</p>
+<p>Good question: why do we need a default value to prevent against undefined values in this nested case, whereas we did not in the case of <code>iDoNotExist</code>? Notice that one is nested at just one level, while the other properties are more deeply nested.</p>
+<p>Why does this matter? Long answer: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="noreferrer noopener">prototypal inheritance</a> at work.</p>
+<p>The short answer is that <code>undefined</code> is not an object and does not have any properties. Actually, since it&rsquo;s not an object, it does not even have the <em>concept</em> of having properties.</p>
+<p>When we call <code>cuteAnimalRatings.cats</code>, we are asking whether the <code>cats</code> property exists in <code>cuteAnimalRatings</code>. We search in <code>cuteAnimalRatings</code> for the property and return it, if it exists. Otherwise, we return undefined. Under the hood, the code might look something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> hasOwnProperty <span style="color:#ff79c6">=</span> (prop) =&gt;
+  <span style="color:#8be9fd;font-style:italic">Object</span>.keys(<span style="color:#ff79c6">this</span>).filter((e) =&gt; e <span style="color:#ff79c6">===</span> prop) <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">this</span>.prop <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">undefined</span>;
+</code></pre></div><p><code>Object.keys(undefined)</code> gives us a TypeError though. An empty object <code>{}</code> is an object, and any properties that do not exist on that object will be undefined. So it&rsquo;s safe to check properties on it, even though it has none (<code>Object.keys({}).length</code> =&gt; 0). By inserting it as a default value in our lookup chain, it&rsquo;s a safe placeholder for null.</p>
+<p>If this seems like an awful lot of work, you&rsquo;re right.</p>
+<h4 id="what-problem-are-we-trying-to-solve">What problem are we trying to solve?</h4>
+<p>The pattern here is: how can we access nested properties of an object when we&rsquo;re not sure whether those properties are undefined? Wouldn&rsquo;t it be nice if objects had a property accessor that would <a href="https://en.wikipedia.org/wiki/Short-circuit_evaluation" target="_blank" rel="noreferrer noopener">short-circuit evaluate</a> at the first instance of undefined and would automatically check for property existence under the hood for us so we don&rsquo;t have to?</p>
+<p>Gratuitous segue to <a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noreferrer noopener">the proposal for optional chaining</a>.</p>
+<p>There&rsquo;s a proposal for syntax like this: <code>cuteAnimalRatings?.cats?.data?.nestedWhy</code>. You can read it as: check for existence of the previous value — if it exists, check for the property following the period.</p>
+<ol>
+<li>Does cuteAnimalRatings exist? Yes=&gt; check cats property. No=&gt; return undefined.</li>
+<li>Does the cats property exist? Yes=&gt; check data property. No=&gt; return undefined.</li>
+<li>Does the data property exist? Yes=&gt; check for nestedWhy. No=&gt; return undefined.</li>
+<li>Does nestedWhy exist? Yes=&gt; return it. No=&gt; return undefined.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> cuteAnimalRatings <span style="color:#ff79c6">=</span> {
+  cats<span style="color:#ff79c6">:</span> {
+    data<span style="color:#ff79c6">:</span> {
+      nestedWhy<span style="color:#ff79c6">:</span> [
+        { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Fluffykins&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">10</span> },
+        { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hugo&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">6</span> },
+      ],
+    },
+  },
+  dogs<span style="color:#ff79c6">:</span> [
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Errol&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span> },
+    { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hedwig&#34;</span>, rating<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">11</span> },
+  ],
+};
+</code></pre></div><p>It is a fun exercise to write your own option-chaining code.</p>
+<p>It looks something like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> parseObject(propString, obj) {
+  propString <span style="color:#ff79c6">=</span> propString.split(<span style="color:#f1fa8c">&#34;?&#34;</span>).map((e) =&gt; e.replace(<span style="color:#f1fa8c">/^\./g</span>, <span style="color:#f1fa8c">&#34;&#34;</span>));
+  <span style="color:#ff79c6">if</span> (obj <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">undefined</span>) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">undefined</span>;
+  }
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; i <span style="color:#ff79c6">&lt;</span> propString.length; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>propString[i].length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>) {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;Property names must have a length of at least one!&#34;</span>);
+    }
+    <span style="color:#ff79c6">if</span> (obj[propString[i]]) {
+      obj <span style="color:#ff79c6">=</span> obj[propString[i]];
+    } <span style="color:#ff79c6">else</span> {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">undefined</span>;
+    }
+  }
+  <span style="color:#ff79c6">return</span> obj;
+}
+console.log(
+  parseObject(<span style="color:#f1fa8c">&#34;cuteAnimalRatings?.cats?.data?.nestedWhy&#34;</span>, cuteAnimalRatings)
+);
+<span style="color:#6272a4">// [{name: &#34;Fluffykins&#34;, rating: 10}, {name: &#34;Hugo&#34;, rating: 6}]
+</span></code></pre></div><p>Coming soon to a language near you!</p>
+<h2 id="til">TIL</h2>
+<p>Functions can have default parameters: syntactic sugar to check whether the passed parameter is undefined and, if so, setting the parameter to the given default.</p>
+<p>Arrays and objects can have their indices and properties extracted using special syntax called destructuring.</p>
+<ul>
+<li>Arrays use commas <code>,</code> as placeholders for destructuring to skip over given indices on assignment.</li>
+<li>Objects do not require placeholders, since they act as associative arrays.</li>
+</ul>
+<p>When destructuring nested objects, provide default values to handle nested nulls or undefined properties. Alternatively, create your own polyfill for option-chaining so that properties of unknown status can be handled safely without unhandled exceptions.</p>
+<p>And yes, in case you were wondering, you can use destructuring in default parameters.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> funcD <span style="color:#ff79c6">=</span> ({ cats, dogs } <span style="color:#ff79c6">=</span> obj) =&gt; [cats, dogs];
+console.log(funcD({ cats<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">10</span>, dogs<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">7</span> })); <span style="color:#6272a4">// [10, 7]
+</span></code></pre></div><p>But again: favor readability over novelty.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/destructuring/"> destructuring </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/es6-morsel/"> es6-morsel </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

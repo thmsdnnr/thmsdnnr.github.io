@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Let&#39;s Implement Cipher Block Chaining!">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set2"><meta name="description" content="We implement AES-CBC, a more secure mode of AES than ECB, to solve Cryptopals Set 2 Challenge 10."><meta property="og:title" content="Let&#39;s Implement Cipher Block Chaining!" />
+<meta property="og:description" content="We implement AES-CBC, a more secure mode of AES than ECB, to solve Cryptopals Set 2 Challenge 10." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/lets-implement-cipher-block-chaining/" />
+<meta property="article:published_time" content="2017-09-24T10:20:04+00:00" />
+<meta property="article:modified_time" content="2017-09-24T10:20:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s Implement Cipher Block Chaining!"/>
+<meta name="twitter:description" content="We implement AES-CBC, a more secure mode of AES than ECB, to solve Cryptopals Set 2 Challenge 10."/>
+
+	
+	
+
+	<title>Let&#39;s Implement Cipher Block Chaining! | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">24</span>
+				<span class="rest">Sep 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Let&#39;s Implement Cipher Block Chaining!</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/2/challenges/10" target="_blank" rel="noreferrer noopener">Cryptopals Set 2 Challenge 10</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s2c10" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s2c10/" target="_blank" rel="noreferrer noopener">working demo</a></p>
+<h3 id="step-1-how-is-cbc-different-from-ecb">Step 1: How Is CBC Different from ECB?</h3>
+<p>We already implemented AES-ECB (&ldquo;electronic codebook&rdquo;). The primary weakness of ECB-mode of encryption, and why it should never be used really, is that identical plaintext blocks produce identical outputs. You saw this in <a href="https://thmsdnnr.github.io/tutorials/javascript/cryptopals/2017/09/22/cryptopals-set1-challenge-8-detecting-aes-in-ecb-mode.html" target="_blank" rel="noreferrer noopener">Challenge 8</a>. We&rsquo;re able to detect the use of AES-ECB by looking for repeated ciphertext blocks. These blocks are repeated because of repetitions in the plaintext.</p>
+<p>CBC produces different output blocks, even for identical plaintexts. This is done by XOR-ing together adjacent blocks. During encryption, each plaintext block is XOR&rsquo;d with the previous ciphertext block result before it is encrypted itself. Since the first block has no previous ciphertext block, an artificial &ldquo;Block Zero&rdquo; called an Initialization Vector is used for this first XOR.</p>
+<p>This IV is also needed in the decryption process.</p>
+<p><a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29" target="_blank" rel="noreferrer noopener">These Wikipedia diagrams</a> are particularly helpful in visualizing the process. At first I didn&rsquo;t understand what the &ldquo;block cipher encryption&rdquo; and &ldquo;block cipher decryption&rdquo; boxes meant. In the case of adapting ECB code to CBC, these blocks just mean &ldquo;then encrypt with CBC&rdquo;. I refactored my existing ECB code. Before I had a for loop that chopped the blocks individually and then ran them through the encryption/decryption process in a massive loop. I created an inner function that processes one block at a time, and then the outer function that feeds it 16-byte blocks. This way it&rsquo;s very easy to implement the additional XOR process required in CBC.</p>
+<p>Here&rsquo;s what the new encryption function looks like.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> aesEncryptCBC(plainText, key, IV, numBits) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>plainText <span style="color:#ff79c6">||</span> plainText.length <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span>) {
+    <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;Block size is not an even multiple of 16.&#34;</span>);
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>key <span style="color:#ff79c6">||</span> key.length <span style="color:#ff79c6">!==</span> numBits) {
+    <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">`Key size is not an even multiple of </span><span style="color:#f1fa8c">${</span>numBits<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">.`</span>);
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>IV) {
+    <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">`No initialization vector provided.`</span>);
+  }
+  <span style="color:#ff79c6">const</span> numRounds <span style="color:#ff79c6">=</span> { <span style="color:#bd93f9">16</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">9</span>, <span style="color:#bd93f9">24</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">11</span>, <span style="color:#bd93f9">32</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">13</span> };
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>numRounds[numBits]) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> totalRounds <span style="color:#ff79c6">=</span> numRounds[numBits];
+  <span style="color:#8be9fd;font-style:italic">let</span> expKey <span style="color:#ff79c6">=</span> generateExpandedKey(key, numBits);
+  <span style="color:#8be9fd;font-style:italic">let</span> currentState <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> plainText.length; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">16</span>) {
+    <span style="color:#6272a4">// block feeder
+</span><span style="color:#6272a4"></span>    <span style="color:#8be9fd;font-style:italic">let</span> cur <span style="color:#ff79c6">=</span> plainText.slice(i, i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>);
+    <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span>) {
+      cur <span style="color:#ff79c6">=</span> addRoundKey(cur, IV);
+    } <span style="color:#ff79c6">else</span> {
+      cur <span style="color:#ff79c6">=</span> addRoundKey(cur, currentState[i <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>]);
+    }
+    currentState.push(processBlock(cur));
+  }
+  <span style="color:#8be9fd;font-style:italic">function</span> processBlock(block) {
+    <span style="color:#8be9fd;font-style:italic">let</span> curKey <span style="color:#ff79c6">=</span> expKey.slice(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">16</span>);
+    block <span style="color:#ff79c6">=</span> addRoundKey(block, curKey);
+    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> totalRounds <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>; i<span style="color:#ff79c6">++</span>) {
+      curKey <span style="color:#ff79c6">=</span> expKey.slice(i <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>, i <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">16</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">16</span>);
+      <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">&lt;</span> totalRounds) {
+        block <span style="color:#ff79c6">=</span> addRoundKey(
+          mixColumns(sRow(bSub(block, <span style="color:#ff79c6">true</span>), <span style="color:#ff79c6">true</span>), <span style="color:#ff79c6">true</span>),
+          curKey
+        );
+      } <span style="color:#ff79c6">else</span> {
+        block <span style="color:#ff79c6">=</span> addRoundKey(mToBytes(sRow(bSub(block, <span style="color:#ff79c6">true</span>), <span style="color:#ff79c6">true</span>)), curKey);
+      }
+    }
+    <span style="color:#ff79c6">return</span> block;
+  }
+  <span style="color:#ff79c6">return</span> flattenArray(currentState).map((e) =&gt; hexPad(e));
+}
+</code></pre></div><p>The only addition to the parameters is the Initialization Vector. If it&rsquo;s the first block, we XOR it (which is just the good old addRoundKey function again) with the Initialization Vector. If it&rsquo;s block 1 or later, we have a previous ciphertext block to XOR with, so we grab that from <code>currentState[(i/16)-1])</code>.</p>
+<p>Decryption is very similar (an exercise for the reader!). The only difference is the ordering. You take the current block post-decryption rather than pre-decryption, and you XOR it with the previous block <em>before</em> that block has been decrypted rather than after it has been encrypted. Just look at the picture. Words make it complicated.</p>
+<p>It&rsquo;s possible to validate your results using openssl on the command line as well as Ruby. Store the plaintext value in a text file after the -in flag, set an output filename after the -out flag, pass the key after -K in padded hexadecimal, and then the initialization vector after -iv in padded hexadecimal (0x00 =&gt; 00, <em>not</em> 0). The -a flag converts the output to base64.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">openssl enc -aes-128-cbc -in sec.txt -out put.txt -K &#39;5468617473206D79204B756E67204675&#39; -iv &#39;000102030405060708090a0b0c0d0e0f&#39; -a
+</code></pre></div><p>Note that the IV must be padded. Otherwise the Initialization Vector gets treated as half-hex characters and half zeroes, if you pad with hex characters that are only single digits. That is, these two commands would give identical results:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">openssl enc -aes-128-cbc -in sec.txt -out put.txt -K &#39;5468617473206D79204B756E67204675&#39; -iv &#39;000102030405060708090a0b0c0d0e0f&#39; -a
+openssl enc -aes-128-cbc -in sec.txt -out put.txt -K &#39;5468617473206D79204B756E67204675&#39; -iv &#39;0123456789abcdef&#39; -a
+</code></pre></div><p>This can be really confusing at first when you&rsquo;re trying to validate results. If you&rsquo;re using Ruby, you could do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;openssl&#39;</span>
+c<span style="color:#ff79c6">=</span>OpenSSL<span style="color:#ff79c6">::</span>Cipher<span style="color:#ff79c6">.</span>new(<span style="color:#f1fa8c">&#39;aes-128-cbc&#39;</span>)
+c<span style="color:#ff79c6">.</span>encrypt
+c<span style="color:#ff79c6">.</span>key<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;Thats my Kung Fu&#39;</span>
+c<span style="color:#ff79c6">.</span>iv<span style="color:#ff79c6">=[</span><span style="color:#f1fa8c">&#39;000102030405060708090a0b0c0d0e0f&#39;</span><span style="color:#ff79c6">].</span>pack(<span style="color:#f1fa8c">&#34;H*&#34;</span>) <span style="color:#6272a4">#have to pack IV as hexadecimal data!</span>
+result<span style="color:#ff79c6">=</span>c<span style="color:#ff79c6">.</span>update(<span style="color:#f1fa8c">&#39;testing&#39;</span>) <span style="color:#ff79c6">&lt;&lt;</span> c<span style="color:#ff79c6">.</span>final
+<span style="color:#8be9fd;font-style:italic">puts</span> result<span style="color:#ff79c6">.</span>unpack(<span style="color:#f1fa8c">&#34;H*&#34;</span>)
+</code></pre></div><p>Once you code the core of AES, it&rsquo;s easy to switch the mode between ECB and the more secure CBC.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set2/"> cryptopals-set2 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

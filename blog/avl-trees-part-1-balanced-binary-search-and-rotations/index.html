@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="AVL Trees Part 1: Balanced Binary Search and Rotations">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,stack,big-O,complexity,dataStructures,binaryTree,AVL,rotations"><meta name="description" content="AVL trees are self-balancing binary trees that avoid worst-case O(n) performance given increasing or decreasing inputs."><meta property="og:title" content="AVL Trees Part 1: Balanced Binary Search and Rotations" />
+<meta property="og:description" content="AVL trees are self-balancing binary trees that avoid worst-case O(n) performance given increasing or decreasing inputs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/avl-trees-part-1-balanced-binary-search-and-rotations/" />
+<meta property="article:published_time" content="2018-02-05T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-02-05T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AVL Trees Part 1: Balanced Binary Search and Rotations"/>
+<meta name="twitter:description" content="AVL trees are self-balancing binary trees that avoid worst-case O(n) performance given increasing or decreasing inputs."/>
+
+	
+	
+
+	<title>AVL Trees Part 1: Balanced Binary Search and Rotations | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">05</span>
+				<span class="rest">Feb 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">AVL Trees Part 1: Balanced Binary Search and Rotations</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>As we saw from the <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/02/binary-trees-part-two.html" target="_blank" rel="noreferrer noopener">previous tutorial on binary search trees</a>, when insertion into a tree is not random, we can end up with a long chain of nodes stretching out to the right or left. In these cases, we lose the <code>n*log(n)</code> search performance of a BST, since we no longer split the search space in half at each branch. We could randomize insert order, but this assumes we have all the data up front, and it requires an additional step.</p>
+<p><figure>
+  <img src="/assets/pics/btree/almost_ll.png" alt="Long chain of nodes in binary search tree, resembling a linked list."  />
+</figure></p>
+<blockquote>
+<p>A &ldquo;degenerate&rdquo; binary search tree: without balancing, sometimes the overhead to create the tree is greater than simple O(n) linear search in an array.</p>
+</blockquote>
+<p>Wouldn&rsquo;t it be nice if a tree could just balance itself regardless of insertion order?</p>
+<h2 id="avl-trees">AVL Trees</h2>
+<p>One solution to this problem is to perform a balancing operation on the branches of the tree after we insert an item. The balancing operation is known as a rotation. Rotations reduce node height while maintaining the ordered characteristics of a binary search tree.</p>
+<p>Remember how to search a binary search tree? At each level, we compare the search value with the node value and go right if it is greater and left if it is less. Naturally, we have one comparison per tree level. It follows that reducing height (broadening the tree out) will reduce the number of comparisons, making our search more performant.</p>
+<p>With rotations, you can transform the tree you see above into this tree:</p>
+<p><figure>
+  <img src="/assets/pics/btree/intro_avl_rotation.png" alt="Original degenerate tree balanced using left rotations."  />
+</figure></p>
+<p>It&rsquo;s still in order, but now there are only 3 steps to get to 10 instead of 5. We did have to perform three operations on the tree, but assuming that we look up 10 more than once, it&rsquo;ll more than pay off down the road to balance.</p>
+<h3 id="calculating-tree-height">Calculating Tree Height</h3>
+<p>One type balanced binary search tree is an <a href="https://en.wikipedia.org/wiki/AVL_tree" target="_blank" rel="noreferrer noopener">AVL tree</a>. It&rsquo;s very expensive to keep a tree perfectly balanced at all times. The strategy here is &ldquo;good enough&rdquo; or <a href="https://en.wikipedia.org/wiki/Satisficing" target="_blank" rel="noreferrer noopener">satisficing</a>: we don&rsquo;t have to keep the tree <em>perfectly</em> balanced — let&rsquo;s just not let it get out of hand. What&rsquo;s out of hand? For the AVL tree, it means the difference in max height between a node&rsquo;s left and right branches exceeds 1.</p>
+<p>NB: You&rsquo;ll see this a lot in algorithms: we might not care about 100% correctness (perhaps it&rsquo;s even impossible), but rather that we can attain some worst-case threshold of correctness that costs less to calculate yet provides acceptable results.</p>
+<p>We count the height of a node&rsquo;s branch by calculating the maximum distance from that node to a leaf node, including the leaf node. We go down toward the leaves, counting nodes, and return the maximum distance.</p>
+<p>We can calculate this maximum distance using a depth-first search like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> maxHeight(tree) {
+  <span style="color:#ff79c6">if</span> (tree <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#8be9fd;font-style:italic">let</span> leftD <span style="color:#ff79c6">=</span> maxHeight(tree.left);
+    <span style="color:#8be9fd;font-style:italic">let</span> rightD <span style="color:#ff79c6">=</span> maxHeight(tree.right);
+    <span style="color:#ff79c6">return</span> leftD <span style="color:#ff79c6">&gt;</span> rightD <span style="color:#ff79c6">?</span> leftD <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> rightD <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>;
+  }
+}
+</code></pre></div><h5 id="we-add-one-to-the-final-height-values-to-account-for-the-null-leaf-nodes">We add one to the final height values to account for the null leaf nodes.</h5>
+<p>We define a Balance Factor for each node as the maximum height of the left node&rsquo;s path minus the maximum height of the right node&rsquo;s path.</p>
+<p><figure>
+  <img src="/assets/pics/btree/unbalanced_avl.png" alt="AVL tree with balance factors of each node annotated."  />
+</figure></p>
+<blockquote>
+<p>This AVL tree is unbalanced, since the balance factor for node 6 is -2. But we can fix it!</p>
+</blockquote>
+<p>Have a look at this AVL tree. I&rsquo;ve marked the balance factor on each node. Let&rsquo;s walk from the root 5 down the left branch. The longest path goes through 1, right to 3, and then down to the leaf. That&rsquo;s a height of 3.</p>
+<p>On the right branch, it goes through 6, 8, 7, and down to the leaf, a height of 4.</p>
+<p>We calculate the balance factor for a node as Max Height[Left Branch] - Max Height[Right Branch]. In this case, it&rsquo;s 3-4 or <code>-1</code>.</p>
+<p><code>0</code> means left and right branches are balanced. <code>-1</code> means the tree is &ldquo;right heavy&rdquo;, or that the right branch is longer than the left. <code>+1</code> means the tree is left-heavy: the left branch is longer than the right.</p>
+<p>The numbers correspond to an obvious visual situation: just imagine the tree is an old-fashioned beam scale with the fulcrum at the tree&rsquo;s root.</p>
+<p>If the balance factor is outside of <code>[-1, 0, 1]</code>, we have to rebalance per AVL constraints. You see that condition on node 6. The right branch is 2x as long as the left branch, meaning that to access 7, we have to pass through extra nodes unnecessarily.</p>
+<h2 id="balancing-using-rotations">Balancing Using Rotations</h2>
+<p>AVL trees handle these unbalanced cases through rotations. Rotations are operations that decrease the height of a given node while maintaining its ordering:</p>
+<p><code>Left Branch Value &lt;= Node Value &lt; Right Branch Value</code></p>
+<p>There are two directions of rotations, left and right. They can be applied in four ways:</p>
+<ol>
+<li>Single left</li>
+<li>Single right</li>
+<li>Left-right (left followed by right)</li>
+<li>Right-left (right followed by left)</li>
+</ol>
+<p>In this tutorial we&rsquo;ll cover how to code a left and right rotation and consider how to track the balance of nodes in the tree. In the next tutorial, we&rsquo;ll cover how insertions and deletions can make a tree unbalanced (4 different cases), and we&rsquo;ll use the code we wrote today to correct each of those four cases.</p>
+<p>This is the generic form of a left and right rotation for a given node.</p>
+<p><figure>
+  <img src="/assets/pics/btree/generic_rotation.png" alt="Generalized form of left and right rotations for a node."  />
+</figure></p>
+<blockquote>
+<p>Drawn from <a href="https://www.amazon.com/Introduction-Algorithms-Second-Thomas-Cormen/dp/0262032937" target="_blank" rel="noreferrer noopener">Introduction to Algorithms 2nd Ed by Cormen, Leiserson, Rivest, and Stein</a> (pg. 278)</p>
+</blockquote>
+<p>Note here that in the left rotation:</p>
+<ol>
+<li>X keeps its left child but picks up Y&rsquo;s left child on its right.</li>
+<li>Y keeps its right child but takes X&rsquo;s parent</li>
+<li>Y becomes the node&rsquo;s new root. If X didn&rsquo;t have a parent node to start with (if it was the root of the entire tree), Y becomes the entire tree&rsquo;s root.</li>
+</ol>
+<p>Symmetrically for a right rotation:</p>
+<ol>
+<li>Y keeps its right child but picks up X&rsquo;s right child on its left.</li>
+<li>X keeps its left child but takes Y&rsquo;s parent</li>
+<li>X becomes the node&rsquo;s new root. If Y didn&rsquo;t have a parent node to start with (if it was the root of the entire tree), X becomes the entire tree&rsquo;s root.</li>
+</ol>
+<p>It&rsquo;s impossible to rotate left without a right child or rotate right without a left child. This is because right and left children in left and right rotations respectively become the new root nodes, and you cannot have null roots.</p>
+<p>Let&rsquo;s consider an example with actual values.</p>
+<p><figure>
+  <img src="/assets/pics/btree/unbalanced_avl.png" alt="AVL tree with balance factors of each node annotated."  />
+</figure></p>
+<p>We can fix the tree above with #4, a right-left rotation (yep, let&rsquo;s just jump into the complexity first so you can see it&rsquo;s not that scary).</p>
+<p>First we rotate right about 8. That gives us this:</p>
+<p><figure>
+  <img src="/assets/pics/btree/avl_right_r_before.png" alt="Right rotation of an AVL tree node before"  />
+</figure></p>
+<p>=&gt;</p>
+<p><figure>
+  <img src="/assets/pics/btree/avl_right_r_after.png" alt="Right rotation of an AVL tree node after"  />
+</figure></p>
+<blockquote>
+<ol>
+<li>Seven keeps its left child and eight keeps its right child.</li>
+<li>Seven swaps gives its right child to eight&rsquo;s left child.</li>
+<li>Eight gives its parent to seven, and seven picks up eight as its right child.</li>
+</ol>
+</blockquote>
+<p>Note that in the diagram above, I added non-null children to the 7 and 8 so that you could see how the children swap out. I also omitted the null leaf node values for clarity.</p>
+<p>Then we rotate left about 6. That gives us this:</p>
+<p><figure>
+  <img src="/assets/pics/btree/balanced_avl.png" alt="Right rotation of an AVL tree node after a right-left rotation"  />
+</figure></p>
+<p>Now that we&rsquo;ve looked at an application of rotations, let&rsquo;s code them.</p>
+<h2 id="coding-leftright-rotations">Coding Left/Right Rotations</h2>
+<p>The code for a left and right rotation is symmetric: that is, if you code one direction, just swap each direction in that function and you&rsquo;ll have the opposite direction rotation. For clarity, I&rsquo;m not going to reduce this behavior to a single function. Just know that you can do this and that it would be done in an optimized implementation.</p>
+<h3 id="right-rotations">Right rotations</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> rotateRight(tree, root) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>root.left) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  } <span style="color:#6272a4">// the left child cannot be null
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> leftChild <span style="color:#ff79c6">=</span> root.left;
+  root.left <span style="color:#ff79c6">=</span> leftChild.right;
+  <span style="color:#8be9fd;font-style:italic">let</span> parent <span style="color:#ff79c6">=</span> findParent(tree.root, root);
+  <span style="color:#ff79c6">if</span> (parent <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">null</span>) {
+    tree.root <span style="color:#ff79c6">=</span> leftChild;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (parent.right <span style="color:#ff79c6">===</span> root) {
+    parent.right <span style="color:#ff79c6">=</span> leftChild;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (parent.left <span style="color:#ff79c6">===</span> root) {
+    parent.left <span style="color:#ff79c6">=</span> leftChild;
+  }
+  leftChild.right <span style="color:#ff79c6">=</span> root;
+}
+</code></pre></div><p>Here&rsquo;s that before picture again so you can follow along with actual numbers:</p>
+<p><figure>
+  <img src="/assets/pics/btree/avl_right_r_before.png" alt="Right rotation of an AVL tree node before"  />
+</figure></p>
+<p>We&rsquo;re going to <em>rotate right about node 8</em>.</p>
+<p>Let&rsquo;s walk through it line by line. We call the code with the tree and the root of the node we wish to rotate. If the node we are trying to rotate doesn&rsquo;t have a left child, we return false. It&rsquo;s not possible to perform a right rotation if the node doesn&rsquo;t have a left child, because the left child becomes the new root node. You can&rsquo;t have a null root.</p>
+<p>Now we just follow the steps we saw above in the generic example.</p>
+<p>We set <code>leftChild</code> to the left child of 8. This will be our new root node:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    7
+ /     \
+6.9   7.1
+</code></pre></div><blockquote>
+<p>leftChild</p>
+</blockquote>
+<p>Now we just have to reorganize this tree a little bit so that we can connect it up with 8. 8 is going to connect where 7.1 currently is, so we will swap out <code>root.left</code> with <code>leftChild.right</code>. Now we have two trees that look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    7
+ /     \
+6.9   7.1
+</code></pre></div><blockquote>
+<p>leftChild</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    8
+ /     \
+7.1   8.1
+</code></pre></div><blockquote>
+<p>root</p>
+</blockquote>
+<p>All we have to do now is connect <code>leftChild</code> with <code>root</code>&rsquo;s parent, and then connect <code>leftChild</code> to <code>root</code>.</p>
+<p>We find the parent of the <code>root</code> (8). The parent of eight exists in the tree (you can&rsquo;t see it, but it&rsquo;s 6).</p>
+<p>If the parent of eight didn&rsquo;t exist and eight was the root, we set the tree root equal to <code>leftChild</code> directly.</p>
+<p>If the parent exists, we then check to see which side of 6 eight lies on. Is it the left? Then we connect the parent&rsquo;s left child to <code>leftChild</code>. Is it the right? Then we connect the parent&rsquo;s right child to <code>leftChild</code>.</p>
+<p>We have swapped out the two nodes 7 and 8. All that we have to do now is connect our original <code>root</code> to <code>leftChild</code>. If you look at this diagram, it&rsquo;s obvious where we do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    7
+ /     \
+6.9   7.1
+</code></pre></div><blockquote>
+<p>leftChild</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    8
+ /     \
+7.1   8.1
+</code></pre></div><blockquote>
+<p>root</p>
+</blockquote>
+<p>We have 7.1 duplicated, so we just remove the 7.1 from <code>leftChild</code> and connect that right node to the root node with <code>leftChild.right=root</code>.</p>
+<p>And we&rsquo;re done!</p>
+<p><figure>
+  <img src="/assets/pics/btree/avl_right_r_after.png" alt="Right rotation of an AVL tree node after"  />
+</figure></p>
+<h3 id="left-rotations">Left rotations</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> rotateLeft(tree, root) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>root.right) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  } <span style="color:#6272a4">// we assume the right child is not null.
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> rightChild <span style="color:#ff79c6">=</span> root.right;
+  root.right <span style="color:#ff79c6">=</span> rightChild.left;
+  <span style="color:#8be9fd;font-style:italic">let</span> parent <span style="color:#ff79c6">=</span> findParent(tree.root, root);
+  <span style="color:#ff79c6">if</span> (parent <span style="color:#ff79c6">===</span> <span style="color:#ff79c6">null</span>) {
+    tree.root <span style="color:#ff79c6">=</span> rightChild;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (parent.left <span style="color:#ff79c6">==</span> root) {
+    parent.left <span style="color:#ff79c6">=</span> rightChild;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (parent.right <span style="color:#ff79c6">==</span> root) {
+    parent.right <span style="color:#ff79c6">=</span> rightChild;
+  }
+  rightChild.left <span style="color:#ff79c6">=</span> root;
+}
+</code></pre></div><p>We&rsquo;ll walk through the code here for a left rotation with the diagram as well (even though it&rsquo;s just a mirror image of the right rotation).</p>
+<p>Here&rsquo;s what we start with after we rotated right about 8.</p>
+<p><figure>
+  <img src="/assets/pics/btree/avl_left_l_before.png" alt="Left rotation of an AVL tree node before"  />
+</figure></p>
+<p>We&rsquo;re going to <em>rotate left about node 6</em>.</p>
+<p>Let&rsquo;s walk through it line by line. We call the code with the tree and the root of the node we wish to rotate. If the node we are trying to rotate doesn&rsquo;t have a right child, we return false. It&rsquo;s not possible to perform a left rotation if the node doesn&rsquo;t have a right child, because the right child becomes the new root node. You can&rsquo;t have a null root.</p>
+<p>Now we just follow the steps we saw above in the generic example.</p>
+<p>We set <code>rightChild</code> to the right child of the root. This will be our new root node:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">     7
+ /      \
+null     8
+</code></pre></div><blockquote>
+<p>rightChild</p>
+</blockquote>
+<p>Now we just have to reorganize this tree a little bit so that we can connect it up with 6. 6 is going to connect where the null currently is, so we will swap out <code>root.right</code> with <code>rightChild.left</code>. Now we have two trees that look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    7
+ /     \
+null    8
+</code></pre></div><blockquote>
+<p>rightChild</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    6
+ /     \
+null   null
+</code></pre></div><blockquote>
+<p>root</p>
+</blockquote>
+<p>All we have to do now is connect <code>rightChild</code> with <code>root</code>&rsquo;s parent, and then connect <code>rightChild</code> to <code>root</code>.</p>
+<p>We find the parent of the <code>root</code> (6). The parent of six exists in the tree (you can&rsquo;t see it, but it&rsquo;s 5).</p>
+<p>If the parent of six didn&rsquo;t exist and seven was going to be the new root, we set the tree root equal to <code>rightChild</code> directly.</p>
+<p>If the parent exists, we then check to see which side of 5 six lies on. Is it the left? Then we connect the parent&rsquo;s left child to <code>rightChild</code>. Is it the right? Then we connect the parent&rsquo;s right child to <code>rightChild</code>.</p>
+<p>We have swapped out the two nodes 6 and 7. All that we have to do now is connect our original <code>root</code> to <code>rightChild</code>. If you look at this diagram, it&rsquo;s obvious where we do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    7
+ /     \
+null    8
+</code></pre></div><blockquote>
+<p>rightChild</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    6
+ /     \
+null   null
+</code></pre></div><blockquote>
+<p>root</p>
+</blockquote>
+<p>We have the open spot on <code>rightChild</code>&rsquo;s left, so we just replace its null with <code>root</code> by connecting that left node to the root node with <code>rightChild.left=root</code>.</p>
+<p>And we&rsquo;re done!</p>
+<h2 id="confused-yet">Confused Yet?</h2>
+<p>If you find all this talk about node rotation confusing, please don&rsquo;t worry. It&rsquo;s not so intuitive. Try drawing it out and then coding it as you draw it. I <em>still</em> have to draw it out. Otherwise I&rsquo;ll end up coding circular references that recurse infinitely and overflow the call stack when I try to depth-first traverse. Don&rsquo;t worry, we&rsquo;ve all been there.</p>
+<p>Just remember the basics of rotation. Rotation helps us achieve the following objectives:</p>
+<ul>
+<li>preserve the ordering of a binary search tree</li>
+<li>reduce branches' height to reduce the number of comparisons needed to search for a value</li>
+</ul>
+<h2 id="next-steps">Next steps</h2>
+<p>Now that we have the concepts of node balance factors, the AVL method of minimizing the node height differential to one of <code>[-1, 0, 1]</code>, and rotation, we can incorporate these tools to rebalance a given node when we perform insertions or deletions on our tree.</p>
+<p>Since this tutorial was already quite a lot to digest, that&rsquo;ll wait until part two. We&rsquo;ve coded all the tools we need to perform the rebalancing. We only have to incorporate them into tree methods that we&rsquo;ve already defined. Try to think about how it&rsquo;ll work!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/avl/"> avl </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/big-o/"> big-o </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/binarytree/"> binarytree </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datastructures/"> datastructures </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/rotations/"> rotations </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/stack/"> stack </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Map, Filter, and Reduce: Functional Programming Gems">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,map,filter,reduce,standardDeviation,functionChaining,functionalProgramming"><meta name="description" content="Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation."><meta property="og:title" content="Map, Filter, and Reduce: Functional Programming Gems" />
+<meta property="og:description" content="Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/" />
+<meta property="article:published_time" content="2018-01-03T10:04:04+00:00" />
+<meta property="article:modified_time" content="2018-01-03T10:04:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Map, Filter, and Reduce: Functional Programming Gems"/>
+<meta name="twitter:description" content="Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation."/>
+
+	
+	
+
+	<title>Map, Filter, and Reduce: Functional Programming Gems | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">03</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Map, Filter, and Reduce: Functional Programming Gems</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>Map, filter, and reduce are useful tools that facilitate a coding ethos known as Functional Programming.</p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="noreferrer noopener">Functional programming</a> is a paradigm in which we create programs using expressions and declarations rather than statements.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> cats <span style="color:#ff79c6">=</span> [
+  <span style="color:#6272a4">// expression
+</span><span style="color:#6272a4"></span>  { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fluffy&#34;</span>, age<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">10</span> },
+  { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;charles&#34;</span>, age<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">14</span> },
+  { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;earl&#34;</span>, age<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span> },
+  { name<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;antoinette&#34;</span>, age<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span> },
+];
+<span style="color:#6272a4">// declaration
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> catsAfterFiveYears <span style="color:#ff79c6">=</span> cats.map((cat) =&gt;
+  <span style="color:#8be9fd;font-style:italic">Object</span>.assign({}, cat, { age<span style="color:#ff79c6">:</span> cat.age <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">5</span> })
+);
+</code></pre></div><p>Writing this code using a statement would iterate through with a for loop like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6272a4">// statement
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">function</span> insteadOfUsingMap() {
+  <span style="color:#8be9fd;font-style:italic">var</span> nextCats <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> cats.length; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> thisCat <span style="color:#ff79c6">=</span> cats[i];
+    thisCat.age <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">5</span>;
+    nextCats.push(thisCat);
+  }
+  <span style="color:#ff79c6">return</span> nextCats;
+}
+
+<span style="color:#8be9fd;font-style:italic">let</span> catsAfterFiveYears <span style="color:#ff79c6">=</span> insteadOfUsingMap();
+</code></pre></div><p>Both pieces of code work. But imagine what would happen if we wanted to tweak the code slightly. The FP approach is more maintainable, and it&rsquo;s easy to see at a glance what is going on. Also, it is not prone to typos (what if you accidentally mutate your for loop variable, for instance).</p>
+<h3 id="so-what-does-it-look-like">So what does it look like?</h3>
+<p><code>map</code>, <code>filter</code>, and <code>reduce</code> enable programming in an FP style. A good way to understand what a function is doing is to see how it is invoked and then try to mimic its behavior by coding it yourself. That&rsquo;s what we&rsquo;ll do, as well as provide a few examples of how the built-in functions can be used.</p>
+<p>Map and filter both take a callback function that is passed these parameters:</p>
+<ul>
+<li>the current element (required)</li>
+<li>the index of the element in the array (optional)</li>
+<li>the array that is being mapped over (optional)</li>
+<li>a value to use as <code>this</code> when executing the function (optional)</li>
+</ul>
+<h2 id="map">Map</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="noreferrer noopener">Map</a> applies a function to every element of an array and returns an array containing the results of these applications. In FP, it is often called &ldquo;apply-to-all&rdquo;.</p>
+<h3 id="here-are-some-examples">Here are some examples.</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].map((num) =&gt; num <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>);
+<span style="color:#6272a4">// [2, 4, 6, 8, 10]
+</span></code></pre></div><blockquote>
+<p>multiply every element by two</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].map((num, idx) =&gt; (idx <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> num <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">:</span> num));
+<span style="color:#6272a4">// [1, 4, 3, 8, 5]
+</span></code></pre></div><blockquote>
+<p>multiply every odd-indexed element by two</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].map((num, idx, arr) =&gt;
+  idx <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> idx <span style="color:#ff79c6">&lt;</span> arr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> num <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">:</span> num
+);
+<span style="color:#6272a4">// [1, 4, 6, 8, 5]
+</span></code></pre></div><blockquote>
+<p>multiply every element (except the first and last) by two</p>
+</blockquote>
+<p>We can also apply the array&rsquo;s <code>map</code> to other types, like strings.</p>
+<p><code>'fluffykins'.map(e=&gt;e)</code> gives us a TypeError, because strings do not have a <code>map</code> function. But we can apply array map&rsquo;s function to strings, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">Array</span>.prototype.map
+  .call(<span style="color:#f1fa8c">&#34;fluffykins&#34;</span>, (letter) =&gt; {
+    <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">String</span>.fromCharCode(letter.charCodeAt() <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>);
+  })
+  .join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+<span style="color:#6272a4">// &#34;gmvggzljot&#34;
+</span></code></pre></div><blockquote>
+<p>shift every letter of a string one to the &ldquo;right&rdquo; in the alphabet</p>
+</blockquote>
+<p>Map can also be chained: for example, to operate on nested arrays.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>], [<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>], [<span style="color:#bd93f9">5</span>]].map((subArray) =&gt; {
+  <span style="color:#ff79c6">return</span> subArray.map((e, idx, arr) =&gt; (arr.length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> e <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">:</span> e));
+});
+<span style="color:#6272a4">// [[2,4],[6,8],[5]]
+</span></code></pre></div><blockquote>
+<p>multiply each element of every nested array by two if it contains more than one element</p>
+</blockquote>
+<h3 id="lets-write-our-own-map">Let&rsquo;s write our own map.</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> myOwnMap(array, callback, thisArg) {
+  thisArg <span style="color:#ff79c6">=</span> thisArg <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#8be9fd;font-style:italic">let</span> results <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> idx <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; idx <span style="color:#ff79c6">&lt;</span> array.length; idx<span style="color:#ff79c6">++</span>) {
+    results.push(callback.apply(thisArg, [array[idx], idx, array]));
+  }
+  <span style="color:#ff79c6">return</span> results;
+}
+</code></pre></div><p>Note what map&rsquo;s doing: it&rsquo;s taking this iteration over the elements and wrapping it up into a function that we only have to write once. We can then re-use that function with more complex logic (checking indices, comparing elements) or more complex data types (arrays of objects with many interrelated keys) without worrying about the low-level implementation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">myOwnMap([<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>], (num, idx, arr) =&gt;
+  idx <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> idx <span style="color:#ff79c6">&lt;</span> arr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> num <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">:</span> num
+);
+<span style="color:#6272a4">// [1, 4, 6, 8, 5]
+</span></code></pre></div><p>Nice!</p>
+<h2 id="filter">Filter</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter" target="_blank" rel="noreferrer noopener">Filter</a> tests every element of an array against a callback function, returning all elements that pass the test. In FP, it is often called &ldquo;remove-if&rdquo;.</p>
+<p>Filter passes its callback functions the same parameter as map. The only difference is that instead of returning a result array with the callback&rsquo;s return <em>value</em>, it returns a result array with the elements for which the callback&rsquo;s return value is <em>true</em>.</p>
+<h3 id="here-are-some-examples-1">Here are some examples.</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> firstFibs <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">8</span>, <span style="color:#bd93f9">13</span>, <span style="color:#bd93f9">21</span>, <span style="color:#bd93f9">34</span>, <span style="color:#bd93f9">55</span>, <span style="color:#bd93f9">89</span>, <span style="color:#bd93f9">144</span>, <span style="color:#bd93f9">233</span>];
+<span style="color:#ff79c6">const</span> fibsUnder100 <span style="color:#ff79c6">=</span> firstFibs.filter((fNum) =&gt; fNum <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">100</span>);
+<span style="color:#6272a4">// [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+</span></code></pre></div><blockquote>
+<p>Fibonacci numbers under 100 from a larger list</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> numbers <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">6</span>, <span style="color:#bd93f9">7</span>, <span style="color:#bd93f9">8</span>, <span style="color:#bd93f9">9</span>, <span style="color:#bd93f9">10</span>];
+<span style="color:#ff79c6">const</span> middle8 <span style="color:#ff79c6">=</span> numbers.filter(
+  (num, idx, arr) =&gt; idx <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> idx <span style="color:#ff79c6">&lt;</span> arr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>
+);
+<span style="color:#6272a4">// [2, 3, 4, 5, 6, 7, 8, 9]
+</span></code></pre></div><blockquote>
+<p>filter out the first and last numbers from an array</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> mixedTypes <span style="color:#ff79c6">=</span> [
+  <span style="color:#bd93f9">1</span>, <span style="color:#f1fa8c">&#34;3&#34;</span>, { obj<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;a&#34;</span> }, <span style="color:#bd93f9">77</span>, <span style="color:#f1fa8c">&#34;cats&#34;</span>, <span style="color:#f1fa8c">&#34;cute cats&#34;</span>, <span style="color:#f1fa8c">&#34;misc text&#34;</span>
+];
+<span style="color:#ff79c6">const</span> onlyStrings <span style="color:#ff79c6">=</span> mixedTypes.filter((e) =&gt; <span style="color:#ff79c6">typeof</span> e <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;string&#34;</span>);
+<span style="color:#6272a4">// [&#34;3&#34;, &#34;cats&#34;, &#34;cute cats&#34;, &#34;misc text&#34;]
+</span></code></pre></div><blockquote>
+<p>extract strings from an array</p>
+</blockquote>
+<p>Filter can also be chained.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> mixedTypes <span style="color:#ff79c6">=</span> [
+  <span style="color:#bd93f9">1</span>, <span style="color:#f1fa8c">&#34;3&#34;</span>, { obj<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;a&#34;</span> }, <span style="color:#bd93f9">77</span>, <span style="color:#f1fa8c">&#34;cats&#34;</span>, <span style="color:#f1fa8c">&#34;cute cats&#34;</span>, <span style="color:#f1fa8c">&#34;misc text&#34;</span>
+];
+<span style="color:#ff79c6">const</span> onlySingleWordStrings <span style="color:#ff79c6">=</span> mixedTypes
+  .filter((e) =&gt; <span style="color:#ff79c6">typeof</span> e <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;string&#34;</span>)
+  .filter((e) =&gt; e.split(<span style="color:#f1fa8c">&#34; &#34;</span>).length <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">1</span>);
+<span style="color:#6272a4">// [&#34;3&#34;, &#34;cats&#34;]
+</span></code></pre></div><blockquote>
+<p>extract strings from an array that only have a single word (no spaces)</p>
+</blockquote>
+<h3 id="lets-write-our-own-filter">Let&rsquo;s write our own filter.</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> myOwnFilter(array, callback, thisArg) {
+  thisArg <span style="color:#ff79c6">=</span> thisArg <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#8be9fd;font-style:italic">let</span> results <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> idx <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; idx <span style="color:#ff79c6">&lt;</span> array.length; idx<span style="color:#ff79c6">++</span>) {
+    <span style="color:#8be9fd;font-style:italic">let</span> result <span style="color:#ff79c6">=</span> callback.apply(thisArg, [array[idx], idx, array]);
+    <span style="color:#ff79c6">if</span> (result) {
+      <span style="color:#6272a4">// if element meets conditions
+</span><span style="color:#6272a4"></span>      results.push(array[idx]);
+    }
+  }
+  <span style="color:#ff79c6">return</span> results;
+}
+</code></pre></div><p>It works!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">myOwnFilter([<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>], (e) =&gt; e <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">2</span>);
+<span style="color:#6272a4">// [3,4,5]
+</span></code></pre></div><h2 id="reduce">Reduce</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noreferrer noopener">Reduce</a> takes an array of elements and <code>reduce</code>s them to a single element, following the rule given by the callback function supplied. Reduce also takes an optional <code>initialValue</code>, the value of the accumulator before any operations are performed. It is often used to sum/multiply/subtract/divide.</p>
+<p>In FP, reduce is known as <code>fold</code>.</p>
+<p>Reduce passes its callback different parameters than <code>map</code> and <code>filter</code>.</p>
+<ul>
+<li>accumulator -&gt; holds result of all previous reduce calls, or <code>initialValue</code>, if provided (required)</li>
+<li>currentValue -&gt; the current value being processed (required)</li>
+<li>currentIndex -&gt; the index of currentValue (optional)</li>
+<li>the array that reduce is being called upon (optional)</li>
+</ul>
+<p>It is also passed the optional parameter <code>initialValue</code>.</p>
+<h3 id="here-are-some-examples-2">Here are some examples.</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].reduce((acc, ele) =&gt; (acc <span style="color:#ff79c6">+=</span> ele), <span style="color:#bd93f9">0</span>);
+<span style="color:#6272a4">// 15
+</span></code></pre></div><blockquote>
+<p>sum all the numbers in an array</p>
+</blockquote>
+<p>Note the use of the <code>initialValue</code>. This is important. Imagine we try to reduce an empty array.</p>
+<p><code>[].reduce((acc,ele)=&gt;acc+=ele);</code></p>
+<p>If we do not supply an initial value, we&rsquo;ll get this error:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">VM70:1 Uncaught TypeError: Reduce of empty array with no initial value
+    at Array.reduce (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:1:4
+</code></pre></div><p>Reduce is trying to add nothing to nothing.</p>
+<ul>
+<li><code>acc</code> is undefined, since at the beginning, it is equal to <code>intialValue</code></li>
+<li><code>ele</code> is undefined, since the array contains no elements. What&rsquo;s undefined+undefined?</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].reduce(
+  (acc, ele, idx) =&gt; (idx <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> (acc <span style="color:#ff79c6">+=</span> ele) <span style="color:#ff79c6">:</span> acc),
+  <span style="color:#bd93f9">0</span>
+);
+<span style="color:#6272a4">// 6
+</span></code></pre></div><blockquote>
+<p>sum every odd-indexed element</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].reduce(
+  (acc, ele, idx, arr) =&gt;
+    idx <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> idx <span style="color:#ff79c6">&lt;</span> arr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">?</span> (acc <span style="color:#ff79c6">+=</span> ele) <span style="color:#ff79c6">:</span> acc,
+  <span style="color:#bd93f9">0</span>
+);
+<span style="color:#6272a4">// 9
+</span></code></pre></div><blockquote>
+<p>sum all but the first and last element</p>
+</blockquote>
+<p>Unlike <code>map</code> and <code>filter</code>, there is not an application for chaining <code>reduce</code>, since its end product is a single value from many values: a mapping from many-to-one.</p>
+<h3 id="lets-write-our-own-reduce">Let&rsquo;s write our own reduce.</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> myOwnReduce(array, callback, initialValue) {
+  <span style="color:#8be9fd;font-style:italic">let</span> acc <span style="color:#ff79c6">=</span> initialValue;
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> idx <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; idx <span style="color:#ff79c6">&lt;</span> array.length; idx<span style="color:#ff79c6">++</span>) {
+    acc <span style="color:#ff79c6">=</span> callback.apply(<span style="color:#ff79c6">null</span>, [acc, array[idx], idx, array]);
+  }
+  <span style="color:#ff79c6">return</span> acc;
+}
+</code></pre></div><p>It works the same way.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">myOwnReduce(
+  [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>],
+  (acc, ele, idx) =&gt; (idx <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">!==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> (acc <span style="color:#ff79c6">+=</span> ele) <span style="color:#ff79c6">:</span> acc),
+  <span style="color:#bd93f9">0</span>
+);
+<span style="color:#6272a4">// 6
+</span></code></pre></div><h2 id="what-about-dot-notation">What about dot notation?</h2>
+<p>Our methods can be chained by <a href="https://en.wikipedia.org/wiki/Function_composition" target="_blank" rel="noreferrer noopener">functional composition</a>, but not with dot notation.</p>
+<p>If you wanted to write your own dot-chainable methods, <a href="http://xahlee.info/js/js_function_chaining.html" target="_blank" rel="noreferrer noopener">see this</a>. The reason that we are able to chain the native <code>.map</code> is because it is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype" target="_blank" rel="noreferrer noopener">prototype method</a> of the Array object.</p>
+<p>You can <strong>but should not</strong> <a href="https://en.wikipedia.org/wiki/Monkey_patch#Pitfalls" target="_blank" rel="noreferrer noopener">&ldquo;monkey patch&rdquo;</a> built-in JS methods in this way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JavaScript" data-lang="JavaScript"><span style="color:#8be9fd;font-style:italic">Array</span>.prototype.myOwnMap <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (callback, thisArg) {
+  thisArg <span style="color:#ff79c6">=</span> thisArg <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#8be9fd;font-style:italic">let</span> results <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> idx <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; idx <span style="color:#ff79c6">&lt;</span> <span style="color:#ff79c6">this</span>.length; idx<span style="color:#ff79c6">++</span>) {
+    results.push(callback.apply(thisArg, [<span style="color:#ff79c6">this</span>[idx], idx, <span style="color:#ff79c6">this</span>]));
+  }
+  <span style="color:#ff79c6">return</span> results;
+};
+</code></pre></div><p>Note that this is identical to our <code>myOwnMap</code> function, except instead of taking an <code>array</code> argument, it uses <code>this</code> to refer to the array it is operating on (itself).</p>
+<p>Then we could do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>].myOwnMap((e) =&gt; e <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">10</span>).myOwnMap((e) =&gt; e <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">5</span>);
+<span style="color:#6272a4">// [2,4,6,8,10]
+</span></code></pre></div><p>However, monkey-patching is almost never a good idea, nor is it a good idea to define a &ldquo;special&rdquo; <code>map</code> behavior for your own objects. If you need a special behavior that <em>uses</em> map, write a function that describes the behavior and use map <em>inside</em> of it. It would be an especially bad idea to modify <code>Array.prototype.map</code> directly, since <em>every other instance</em> in your code that uses <code>map</code> will be effected, almost certainly for the worse.</p>
+<p>These are tenets of functional programming: create functions that do not create side-effects. Create small and maintainable functions that can be composed to create larger functions.</p>
+<h2 id="bring-it-all-together-calculating-standard-deviation">Bring it all together: Calculating Standard Deviation</h2>
+<p><a href="https://en.wikipedia.org/wiki/Standard_deviation" target="_blank" rel="noreferrer noopener">Standard deviation</a> is a common tool used to measure variance from a mean, assuming a normally distributed set of data. We&rsquo;ll write a function using <code>map</code>, <code>reduce</code>, and <code>filter</code> to calculate the standard deviation of a set of data, excluding data that lies outside the bounds passed to the function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> standardDeviation(data, lowerBound, upperBound) {
+  lowerBound <span style="color:#ff79c6">=</span> lowerBound <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">Math</span>.min(...data);
+  upperBound <span style="color:#ff79c6">=</span> upperBound <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">Math</span>.max(...data);
+  <span style="color:#8be9fd;font-style:italic">let</span> filteredData <span style="color:#ff79c6">=</span> data.filter((e) =&gt; e <span style="color:#ff79c6">&gt;=</span> lowerBound <span style="color:#ff79c6">&amp;&amp;</span> e <span style="color:#ff79c6">&lt;=</span> upperBound);
+  <span style="color:#8be9fd;font-style:italic">let</span> average <span style="color:#ff79c6">=</span>
+    filteredData.reduce((acc, ele) =&gt; (acc <span style="color:#ff79c6">+=</span> ele), <span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">/</span> filteredData.length;
+  <span style="color:#8be9fd;font-style:italic">let</span> numerator <span style="color:#ff79c6">=</span> filteredData
+    .map((e) =&gt; {
+      <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(e <span style="color:#ff79c6">-</span> average, <span style="color:#bd93f9">2</span>);
+    })
+    .reduce((acc, ele) =&gt; (acc <span style="color:#ff79c6">+=</span> ele), <span style="color:#bd93f9">0</span>);
+  <span style="color:#6272a4">// don&#39;t divide by zero
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> denominator <span style="color:#ff79c6">=</span> filteredData.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">if</span> (denominator <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0</span>) {
+    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> division <span style="color:#ff79c6">=</span> numerator <span style="color:#ff79c6">/</span> denominator;
+  <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(division);
+}
+</code></pre></div><p>We can use the ES6 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator" target="_blank" rel="noreferrer noopener">spread operator</a> with <code>Math.min()</code> and <code>Math.max()</code> to cleanly set default lower and upper bounds to the extent of the dataset, if no bounds are provided. Then, we just compose our previous functions to calculate the sample standard deviation.</p>
+<h2 id="til">TIL</h2>
+<p>Today we learned about <code>map</code>, <code>filter</code>, and <code>reduce</code>, <a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank" rel="noreferrer noopener">higher-order functions</a> that facilitate FP.</p>
+<p>One goal of functional programming is to create code that can be reused. This means coding small, functional units that can be composed in different ways to produce different results. This makes code easier to reason about, test, and debug.</p>
+<p>Try to identify places in your code where you can utilize a functional approach. If you&rsquo;re interested more, try playing with <a href="https://www.haskell.org/" target="_blank" rel="noreferrer noopener">Haskell</a>&hellip;see <a href="http://learnyouahaskell.com/" target="_blank" rel="noreferrer noopener">Learn You a Haskell For Great Good</a> for a fun starting point.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/filter/"> filter </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/functionalprogramming/"> functionalprogramming </a>
+			
+			
+			
+			
+			
+			<a href="/tags/functionchaining/"> functionchaining </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/map/"> map </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/reduce/"> reduce </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/standarddeviation/"> standarddeviation </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

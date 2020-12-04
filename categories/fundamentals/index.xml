@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Value vs Reference: Deep vs Shallow</title>
-			<link>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</link>
+			<link>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</link>
 			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</guid>
+			<guid>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</guid>
 			<description>
 				
 				A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>Histograms in D3 and Observable HQ</title>
-			<link>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</link>
+			<link>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</link>
 			<pubDate>Tue, 06 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</guid>
+			<guid>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</guid>
 			<description>
 				
 				An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration.
@@ -37,10 +37,10 @@
 		</item>
 		<item>
 			<title>Prototypal Inheritance Basics</title>
-			<link>https://thmsdnnr.com/post/prototypal-inheritance-basics/</link>
+			<link>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</link>
 			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/prototypal-inheritance-basics/</guid>
+			<guid>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</guid>
 			<description>
 				
 				What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax.
@@ -49,10 +49,10 @@
 		</item>
 		<item>
 			<title>ES6 — Generator Functions</title>
-			<link>https://thmsdnnr.com/post/es6-generator-functions/</link>
+			<link>https://thmsdnnr.com/blog/es6-generator-functions/</link>
 			<pubDate>Sat, 24 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/es6-generator-functions/</guid>
+			<guid>https://thmsdnnr.com/blog/es6-generator-functions/</guid>
 			<description>
 				
 				Generator functions let programmers use yield to pause the execution of functions until they are called later.
@@ -61,10 +61,10 @@
 		</item>
 		<item>
 			<title>Speeding Up Repetitive Calculations with Memoization</title>
-			<link>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</link>
+			<link>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</link>
 			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</guid>
+			<guid>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</guid>
 			<description>
 				
 				Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization.
@@ -73,10 +73,10 @@
 		</item>
 		<item>
 			<title>Events and Event Listeners in JavaScript</title>
-			<link>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</link>
+			<link>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</link>
 			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</guid>
+			<guid>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</guid>
 			<description>
 				
 				JavaScript is a fundamentally event-driven programming language. Learn about the event loop, adding handlers to events with listeners, and debouncing for limiting the number of times those handlers are called.
@@ -85,10 +85,10 @@
 		</item>
 		<item>
 			<title>Document Object Model (DOM) Selectors</title>
-			<link>https://thmsdnnr.com/post/document-object-model-dom-selectors/</link>
+			<link>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</link>
 			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/document-object-model-dom-selectors/</guid>
+			<guid>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</guid>
 			<description>
 				
 				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.
@@ -97,10 +97,10 @@
 		</item>
 		<item>
 			<title>Map, Filter, and Reduce: Functional Programming Gems</title>
-			<link>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</link>
+			<link>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</link>
 			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</guid>
+			<guid>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</guid>
 			<description>
 				
 				Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation.
@@ -109,10 +109,10 @@
 		</item>
 		<item>
 			<title>WebStorage API: localStorage and sessionStorage</title>
-			<link>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</link>
+			<link>https://thmsdnnr.com/blog/webstorage-api-localstorage-and-sessionstorage/</link>
 			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</guid>
+			<guid>https://thmsdnnr.com/blog/webstorage-api-localstorage-and-sessionstorage/</guid>
 			<description>
 				
 				WebStorage API, localStorage, and sessionStorage
@@ -121,10 +121,10 @@
 		</item>
 		<item>
 			<title>Scope &amp; Closures: let vs var in JavaScript</title>
-			<link>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</link>
+			<link>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</link>
 			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</guid>
+			<guid>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</guid>
 			<description>
 				
 				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.

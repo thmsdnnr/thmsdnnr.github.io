@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Let&#39;s Implement a Stream Cipher (CTR)!">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set3"><meta name="description" content="Implementing AES in CTR mode, a Stream Cipher, to solve Cryptopals Set 3 Challenge 18."><meta property="og:title" content="Let&#39;s Implement a Stream Cipher (CTR)!" />
+<meta property="og:description" content="Implementing AES in CTR mode, a Stream Cipher, to solve Cryptopals Set 3 Challenge 18." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/lets-implement-a-stream-cipher-ctr/" />
+<meta property="article:published_time" content="2017-10-03T07:40:04+00:00" />
+<meta property="article:modified_time" content="2017-10-03T07:40:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s Implement a Stream Cipher (CTR)!"/>
+<meta name="twitter:description" content="Implementing AES in CTR mode, a Stream Cipher, to solve Cryptopals Set 3 Challenge 18."/>
+
+	
+	
+
+	<title>Let&#39;s Implement a Stream Cipher (CTR)! | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">03</span>
+				<span class="rest">Oct 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Let&#39;s Implement a Stream Cipher (CTR)!</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/3/challenges/18" target="_blank" rel="noreferrer noopener">Cryptopals Set 3 Challenge 18</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s3c18" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s3c18/" target="_blank" rel="noreferrer noopener">demo</a></p>
+<h3 id="step-0-littlebig-endian">Step 0: Little/Big Endian</h3>
+<p>If you&rsquo;ve implemented the rest of AES encryption, this is literally the hardest part of the challenge.</p>
+<p>You have a number represented by one byte. Which way do you read the bits? Most significant (leftmost bit) to least significant (rightmost bit).</p>
+<p>Now say you have a number represented by two bytes. You know which way to read the bits, but which way do you read the <em>bytes</em>? <code>\x01\x0F</code> or <code>\x0F\x01</code>? Both of these numbers can represent either 31, if the left one (<code>\x01\x0F</code>) is read as big-endian and the right one (<code>\x0F\x01</code>) is read as little-endian. <a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="noreferrer noopener">More from wikipedia</a>.</p>
+<p>The format specified for the Stream Cipher is:</p>
+<blockquote>
+<p>format=64 bit unsigned little endian nonce, 64 bit little endian block count (byte count / 16)</p>
+</blockquote>
+<p>Unsigned means that none of the bytes in the nonce are used to specify positive or negative. All of them represent numbers.</p>
+<p>Little endian means that the <em>least</em> significant or smallest values come first. That means that if we&rsquo;re representing the value 15 for block count, the block looks like this:</p>
+<p><code>\x0F\x00\x00\x00\x00\x00\x00\x00</code> instead of this:
+<code>\x00\x00\x00\x00\x00\x00\x00\x0F</code></p>
+<p>I wrote a function to &ldquo;little-endianize&rdquo; a number into its hex representation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> lilEndian(number) {
+  <span style="color:#6272a4">// returns quadword number in little endian, hexadecimal representation
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#8be9fd;font-style:italic">Number</span>.isInteger(number) <span style="color:#ff79c6">||</span> number <span style="color:#ff79c6">&gt;</span> <span style="color:#8be9fd;font-style:italic">Number</span>.MAX_SAFE_INTEGER) {
+    <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;Whoa nelly, can&#39;t convert that!&#34;</span>);
+  }
+  <span style="color:#6272a4">// max safe is 9007199254740991
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> arrResult <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">let</span> temp;
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">63</span>; i <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span>; i<span style="color:#ff79c6">--</span>) {
+    <span style="color:#6272a4">//64 bits
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">if</span> (number <span style="color:#ff79c6">&gt;=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#bd93f9">2</span>, i)) {
+      temp <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor(number <span style="color:#ff79c6">/</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#bd93f9">2</span>, i));
+      arrResult.unshift(temp);
+      number <span style="color:#ff79c6">-=</span> temp <span style="color:#ff79c6">*</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#bd93f9">2</span>, i);
+    } <span style="color:#ff79c6">else</span> {
+      arrResult.unshift(<span style="color:#bd93f9">0</span>);
+    }
+  }
+  arrResult <span style="color:#ff79c6">=</span> arrResult
+    .map((e, idx) =&gt; (idx <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">8</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> arrResult.slice(idx, idx <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>))
+    .filter((e) =&gt; e);
+  <span style="color:#6272a4">// we have to reverse because parseInt is big endian
+</span><span style="color:#6272a4"></span>  <span style="color:#6272a4">// but we store the bits little endian
+</span><span style="color:#6272a4"></span>  arrResult <span style="color:#ff79c6">=</span> arrResult.map((e) =&gt;
+    hexPad(<span style="color:#8be9fd;font-style:italic">parseInt</span>(e.reverse().join(<span style="color:#f1fa8c">&#34;&#34;</span>), <span style="color:#bd93f9">2</span>).toString(<span style="color:#bd93f9">16</span>))
+  );
+  <span style="color:#ff79c6">return</span> arrResult;
+}
+</code></pre></div><p>The perceptive reader will notice that I restrict super large numbers but quip, &ldquo;Wait tho, that&rsquo;s smaller than a quadword!&rdquo; You are right, dear reader. Technically, a quadword can hold a number up to <code>9,223,372,036,854,775,807</code>, but the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER" target="_blank" rel="noreferrer noopener">MAX_SAFE_INTEGER constant</a> in JavaScript is <code>9,007,199,254,740,991</code>.</p>
+<p>The counter that we encrypt, which increments by 1 for every 16 bytes, is really, really unlikely to ever get that large (if it does, we throw an error and stop encrypting). We&rsquo;d have to be encrypting about 200 petabytes (PB) 1 PB = 10<!-- raw HTML omitted -->15<!-- raw HTML omitted --> bytes = 1,000 terabytes, and we&rsquo;d be using the same nonce to do it. No no.</p>
+<p>The chosen nonce could possibly be larger than MAX_SAFE_INTEGER, so for a proper implementation that provides the maximum <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce" target="_blank" rel="noreferrer noopener">noncespace</a>, we&rsquo;d create a way of safely handling numbers larger than JavaScript&rsquo;s internal limit so that we could represent the full range of numbers a quadword can store.</p>
+<h3 id="step-1-lets-stream-that-block-cipher">Step 1: Let&rsquo;s Stream That (Block) Cipher</h3>
+<p>Here&rsquo;s info on CTR mode <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_.28CTR.29" target="_blank" rel="noreferrer noopener">(wikipedia)</a>. Notable points:</p>
+<ul>
+<li>Encryption and decryption <em>both</em> use the AES encryption process on the keystream bytes.
+<ul>
+<li>All we do to encrypt or decrypt the plaintext/ciphertext is XOR with this encrypted keystream.</li>
+</ul>
+</li>
+<li>CTR converts our block cipher into a stream cipher.</li>
+<li>No plaintext padding is required.
+<ul>
+<li>Just keep XORing with fresh keystream until you run out of plaintext or ciphertext.</li>
+</ul>
+</li>
+</ul>
+<p>I create a simple object that will give me 16 bytes of encrypted keystream each time I call <code>.next()</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> Counter <span style="color:#ff79c6">=</span> {
+  nonce<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  count<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  next<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+    <span style="color:#6272a4">// returns next 16 bytes
+</span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.nonce) {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;You must set a nonce with setNonce()!&#34;</span>);
+    }
+    <span style="color:#ff79c6">this</span>.count <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span> <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">this</span>.count<span style="color:#ff79c6">++</span> <span style="color:#ff79c6">:</span> (<span style="color:#ff79c6">this</span>.count <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>);
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">this</span>.nonce.concat(lilEndian(<span style="color:#ff79c6">this</span>.count));
+  },
+  setNonce<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span> (n) {
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.nonce) {
+      <span style="color:#ff79c6">throw</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;Nonces are immutable. Create another counter.&#34;</span>);
+    }
+    <span style="color:#ff79c6">this</span>.nonce <span style="color:#ff79c6">=</span> lilEndian(n);
+  },
+};
+</code></pre></div><p>Then, here&rsquo;s all that I have to do to encrypt (<em>or</em> decrypt &ndash; the process is identical!):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> Z, dataText;
+<span style="color:#8be9fd;font-style:italic">let</span> ctr <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.create(Counter);
+ctr.setNonce(N);
+<span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> [];
+<span style="color:#8be9fd;font-style:italic">let</span> keyStream <span style="color:#ff79c6">=</span> aesEncryptECB(ctr.next(), key, bits);
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> I.length; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">16</span>) {
+  <span style="color:#8be9fd;font-style:italic">let</span> block <span style="color:#ff79c6">=</span> I.slice(i, i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> next <span style="color:#ff79c6">=</span> ctr.next();
+  console.log(next);
+  res <span style="color:#ff79c6">=</span> res.concat(addRoundKey(block, keyStream));
+  keyStream <span style="color:#ff79c6">=</span> aesEncryptECB(next, key, bits);
+}
+Z <span style="color:#ff79c6">=</span> res.map(hexToTxt).join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+</code></pre></div><p>Chunk the plaintext up into 16 byte blocks and convert to hexadecimal. Get a block of AES-encrypted keystream. XOR each plaintext byte with its corresponding keystream byte. Done! Literally that simple.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set3/"> cryptopals-set3 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

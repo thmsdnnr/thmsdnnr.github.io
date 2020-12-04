@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Draw Photo Histograms: D3 &#43; Canvas">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,fundamentals,D3,canvas,histograms,frequency,dataScience,fileReader,dataAnalysis"><meta name="description" content="Exploring histograms using vanilla JavaScript, D3, and the FileReader API."><meta property="og:title" content="Draw Photo Histograms: D3 &#43; Canvas" />
+<meta property="og:description" content="Exploring histograms using vanilla JavaScript, D3, and the FileReader API." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/" />
+<meta property="article:published_time" content="2018-03-09T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-03-09T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Draw Photo Histograms: D3 &#43; Canvas"/>
+<meta name="twitter:description" content="Exploring histograms using vanilla JavaScript, D3, and the FileReader API."/>
+
+	
+	
+
+	<title>Draw Photo Histograms: D3 &#43; Canvas | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">09</span>
+				<span class="rest">Mar 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Draw Photo Histograms: D3 &#43; Canvas</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="the-finished-product">The Finished Product</h2>
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="yKyoBX"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<h2 id="histograms-redux">Histograms Redux</h2>
+<p>We&rsquo;ve previously discussed histograms <a href="https://thmsdnnr.com/fundamentals/2018/03/05/histograms-frequency-analysis.html" target="_blank" rel="noreferrer noopener">in this tutorial</a>. Today, we&rsquo;ll use that knowledge and apply it to making a histogram that shows the RGB distribution of an image the user uploads in the browser. We&rsquo;ll graph all three components' frequencies with D3 and allow the user to highlight individual components. Sound like a lot of work? It&rsquo;s not too bad actually!</p>
+<h2 id="high-level-structure">High-Level Structure</h2>
+<p>Good code is like good plumbing. The memory doesn&rsquo;t leak. Things flow in the direction you&rsquo;d expect. Pipes do not simply terminate. Coding an app could be described simply as collating streams of data and creating pipes to make the data interact in meaningful ways to solve a task.</p>
+<p>So let&rsquo;s go with that: the task we want to solve is to display a histogram of a user-uploaded image. The image does not need to persist, so we can do it all in the browser.</p>
+<p>We need to load the image from the user and pipe it into something that will allow us to extract its pixel data. For this, we&rsquo;ll use HTML5 canvas.</p>
+<p>Then, we need to process that pixel data and pipe it into something that will allow us to display it. For this, we&rsquo;ll use D3.</p>
+<p>So the pipes are User -&gt; Canvas -&gt; Pixel Data -&gt; Histogram Data -&gt; D3.</p>
+<h2 id="pipe-1-user---canvas">Pipe 1: User -&gt; Canvas</h2>
+<p>We&rsquo;ll use a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file" target="_blank" rel="noreferrer noopener">file input</a> to allow the user to upload an image.</p>
+<p><code>&lt;input type=&quot;file&quot; id=&quot;imageFile&quot; accept=&quot;.png, .jpg, .jpeg&quot;&gt;&lt;/input&gt;</code></p>
+<p>You can restrict the types of files a user can upload using the input. In this case, we&rsquo;ll limit it to images.</p>
+<p>We add an event listener to the input element for a <code>change</code> event.</p>
+<p><code>document.getElementById(&quot;imageFile&quot;).addEventListener(&quot;change&quot;, handleFiles);</code></p>
+<p>Then we write a function to handle the file upload when it occurs.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> handleFiles() {
+  <span style="color:#8be9fd;font-style:italic">var</span> theImage <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;imageFile&#34;</span>).files[<span style="color:#bd93f9">0</span>];
+  <span style="color:#8be9fd;font-style:italic">var</span> img <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Image();
+  <span style="color:#8be9fd;font-style:italic">var</span> reader <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> FileReader();
+  reader.addEventListener(<span style="color:#f1fa8c">&#34;load&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> () {
+    img.src <span style="color:#ff79c6">=</span> reader.result;
+  });
+  img.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+    calcAndGraph(img);
+  };
+  <span style="color:#ff79c6">if</span> (theImage) {
+    reader.readAsDataURL(theImage);
+  }
+}
+</code></pre></div><p>The files are passed into the <code>files</code> array. We only are going to grab the first file, if the user selects more than one.</p>
+<p>Once we have the file, we have to use a <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank" rel="noreferrer noopener">FileReader</a> in order to asynchronously read its contents into memory.</p>
+<p>The FileReader returns a &ldquo;load&rdquo; event when the file is successfully read. The resulting data is present in the <code>result</code> property of the FileReader.</p>
+<p>We make sure that the user actually entered a file in the box (<code>if (theImage)</code>). If so, we initialize the FileReader with <code>readAsDataUrl</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL" target="_blank" rel="noreferrer noopener">(Docs)</a>. This reads the contents of the file and returns a result formatted as a base64 encoded data string. This string can be displayed directly as the <code>src</code> of an image tag.</p>
+<p>We create this image tag, and when the file is successfully read, we set its src to the <code>reader.result</code>. When the image is successfully loaded, we pass it into our <code>calcAndGraph</code> function.</p>
+<h3 id="pipe-2-canvas---histogram-data">Pipe 2: Canvas -&gt; Histogram Data</h3>
+<p>Now that we have our image, we are going to put it into the canvas and generate a histogram from canvasData.</p>
+<p>We set our canvas height and width to that of the image&rsquo;s height and width. Then, we draw the image to the canvas with <code>drawImage</code>. Once the image is on the canvas, we can call <code>getImageData</code>, which will return an <code>ImageData</code> object <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData" target="_blank" rel="noreferrer noopener">(Docs)</a>. The object contains three properties: height, width, and data.</p>
+<p>Data is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray" target="_blank" rel="noreferrer noopener">Uint8ClampedArray</a>. This sounds complex, but it&rsquo;s quite simple. It&rsquo;s an 8-bit Unsigned Integer array. 8 bits can store 2^8 or 256 unique values (0-255). Unsigned means it cannot store negative numbers: all of the bits are used to store numeric values: there is no sign bit.</p>
+<p>Clamped means that attempting to place a non-integral entry in the array will round the value to the nearest integer (3.4 -&gt; 3, 3.51 -&gt; 4), and that all values below 0 will be set to zero. Similarly, all values greater than 255 will be set to 255.</p>
+<p>If you think about the <a href="https://en.wikipedia.org/wiki/RGB_color_model" target="_blank" rel="noreferrer noopener">RGB color model</a>, this is the perfect data structure. Each pixel in the image is represented by four entries in the array: a R, G, B, and A (alpha) value. To read sequential pixels' RGBA values, you skip ahead by 4.</p>
+<p>Now that we have the data, we create three dictionaries that we&rsquo;ll use to hold the number of occurrences of a red, green, and blue pixel of a given intensity, rD, gD, and bD, respectively.</p>
+<p>We instantiate the dictionaries by setting the initial frequency of every pixel to 0. We do this because it&rsquo;s possible that an image might not have all 256 values for a given color component.</p>
+<p>Finally, we iterate through the array, moving forward pixel by pixel (<code>i+=4</code>), assigning the i-th, i+1th, and i+2th pixel to the red, green, and blue dictionaries, respectively. The i+3th value is the alpha, or opacity. In our case, we&rsquo;re ignoring this channel.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> calcAndGraph(img) {
+  <span style="color:#8be9fd;font-style:italic">let</span> rD <span style="color:#ff79c6">=</span> {},
+    gD <span style="color:#ff79c6">=</span> {},
+    bD <span style="color:#ff79c6">=</span> {};
+  <span style="color:#8be9fd;font-style:italic">let</span> cv <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;C&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> ctx <span style="color:#ff79c6">=</span> cv.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+  cv.width <span style="color:#ff79c6">=</span> img.width;
+  cv.height <span style="color:#ff79c6">=</span> img.height;
+  ctx.drawImage(img, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>);
+  <span style="color:#ff79c6">const</span> iD <span style="color:#ff79c6">=</span> ctx.getImageData(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, cv.width, cv.height).data;
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">256</span>; i<span style="color:#ff79c6">++</span>) {
+    rD[i] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    gD[i] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+    bD[i] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+  }
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> iD.length; i <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">4</span>) {
+    rD[iD[i]]<span style="color:#ff79c6">++</span>;
+    gD[iD[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>]]<span style="color:#ff79c6">++</span>;
+    bD[iD[i <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span>]]<span style="color:#ff79c6">++</span>;
+  }
+  histogram({ rD, gD, bD });
+}
+</code></pre></div><p>Once we create these three pixel frequency dictionaries, we&rsquo;re done with the canvas. We pass the data into our histogram function for display.</p>
+<h3 id="pipe-3-histogram-data----d3">Pipe 3: Histogram Data - &gt; D3</h3>
+<p>The histogram function is pretty typical D3. <code>histogram</code> wraps an inner function that graphs individual histogram components. We establish base dimensions for the graph and margins as well as the y-axis labels. We size the svg component in the HTML accordingly. Then we call <code>graphComponent</code>, our inner function, with each of the three datasets and the desired color to display.</p>
+<p><code>graphComponent</code> does the main work of the graphing: it removes existing values (remember, the user can upload photo after photo, and we don&rsquo;t want old data to persist) as well as resets the yAxis. We only need to draw the y-axis once per data set, since we&rsquo;re overlaying all three bar groups. We set the flag once we&rsquo;ve drawn it, and reset the flag once we draw a new histogram&rsquo;s worth of data.</p>
+<p>We map the data to an index (object key) and frequency (object value).</p>
+<p>Then we create bars for each data element. Pretty easy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> histogram(data) {
+  <span style="color:#8be9fd;font-style:italic">let</span> W <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">800</span>;
+  <span style="color:#8be9fd;font-style:italic">let</span> H <span style="color:#ff79c6">=</span> W <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>;
+  <span style="color:#ff79c6">const</span> svg <span style="color:#ff79c6">=</span> d3.select(<span style="color:#f1fa8c">&#34;svg&#34;</span>);
+  <span style="color:#ff79c6">const</span> margin <span style="color:#ff79c6">=</span> { top<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">20</span>, right<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">20</span>, bottom<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">30</span>, left<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">50</span> };
+  <span style="color:#ff79c6">const</span> width <span style="color:#ff79c6">=</span> W <span style="color:#ff79c6">-</span> margin.left <span style="color:#ff79c6">-</span> margin.right;
+  <span style="color:#ff79c6">const</span> height <span style="color:#ff79c6">=</span> H <span style="color:#ff79c6">-</span> margin.top <span style="color:#ff79c6">-</span> margin.bottom;
+  <span style="color:#8be9fd;font-style:italic">let</span> q <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;svg&#34;</span>);
+  q.style.width <span style="color:#ff79c6">=</span> width;
+  q.style.height <span style="color:#ff79c6">=</span> height;
+  <span style="color:#ff79c6">if</span> (yAxis) {
+    d3.selectAll(<span style="color:#f1fa8c">&#34;g.y-axis&#34;</span>).remove();
+    yAxis <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">function</span> graphComponent(data, color) {
+    d3.selectAll(<span style="color:#f1fa8c">`.bar-</span><span style="color:#f1fa8c">${</span>color<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">`</span>).remove();
+    <span style="color:#8be9fd;font-style:italic">var</span> data <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Object</span>.keys(data).map(<span style="color:#8be9fd;font-style:italic">function</span> (key) {
+      <span style="color:#ff79c6">return</span> { freq<span style="color:#ff79c6">:</span> data[key], idx<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">+</span>key };
+    });
+    <span style="color:#8be9fd;font-style:italic">var</span> x <span style="color:#ff79c6">=</span> d3
+      .scaleLinear()
+      .range([<span style="color:#bd93f9">0</span>, width])
+      .domain([
+        <span style="color:#bd93f9">0</span>,
+        d3.max(data, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+          <span style="color:#ff79c6">return</span> d.idx;
+        }),
+      ]);
+    <span style="color:#8be9fd;font-style:italic">var</span> y <span style="color:#ff79c6">=</span> d3
+      .scaleLinear()
+      .range([height, <span style="color:#bd93f9">0</span>])
+      .domain([
+        <span style="color:#bd93f9">0</span>,
+        d3.max(data, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+          <span style="color:#ff79c6">return</span> d.freq;
+        }),
+      ]);
+    <span style="color:#8be9fd;font-style:italic">var</span> g <span style="color:#ff79c6">=</span> svg
+      .append(<span style="color:#f1fa8c">&#34;g&#34;</span>)
+      .attr(<span style="color:#f1fa8c">&#34;transform&#34;</span>, <span style="color:#f1fa8c">`translate(</span><span style="color:#f1fa8c">${</span>margin.left<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">, </span><span style="color:#f1fa8c">${</span>margin.top<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">)`</span>);
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>yAxis) {
+      yAxis <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+      g.append(<span style="color:#f1fa8c">&#34;g&#34;</span>)
+        .attr(<span style="color:#f1fa8c">&#34;class&#34;</span>, <span style="color:#f1fa8c">&#34;y-axis&#34;</span>)
+        .attr(<span style="color:#f1fa8c">&#34;transform&#34;</span>, <span style="color:#f1fa8c">&#34;translate(&#34;</span> <span style="color:#ff79c6">+</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">5</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;,0)&#34;</span>)
+        .call(d3.axisLeft(y).ticks(<span style="color:#bd93f9">10</span>).tickSizeInner(<span style="color:#bd93f9">10</span>).tickSizeOuter(<span style="color:#bd93f9">2</span>));
+    }
+    g.selectAll(<span style="color:#f1fa8c">&#34;.bar-&#34;</span> <span style="color:#ff79c6">+</span> color)
+      .data(data)
+      .enter()
+      .append(<span style="color:#f1fa8c">&#34;rect&#34;</span>)
+      .attr(<span style="color:#f1fa8c">&#34;class&#34;</span>, <span style="color:#f1fa8c">`bar-</span><span style="color:#f1fa8c">${</span>color<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">`</span>)
+      .attr(<span style="color:#f1fa8c">&#34;fill&#34;</span>, color)
+      .attr(<span style="color:#f1fa8c">&#34;x&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+        <span style="color:#ff79c6">return</span> x(d.idx);
+      })
+      .attr(<span style="color:#f1fa8c">&#34;y&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+        <span style="color:#ff79c6">return</span> y(d.freq);
+      })
+      .attr(<span style="color:#f1fa8c">&#34;width&#34;</span>, <span style="color:#bd93f9">2</span>)
+      .attr(<span style="color:#f1fa8c">&#34;opacity&#34;</span>, <span style="color:#bd93f9">0.8</span>)
+      .attr(<span style="color:#f1fa8c">&#34;height&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d) {
+        <span style="color:#ff79c6">return</span> height <span style="color:#ff79c6">-</span> y(d.freq);
+      });
+  }
+  graphComponent(data.gD, <span style="color:#f1fa8c">&#34;green&#34;</span>);
+  graphComponent(data.bD, <span style="color:#f1fa8c">&#34;blue&#34;</span>);
+  graphComponent(data.rD, <span style="color:#f1fa8c">&#34;red&#34;</span>);
+}
+</code></pre></div><h3 id="user-interaction">User Interaction</h3>
+<p>We add a few buttons that lets the user focus in on one of the three color components, as well as reset to the initial blend. All that this is doing is changing the opacity of the selected bars.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;red&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;focuser&#34;</span>&gt;++R&lt;/<span style="color:#ff79c6">button</span>&gt;
+&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;green&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;focuser&#34;</span>&gt;++G&lt;/<span style="color:#ff79c6">button</span>&gt;
+&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;blue&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;focuser&#34;</span>&gt;++B&lt;/<span style="color:#ff79c6">button</span>&gt;
+&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;blend&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;focuser&#34;</span>&gt;Blend&lt;/<span style="color:#ff79c6">button</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>.querySelectorAll(<span style="color:#f1fa8c">&#34;button.focuser&#34;</span>).forEach((button) =&gt; {
+  button.addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, amplify);
+});
+</code></pre></div><p>We create an event listener for the buttons that sends all clicks to our <code>amplify</code> handler.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> amplify(e) {
+  <span style="color:#ff79c6">const</span> colors <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#34;red&#34;</span>, <span style="color:#f1fa8c">&#34;green&#34;</span>, <span style="color:#f1fa8c">&#34;blue&#34;</span>];
+  <span style="color:#ff79c6">const</span> boost <span style="color:#ff79c6">=</span> e.target.id;
+  <span style="color:#ff79c6">if</span> (boost <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;blend&#34;</span>) {
+    <span style="color:#8be9fd;font-style:italic">document</span>.querySelectorAll(<span style="color:#f1fa8c">&#34;rect&#34;</span>).forEach((bar) =&gt; {
+      bar.style.opacity <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.7</span>;
+    });
+  } <span style="color:#ff79c6">else</span> {
+    activeColor <span style="color:#ff79c6">=</span> boost;
+    <span style="color:#ff79c6">const</span> deaden <span style="color:#ff79c6">=</span> colors.filter((e) =&gt; e <span style="color:#ff79c6">!==</span> boost);
+    <span style="color:#8be9fd;font-style:italic">document</span>.querySelectorAll(<span style="color:#f1fa8c">&#34;.bar-&#34;</span> <span style="color:#ff79c6">+</span> boost).forEach((bar) =&gt; {
+      bar.style.opacity <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1.0</span>;
+    });
+    deaden.forEach((color) =&gt; {
+      <span style="color:#8be9fd;font-style:italic">document</span>.querySelectorAll(<span style="color:#f1fa8c">&#34;.bar-&#34;</span> <span style="color:#ff79c6">+</span> color).forEach((bar) =&gt; {
+        bar.style.opacity <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.2</span>;
+      });
+    });
+  }
+}
+</code></pre></div><p>Amplify sets the current active color. If it&rsquo;s blend, we set all opacities equal. Otherwise, we set the active color opacity to 1 and the background opacities to 0.2. Since we&rsquo;ve set a unique class for each of our bar sets, this is simple &ldquo;select bars + change values&rdquo;.</p>
+<h2 id="making-it-pretty">Making It Pretty</h2>
+<p>Finally, to make things pretty, so that the user sees results immediately, we&rsquo;ll pass in a base64-encoded image of a cat, stored in a string, and run our histogram code on it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>.addEventListener(<span style="color:#f1fa8c">&#34;DOMContentLoaded&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (event) {
+  <span style="color:#8be9fd;font-style:italic">var</span> img <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Image();
+  img.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+    calcAndGraph(img);
+  };
+  img.src <span style="color:#ff79c6">=</span> catImg;
+  addListeners();
+});
+</code></pre></div><h2 id="us-versus-apple-preview">Us versus Apple Preview</h2>
+<p><figure>
+  <img src="/assets/pics/histocomp.png" alt="Our generated histogram compared with Apple Preview histogram"  />
+</figure></p>
+<p>Here&rsquo;s the original image opened in Preview compared with our app. Nice. Preview displays a few other components on the graph, hence the slightly differing on the right.</p>
+<h2 id="-til">🐱 TIL</h2>
+<p>Histograms are pretty simple, and so is combining simple components to make a bigger product. Now that we know how to grab an image from the user and access its pixel data, think about all the other cool things we could do:</p>
+<ul>
+<li>calculating summary statistics on the image data distribution</li>
+<li>create an <code>isOverexposed</code> function</li>
+<li>create an &ldquo;Auto-Adjust&rdquo; to automatically smooth out the pixel distribution</li>
+</ul>
+<p>Exercises for the reader. Experiment &amp; grow!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/d3/"> d3 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/dataanalysis/"> dataanalysis </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datascience/"> datascience </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/filereader/"> filereader </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/frequency/"> frequency </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/histograms/"> histograms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

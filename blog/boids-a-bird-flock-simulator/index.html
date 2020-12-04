@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Boids: A Bird Flock Simulator">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,boids,computer science,generative systems,particle system"><meta name="description" content="We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation."><meta property="og:title" content="Boids: A Bird Flock Simulator" />
+<meta property="og:description" content="We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/" />
+<meta property="article:published_time" content="2018-10-05T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-10-05T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Boids: A Bird Flock Simulator"/>
+<meta name="twitter:description" content="We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation."/>
+
+	
+	
+
+	<title>Boids: A Bird Flock Simulator | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">05</span>
+				<span class="rest">Oct 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Boids: A Bird Flock Simulator</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="JmRboR"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<p><a href="https://thmsdnnr.com/boids/" target="_blank" rel="noreferrer noopener">Demo</a> // <a href="https://github.com/thmsdnnr/boids/" target="_blank" rel="noreferrer noopener">GitHub Repo</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Boids" target="_blank" rel="noreferrer noopener">Boids</a> are a simulation program, originally conceived by Craig Reynolds, to model the cooperative movement of animals in nature, like flocks of birds and schools of fish.</p>
+<p>Boids are fascinating, because from the application of a few simple rules to a group of entities, complex coordinated behavior emerges.</p>
+<p>Conrad Parker <a href="http://www.vergenet.net/~conrad/boids/pseudocode.html" target="_blank" rel="noreferrer noopener">has written an excellent resource</a> on how to code the simulation using psuedocode, which will allow you to reproduce the simulation in your own language of choice.</p>
+<p>Here, we&rsquo;ll use vanilla JavaScript and an HTML canvas to visualize the flock.</p>
+<h3 id="vectors-and-scalars">Vectors and Scalars</h3>
+<p>A brief introduction to terms.</p>
+<ul>
+<li>Scalars: represent a magnitude</li>
+<li>Vectors: represent direction as well as magnitude</li>
+</ul>
+<p>The classic examples are speed and velocity.</p>
+<p>Imagine you&rsquo;re driving a car, and you give me your current position on a map and tell me you&rsquo;re going 55 miles per hour.</p>
+<p>I know how much distance you&rsquo;re covering in a given time, but I have no idea where you&rsquo;re going toward or coming from.</p>
+<p>On the other hand, if you tell me that you&rsquo;re traveling 55 miles per hour (direction) <em>and</em> that you&rsquo;re going north on I-5 (magnitude), I can tell you where you&rsquo;ll be in a given period of time, given your starting position.</p>
+<p>But &ldquo;north on I-5&rdquo; is too specific. To capture the notion of direction and magnitude in the abstract, vectors have a coordinate for each direction of motion.</p>
+<p>For a 2-dimensional vector, there is an X-component and a Y-component. For a 3-D vector, there is also a Z-component.</p>
+<p>JavaScript has numbers to handle scalars, no problem. There&rsquo;s no built in Vector object though, so let&rsquo;s make one now to handle our 2D vectors.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> V2(x, y) {
+  <span style="color:#6272a4">// 2D vector class
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">=</span> x <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">0</span>;
+  <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">=</span> y <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">0</span>;
+
+  <span style="color:#ff79c6">this</span>.add <span style="color:#ff79c6">=</span> (addedVector) =&gt;
+    <span style="color:#ff79c6">new</span> V2(<span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">+</span> addedVector.x, <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">+</span> addedVector.y);
+  <span style="color:#ff79c6">this</span>.subtract <span style="color:#ff79c6">=</span> (subtractedVector) =&gt;
+    <span style="color:#ff79c6">new</span> V2(<span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">-</span> subtractedVector.x, <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">-</span> subtractedVector.y);
+  <span style="color:#ff79c6">this</span>.multiply <span style="color:#ff79c6">=</span> (magnitude) =&gt;
+    <span style="color:#ff79c6">new</span> V2(<span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">*</span> magnitude, <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">*</span> magnitude);
+  <span style="color:#ff79c6">this</span>.magnitude <span style="color:#ff79c6">=</span> () =&gt;
+    <span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#ff79c6">this</span>.x, <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(<span style="color:#ff79c6">this</span>.y, <span style="color:#bd93f9">2</span>));
+}
+</code></pre></div><p>We intialize the default x and y copmonent to 0 and add four methods.</p>
+<h4 id="addition">Addition</h4>
+<p>To add two vectors, you simply create a new vector, where each component is the sum of the added vectors' components.</p>
+<p>For instance: <code>[1, 2] + [3, 4]</code> =&gt; <code>[4, 6]</code></p>
+<h4 id="subtraction">Subtraction</h4>
+<p>Subtraction is the inverse of addition. Just subtract instead.</p>
+<p>For instance: <code>[1, 2] - [3, 4]</code> =&gt; <code>[-2, -2]</code></p>
+<h4 id="multiplication">Multiplication</h4>
+<p>To multiply a vector by a scalar, create a new vector with each component multiplied by the scalar.</p>
+<p>For instance: <code>[1, 2] * -1</code> =&gt; <code>[-1, -2]</code></p>
+<h4 id="magnitude">Magnitude</h4>
+<p>To calculate magnitude, we use the Pythagorean Theorum: the magnitude of a vector is equal to the square root of the sum of the squares of each component.</p>
+<p>For instance: <code>[-1, 2] =&gt; sqrt(-1 * -1 + 2 * 2) =&gt; sqrt(5)</code></p>
+<h3 id="boids">Boids</h3>
+<p>Now that we have vectors, we can make boids.</p>
+<p>Boids have positions and velocities. We also want to be able to identify individual boids. To do this, we can create an autoincrementing instance count on the Boid object.</p>
+<p>Velocity is the change of position over time (distance / time). Acceleration is the change of velocity over time (distance / time * 2). You can describe this using calculus (integrating the velocity over a time interval gives the distance travelled), but for our simulation, all this means is that if we update at a constant frames-per-second, we can update the position by adding the change in velocity over that time interval.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> Boid(initialPosition, initialVelocity) {
+  <span style="color:#ff79c6">this</span>.position <span style="color:#ff79c6">=</span> initialPosition <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">new</span> V2(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>);
+  <span style="color:#ff79c6">this</span>.velocity <span style="color:#ff79c6">=</span> initialVelocity <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">new</span> V2(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>);
+  Boid.numInstances <span style="color:#ff79c6">=</span> (Boid.numInstances <span style="color:#ff79c6">||</span> <span style="color:#bd93f9">0</span>) <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">this</span>.id <span style="color:#ff79c6">=</span> Boid.numInstances; <span style="color:#6272a4">// autoincrementing unique ID
+</span><span style="color:#6272a4"></span>}
+</code></pre></div><h3 id="rules-for-boid-behavior">Rules for Boid Behavior</h3>
+<p>Each of these rules considers an individual <code>boid</code> with respect to the group of all boids <code>boidList</code>, an array of <code>boid</code>s.</p>
+<p>Each rule returns a velocity vector.</p>
+<h4 id="1-boids-try-to-align-themselves-with-the-average-position-of-the-flock">1. Boids try to align themselves with the average position of the flock</h4>
+<p>First, we calculate the average position of the flock (excluding the current boid). We calculate this just like any other average: sum each vector and then divide by the length of the list of boids (minus one, because we&rsquo;re excluding the current boid).</p>
+<p>We subtract the current boid&rsquo;s position from the average position. This generates a vector pointing from the current boid to the average position of the flock.</p>
+<p>Finally, we multiply this alignment vector by a <code>COHESION_FACTOR</code>: this can be used to temper the effect of the forced alignment.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> rule1(boid, boidList) {
+  <span style="color:#6272a4">// Boids try to align themselves with the average position of the flock
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> theOtherBoids <span style="color:#ff79c6">=</span> boidList.filter((boidId) =&gt; boid.id <span style="color:#ff79c6">!=</span> boidId.id);
+  <span style="color:#8be9fd;font-style:italic">let</span> avgPosition <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> V2();
+  theOtherBoids.forEach(
+    (boid) =&gt; (avgPosition <span style="color:#ff79c6">=</span> avgPosition.add(boid.position))
+  );
+  <span style="color:#ff79c6">return</span> avgPosition
+    .multiply(<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">/</span> theOtherBoids.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>)
+    .subtract(boid.position)
+    .multiply(COHESION_FACTOR);
+}
+</code></pre></div><h4 id="2-boids-try-to-maintain-a-minimum-distance-between-themselves-and-others">2. Boids try to maintain a minimum distance between themselves and others</h4>
+<p>We can set a constant <code>TOO_CLOSE_MAGNITUDE</code> that the boids will use to figure out if they are too close to one another. First, we make a list of the boids that the current boid is too close too. For each boid that&rsquo;s too close, we generate a vector pulling this boid away from these boids.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> rule2(boid, boidList) {
+  <span style="color:#6272a4">// Boids try to maintain a minimum distance between themselves and others
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> newPositionVector <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> V2();
+  boidList
+    .filter((boidId) =&gt; boid.id <span style="color:#ff79c6">!==</span> boidId.id)
+    .map((otherBoid) =&gt; otherBoid.position)
+    .filter(
+      (otherBoidPosition) =&gt;
+        otherBoidPosition.subtract(boid.position).magnitude() <span style="color:#ff79c6">&lt;</span>
+        TOO_CLOSE_MAGNITUDE
+    )
+    .map((tooCloseBoid) =&gt;
+      newPositionVector.subtract(tooCloseBoid.subtract(boid.position))
+    );
+  <span style="color:#ff79c6">return</span> newPositionVector;
+}
+</code></pre></div><h4 id="3-boids-try-to-match-their-velocity-with-that-of-the-flock">3. Boids try to match their velocity with that of the flock</h4>
+<p>We can calculate the average velocity in the same way that we calculated average position. Then, multiply by a <code>VELOCITY_MATCH_FACTOR</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> rule3(boid, boidList) {
+  <span style="color:#6272a4">// Boids try to match their velocity with that of the flock
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">return</span> boidList
+    .filter((boidId) =&gt; boid.id <span style="color:#ff79c6">!==</span> boidId.id)
+    .map((otherBoid) =&gt; otherBoid.velocity)
+    .reduce((boidA, boidB) =&gt; boidA.add(boidB), <span style="color:#ff79c6">new</span> V2())
+    .multiply(<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">/</span> boidList.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>)
+    .multiply(VELOCITY_MATCH_FACTOR);
+}
+</code></pre></div><h2 id="simulation">Simulation</h2>
+<h3 id="set-up-a-canvas">Set up a Canvas</h3>
+<p><code>&lt;canvas id=&quot;birdflock&quot;&gt;&lt;/canvas&gt;</code></p>
+<p>We&rsquo;ll make the canvas the height &amp; width of the window with 100 pixel margins.</p>
+<p><code>ctx.translate(0.5, 0.5)</code> moves the canvas grid by a half-pixel for smoothing.</p>
+<p>If you have a retina display, canvas pixels look weird unless you scale them down by a factor of 2. So, we&rsquo;ll use a <code>scaleFactor</code> of the pixel ratio (2x for retina, 1x for non-retina) to augment our calculations.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> scaleFactor <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.devicePixelRatio;
+<span style="color:#ff79c6">const</span> MAX_X <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.innerWidth <span style="color:#ff79c6">*</span> scaleFactor <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">100</span>;
+<span style="color:#ff79c6">const</span> MAX_Y <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.innerHeight <span style="color:#ff79c6">*</span> scaleFactor <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">100</span>;
+
+c <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;birdflock&#34;</span>);
+c.width <span style="color:#ff79c6">=</span> MAX_X;
+c.height <span style="color:#ff79c6">=</span> MAX_Y;
+c.style.width <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`</span><span style="color:#f1fa8c">${</span>c.width <span style="color:#ff79c6">/</span> scaleFactor<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">px`</span>;
+c.style.height <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`</span><span style="color:#f1fa8c">${</span>c.height <span style="color:#ff79c6">/</span> scaleFactor<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">px`</span>;
+
+ctx <span style="color:#ff79c6">=</span> c.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+ctx.translate(<span style="color:#bd93f9">0.5</span>, <span style="color:#bd93f9">0.5</span>);
+ctx.scale(scaleFactor, scaleFactor);
+</code></pre></div><h3 id="teach-the-boids-to-draw-themselves">Teach the Boids to Draw Themselves</h3>
+<p>We can make each boid draw itself by just generating a rectangle on the canvas based on the boid&rsquo;s x and y coordinates (taking into account the <code>scaleFactor</code> of devicePixelRatio):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">this</span>.draw <span style="color:#ff79c6">=</span> (ctx) =&gt; {
+  ctx.fillStyle <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;gold&#34;</span>;
+  ctx.fillRect(
+    <span style="color:#ff79c6">this</span>.position.x <span style="color:#ff79c6">/</span> scaleFactor,
+    <span style="color:#ff79c6">this</span>.position.y <span style="color:#ff79c6">/</span> scaleFactor,
+    BOID_WIDTH,
+    BOID_HEIGHT
+  );
+};
+</code></pre></div><h3 id="introduce-the-element-of-time">Introduce the element of time</h3>
+<p>Now that we have Boids and rules for their behavior, we have to introduce an element of time into our simulation. We can do this using <code>window.requestAnimationFrame</code>.</p>
+<p>In each tick of time, we&rsquo;ll first check to see if we should draw a frame, based on our <code>fpsInterval</code>, which is 1000ms / frames-per-second. If we haven&rsquo;t reached this amount of time since we last drew, we&rsquo;ll do nothing.</p>
+<p>The main loop looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6272a4">// How to know if we should draw in the next frame we&#39;re given
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> then <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Date</span>.now();
+
+<span style="color:#8be9fd;font-style:italic">function</span> step() {
+  <span style="color:#8be9fd;font-style:italic">window</span>.requestAnimationFrame(step);
+  now <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Date</span>.now();
+  elapsed <span style="color:#ff79c6">=</span> now <span style="color:#ff79c6">-</span> then;
+  <span style="color:#ff79c6">if</span> (elapsed <span style="color:#ff79c6">&lt;</span> fpsInterval) {
+    <span style="color:#ff79c6">return</span>;
+  }
+  then <span style="color:#ff79c6">=</span> now <span style="color:#ff79c6">-</span> (elapsed <span style="color:#ff79c6">%</span> fpsInterval);
+  ctx.clearRect(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, c.width, c.height);
+  ctx.fillStyle <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;black&#34;</span>;
+  ctx.fillRect(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, c.width, c.height);
+  updateBoidPositions(boidList);
+  drawBoidList(boidList, ctx);
+}
+</code></pre></div><p>With each tick we:</p>
+<ol>
+<li>clear the canvas and paint it black</li>
+<li>call <code>updateBoidPositions</code>, which applies the rules to each boid, and then performs a final adjustment to make sure the boid isn&rsquo;t off screen</li>
+<li>tell the boids to draw themselves</li>
+</ol>
+<h3 id="refining-boid-behavior">Refining boid behavior</h3>
+<p>It helps to impose a velocity limit on the boids, so that the flocks do not hurt your eyes as they flutter about. <code>VELOCITY_LIMIT</code> is a constant, and <code>limitVelocity</code> can be called on the resultant velocity:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> limitVelocity <span style="color:#ff79c6">=</span> (v) =&gt;
+  v.magnitude() <span style="color:#ff79c6">&gt;</span> VELOCITY_LIMIT
+    <span style="color:#ff79c6">?</span> v.multiply(<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">/</span> (v.magnitude() <span style="color:#ff79c6">*</span> VELOCITY_LIMIT))
+    <span style="color:#ff79c6">:</span> v;
+</code></pre></div><p>In addition, in order to keep the boids within the viewport (the part of the screen that we display on the canvas), we have to limit their coordinates to the bounds of the viewport.</p>
+<p>So, in each frame, for each boid, we&rsquo;ll make sure the X and Y coordinates are greater than zero, and we&rsquo;ll make sure that the X and Y coordinates are less than some maximum value (in this case, the width and height of the viewport).</p>
+<p>So that the boid doesn&rsquo;t go <em>all</em> the way off the screen, we&rsquo;ll make the bounds slightly smaller, by a factor of the BOID_WIDTH and BOID_HEIGHT for the X and Y components, respectively.</p>
+<p>If the boid is out of bounds on either axis, we apply an opposing factor to the velocity <code>FLINGBACK_VELOCITY</code> and multiply by -1 if the value is too large.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">this</span>.normalizePosition <span style="color:#ff79c6">=</span> (maxX, maxY) =&gt; {
+  <span style="color:#6272a4">// If it&#39;s too far left or too far right
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.position.x <span style="color:#ff79c6">&lt;</span> BOID_WIDTH) {
+    <span style="color:#ff79c6">this</span>.velocity.x <span style="color:#ff79c6">+=</span> FLINGBACK_VELOCITY;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.position.x <span style="color:#ff79c6">&gt;</span> MAX_X <span style="color:#ff79c6">-</span> BOID_WIDTH) {
+    <span style="color:#ff79c6">this</span>.velocity.x <span style="color:#ff79c6">+=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">*</span> FLINGBACK_VELOCITY;
+  }
+  <span style="color:#6272a4">// Or too far up or too far down
+</span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.position.y <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">5</span> <span style="color:#ff79c6">-</span> BOID_HEIGHT) {
+    <span style="color:#ff79c6">this</span>.velocity.y <span style="color:#ff79c6">+=</span> FLINGBACK_VELOCITY;
+  } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.position.y <span style="color:#ff79c6">&gt;</span> MAX_Y <span style="color:#ff79c6">-</span> BOID_HEIGHT) {
+    <span style="color:#ff79c6">this</span>.velocity.y <span style="color:#ff79c6">+=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">*</span> FLINGBACK_VELOCITY;
+  }
+};
+</code></pre></div><p>In each tick, to update the positions we just apply the 3 rules to each boid. This gives us the new vector for that boid. We add it, and then we make sure the boid&rsquo;s not now going too fast or flying off of the screen:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> updateBoidPositions(boidList) {
+  boidList.forEach((boid) =&gt; {
+    boid.velocity <span style="color:#ff79c6">=</span> limitVelocity(
+      boid.velocity.add(
+        rule1(boid, boidList)
+          .add(rule2(boid, boidList))
+          .add(rule3(boid, boidList))
+      )
+    );
+    <span style="color:#6272a4">// Add the calculated ∆velocity to get the new position
+</span><span style="color:#6272a4"></span>    boid.position <span style="color:#ff79c6">=</span> boid.position.add(boid.velocity);
+    <span style="color:#6272a4">// Make sure we aren&#39;t making the boids go off into the ether
+</span><span style="color:#6272a4"></span>    boid.normalizePosition(MAX_X, MAX_Y);
+  });
+}
+</code></pre></div><p>Conveniently, boids know how to draw themselves, so to draw them all:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> drawBoidList <span style="color:#ff79c6">=</span> (boidList, ctx) =&gt;
+  boidList.forEach((boid) =&gt; boid.draw(ctx));
+</code></pre></div><h3 id="starting-the-simulation">Starting the simulation</h3>
+<p>We need to generate some random boids and then feed them to the loop we wrote.</p>
+<p>We&rsquo;ll make a function to generate boids up to <code>BOID_START_CT</code> with a random position (though roughly at the center of the screen) and a random velocity. These parameters are set up so that the boids are initially flying in opposite directions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> fillBoidList() {
+  <span style="color:#6272a4">// Make some random boids
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> list <span style="color:#ff79c6">=</span> [];
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> BOID_START_CT; i<span style="color:#ff79c6">++</span>) {
+    <span style="color:#6272a4">// Give a little randomization
+</span><span style="color:#6272a4"></span>    <span style="color:#8be9fd;font-style:italic">let</span> dir <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0.5</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+    <span style="color:#ff79c6">const</span> initialPosition <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> V2(
+      MAX_X <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">25</span>,
+      MAX_Y <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">25</span>
+    );
+
+    <span style="color:#ff79c6">const</span> initialVelocity <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> V2(
+      <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">*</span> <span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> dir,
+      <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">*</span> <span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> dir
+    );
+    list.push(<span style="color:#ff79c6">new</span> Boid(initialPosition, initialVelocity));
+  }
+  <span style="color:#ff79c6">return</span> list;
+}
+</code></pre></div><h4 id="then-to-kick-the-whole-thing-off">Then, to kick the whole thing off:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> animFrameHandler;
+
+<span style="color:#8be9fd;font-style:italic">function</span> resetBoidsAndStartAnimationFrames() {
+  <span style="color:#ff79c6">if</span> (animFrameHandler) {
+    <span style="color:#8be9fd;font-style:italic">window</span>.cancelAnimationFrame(animFrameHandler);
+  }
+  boidList <span style="color:#ff79c6">=</span> fillBoidList();
+  animFrameHandler <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.requestAnimationFrame(step);
+}
+
+<span style="color:#8be9fd;font-style:italic">function</span> fly() {
+  setUpWindow();
+  resetBoidsAndStartAnimationFrames();
+}
+
+<span style="color:#6272a4">// Kick off the simulation
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">document</span>.addEventListener(<span style="color:#f1fa8c">&#34;DOMContentLoaded&#34;</span>, fly);
+</code></pre></div><h2 id="more-ideas">More ideas</h2>
+<p>In my CodePen, I added some sliders so that you can vary the the rule&rsquo;s parameter factors dynamically, adjust the frames-per-second, and a reset button to start again from scratch.</p>
+<p><a href="http://www.vergenet.net/~conrad/boids/pseudocode.html" target="_blank" rel="noreferrer noopener">Conrad Parker's paper</a> details some of these ideas. You could try:</p>
+<ol>
+<li>introducing a wind as a constant vector for all the boids in the flock</li>
+<li>setting up obstacles for boids to fly around</li>
+<li>have the canvas react to mouse clicks to generate or direct flocks</li>
+<li>add another dimension and use <a href="https://threejs.org/" target="_blank" rel="noreferrer noopener">https://threejs.org/</a> to make a VR simulation</li>
+</ol>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/automata/"> automata </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/boids/"> boids </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/generative-systems/"> generative-systems </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/particle-system/"> particle-system </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Intro to Binary Search Trees">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,stack,queue,big-O,complexity,dataStructures,binaryTree,treeTraversal"><meta name="description" content="Binary Search Trees are are a data structure allowing O(log(N)) lookup of entries. We implement insertion, traversal, and search methods for Binary Search Trees."><meta property="og:title" content="Intro to Binary Search Trees" />
+<meta property="og:description" content="Binary Search Trees are are a data structure allowing O(log(N)) lookup of entries. We implement insertion, traversal, and search methods for Binary Search Trees." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/intro-to-binary-search-trees/" />
+<meta property="article:published_time" content="2018-02-01T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-02-01T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intro to Binary Search Trees"/>
+<meta name="twitter:description" content="Binary Search Trees are are a data structure allowing O(log(N)) lookup of entries. We implement insertion, traversal, and search methods for Binary Search Trees."/>
+
+	
+	
+
+	<title>Intro to Binary Search Trees | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">01</span>
+				<span class="rest">Feb 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Intro to Binary Search Trees</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>A <a href="https://en.wikipedia.org/wiki/Binary_tree" target="_blank" rel="noreferrer noopener">binary tree</a> is a tree data structure composed of nodes that contain two branches, a <code>left</code> and a <code>right</code>. The tree consists of a top-level or root node. Each branch from the root can hold nodes that themselves have arbitrarily many children.</p>
+<p>By convention, the root of a binary tree is drawn at the top, with branches proceeding downward.</p>
+<p>In a <em>Full binary tree</em>, every node except the leaves have two children. Nodes with zero children (where <code>left</code> and <code>right</code> are null) are called leaf nodes.</p>
+<p>A <em>Complete binary tree</em> is a full binary tree in which every level of the tree is filled (except perhaps the last), and nodes are populated from left-to-right.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">     2
+   /   \
+  4     7
+ / \
+5   6
+</code></pre></div><blockquote>
+<p>A full and complete binary tree.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">     2
+   /   \
+  4     7
+ / \   / \
+5   6     9
+</code></pre></div><blockquote>
+<p>A full but <em>incomplete</em> binary tree.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">         2
+    /    |    \
+  4      6      7
+ / \    / \    / \
+5   6  4   2      9
+</code></pre></div><blockquote>
+<p>This is not a binary tree at all but an <strong>n-ary</strong> tree: the root has three branches.</p>
+</blockquote>
+<p>A binary tree is an abstract structure whose use can be leveraged for different ends, particularly when ordering is applied to the tree&rsquo;s nodes. One such ordering creates a structure called a <em>Binary Search Tree</em>, which we will discuss here.</p>
+<h2 id="binary-search-trees">Binary Search Trees</h2>
+<p>In a <a href="https://en.wikipedia.org/wiki/Binary_search_tree" target="_blank" rel="noreferrer noopener">binary search tree</a>, an &ldquo;ordered&rdquo; or &ldquo;sorted&rdquo; binary tree, the child nodes are kept in an order relative to their parents. The left child is always less than the parent, and the right child is always greater than or equal to the parent. We create an insert method to insert data in this ordered fashion.</p>
+<p>For inserting item A in tree T, we proceed down the tree. For each node we encounter, we compare the value of A with the value of that node. If A is less than the node, we go left. If A is greater than the node, we go right.</p>
+<p>We repeat this process until we reach leaf nodes (a node where one or both children are null). Then we compare the value of A to this final node. If A is less than the leaf node value, we set A as the new left child of this leaf node. If A is greater than the leaf node value, we set A as the new right child of this leaf node.</p>
+<p>Let&rsquo;s look at the node structure and then consider a more concrete example for search and insertion.</p>
+<h3 id="nodes">Nodes</h3>
+<p>Nodes contain four properties.</p>
+<ol>
+<li><code>data</code> - the data of interest</li>
+<li><code>left</code> - a pointer to the next left child node</li>
+<li><code>right</code> - a pointer to the next right child node</li>
+<li><code>iteration</code> - the number of times this node has been visited</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> node <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (data, left, right) {
+  <span style="color:#ff79c6">this</span>.data <span style="color:#ff79c6">=</span> data <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">this</span>.left <span style="color:#ff79c6">=</span> left <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">this</span>.right <span style="color:#ff79c6">=</span> right <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">null</span>;
+  <span style="color:#ff79c6">this</span>.iteration <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+};
+</code></pre></div><p>Using this node object, we can create a simple tree with B as the root, A as the left child, and C as the right child like so:</p>
+<p><code>let tree = new node('B', new node('A'), new node('C'))</code></p>
+<p>gives us:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">     B
+   /   \
+  A     C
+/  \   / \
+˚  ˚  ˚   ˚
+</code></pre></div><blockquote>
+<p>tiny circles ˚ correspond to null</p>
+</blockquote>
+<h2 id="insertion">Insertion</h2>
+<p>Let&rsquo;s start by considering the tree above and what the insertion behavior should look like with some examples. Then we&rsquo;ll write the code.</p>
+<p>Pretend that we want to insert <code>node('D')</code> into the above tree. We start at the root. &lsquo;D&rsquo;&gt;&lsquo;B&rsquo;, so we go to the right. <code>C.left</code> and <code>C.right</code> are both null, so we compare &lsquo;D&rsquo; with &lsquo;C&rsquo; to decide which side to insert it on. &lsquo;D&rsquo;&gt;&lsquo;C&rsquo;, so we insert to the right. The tree looks like this after insertion:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    B
+  /   \
+ A     C
+/ \   /  \
+˚ ˚   ˚   D
+</code></pre></div><p>Now let&rsquo;s insert <code>node('Apple')</code> into the tree (remember, Javascript uses lexicographical ordering, so it compares letter by letter.) &lsquo;Apple&rsquo;&lt;&lsquo;B&rsquo;, so we go left. &lsquo;Apple&rsquo;&gt;&lsquo;A&rsquo;, so we insert &lsquo;Apple&rsquo; to the right. The tree then looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">       B
+   /       \
+  A         C
+ /  \      / \
+˚ &#39;Apple&#39; ˚   D
+</code></pre></div><p>What happens if we have a duplicate value: say we insert <code>node('D')</code> into the above tree again? We want to add nodes as &ldquo;leftmost&rdquo; as is possible (while maintaining ordering). So we&rsquo;ll get down to node <code>D</code>, and then left and right are null. <code>D</code> is neither greater than nor less than <code>D</code>, but we have to insert the node somewhere. By convention, we insert it to the left. So calling <code>insert('D')</code> on this tree above would give us this result:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">       B
+   /       \
+  A         C
+ /  \      / \
+˚ &#39;Apple&#39; ˚   D
+             /  \
+            D    ˚
+</code></pre></div><p>Let&rsquo;s code up this. We can code insert imperatively or using recursion.</p>
+<h3 id="recursive-insert">Recursive insert</h3>
+<p>Consider the base case (the node we reach is null and we want to insert the new value here). In this case, we return a new node with the value.</p>
+<p>If we haven&rsquo;t reached the base case, we need to make our way down the tree until we reach a null node. We compare the <code>value</code> we wish to insert with current node&rsquo;s value <code>tree.data</code>. If it is less than or equal to the current node, we recurse on the left child. If its is greater, we recurse on the right child.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> recursiveInsert(tree, value) {
+  <span style="color:#ff79c6">if</span> (tree <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> node(number);
+  }
+  <span style="color:#ff79c6">if</span> (value <span style="color:#ff79c6">&lt;=</span> tree.data) {
+    tree.left <span style="color:#ff79c6">=</span> insert(tree.left, value);
+  } <span style="color:#ff79c6">else</span> {
+    tree.right <span style="color:#ff79c6">=</span> insert(tree.right, value);
+  }
+  <span style="color:#ff79c6">return</span> tree;
+}
+</code></pre></div><h3 id="imperative-insert">Imperative Insert</h3>
+<p>We set a pointer <code>navi</code> equal to tree. We navigate down using the pointer until we reach the point where <code>navi</code>&rsquo;s children are null (so that <code>navi</code> is now a leaf node). When we reach the leaf node, we break out of the traversal loop and decide on which side to insert the data, create a new node with the value, and return the tree with the inserted item.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> imperativeInsert(tree, number) {
+  <span style="color:#ff79c6">if</span> (tree <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">null</span>) {
+    tree <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> node(number);
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> navi <span style="color:#ff79c6">=</span> tree;
+  <span style="color:#ff79c6">while</span> (navi <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (number <span style="color:#ff79c6">&lt;=</span> navi.data) {
+      <span style="color:#ff79c6">if</span> (navi.left <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+        navi <span style="color:#ff79c6">=</span> navi.left;
+      } <span style="color:#ff79c6">else</span> {
+        <span style="color:#ff79c6">break</span>;
+      }
+    } <span style="color:#ff79c6">else</span> {
+      <span style="color:#ff79c6">if</span> (navi.right <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+        navi <span style="color:#ff79c6">=</span> navi.right;
+      } <span style="color:#ff79c6">else</span> {
+        <span style="color:#ff79c6">break</span>;
+      }
+    }
+  }
+  <span style="color:#ff79c6">if</span> (number <span style="color:#ff79c6">&lt;=</span> navi.data) {
+    navi.left <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> node(number);
+  } <span style="color:#ff79c6">else</span> {
+    navi.right <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> node(number);
+  }
+  <span style="color:#ff79c6">return</span> tree;
+}
+</code></pre></div><h2 id="search">Search</h2>
+<p>You might wonder why bother with all of this complicated insertion. Well, the way that we&rsquo;ve inserted the nodes means that we can search the tree incredibly quickly. The tree is already set up to perform a binary search: at each branch of the tree, we can eliminate half of the possible items to consider, since we know that all the children on one side will be greater than the value of the current node.</p>
+<p>Consider this tree:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">       5
+    /     \
+   2       7
+  / \     / \
+ 1   4   6   9
+</code></pre></div><p>We&rsquo;re going to search for the value 6. If we had this tree as an ordered array, [1, 2, 4, 5, 6, 7, 9], we&rsquo;d have to iterate through the elements one by one until we found 6. We&rsquo;d iterate through 1, 2, 4, and 5 before we found the answer. That&rsquo;s 5 operations.</p>
+<p>In the binary tree, we perform only 3 operations. Is 6&gt;5 ? Yes. Go right. Is 6&gt;7 ? No. Go left. We&rsquo;re at 6!</p>
+<p>If you consider the way that we inserted our data, it becomes clear how to implement a search. The only thing that&rsquo;s different is that we might find the node does not exist (the node that we have reached is null), in which case, we return false. Otherwise, we check each node to see if:</p>
+<ol>
+<li>It&rsquo;s the value. If so, return it.</li>
+<li>It&rsquo;s less than the value. If so, go right.</li>
+<li>It&rsquo;s more than the value. If so, go left.</li>
+</ol>
+<p>It looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> binarySearch(tree, value) {
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>value) {
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">let</span> stack <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">let</span> node <span style="color:#ff79c6">=</span> tree.root;
+  <span style="color:#ff79c6">while</span> (node <span style="color:#ff79c6">!==</span> <span style="color:#ff79c6">null</span>) {
+    <span style="color:#ff79c6">if</span> (node.data <span style="color:#ff79c6">==</span> value) {
+      <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">true</span>;
+    }
+    <span style="color:#ff79c6">if</span> (value <span style="color:#ff79c6">&lt;</span> node.data) {
+      node <span style="color:#ff79c6">=</span> node.left;
+    } <span style="color:#ff79c6">else</span> {
+      node <span style="color:#ff79c6">=</span> node.right;
+    }
+  }
+  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">false</span>;
+}
+</code></pre></div><p>Easy enough! NB: The search we are talking about here is <a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank" rel="noreferrer noopener">depth-first</a>. There is another style of traversing, <a href="https://en.wikipedia.org/wiki/Breadth-first_search" target="_blank" rel="noreferrer noopener">breadth-first</a>, which we will discuss in a later tutorial.</p>
+<h2 id="traversal">Traversal</h2>
+<p>What good is having a tree if you can&rsquo;t climb it?</p>
+<p>There are three common types of traversal:</p>
+<ol>
+<li>pre-order: the root is printed <em>before</em> the subtree values</li>
+<li>in-order: the root is printed <em>in between</em> the left and right subtree values</li>
+<li>post-order: the root is printed <em>after</em> the subtree values are traversed</li>
+<li>(bonus): reverse in-order the right subtree values are printed <em>before</em> the root and then the left subtree values.</li>
+</ol>
+<p>Let&rsquo;s try to perform what&rsquo;s called an in-order traversal of a binary search tree, which will print out all of the items of the tree in their order.</p>
+<p>Can you think about how to do this?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">       5
+    /     \
+   2       7
+  / \     / \
+ 1   4   6   9
+</code></pre></div><p>Given this tree, here&rsquo;s what our three traversal types will output.</p>
+<ol>
+<li>pre-order: <code>[5, 2, 1, 4, 7, 6, 9]</code></li>
+<li>in-order: <code>[1, 2, 4, 5, 6, 7, 9]</code></li>
+<li>post-order: <code>[1, 4, 2, 6, 9, 7, 5]</code></li>
+<li>reverse in-order: <code>[9, 7, 6, 5, 4, 2, 1]</code></li>
+</ol>
+<p>This is a case that&rsquo;s handled quite nicely by recursion.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> printNodesInOrder(tree) {
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">function</span> traverse(tree) {
+    <span style="color:#ff79c6">if</span> (tree <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">null</span>) {
+      <span style="color:#ff79c6">return</span>;
+    }
+    traverse(tree.left);
+    res.push(tree.data);
+    traverse(tree.right);
+  }
+  traverse(tree);
+  <span style="color:#ff79c6">return</span> res;
+}
+</code></pre></div><p>Let&rsquo;s think about what the function is doing step by step. We exhaustively traverse the nodes of a tree until the point at which that node equals null. This means that we reached a leaf node&rsquo;s child, so we stop traversing. Otherwise, for each leaf node, we push the value of the left leaf, the value of the root, and the value of the right leaf.</p>
+<p>We perform this operation on all of the nodes of the tree from left-to-right. Since values are inserted in order in a binary search tree and we perform the traversal in a left-to-right (or ascending) order, the numbers come out in order, as we&rsquo;d expect.</p>
+<p>As a neat side-note, we can turn the print node function into pre-order and post-order simply by changing the order of <code>res.push</code> in our recursive <code>traverse</code> call. Similarly, we can get a reverse in-order result by swapping the  <code>traverse(tree.right)</code> and <code>traverse(tree.left)</code> calls.</p>
+<h4 id="pre-order">pre-order:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">res.push(tree.data);
+traverse(tree.left);
+traverse(tree.right);
+</code></pre></div><h4 id="post-order">post-order:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">traverse(tree.left);
+traverse(tree.right);
+res.push(tree.data);
+</code></pre></div><h4 id="reverse-in-order">reverse in-order:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">traverse(tree.right);
+res.push(tree.data);
+traverse(tree.left);
+</code></pre></div><p>While the use cases of pre and post-order traversal on a binary search tree are limited, it&rsquo;s good to know about these traversal types, since they&rsquo;re frequently used in other tree traversal algorithms.</p>
+<h2 id="wrapping-up">Wrapping Up</h2>
+<p>Whew! Again, pat yourself on the back. This stuff isn&rsquo;t easy! In the next tutorial, we&rsquo;ll dig into deletion methods for binary search trees and explore a few more neat applications.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/big-o/"> big-o </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/binarytree/"> binarytree </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datastructures/"> datastructures </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/queue/"> queue </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/stack/"> stack </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/treetraversal/"> treetraversal </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Draw Photo Histograms: D3 &#43; Canvas</title>
-			<link>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</link>
+			<link>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</link>
 			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</guid>
+			<guid>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</guid>
 			<description>
 				
 				Exploring histograms using vanilla JavaScript, D3, and the FileReader API.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>Binary Tree Application: Binary Space Partitioning</title>
-			<link>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</link>
+			<link>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</link>
 			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</guid>
+			<guid>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</guid>
 			<description>
 				
 				Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art.
@@ -37,10 +37,10 @@
 		</item>
 		<item>
 			<title>Koch Snowflakes</title>
-			<link>https://thmsdnnr.com/post/koch-snowflakes/</link>
+			<link>https://thmsdnnr.com/blog/koch-snowflakes/</link>
 			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/koch-snowflakes/</guid>
+			<guid>https://thmsdnnr.com/blog/koch-snowflakes/</guid>
 			<description>
 				
 				Building Fractal Art with Koch Snowflakes on HTML5 Canvas.
@@ -49,10 +49,10 @@
 		</item>
 		<item>
 			<title>Pixl: A Sea of CSS [part 5]</title>
-			<link>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</link>
+			<link>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</link>
 			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</guid>
 			<description>
 				
 				Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox.
@@ -61,10 +61,10 @@
 		</item>
 		<item>
 			<title>Pixl: Scaling &amp; Saving Art [part 4]</title>
-			<link>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</link>
+			<link>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</link>
 			<pubDate>Fri, 12 Jan 2018 09:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</guid>
 			<description>
 				
 				Enabling save and restore of images using the browser&#39;s localStorage API.
@@ -73,10 +73,10 @@
 		</item>
 		<item>
 			<title>Pixl: Scaling &amp; Saving Art [part 3]</title>
-			<link>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</link>
+			<link>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</link>
 			<pubDate>Tue, 09 Jan 2018 09:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</guid>
 			<description>
 				
 				Canvas scaling, transparent backgrounds, and a first step at saving the images.
@@ -85,10 +85,10 @@
 		</item>
 		<item>
 			<title>Pixl: Color Palette &amp; Enhanced UI [part 2]</title>
-			<link>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</link>
+			<link>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</link>
 			<pubDate>Mon, 08 Jan 2018 19:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</guid>
 			<description>
 				
 				Adding a randomized color palette selector using jscolor.
@@ -97,10 +97,10 @@
 		</item>
 		<item>
 			<title>Pixl: A Pixel Art Editor w/Canvas [part 1]</title>
-			<link>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
+			<link>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
 			<pubDate>Sun, 07 Jan 2018 14:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
 			<description>
 				
 				A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more.
@@ -109,10 +109,10 @@
 		</item>
 		<item>
 			<title>Fractal Art and Sierpinski Triangles</title>
-			<link>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</link>
+			<link>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</link>
 			<pubDate>Sat, 06 Jan 2018 14:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</guid>
+			<guid>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</guid>
 			<description>
 				
 				Building a Sierpinski Triangle with HTML5 Canvas and JavaScript.

@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Document Object Model (DOM) Selectors</title>
-			<link>https://thmsdnnr.com/post/document-object-model-dom-selectors/</link>
+			<link>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</link>
 			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/document-object-model-dom-selectors/</guid>
+			<guid>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</guid>
 			<description>
 				
 				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.

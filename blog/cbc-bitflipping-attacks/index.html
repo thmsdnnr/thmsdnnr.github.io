@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="CBC Bitflipping Attacks">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set2"><meta name="description" content="Even though CBC is more secure than ECB, it is still vulnerable to attacks without taking additional precautions like using a Message Authentication Code (MAC). Cryptopals Set 2 Challenge 16."><meta property="og:title" content="CBC Bitflipping Attacks" />
+<meta property="og:description" content="Even though CBC is more secure than ECB, it is still vulnerable to attacks without taking additional precautions like using a Message Authentication Code (MAC). Cryptopals Set 2 Challenge 16." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/cbc-bitflipping-attacks/" />
+<meta property="article:published_time" content="2017-09-29T13:24:04+00:00" />
+<meta property="article:modified_time" content="2017-09-29T13:24:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CBC Bitflipping Attacks"/>
+<meta name="twitter:description" content="Even though CBC is more secure than ECB, it is still vulnerable to attacks without taking additional precautions like using a Message Authentication Code (MAC). Cryptopals Set 2 Challenge 16."/>
+
+	
+	
+
+	<title>CBC Bitflipping Attacks | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">29</span>
+				<span class="rest">Sep 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">CBC Bitflipping Attacks</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/2/challenges/16" target="_blank" rel="noreferrer noopener">Cryptopals Set 2 Challenge 16</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s2c16" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s2c16/" target="_blank" rel="noreferrer noopener">demo</a></p>
+<h3 id="step-1-flipping-bits-wearing-knits">Step 1: Flipping Bits, Wearing Knits</h3>
+<p>In <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29" target="_blank" rel="noreferrer noopener">CBC decryption</a>, the plaintext of each block&rsquo;s post-decryption is XOR&rsquo;d with the previous block&rsquo;s ciphertext. Altering ciphertext block <code>N-1</code> (C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->) thus effects the <code>N</code>th block of resulting plaintext (P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->). CBC cares not whether a message has been tampered with. It has no <a href="https://en.wikipedia.org/wiki/Message_authentication_code" target="_blank" rel="noreferrer noopener">MAC</a>. We can XOR arbitrary bytes into the ciphertext and have them appear in the plaintext under two conditions:</p>
+<ul>
+<li>We know the plaintext</li>
+<li>We know the ciphertext</li>
+</ul>
+<h3 id="step-2-but-how-can-we-know-the-plaintext">Step 2: But How Can We Know the Plaintext?</h3>
+<p>Well, if there&rsquo;s a user component, the plaintext can be whatever we&rsquo;d like it to be. Lots of <code>A</code>s.</p>
+<p>The challenge has us write some basic one-liners to escape and de-escape the special characters <code>;</code> and <code>=</code> (to prevent the trivial solution of just entering these directly into the user-supplied data).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> enc <span style="color:#ff79c6">=</span> { <span style="color:#f1fa8c">&#34;;&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;%3B&#34;</span>, <span style="color:#f1fa8c">&#34;=&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;%3D&#34;</span> };
+<span style="color:#ff79c6">const</span> decr <span style="color:#ff79c6">=</span> { <span style="color:#f1fa8c">&#34;%3B&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;;&#34;</span>, <span style="color:#f1fa8c">&#34;%3D&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;=&#34;</span> };
+<span style="color:#ff79c6">const</span> quoteOut <span style="color:#ff79c6">=</span> (txt) =&gt; txt.replace(<span style="color:#f1fa8c">/(\;|\=)/g</span>, ($1) =&gt; enc[$1]);
+<span style="color:#ff79c6">const</span> quoteIn <span style="color:#ff79c6">=</span> (esc) =&gt; esc.replace(<span style="color:#f1fa8c">/(\%3B|\%3D)/g</span>, ($1) =&gt; decr[$1]);
+</code></pre></div><p>We write a random encryption function that prepends the escaped string <code>comment1=cooking%20MCs;userdata=</code> to user-supplied data, appends the escaped <code>;comment2=%20like%20a%20pound%20of%20bacon</code>, PKCS#7 pads, and encrypts under a random key and IV using CBC.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> randomEncrypt(pText) {
+  pText <span style="color:#ff79c6">=</span> txtToHex(quoteOut(pText)).map((e) =&gt; hexPad(e));
+  <span style="color:#8be9fd;font-style:italic">let</span> input <span style="color:#ff79c6">=</span> PKCS7(pre.concat(pText, post), <span style="color:#bd93f9">16</span>);
+  <span style="color:#ff79c6">return</span> aesEncryptCBC(input, randomKey, randomIV, <span style="color:#bd93f9">16</span>);
+}
+</code></pre></div><p>We write a function to decrypt and unescape the special characters.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> randomDecrypt <span style="color:#ff79c6">=</span> (c) =&gt;
+  quoteIn(aesDecryptCBC(c, randomKey, randomIV, <span style="color:#bd93f9">16</span>).map(hexToText).join(<span style="color:#f1fa8c">&#34;&#34;</span>));
+</code></pre></div><p>We&rsquo;re then challenged to manipulate the ciphertext results of the encryption function to produce a ciphertext that decrypts to contain the string <code>;admin=true;</code>.</p>
+<h3 id="step-3-twiddles-and-bits-theory">Step 3: Twiddles and Bits (Theory)</h3>
+<p>You can write to the plaintext in contiguous blocks of <code>blockSize</code> characters. Writing to block P<!-- raw HTML omitted -->n+1<!-- raw HTML omitted --> requires modifying block C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted --> and creates gibberish in P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->, since the error introduced into C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted --> propagates one block forward to C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->. If you&rsquo;d like to write more than a <code>blockSize</code> worth, write to every other plaintext block, so long as you do not care about intervening gibberish plaintext blocks.</p>
+<p>What and how to write? Think about the decryption process (<code>n==block, i==block byte index</code>):</p>
+<p>C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[i] XOR C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] (post-decryption) = P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i].</p>
+<p>We want to change P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] to a given value, and we need to know what to change C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[i] to in order to do this. So just solve for it.</p>
+<p>C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[i] = P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] XOR C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] (post-decryption)</p>
+<ul>
+<li>P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] is just the current plaintext value of the block we wish to modify</li>
+<li>C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] (post-decryption) is the value we wish the plaintext to have</li>
+<li>C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[i] is the byte we flip (XOR-ing in (P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i] XOR C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[i])) in the ciphertext</li>
+</ul>
+<p>Note the special case when <code>n=1</code>, and the previous ciphertext block is the CBC <a href="https://en.wikipedia.org/wiki/Initialization_vector" target="_blank" rel="noreferrer noopener">initialization vector</a>.</p>
+<p>Here&rsquo;s one more visual, in case ASCII does it for you better:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Plaintext
+|comment1%3Dcooki||ng%20MCs%3Buserd|
+     Block 1           Block 2
+
+Ciphertext
+|----------------||----------------|
+     Block 1           Block 2
+</code></pre></div><p>Let&rsquo;s say I want to flip &lsquo;n&rsquo; in Block 2 to &lsquo;Z&rsquo;.</p>
+<ul>
+<li>P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[0] = &lsquo;n&rsquo; (0x6e)</li>
+<li>C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[0] (post-decryption) is the value we wish the plaintext to have Z (0x5A)</li>
+<li>C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[0] is the byte we need to flip in the ciphertext</li>
+</ul>
+<p>0x63 XOR 0x5A = 0x39. Then just set byte 1 of block 1 of the ciphertext to ^=(0x39). The first block of plaintext in the decryption output is jumbled, but the second block reads <code>Zg%20MCs%3Buserd</code>. Zing!</p>
+<h3 id="step-4-twiddles-and-bits-praxis">Step 4: Twiddles and Bits (Praxis)</h3>
+<p>We know that the blocks of plaintext (chunked 16 byte sections) look like this when userdata is <code>''</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">comment1%3Dcooki
+ng%20MCs%3Buserd
+ata%3D%3Bcomment
+2%3D%20like%20a%
+20pound%20of%20b
+acon
+</code></pre></div><p>We know that we want to have a <code>%3B</code> at the end of our string. But if we put it in ourselves, we&rsquo;ll be over 16 characters, which is the limitation for contiguous character writing with <code>blockSize==16</code>. So I&rsquo;ll use the existing <code>%3B</code>, before &lsquo;comment&rsquo;, padding out <code>userdata</code> with 25 <code>0</code>s.</p>
+<p><code>randomEncrypt('0000000000000000000000000')</code> gives us this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">comment1%3Dcooki
+ng%20MCs%3Buserd
+ata%3D0000000000
+000000000000000%
+3Bcomment2%3D%20
+like%20a%20pound
+%20of%20bacon
+</code></pre></div><p>When we decrypt, we map the escaped characters <code>;</code> and <code>=</code> back from their escaped forms, so we should really make the replacement of <code>%3Badmin%3Dtrue%3B</code>. I&rsquo;ll calculate my array of replacements and XOR each one with our padding character (&lsquo;0&rsquo; == 0x30).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&#39;%3Badmin%3Dtrue&#39;.split(&#34;&#34;).map(e=&gt;parseInt(e.charCodeAt(),10).toString(16)).map(e=&gt;hexXOR(e,&#39;30&#39;));
+=&gt; [&#34;15&#34;, &#34;3&#34;, &#34;72&#34;, &#34;51&#34;, &#34;54&#34;, &#34;5d&#34;, &#34;59&#34;, &#34;5e&#34;, &#34;15&#34;, &#34;3&#34;, &#34;74&#34;, &#34;44&#34;, &#34;42&#34;, &#34;45&#34;, &#34;55&#34;]
+</code></pre></div><p>We can XOR in our 15 hex characters with ciphertext block 3, and the result will end up in plaintext block 4, followed by the <code>%3B</code> we borrowed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> theReplacements.length; i<span style="color:#ff79c6">++</span>) {
+  e[<span style="color:#bd93f9">32</span> <span style="color:#ff79c6">+</span> i] <span style="color:#ff79c6">=</span> hexXOR(e[<span style="color:#bd93f9">32</span> <span style="color:#ff79c6">+</span> i], theReplacements[i]);
+}
+randomDecrypt(e);
+</code></pre></div><p><code>comment1=cooking%20MCs;userdo|=¦1^&lt;ÉTv¤Ï;admin=true;comment2=%20like%20a%20pound%20of%20bacon</code></p>
+<p>This replacement occurs without any direct knowledge of the encryption key or the initialization vector, simply a manipulation of the ciphertext output. What have we learned today? Use a MAC!</p>
+<p>The challenge to write a function that lets you XOR arbitrary lengths of text into the ciphertext is left as an exercise for the reader. Though perhaps not a valuable one, what with the interleaved mangled plaintext block every <code>blockLength</code> chars.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set2/"> cryptopals-set2 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

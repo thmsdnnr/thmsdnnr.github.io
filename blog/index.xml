@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Blogs on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/blog/</link>
+		<description>Recent content in Blogs on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Fri, 14 Jun 2019 19:20:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/blog/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Automatically backup config with git and cron</title>
+			<link>https://thmsdnnr.com/blog/automatically-backup-config-with-git-and-cron/</link>
+			<pubDate>Fri, 14 Jun 2019 19:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/automatically-backup-config-with-git-and-cron/</guid>
+			<description>
+				
+				An automated backup strategy for configuration files to make restoring from backups or purchasing a new computer easy.
+				
+			</description>
+		</item>
+		<item>
+			<title>Caching and the Least Recently Used Replacement Policy</title>
+			<link>https://thmsdnnr.com/blog/caching-and-the-least-recently-used-replacement-policy/</link>
+			<pubDate>Sun, 07 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/caching-and-the-least-recently-used-replacement-policy/</guid>
+			<description>
+				
+				What is caching, and how does the Least Recently Used replacement policy maintain values of interest in the cache?
+				
+			</description>
+		</item>
+		<item>
+			<title>Boids: A Bird Flock Simulator</title>
+			<link>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</link>
+			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</guid>
+			<description>
+				
+				We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation.
+				
+			</description>
+		</item>
+		<item>
+			<title>The Knapsack Problem</title>
+			<link>https://thmsdnnr.com/blog/the-knapsack-problem/</link>
+			<pubDate>Thu, 15 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/the-knapsack-problem/</guid>
+			<description>
+				
+				Examining the Knapsack Problem and solutions using dynamic programming.
+				
+			</description>
+		</item>
+		<item>
+			<title>Introduction to Databases</title>
+			<link>https://thmsdnnr.com/blog/introduction-to-databases/</link>
+			<pubDate>Wed, 14 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/introduction-to-databases/</guid>
+			<description>
+				
+				What are databases? What are the similarities and differences from file systems? What is a SQL vs No-SQL database and the pros and cons of each for a given application?
+				
+			</description>
+		</item>
+		<item>
+			<title>Value vs Reference: Deep vs Shallow</title>
+			<link>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</link>
+			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</guid>
+			<description>
+				
+				A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references.
+				
+			</description>
+		</item>
+		<item>
+			<title>Draw Photo Histograms: D3 &#43; Canvas</title>
+			<link>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</link>
+			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</guid>
+			<description>
+				
+				Exploring histograms using vanilla JavaScript, D3, and the FileReader API.
+				
+			</description>
+		</item>
+		<item>
+			<title>Histograms in D3 and Observable HQ</title>
+			<link>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</link>
+			<pubDate>Tue, 06 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</guid>
+			<description>
+				
+				An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration.
+				
+			</description>
+		</item>
+		<item>
+			<title>Prototypal Inheritance Basics</title>
+			<link>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</link>
+			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</guid>
+			<description>
+				
+				What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax.
+				
+			</description>
+		</item>
+		<item>
+			<title>ES6 — Destructuring &#43; Default Parameters</title>
+			<link>https://thmsdnnr.com/blog/es6-destructuring-default-parameters/</link>
+			<pubDate>Sun, 04 Mar 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/es6-destructuring-default-parameters/</guid>
+			<description>
+				
+				Object and Array destructuring in ES6 allows you to easily extract selected properties of nested objects.
+				
+			</description>
+		</item>
+		<item>
+			<title>ES6 — Generator Functions</title>
+			<link>https://thmsdnnr.com/blog/es6-generator-functions/</link>
+			<pubDate>Sat, 24 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/es6-generator-functions/</guid>
+			<description>
+				
+				Generator functions let programmers use yield to pause the execution of functions until they are called later.
+				
+			</description>
+		</item>
+		<item>
+			<title>Lightning Fast String Lookups With Tries</title>
+			<link>https://thmsdnnr.com/blog/lightning-fast-string-lookups-with-tries/</link>
+			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lightning-fast-string-lookups-with-tries/</guid>
+			<description>
+				
+				Tries are a hybrid data structure combining a tree and hash table to provide O(k) lookup for k-character words, popular for use cases like typeahead and autocomplete.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Heaps: Min-Heaps and Max-Heaps</title>
+			<link>https://thmsdnnr.com/blog/binary-heaps-min-heaps-and-max-heaps/</link>
+			<pubDate>Mon, 12 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/binary-heaps-min-heaps-and-max-heaps/</guid>
+			<description>
+				
+				Binary Heaps are binary-tree based data structures that can be used to implement a Priority Queue and provide O(1) insert and find-minimum performance.
+				
+			</description>
+		</item>
+		<item>
+			<title>AVL Trees Part 2: Insertions</title>
+			<link>https://thmsdnnr.com/blog/avl-trees-part-2-insertions/</link>
+			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/avl-trees-part-2-insertions/</guid>
+			<description>
+				
+				Taking an in-depth look at node rebalancing after insertions in AVL trees.
+				
+			</description>
+		</item>
+		<item>
+			<title>AVL Trees Part 1: Balanced Binary Search and Rotations</title>
+			<link>https://thmsdnnr.com/blog/avl-trees-part-1-balanced-binary-search-and-rotations/</link>
+			<pubDate>Mon, 05 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/avl-trees-part-1-balanced-binary-search-and-rotations/</guid>
+			<description>
+				
+				AVL trees are self-balancing binary trees that avoid worst-case O(n) performance given increasing or decreasing inputs.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Tree Application: Binary Space Partitioning</title>
+			<link>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</link>
+			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</guid>
+			<description>
+				
+				Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Search Trees: Handling Deletion</title>
+			<link>https://thmsdnnr.com/blog/binary-search-trees-handling-deletion/</link>
+			<pubDate>Fri, 02 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/binary-search-trees-handling-deletion/</guid>
+			<description>
+				
+				Handling deletion in Binary Search Trees for nodes with zero, one, and two children.
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to Binary Search Trees</title>
+			<link>https://thmsdnnr.com/blog/intro-to-binary-search-trees/</link>
+			<pubDate>Thu, 01 Feb 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/intro-to-binary-search-trees/</guid>
+			<description>
+				
+				Binary Search Trees are are a data structure allowing O(log(N)) lookup of entries. We implement insertion, traversal, and search methods for Binary Search Trees.
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to Linked Lists</title>
+			<link>https://thmsdnnr.com/blog/intro-to-linked-lists/</link>
+			<pubDate>Wed, 31 Jan 2018 06:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/intro-to-linked-lists/</guid>
+			<description>
+				
+				The Singly Linked List is a classic data structure. We implement length, insert, remove, and search methods, and compare the Linked List&#39;s big-O complexity to arrays.
+				
+			</description>
+		</item>
+		<item>
+			<title>Stacks, Queues, and Matching Brackets</title>
+			<link>https://thmsdnnr.com/blog/stacks-queues-and-matching-brackets/</link>
+			<pubDate>Tue, 30 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/stacks-queues-and-matching-brackets/</guid>
+			<description>
+				
+				Introducing the Stack and Queue data structures, using the Stack to implement a Code Linter to check for mismatched open and closing brackets.
+				
+			</description>
+		</item>
+		<item>
+			<title>Speeding Up Repetitive Calculations with Memoization</title>
+			<link>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</link>
+			<pubDate>Wed, 24 Jan 2018 08:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</guid>
+			<description>
+				
+				Introducing memoization, a technique to speed up computation by re-using previously computed results. Shows an exasmple using factorial and considers the time/space tradeoffs involved with memoization.
+				
+			</description>
+		</item>
+		<item>
+			<title>Koch Snowflakes</title>
+			<link>https://thmsdnnr.com/blog/koch-snowflakes/</link>
+			<pubDate>Tue, 23 Jan 2018 17:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/koch-snowflakes/</guid>
+			<description>
+				
+				Building Fractal Art with Koch Snowflakes on HTML5 Canvas.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: A Sea of CSS [part 5]</title>
+			<link>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</link>
+			<pubDate>Sat, 13 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</guid>
+			<description>
+				
+				Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: Scaling &amp; Saving Art [part 4]</title>
+			<link>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</link>
+			<pubDate>Fri, 12 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</guid>
+			<description>
+				
+				Enabling save and restore of images using the browser&#39;s localStorage API.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: Scaling &amp; Saving Art [part 3]</title>
+			<link>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</link>
+			<pubDate>Tue, 09 Jan 2018 09:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</guid>
+			<description>
+				
+				Canvas scaling, transparent backgrounds, and a first step at saving the images.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: Color Palette &amp; Enhanced UI [part 2]</title>
+			<link>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</link>
+			<pubDate>Mon, 08 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</guid>
+			<description>
+				
+				Adding a randomized color palette selector using jscolor.
+				
+			</description>
+		</item>
+		<item>
+			<title>Pixl: A Pixel Art Editor w/Canvas [part 1]</title>
+			<link>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
+			<pubDate>Sun, 07 Jan 2018 14:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
+			<description>
+				
+				A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more.
+				
+			</description>
+		</item>
+		<item>
+			<title>Fractal Art and Sierpinski Triangles</title>
+			<link>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</link>
+			<pubDate>Sat, 06 Jan 2018 14:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</guid>
+			<description>
+				
+				Building a Sierpinski Triangle with HTML5 Canvas and JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Events and Event Listeners in JavaScript</title>
+			<link>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</link>
+			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</guid>
+			<description>
+				
+				JavaScript is a fundamentally event-driven programming language. Learn about the event loop, adding handlers to events with listeners, and debouncing for limiting the number of times those handlers are called.
+				
+			</description>
+		</item>
+		<item>
+			<title>Document Object Model (DOM) Selectors</title>
+			<link>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</link>
+			<pubDate>Thu, 04 Jan 2018 23:56:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</guid>
+			<description>
+				
+				Introduces the Document Object Model view of a webpage, covering how we can use Selectors to select objects of interest on the page and manipulate them.
+				
+			</description>
+		</item>
+		<item>
+			<title>Map, Filter, and Reduce: Functional Programming Gems</title>
+			<link>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</link>
+			<pubDate>Wed, 03 Jan 2018 10:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</guid>
+			<description>
+				
+				Introduces Map, Filter, and Reduce methods with an Application example calculating Standard Deviation.
+				
+			</description>
+		</item>
+		<item>
+			<title>WebStorage API: localStorage and sessionStorage</title>
+			<link>https://thmsdnnr.com/blog/webstorage-api-localstorage-and-sessionstorage/</link>
+			<pubDate>Tue, 02 Jan 2018 20:04:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/webstorage-api-localstorage-and-sessionstorage/</guid>
+			<description>
+				
+				WebStorage API, localStorage, and sessionStorage
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Code a Pomodoro Timer</title>
+			<link>https://thmsdnnr.com/blog/lets-code-a-pomodoro-timer/</link>
+			<pubDate>Mon, 01 Jan 2018 19:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-code-a-pomodoro-timer/</guid>
+			<description>
+				
+				We build a Pomodoro Timer, a popular time-management tool that breaks work in to 25 minutes segments of work combined with 5 minute periods of rest.
+				
+			</description>
+		</item>
+		<item>
+			<title>Scope &amp; Closures: let vs var in JavaScript</title>
+			<link>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</link>
+			<pubDate>Sun, 31 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</guid>
+			<description>
+				
+				Closures allow a function to retain information about its context after the function has returned. We provide examples and cases where closures can be useful.
+				
+			</description>
+		</item>
+		<item>
+			<title>Code a Weather App</title>
+			<link>https://thmsdnnr.com/blog/code-a-weather-app/</link>
+			<pubDate>Sat, 30 Dec 2017 23:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/code-a-weather-app/</guid>
+			<description>
+				
+				We create a weather application using the National Weather Service API to learn about Asynchronous code using Promises and Application Programming Interfaces (APIs).
+				
+			</description>
+		</item>
+		<item>
+			<title>John Conway&#39;s Game of Life: Cellular Automata</title>
+			<link>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</link>
+			<pubDate>Fri, 29 Dec 2017 08:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</guid>
+			<description>
+				
+				John Conway&#39;s Game of Life simulation implemented in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Create an Animated LCD Display</title>
+			<link>https://thmsdnnr.com/blog/create-an-animated-lcd-display/</link>
+			<pubDate>Thu, 28 Dec 2017 09:15:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/create-an-animated-lcd-display/</guid>
+			<description>
+				
+				We build a retro look-and-feel LCD display using dynamically-animated SVG with JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to D3 Graphs &#43; visualize sorting algorithms</title>
+			<link>https://thmsdnnr.com/blog/intro-to-d3-graphs-visualize-sorting-algorithms/</link>
+			<pubDate>Sat, 23 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/intro-to-d3-graphs-visualize-sorting-algorithms/</guid>
+			<description>
+				
+				Visualizing Sorting Algorithms in D3
+				
+			</description>
+		</item>
+		<item>
+			<title>Intro to D3: Bar Graphs</title>
+			<link>https://thmsdnnr.com/blog/intro-to-d3-bar-graphs/</link>
+			<pubDate>Fri, 22 Dec 2017 06:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/intro-to-d3-bar-graphs/</guid>
+			<description>
+				
+				We learn the basics of D3 and how to use it to build bar graphs.
+				
+			</description>
+		</item>
+		<item>
+			<title>Quicksort, a Divide and Conquer Sorting Algorithm.</title>
+			<link>https://thmsdnnr.com/blog/quicksort-a-divide-and-conquer-sorting-algorithm./</link>
+			<pubDate>Wed, 20 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/quicksort-a-divide-and-conquer-sorting-algorithm./</guid>
+			<description>
+				
+				We code Quicksort in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Bubble Sort</title>
+			<link>https://thmsdnnr.com/blog/bubble-sort/</link>
+			<pubDate>Tue, 19 Dec 2017 10:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/bubble-sort/</guid>
+			<description>
+				
+				Bubble Sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Insertion Sort</title>
+			<link>https://thmsdnnr.com/blog/binary-insertion-sort/</link>
+			<pubDate>Tue, 19 Dec 2017 09:50:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/binary-insertion-sort/</guid>
+			<description>
+				
+				Binary Insertion Sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Insertion Sort</title>
+			<link>https://thmsdnnr.com/blog/insertion-sort/</link>
+			<pubDate>Mon, 18 Dec 2017 20:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/insertion-sort/</guid>
+			<description>
+				
+				Insertion sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Selection Sort</title>
+			<link>https://thmsdnnr.com/blog/selection-sort/</link>
+			<pubDate>Sun, 17 Dec 2017 09:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/selection-sort/</guid>
+			<description>
+				
+				Selection sort algorithm, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Binary Search</title>
+			<link>https://thmsdnnr.com/blog/binary-search/</link>
+			<pubDate>Fri, 15 Dec 2017 21:06:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/binary-search/</guid>
+			<description>
+				
+				Binary search algorithm with a test runner implementation, coded in JavaScript.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Implement a Stream Cipher (CTR)!</title>
+			<link>https://thmsdnnr.com/blog/lets-implement-a-stream-cipher-ctr/</link>
+			<pubDate>Tue, 03 Oct 2017 07:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-implement-a-stream-cipher-ctr/</guid>
+			<description>
+				
+				Implementing AES in CTR mode, a Stream Cipher, to solve Cryptopals Set 3 Challenge 18.
+				
+			</description>
+		</item>
+		<item>
+			<title>CBC Padding Oracle</title>
+			<link>https://thmsdnnr.com/blog/cbc-padding-oracle/</link>
+			<pubDate>Mon, 02 Oct 2017 14:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/cbc-padding-oracle/</guid>
+			<description>
+				
+				Exploring a CBC padding oracle in Cryptopals Set 3 Challenge 17.
+				
+			</description>
+		</item>
+		<item>
+			<title>CBC Bitflipping Attacks</title>
+			<link>https://thmsdnnr.com/blog/cbc-bitflipping-attacks/</link>
+			<pubDate>Fri, 29 Sep 2017 13:24:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/cbc-bitflipping-attacks/</guid>
+			<description>
+				
+				Even though CBC is more secure than ECB, it is still vulnerable to attacks without taking additional precautions like using a Message Authentication Code (MAC). Cryptopals Set 2 Challenge 16.
+				
+			</description>
+		</item>
+		<item>
+			<title>PKCS7 Padding Validation</title>
+			<link>https://thmsdnnr.com/blog/pkcs7-padding-validation/</link>
+			<pubDate>Thu, 28 Sep 2017 11:10:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/pkcs7-padding-validation/</guid>
+			<description>
+				
+				Yet Another demonstration of why you shouldn&#39;t use ECB, even when some random-sized block of padding is prepended to the message. Cryptopals Set 2 Challenge 15.
+				
+			</description>
+		</item>
+		<item>
+			<title>ECB Byte At a Time (Harder!)</title>
+			<link>https://thmsdnnr.com/blog/ecb-byte-at-a-time-harder/</link>
+			<pubDate>Thu, 28 Sep 2017 07:24:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/ecb-byte-at-a-time-harder/</guid>
+			<description>
+				
+				Yet Another demonstration of why you shouldn&#39;t use ECB, even when some random-sized block of padding is prepended to the message. Cryptopals Set 2 Challenge 14.
+				
+			</description>
+		</item>
+		<item>
+			<title>ECB Cut and Paste</title>
+			<link>https://thmsdnnr.com/blog/ecb-cut-and-paste/</link>
+			<pubDate>Wed, 27 Sep 2017 21:00:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/ecb-cut-and-paste/</guid>
+			<description>
+				
+				Another demonstration of why you shouldn&#39;t use ECB! Cryptopals Set 2 Challenge 13.
+				
+			</description>
+		</item>
+		<item>
+			<title>Byte at a Time ECB Decryption</title>
+			<link>https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/</link>
+			<pubDate>Tue, 26 Sep 2017 12:03:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/</guid>
+			<description>
+				
+				We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC!
+				
+			</description>
+		</item>
+		<item>
+			<title>An AES CBC/ECB Detection Oracle!</title>
+			<link>https://thmsdnnr.com/blog/an-aes-cbc/ecb-detection-oracle/</link>
+			<pubDate>Sun, 24 Sep 2017 10:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/an-aes-cbc/ecb-detection-oracle/</guid>
+			<description>
+				
+				We implement an ECB/CBC detection oracle for use in future challenges. This solves Cryptopals Set 2 Challenge 11.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Implement Cipher Block Chaining!</title>
+			<link>https://thmsdnnr.com/blog/lets-implement-cipher-block-chaining/</link>
+			<pubDate>Sun, 24 Sep 2017 10:20:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-implement-cipher-block-chaining/</guid>
+			<description>
+				
+				We implement AES-CBC, a more secure mode of AES than ECB, to solve Cryptopals Set 2 Challenge 10.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Implement PKCS7 Padding!</title>
+			<link>https://thmsdnnr.com/blog/lets-implement-pkcs7-padding/</link>
+			<pubDate>Fri, 22 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-implement-pkcs7-padding/</guid>
+			<description>
+				
+				We implement PKCS7, a commonly used padding in cryptography. And we solve Cryptopals Set 2 Challenge 9!
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Code AES! (AES in ECB Mode)</title>
+			<link>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</link>
+			<pubDate>Thu, 21 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</guid>
+			<description>
+				
+				As an exercise, we code AES in ECB mode from scratch in JavaScript, and we use the results to solve Cryptopals Set 1 Challenge 7.
+				
+			</description>
+		</item>
+		<item>
+			<title>Let&#39;s Detect AES! (AES in ECB Mode)</title>
+			<link>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</link>
+			<pubDate>Thu, 21 Sep 2017 21:16:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</guid>
+			<description>
+				
+				We learn how to detect AES encryption when used in its less-secure form, ECB mode. In the process, we solve Cryptopals Set 1 Challenge 8.
+				
+			</description>
+		</item>
+		<item>
+			<title>Break Repeating-Key XOR</title>
+			<link>https://thmsdnnr.com/blog/break-repeating-key-xor/</link>
+			<pubDate>Sat, 16 Sep 2017 11:26:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/break-repeating-key-xor/</guid>
+			<description>
+				
+				How is repeating-key XOR is vulnerable to attack. Find out by Solving Cryptopals Set 1 Challenge 6.
+				
+			</description>
+		</item>
+		<item>
+			<title>Implement Repeating-Key XOR</title>
+			<link>https://thmsdnnr.com/blog/implement-repeating-key-xor/</link>
+			<pubDate>Thu, 14 Sep 2017 21:21:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/implement-repeating-key-xor/</guid>
+			<description>
+				
+				Implement Repeating-key XOR, a slightly more secure version of the single-byte XOR cipher, and solve Cryptopals Set 1 Challenge 5.
+				
+			</description>
+		</item>
+		<item>
+			<title>Detecting The Single-Byte XOR Cipher</title>
+			<link>https://thmsdnnr.com/blog/detecting-the-single-byte-xor-cipher/</link>
+			<pubDate>Thu, 14 Sep 2017 16:01:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/detecting-the-single-byte-xor-cipher/</guid>
+			<description>
+				
+				Find the secret text encrypted using a single-byte XOR cipher and solve Cryptopals Set 1 Challenge 3.
+				
+			</description>
+		</item>
+		<item>
+			<title>Cracking the Single-Byte XOR Cipher</title>
+			<link>https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/</link>
+			<pubDate>Thu, 14 Sep 2017 15:09:06 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/</guid>
+			<description>
+				
+				Find the secret text encrypted using a single-byte XOR cipher and solve Cryptopals Set 1 Challenge 3.
+				
+			</description>
+		</item>
+		<item>
+			<title>Calculating Fixed XOR</title>
+			<link>https://thmsdnnr.com/blog/calculating-fixed-xor/</link>
+			<pubDate>Thu, 14 Sep 2017 13:09:06 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/calculating-fixed-xor/</guid>
+			<description>
+				
+				Calculate a Fixed XOR between two strings and solve Cryptopals Set 1 Challenge 2.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

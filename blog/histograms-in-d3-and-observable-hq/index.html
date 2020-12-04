@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Histograms in D3 and Observable HQ">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,fundamentals,D3,observableHQ,histograms,frequency,dataScience"><meta name="description" content="An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration."><meta property="og:title" content="Histograms in D3 and Observable HQ" />
+<meta property="og:description" content="An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/" />
+<meta property="article:published_time" content="2018-03-06T06:56:04+00:00" />
+<meta property="article:modified_time" content="2018-03-06T06:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Histograms in D3 and Observable HQ"/>
+<meta name="twitter:description" content="An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration."/>
+
+	
+	
+
+	<title>Histograms in D3 and Observable HQ | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">06</span>
+				<span class="rest">Mar 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Histograms in D3 and Observable HQ</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="handy-dandy-observablehq-notebookhttpsbetaobservablehqcomthmsdnnrdivvy-rides-per-hour-in-chicago"><a href="https://beta.observablehq.com/@thmsdnnr/divvy-rides-per-hour-in-chicago" target="_blank" rel="noreferrer noopener">Handy Dandy (ObservableHQ) Notebook!</a></h2>
+<!-- raw HTML omitted -->
+<h2 id="how-many-times-did-it-happen">How Many Times Did It Happen?</h2>
+<p><a href="https://en.wikipedia.org/wiki/Histogram" target="_blank" rel="noreferrer noopener">Histograms</a> visualize a collection of items based on the number of things from that collection that fit into given bins. The bins are most often of equal width. Histograms help <a href="http://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm" target="_blank" rel="noreferrer noopener">visualize the distribution of data</a> and can be used to estimate the probability distributions.</p>
+<h2 id="getting-the-data">Getting The Data</h2>
+<p>I grabbed historical Divvy data from the <a href="https://data.cityofchicago.org/" target="_blank" rel="noreferrer noopener">City of Chicago Data Portal</a>, an awesome open-source resource with hundreds and hundreds of datasets to choose from. <a href="https://dev.socrata.com/foundry/data.cityofchicago.org/fg6s-gzvg" target="_blank" rel="noreferrer noopener">Here's the API docs</a> for Divvy trips in particular.</p>
+<p>I&rsquo;m interested in calculating the data from a given date seven days into the future, so I need to filter my query by start_time. This is pretty simple.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> querystring <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`$where=start_time between &#39;</span><span style="color:#f1fa8c">${</span>startTime<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#39; and &#39;</span><span style="color:#f1fa8c">${</span>endTime<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#39;&amp;$limit=9999999`</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> data <span style="color:#ff79c6">=</span> d3.json(
+  <span style="color:#f1fa8c">&#34;https://data.cityofchicago.org/resource/fg6s-gzvg.json?&#34;</span> <span style="color:#ff79c6">+</span> querystring
+);
+</code></pre></div><p>The trickiest part is obtaining a value for &ldquo;seven days from now&rdquo; without using some date library like Moment.js. We know that a day is 86,400 seconds, or 86,400,000ms. So to add n days, we just add n*86400000ms to a previous date.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> addDaysToDate(start, numDays <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">6</span>) {
+  <span style="color:#8be9fd;font-style:italic">let</span> startDate <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Date</span>(start);
+  startDate.setTime(startDate.getTime() <span style="color:#ff79c6">+</span> numDays <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">86400000</span>);
+  <span style="color:#ff79c6">return</span> startDate.toISOString().split(<span style="color:#f1fa8c">&#34;T&#34;</span>)[<span style="color:#bd93f9">0</span>];
+}
+</code></pre></div><p>I can call this function like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> startTime <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;2014-12-25T00:00:00&#34;</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> endTime <span style="color:#ff79c6">=</span> addDaysToDate(startTime, <span style="color:#bd93f9">6</span>) <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;T23:59:59&#34;</span>;
+</code></pre></div><p>The weirdness around splitting on T is because we don&rsquo;t want the default date timestamp. Instead, I want to go to the very end of this day (23:59:59). The reason we convert to a date format internally and then grab the date again is that it&rsquo;s far easier to do this than to think about how many days are in a given month, is it a leap year, etc. We convert into and out of the date object to obtain this result. Then we append the timestamp we desire.</p>
+<h2 id="binning-the-data-times-two">Binning The Data, Times Two</h2>
+<p>For reference, my data is an array of objects, each corresponding to a single ride.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;bike_id&#34;</span>: <span style="color:#f1fa8c">&#34;1162&#34;</span>,
+  <span style="color:#ff79c6">&#34;birth_year&#34;</span>: <span style="color:#f1fa8c">&#34;1987&#34;</span>,
+  <span style="color:#ff79c6">&#34;from_latitude&#34;</span>: <span style="color:#f1fa8c">&#34;41.904613&#34;</span>,
+  <span style="color:#ff79c6">&#34;from_location&#34;</span>: { <span style="color:#ff79c6">&#34;type&#34;</span>: <span style="color:#f1fa8c">&#34;Point&#34;</span>, <span style="color:#ff79c6">&#34;coordinates&#34;</span>: <span style="color:#f1fa8c">&#34;Array(2)&#34;</span> },
+  <span style="color:#ff79c6">&#34;from_longitude&#34;</span>: <span style="color:#f1fa8c">&#34;-87.640552&#34;</span>,
+  <span style="color:#ff79c6">&#34;from_station_id&#34;</span>: <span style="color:#f1fa8c">&#34;138&#34;</span>,
+  <span style="color:#ff79c6">&#34;from_station_name&#34;</span>: <span style="color:#f1fa8c">&#34;Clybourn Ave &amp; Division St&#34;</span>,
+  <span style="color:#ff79c6">&#34;gender&#34;</span>: <span style="color:#f1fa8c">&#34;Male&#34;</span>,
+  <span style="color:#ff79c6">&#34;start_time&#34;</span>: <span style="color:#f1fa8c">&#34;2014-12-25T00:00:00.000&#34;</span>,
+  <span style="color:#ff79c6">&#34;stop_time&#34;</span>: <span style="color:#f1fa8c">&#34;2014-12-25T00:04:00.000&#34;</span>,
+  <span style="color:#ff79c6">&#34;to_latitude&#34;</span>: <span style="color:#f1fa8c">&#34;41.911386&#34;</span>,
+  <span style="color:#ff79c6">&#34;to_location&#34;</span>: { <span style="color:#ff79c6">&#34;type&#34;</span>: <span style="color:#f1fa8c">&#34;Point&#34;</span>, <span style="color:#ff79c6">&#34;coordinates&#34;</span>: <span style="color:#f1fa8c">&#34;Array(2)&#34;</span> },
+  <span style="color:#ff79c6">&#34;to_longitude&#34;</span>: <span style="color:#f1fa8c">&#34;-87.638677&#34;</span>,
+  <span style="color:#ff79c6">&#34;to_station_id&#34;</span>: <span style="color:#f1fa8c">&#34;118&#34;</span>,
+  <span style="color:#ff79c6">&#34;to_station_name&#34;</span>: <span style="color:#f1fa8c">&#34;Sedgwick St &amp; North Ave&#34;</span>,
+  <span style="color:#ff79c6">&#34;trip_duration&#34;</span>: <span style="color:#f1fa8c">&#34;205&#34;</span>,
+  <span style="color:#ff79c6">&#34;trip_id&#34;</span>: <span style="color:#f1fa8c">&#34;4396063&#34;</span>,
+  <span style="color:#ff79c6">&#34;user_type&#34;</span>: <span style="color:#f1fa8c">&#34;Subscriber&#34;</span>
+}
+</code></pre></div><p>Since I already have a timestamp in each of these rides as a start time, it&rsquo;s really easy to bin out the data. Here&rsquo;s what I do:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> binData(rides) {
+  <span style="color:#8be9fd;font-style:italic">var</span> timeAndDates <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> WeakMap();
+  rides.forEach((ride) =&gt; {
+    <span style="color:#ff79c6">const</span> timeBin <span style="color:#ff79c6">=</span> ride.start_time
+      <span style="color:#ff79c6">?</span> <span style="color:#8be9fd;font-style:italic">String</span>(<span style="color:#ff79c6">+</span>ride.start_time.split(<span style="color:#f1fa8c">&#34;T&#34;</span>)[<span style="color:#bd93f9">1</span>].split(<span style="color:#f1fa8c">&#34;:&#34;</span>)[<span style="color:#bd93f9">0</span>])
+      <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+    <span style="color:#ff79c6">const</span> dateBin <span style="color:#ff79c6">=</span> ride.start_time.split(<span style="color:#f1fa8c">&#34;T&#34;</span>)[<span style="color:#bd93f9">0</span>];
+    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>timeAndDates[dateBin]) {
+      timeAndDates[dateBin] <span style="color:#ff79c6">=</span> [];
+    }
+    timeAndDates[dateBin][timeBin]
+      <span style="color:#ff79c6">?</span> timeAndDates[dateBin][timeBin]<span style="color:#ff79c6">++</span>
+      <span style="color:#ff79c6">:</span> (timeAndDates[dateBin][timeBin] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>);
+  });
+  <span style="color:#ff79c6">return</span> timeAndDates;
+}
+</code></pre></div><h5 id="im-going-to-bin-rides-by-days-of-the-week-and-then-within-each-day-by-the-24-hours-of-the-day">I&rsquo;m going to bin rides by days of the week and then, within each day, by the 24 hours of the day.</h5>
+<p>For each ride, I key the day of the week with the date part of the <code>start_time</code> property (e.g., &ldquo;2014-12-25&rdquo;). If the date does not already exist, I add an empty slot for it. If it does exist already, I check to see if the second-level key (date + time bin) exists. If it does, increment the value by one. If it doesn&rsquo;t, set up the bin, and put the item in (set the value to 1). I establish the bins by grabbing the hours of the start time, converting it to a number (to remove e.g., the preceding &ldquo;0&rdquo; in &ldquo;00&rdquo; — &ldquo;09&rdquo;), then re-casting to a String.</p>
+<p>I call a generateReport method with the result of binData.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> generateReport(binned) {
+  <span style="color:#8be9fd;font-style:italic">var</span> dates <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#34;Sun&#34;</span>, <span style="color:#f1fa8c">&#34;Mon&#34;</span>, <span style="color:#f1fa8c">&#34;Tues&#34;</span>, <span style="color:#f1fa8c">&#34;Weds&#34;</span>, <span style="color:#f1fa8c">&#34;Thurs&#34;</span>, <span style="color:#f1fa8c">&#34;Fri&#34;</span>, <span style="color:#f1fa8c">&#34;Sat&#34;</span>];
+  <span style="color:#8be9fd;font-style:italic">var</span> newInfo <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">Object</span>.keys(binned).forEach((key) =&gt; {
+    <span style="color:#ff79c6">if</span> (binned[key].length <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">24</span>) {
+      <span style="color:#6272a4">//missing keys
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">24</span>; i<span style="color:#ff79c6">++</span>) {
+        <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>binned[key][i]) {
+          binned[key][i] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; <span style="color:#6272a4">// set to zero
+</span><span style="color:#6272a4"></span>        }
+      }
+    }
+    <span style="color:#ff79c6">const</span> maxV <span style="color:#ff79c6">=</span> max(binned[key]);
+    <span style="color:#ff79c6">const</span> minV <span style="color:#ff79c6">=</span> min(binned[key]);
+    newInfo.push({
+      data<span style="color:#ff79c6">:</span> binned[key],
+      statMd<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">`max: </span><span style="color:#f1fa8c">${</span>maxV.value<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> @ </span><span style="color:#f1fa8c">${</span>maxV.hour<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">:00 // min: </span><span style="color:#f1fa8c">${</span>minV.value<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> @ </span><span style="color:#f1fa8c">${</span>minV.hour<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">:00`</span>,
+      day<span style="color:#ff79c6">:</span> key.split(<span style="color:#f1fa8c">&#34;-&#34;</span>).slice(<span style="color:#bd93f9">1</span>).join(<span style="color:#f1fa8c">&#34;/&#34;</span>),
+      name<span style="color:#ff79c6">:</span> dates[<span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Date</span>(key).getUTCDay()],
+    });
+  });
+  <span style="color:#ff79c6">return</span> newInfo;
+}
+</code></pre></div><p><code>generateReport</code> does two things. First, it accounts for missing keys (if there were no rides in a given period on that day, there will be no value in that entry of the array, and the array length will be less than 24). We set those values to zero. Then I create a string with the min and max values of the day and include the time at which those min and max values occurred. It&rsquo;s a nice property of equally-binned histogram data that in our case, the index of the array corresponds to the hour (indices 0 through 23 -&gt; 0:00 to 23:00).</p>
+<p>I also include the day and the day name: it could be the case that the user selects a day other than Monday, which means the days will not run from Sunday to Saturday in order — in this case, we&rsquo;ll display Weds, Thurs, Fri, Sat, Sun, Mon, Tues, for example. Since we keyed the timeAndDates object with the timestamp itself, this data is easy to extract.</p>
+<h2 id="graphing-the-data">Graphing The Data</h2>
+<p>I write a function to graph the data &ldquo;sparkline-style&rdquo; when passed an individual data array, such as the ones corresponding to each day we already created.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> graphData(data) {
+  <span style="color:#8be9fd;font-style:italic">var</span> margin <span style="color:#ff79c6">=</span> { top<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>, right<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>, bottom<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>, left<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span> };
+  <span style="color:#8be9fd;font-style:italic">var</span> x <span style="color:#ff79c6">=</span> d3
+    .scaleLinear()
+    .domain([<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">24</span>])
+    .range([margin.left <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">5</span>, width <span style="color:#ff79c6">-</span> margin.right <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">5</span>]);
+  <span style="color:#8be9fd;font-style:italic">var</span> y <span style="color:#ff79c6">=</span> d3
+    .scaleLinear()
+    .domain([<span style="color:#bd93f9">0</span>, d3.max(data)])
+    .nice()
+    .range([height <span style="color:#ff79c6">-</span> margin.bottom <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">5</span>, margin.top <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">5</span>]);
+  <span style="color:#8be9fd;font-style:italic">var</span> line <span style="color:#ff79c6">=</span> d3
+    .line()
+    .x((d, idx) =&gt; x(idx))
+    .y((d, idx) =&gt;
+      y(d) <span style="color:#ff79c6">?</span> y(d) <span style="color:#ff79c6">:</span> idx <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> y(data[idx <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>]) <span style="color:#ff79c6">:</span> y(data[idx <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>])
+    );
+
+  <span style="color:#ff79c6">const</span> svg <span style="color:#ff79c6">=</span> d3.select(DOM.svg(width, height));
+  svg
+    .append(<span style="color:#f1fa8c">&#34;path&#34;</span>)
+    .datum(data)
+    .attr(<span style="color:#f1fa8c">&#34;fill&#34;</span>, <span style="color:#f1fa8c">&#34;none&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;stroke&#34;</span>, <span style="color:#f1fa8c">&#34;steelblue&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;stroke-width&#34;</span>, <span style="color:#bd93f9">1</span>)
+    .attr(<span style="color:#f1fa8c">&#34;d&#34;</span>, line);
+  svg
+    .selectAll(<span style="color:#f1fa8c">&#34;.dot&#34;</span>)
+    .data(data)
+    .enter()
+    .append(<span style="color:#f1fa8c">&#34;circle&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;class&#34;</span>, <span style="color:#f1fa8c">&#34;dot&#34;</span>)
+    .attr(<span style="color:#f1fa8c">&#34;cx&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (d, i) {
+      <span style="color:#ff79c6">return</span> x(i);
+    })
+    .attr(<span style="color:#f1fa8c">&#34;cy&#34;</span>, (d, idx) =&gt;
+      y(d) <span style="color:#ff79c6">?</span> y(d) <span style="color:#ff79c6">:</span> idx <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> y(data[idx <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>]) <span style="color:#ff79c6">:</span> y(data[idx <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>])
+    )
+    .attr(<span style="color:#f1fa8c">&#34;r&#34;</span>, <span style="color:#bd93f9">2</span>);
+  <span style="color:#ff79c6">return</span> svg.node();
+}
+</code></pre></div><p>This code is simple: we establish x and y scaling functions, a line function, and then we append the line (path) and the individual points (circle) to the graph.</p>
+<p>The only tricky thing here is the ternary expression in the y values for the graph: it could be the case that the value is undefined due to missing data. In this case, we want to interpolate forward or backward (whichever is possible). If <code>y(d)</code> is not truthy, set the data equal to the previous element if idx!==0, or current element+1, otherwise.</p>
+<h2 id="reporting-the-data">Reporting The Data</h2>
+<p>It&rsquo;s trivial to report the data once we have arranged it so nicely.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">| day        | 24-hr graph           | stats  |
+| -------------: |:-------------:| :-----|
+| ${R[0].name} ${R[0].day} | ${graphData(R[0].data)} | ${R[0].statMd} |
+| ${R[1].name} ${R[1].day} | ${graphData(R[1].data)} | ${R[1].statMd} |
+| ${R[2].name} ${R[2].day} | ${graphData(R[2].data)} | ${R[2].statMd} |
+| ${R[3].name} ${R[3].day} | ${graphData(R[3].data)} | ${R[3].statMd} |
+| ${R[4].name} ${R[4].day} | ${graphData(R[4].data)} | ${R[4].statMd} |
+| ${R[5].name} ${R[5].day} | ${graphData(R[5].data)} | ${R[5].statMd} |
+| ${R[6].name} ${R[6].day} | ${graphData(R[6].data)} | ${R[6].statMd} |
+</code></pre></div><p>Observable notebooks support markdown elements with the opening tag md` and closing tag `.</p>
+<p>We throw in a year, month, and date slider using <a href="https://beta.observablehq.com/@mbostock/a-brief-introduction-to-viewof" target="_blank" rel="noreferrer noopener">viewof</a> to dynamically track and set the value:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">viewof year <span style="color:#ff79c6">=</span> html<span style="color:#f1fa8c">`&lt;input type=range min=2014 max=2018 step=1 value=2014&gt;`</span>
+</code></pre></div><h2 id="observables">Observables?</h2>
+<p>Observable notebooks keep track of updated values and update things accordingly. When we move the date sliders, it updates the start data, which updates the end date, which updates the querystring, which gets called by fetch, which updates data, which is called by binData, which is called by generateReport, which updates the data, which is referenced by the report. The notebook performs this <a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank" rel="noreferrer noopener">reactive pattern</a> handling for us.</p>
+<p>Observers make total sense for a Mathematica-like notebook. They&rsquo;re also handy for solving problems in day-to-day programming. <a href="http://reactivex.io/rxjs/" target="_blank" rel="noreferrer noopener">RxJS</a> is a popular library for using observers in JS. It&rsquo;s worth looking at to see how it can streamline and clarify your own code.</p>
+<h2 id="til">TIL</h2>
+<p>That&rsquo;s about it! You can use Observable notebooks a lot like you can Mathematica. They&rsquo;re a great way to write about data in a manner that encourages exploration and discovery on the part of the reader.</p>
+<p>Check out the <a href="https://beta.observablehq.com/collection/introduction" target="_blank" rel="noreferrer noopener">introductory tutorials</a> and build a notebook of your own to explore some cool data that you&rsquo;re interested in.</p>
+<p>Does your city have a great Open Data portal too? If so, use it. If not, advocate!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/d3/"> d3 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datascience/"> datascience </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/frequency/"> frequency </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/fundamentals/"> fundamentals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/histograms/"> histograms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/observablehq/"> observablehq </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

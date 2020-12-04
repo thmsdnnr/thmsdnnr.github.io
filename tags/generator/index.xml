@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>ES6 — Generator Functions</title>
-			<link>https://thmsdnnr.com/post/es6-generator-functions/</link>
+			<link>https://thmsdnnr.com/blog/es6-generator-functions/</link>
 			<pubDate>Sat, 24 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/es6-generator-functions/</guid>
+			<guid>https://thmsdnnr.com/blog/es6-generator-functions/</guid>
 			<description>
 				
 				Generator functions let programmers use yield to pause the execution of functions until they are called later.

@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Boids: A Bird Flock Simulator</title>
-			<link>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</link>
+			<link>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</link>
 			<pubDate>Fri, 05 Oct 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</guid>
+			<guid>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</guid>
 			<description>
 				
 				We implement Craig Reynolds&#39; Boids simulator using vanilla JavaScript and HTML5 Canvas, and explain the vector math required to drive the particle simulation.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>John Conway&#39;s Game of Life: Cellular Automata</title>
-			<link>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</link>
+			<link>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</link>
 			<pubDate>Fri, 29 Dec 2017 08:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</guid>
+			<guid>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</guid>
 			<description>
 				
 				John Conway&#39;s Game of Life simulation implemented in JavaScript.

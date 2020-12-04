@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Value vs Reference: Deep vs Shallow</title>
-			<link>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</link>
+			<link>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</link>
 			<pubDate>Sun, 11 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</guid>
+			<guid>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</guid>
 			<description>
 				
 				A short tutorial on object copying in JS and the distinction between a shallow and deep copies, and values and references.

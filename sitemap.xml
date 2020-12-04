@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://thmsdnnr.com/post/automatically-backup-config-with-git-and-cron/</loc>
+    <loc>https://thmsdnnr.com/blog/automatically-backup-config-with-git-and-cron/</loc>
     <lastmod>2019-06-14T19:20:04+00:00</lastmod>
   </url>
   
@@ -14,6 +14,11 @@
   
   <url>
     <loc>https://thmsdnnr.com/tags/backups/</loc>
+    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/</loc>
     <lastmod>2019-06-14T19:20:04+00:00</lastmod>
   </url>
   
@@ -53,11 +58,6 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/</loc>
-    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://thmsdnnr.com/series/</loc>
     <lastmod>2019-06-14T19:20:04+00:00</lastmod>
   </url>
@@ -78,7 +78,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/caching-and-the-least-recently-used-replacement-policy/</loc>
+    <loc>https://thmsdnnr.com/blog/caching-and-the-least-recently-used-replacement-policy/</loc>
     <lastmod>2018-10-07T06:56:04+00:00</lastmod>
   </url>
   
@@ -113,7 +113,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/boids-a-bird-flock-simulator/</loc>
+    <loc>https://thmsdnnr.com/blog/boids-a-bird-flock-simulator/</loc>
     <lastmod>2018-10-05T06:56:04+00:00</lastmod>
   </url>
   
@@ -138,7 +138,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/the-knapsack-problem/</loc>
+    <loc>https://thmsdnnr.com/blog/the-knapsack-problem/</loc>
     <lastmod>2018-03-15T06:56:04+00:00</lastmod>
   </url>
   
@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/introduction-to-databases/</loc>
+    <loc>https://thmsdnnr.com/blog/introduction-to-databases/</loc>
     <lastmod>2018-03-14T06:56:04+00:00</lastmod>
   </url>
   
@@ -243,7 +243,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/value-vs-reference-deep-vs-shallow/</loc>
+    <loc>https://thmsdnnr.com/blog/value-vs-reference-deep-vs-shallow/</loc>
     <lastmod>2018-03-11T06:56:04+00:00</lastmod>
   </url>
   
@@ -268,7 +268,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</loc>
+    <loc>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</loc>
     <lastmod>2018-03-09T06:56:04+00:00</lastmod>
   </url>
   
@@ -288,7 +288,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</loc>
+    <loc>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</loc>
     <lastmod>2018-03-06T06:56:04+00:00</lastmod>
   </url>
   
@@ -318,7 +318,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/prototypal-inheritance-basics/</loc>
+    <loc>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</loc>
     <lastmod>2018-03-05T06:56:04+00:00</lastmod>
   </url>
   
@@ -333,7 +333,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/es6-destructuring-default-parameters/</loc>
+    <loc>https://thmsdnnr.com/blog/es6-destructuring-default-parameters/</loc>
     <lastmod>2018-03-04T06:56:04+00:00</lastmod>
   </url>
   
@@ -348,7 +348,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/es6-generator-functions/</loc>
+    <loc>https://thmsdnnr.com/blog/es6-generator-functions/</loc>
     <lastmod>2018-02-24T06:56:04+00:00</lastmod>
   </url>
   
@@ -383,7 +383,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</loc>
+    <loc>https://thmsdnnr.com/blog/lightning-fast-string-lookups-with-tries/</loc>
     <lastmod>2018-02-14T06:56:04+00:00</lastmod>
   </url>
   
@@ -398,7 +398,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/binary-heaps-min-heaps-and-max-heaps/</loc>
+    <loc>https://thmsdnnr.com/blog/binary-heaps-min-heaps-and-max-heaps/</loc>
     <lastmod>2018-02-12T06:56:04+00:00</lastmod>
   </url>
   
@@ -413,7 +413,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</loc>
+    <loc>https://thmsdnnr.com/blog/avl-trees-part-2-insertions/</loc>
     <lastmod>2018-02-07T06:56:04+00:00</lastmod>
   </url>
   
@@ -438,7 +438,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/avl-trees-part-1-balanced-binary-search-and-rotations/</loc>
+    <loc>https://thmsdnnr.com/blog/avl-trees-part-1-balanced-binary-search-and-rotations/</loc>
     <lastmod>2018-02-05T06:56:04+00:00</lastmod>
   </url>
   
@@ -453,7 +453,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</loc>
+    <loc>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</loc>
     <lastmod>2018-02-03T06:56:04+00:00</lastmod>
   </url>
   
@@ -468,7 +468,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/binary-search-trees-handling-deletion/</loc>
+    <loc>https://thmsdnnr.com/blog/binary-search-trees-handling-deletion/</loc>
     <lastmod>2018-02-02T06:56:04+00:00</lastmod>
   </url>
   
@@ -483,7 +483,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/intro-to-binary-search-trees/</loc>
+    <loc>https://thmsdnnr.com/blog/intro-to-binary-search-trees/</loc>
     <lastmod>2018-02-01T06:56:04+00:00</lastmod>
   </url>
   
@@ -493,7 +493,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/intro-to-linked-lists/</loc>
+    <loc>https://thmsdnnr.com/blog/intro-to-linked-lists/</loc>
     <lastmod>2018-01-31T06:56:04+00:00</lastmod>
   </url>
   
@@ -503,7 +503,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/stacks-queues-and-matching-brackets/</loc>
+    <loc>https://thmsdnnr.com/blog/stacks-queues-and-matching-brackets/</loc>
     <lastmod>2018-01-30T08:56:04+00:00</lastmod>
   </url>
   
@@ -528,7 +528,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/speeding-up-repetitive-calculations-with-memoization/</loc>
+    <loc>https://thmsdnnr.com/blog/speeding-up-repetitive-calculations-with-memoization/</loc>
     <lastmod>2018-01-24T08:56:04+00:00</lastmod>
   </url>
   
@@ -553,7 +553,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/koch-snowflakes/</loc>
+    <loc>https://thmsdnnr.com/blog/koch-snowflakes/</loc>
     <lastmod>2018-01-23T17:30:04+00:00</lastmod>
   </url>
   
@@ -583,7 +583,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/pixl-a-sea-of-css-part-5/</loc>
+    <loc>https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/</loc>
     <lastmod>2018-01-13T09:30:04+00:00</lastmod>
   </url>
   
@@ -593,27 +593,27 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-4/</loc>
+    <loc>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-4/</loc>
     <lastmod>2018-01-12T09:30:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/pixl-scaling-saving-art-part-3/</loc>
+    <loc>https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/</loc>
     <lastmod>2018-01-09T09:30:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/pixl-color-palette-enhanced-ui-part-2/</loc>
+    <loc>https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/</loc>
     <lastmod>2018-01-08T19:30:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/pixl-a-pixel-art-editor-w/canvas-part-1/</loc>
+    <loc>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</loc>
     <lastmod>2018-01-07T14:30:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/fractal-art-and-sierpinski-triangles/</loc>
+    <loc>https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/</loc>
     <lastmod>2018-01-06T14:30:04+00:00</lastmod>
   </url>
   
@@ -638,7 +638,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</loc>
+    <loc>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</loc>
     <lastmod>2018-01-05T19:30:04+00:00</lastmod>
   </url>
   
@@ -648,7 +648,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/document-object-model-dom-selectors/</loc>
+    <loc>https://thmsdnnr.com/blog/document-object-model-dom-selectors/</loc>
     <lastmod>2018-01-04T23:56:04+00:00</lastmod>
   </url>
   
@@ -683,7 +683,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/map-filter-and-reduce-functional-programming-gems/</loc>
+    <loc>https://thmsdnnr.com/blog/map-filter-and-reduce-functional-programming-gems/</loc>
     <lastmod>2018-01-03T10:04:04+00:00</lastmod>
   </url>
   
@@ -713,12 +713,12 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/webstorage-api-localstorage-and-sessionstorage/</loc>
+    <loc>https://thmsdnnr.com/blog/webstorage-api-localstorage-and-sessionstorage/</loc>
     <lastmod>2018-01-02T20:04:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/lets-code-a-pomodoro-timer/</loc>
+    <loc>https://thmsdnnr.com/blog/lets-code-a-pomodoro-timer/</loc>
     <lastmod>2018-01-01T19:40:04+00:00</lastmod>
   </url>
   
@@ -748,7 +748,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/scope-closures-let-vs-var-in-javascript/</loc>
+    <loc>https://thmsdnnr.com/blog/scope-closures-let-vs-var-in-javascript/</loc>
     <lastmod>2017-12-31T10:40:04+00:00</lastmod>
   </url>
   
@@ -778,7 +778,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/code-a-weather-app/</loc>
+    <loc>https://thmsdnnr.com/blog/code-a-weather-app/</loc>
     <lastmod>2017-12-30T23:40:04+00:00</lastmod>
   </url>
   
@@ -803,12 +803,12 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</loc>
+    <loc>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</loc>
     <lastmod>2017-12-29T08:40:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/create-an-animated-lcd-display/</loc>
+    <loc>https://thmsdnnr.com/blog/create-an-animated-lcd-display/</loc>
     <lastmod>2017-12-28T09:15:04+00:00</lastmod>
   </url>
   
@@ -858,7 +858,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/intro-to-d3-graphs-visualize-sorting-algorithms/</loc>
+    <loc>https://thmsdnnr.com/blog/intro-to-d3-graphs-visualize-sorting-algorithms/</loc>
     <lastmod>2017-12-23T06:40:04+00:00</lastmod>
   </url>
   
@@ -873,7 +873,7 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/intro-to-d3-bar-graphs/</loc>
+    <loc>https://thmsdnnr.com/blog/intro-to-d3-bar-graphs/</loc>
     <lastmod>2017-12-22T06:40:04+00:00</lastmod>
   </url>
   
@@ -883,17 +883,17 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</loc>
+    <loc>https://thmsdnnr.com/blog/quicksort-a-divide-and-conquer-sorting-algorithm./</loc>
     <lastmod>2017-12-20T10:40:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/bubble-sort/</loc>
+    <loc>https://thmsdnnr.com/blog/bubble-sort/</loc>
     <lastmod>2017-12-19T10:40:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/binary-insertion-sort/</loc>
+    <loc>https://thmsdnnr.com/blog/binary-insertion-sort/</loc>
     <lastmod>2017-12-19T09:50:04+00:00</lastmod>
   </url>
   
@@ -903,23 +903,138 @@
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/insertion-sort/</loc>
+    <loc>https://thmsdnnr.com/blog/insertion-sort/</loc>
     <lastmod>2017-12-18T20:10:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/selection-sort/</loc>
+    <loc>https://thmsdnnr.com/blog/selection-sort/</loc>
     <lastmod>2017-12-17T09:10:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://thmsdnnr.com/post/binary-search/</loc>
+    <loc>https://thmsdnnr.com/blog/binary-search/</loc>
     <lastmod>2017-12-15T21:06:04+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://thmsdnnr.com/tags/searching/</loc>
     <lastmod>2017-12-15T21:06:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/categories/cryptopals/</loc>
+    <lastmod>2017-10-03T07:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/cryptopals-set3/</loc>
+    <lastmod>2017-10-03T07:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/lets-implement-a-stream-cipher-ctr/</loc>
+    <lastmod>2017-10-03T07:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/cbc-padding-oracle/</loc>
+    <lastmod>2017-10-02T14:40:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/cbc-bitflipping-attacks/</loc>
+    <lastmod>2017-09-29T13:24:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/cryptopals-set2/</loc>
+    <lastmod>2017-09-29T13:24:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/pkcs7-padding-validation/</loc>
+    <lastmod>2017-09-28T11:10:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/ecb-byte-at-a-time-harder/</loc>
+    <lastmod>2017-09-28T07:24:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/ecb-cut-and-paste/</loc>
+    <lastmod>2017-09-27T21:00:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/</loc>
+    <lastmod>2017-09-26T12:03:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/an-aes-cbc/ecb-detection-oracle/</loc>
+    <lastmod>2017-09-24T10:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/lets-implement-cipher-block-chaining/</loc>
+    <lastmod>2017-09-24T10:20:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/lets-implement-pkcs7-padding/</loc>
+    <lastmod>2017-09-22T21:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/aes/</loc>
+    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/cryptopals-set1/</loc>
+    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/tags/encryption/</loc>
+    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/lets-code-aes-aes-in-ecb-mode/</loc>
+    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/lets-detect-aes-aes-in-ecb-mode/</loc>
+    <lastmod>2017-09-21T21:16:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/break-repeating-key-xor/</loc>
+    <lastmod>2017-09-16T11:26:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/implement-repeating-key-xor/</loc>
+    <lastmod>2017-09-14T21:21:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/detecting-the-single-byte-xor-cipher/</loc>
+    <lastmod>2017-09-14T16:01:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/</loc>
+    <lastmod>2017-09-14T15:09:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://thmsdnnr.com/blog/calculating-fixed-xor/</loc>
+    <lastmod>2017-09-14T13:09:06+00:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Byte at a Time ECB Decryption">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set2"><meta name="description" content="We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC!"><meta property="og:title" content="Byte at a Time ECB Decryption" />
+<meta property="og:description" content="We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/byte-at-a-time-ecb-decryption/" />
+<meta property="article:published_time" content="2017-09-26T12:03:04+00:00" />
+<meta property="article:modified_time" content="2017-09-26T12:03:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Byte at a Time ECB Decryption"/>
+<meta name="twitter:description" content="We demonstrate how to perform ECB decryption one byte at a time, a good demonstration of why ECB should not be used in practice. Instead, use CBC!"/>
+
+	
+	
+
+	<title>Byte at a Time ECB Decryption | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">26</span>
+				<span class="rest">Sep 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Byte at a Time ECB Decryption</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/2/challenges/12" target="_blank" rel="noreferrer noopener">Cryptopals Set 2 Challenge 12</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s2c12" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s2c12/" target="_blank" rel="noreferrer noopener">decryption demo</a></p>
+<h3 id="step-1-whats-my-blocksize-again">Step 1: What&rsquo;s My Blocksize Again?</h3>
+<p>First the challenge has us verify the block size and determine the encryption is using ECB mode.</p>
+<p>We know that we&rsquo;ve reached the block size boundary when adding one additional character to the plaintext results in a change in the ciphertext output length of greater than 1. It will jump by a factor greater than one due to PKCS7 padding (remember, when we reach a block boundary, PKCS7 adds an entire additional block consisting of blockSize # <code>String.fromCharCode(blockSize)</code> characters).</p>
+<p>Increase the input string one character at a time until the jump is &gt; 2. Larger jump size === block size.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> str <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;A&#34;</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> randomCrypto(str);
+<span style="color:#8be9fd;font-style:italic">let</span> lastSizeJump <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> lastSize <span style="color:#ff79c6">=</span> res.length;
+<span style="color:#ff79c6">while</span> (lastSizeJump <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">2</span>) {
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> randomCrypto(str);
+  str <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">&#34;A&#34;</span>;
+  lastSizeJump <span style="color:#ff79c6">=</span> res.length <span style="color:#ff79c6">-</span> lastSize;
+  lastSize <span style="color:#ff79c6">=</span> res.length;
+}
+console.log(lastSizeJump, lastSize, res, res.length);
+</code></pre></div><h3 id="step-2-call-me-ecb-maybe">Step 2: Call Me ECB (Maybe)</h3>
+<p>We test whether we&rsquo;re in ECB mode by feeding our encryption function a really long string of the same character and looking for repeated blocks in the ciphertext (just like we did in the last challenge).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">console.log(
+  areRepeats(
+    randomCrypto(
+      <span style="color:#f1fa8c">&#34;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#34;</span>
+    ).join(<span style="color:#f1fa8c">&#34;&#34;</span>),
+    <span style="color:#bd93f9">16</span>
+  )
+);
+</code></pre></div><p>True. It&rsquo;s true.</p>
+<h3 id="step-3-set-the-controls-for-the-heart-of-therandom-encryptor-function">Step 3: Set the Controls for the Heart of the&hellip;Random Encryptor Function</h3>
+<p>We modify our random encryption function from <a href="https://thmsdnnr.github.io/tutorials/javascript/cryptopals/2017/09/24/cryptopals-set2-challenge-11-an-aes-ecb-cbc-detection-oracle.html" target="_blank" rel="noreferrer noopener">Challenge 11</a>. It&rsquo;s now going to accept a plaintext, append an unknown string, and return an AES-ECB encryption result of the concatenation of these two strings, using a randomly generated key. Then we&rsquo;re going to find that unknown string.</p>
+<p>The new function looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> theGreatUnknown <span style="color:#ff79c6">=</span> hexByTwo(
+  b64ToHex(
+    <span style="color:#f1fa8c">&#34;Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK&#34;</span>
+  )
+);
+<span style="color:#8be9fd;font-style:italic">let</span> randomKey <span style="color:#ff79c6">=</span> randomBytes(<span style="color:#bd93f9">16</span>).map((e) =&gt; hexPad(e));
+
+<span style="color:#8be9fd;font-style:italic">function</span> randomCrypto(pText) {
+  pText <span style="color:#ff79c6">=</span> txtToHex(pText).map((e) =&gt; hexPad(e));
+  <span style="color:#8be9fd;font-style:italic">let</span> input <span style="color:#ff79c6">=</span> PKCS7(pText.concat(theGreatUnknown), <span style="color:#bd93f9">16</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> eRes;
+  eRes <span style="color:#ff79c6">=</span> aesEncryptECB(input, randomKey, <span style="color:#bd93f9">16</span>);
+  <span style="color:#ff79c6">return</span> eRes;
+}
+</code></pre></div><h3 id="step-4-wait-what--how-do-we-figure-out-thegreatunknown-string">Step 4: Wait, What&ndash;How Do We Figure Out <code>theGreatUnknown</code> (String)?</h3>
+<p>We know that repeated plaintext yields repeated ciphertext when encryption happens in ECB mode <a href="https://thmsdnnr.github.io/tutorials/javascript/cryptopals/2017/09/22/cryptopals-set1-challenge-8-detecting-aes-in-ecb-mode.html" target="_blank" rel="noreferrer noopener">(challenge 8)</a>. We also know that we can brute force a single character key by trying all possible values and comparing the ciphertext outputs <a href="https://thmsdnnr.github.io/tutorials/javascript/cryptopals/2017/09/14/cryptopals-set1-challenge-3-single-byte-XOR-cipher.html" target="_blank" rel="noreferrer noopener">(challenge 3)</a>.</p>
+<p>Let&rsquo;s combine these ideas. We focus on one block of ciphertext at a time. Let&rsquo;s start by just decrypting the first 16 characters of the unknown string, working only with the block containing bytes <code>0-16</code>.</p>
+<ol>
+<li>We can manipulate the plaintext input so that a ciphertext block consists of 15 of our characters and 1 character of the ciphertext.</li>
+</ol>
+<ul>
+<li>Feed the encryptor function a string <code>S</code> with length 15 (one fewer than the block size).</li>
+<li>The first block of plaintext consists of <code>S + [character 1 of unknown string]</code>.</li>
+<li>Save this encryption result as <code>oneFewer</code>.</li>
+</ul>
+<ol start="2">
+<li>We guess character 1 by enumerating every possible combination of <code>S</code> with characters 0-255.</li>
+<li>We check the encrypted block result of each guess against <code>oneFewer</code> until we find a match.</li>
+</ol>
+<ul>
+<li>This works because it&rsquo;s ECB encryption. Unlike CBC, in ECB, each block&rsquo;s encryption result is entirely independent of neighboring blocks; in CBC, subsequent encryption block results depend on previous blocks.</li>
+</ul>
+<ol start="4">
+<li>We&rsquo;ve found one character. Now iterate and find them all.</li>
+</ol>
+<p><strong>Let&rsquo;s look at steps 1 through 3 first.</strong> I <em>highly recommend</em> getting one character decoded before, y&rsquo;know, nesting for loops like birds in springtime. Hey, I was optimistic too. When I tried to run my code without testing intermediate results, haphazardly nesting three for loops and setting loop variables with whimsy, my computer began heating up and the fan came on, which was unusual.</p>
+<p>&ldquo;Maybe it&rsquo;s working,&rdquo; I thought. Minutes pass. I pulled out the ol' calculator and multiplied the upper bounds of each of the nested arrays. Over a million. That&rsquo;s how I knew I was on the wrong track.</p>
+<p>Here&rsquo;s what my code looks like for guessing the first block, with comments referencing the steps given above. Note the addition of the solved characters so far to the variable <code>str</code>, which is a first step toward achieving #4, iterating this process for the entire string.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">16</span>; j <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>; j<span style="color:#ff79c6">--</span>) {
+  <span style="color:#6272a4">//j == index of the letter in the block we&#39;re guessing
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> oneFewer <span style="color:#ff79c6">=</span> repeatN(<span style="color:#f1fa8c">&#34;A&#34;</span>, j <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>); <span style="color:#6272a4">// Step 1
+</span><span style="color:#6272a4"></span>  <span style="color:#8be9fd;font-style:italic">let</span> oneShort <span style="color:#ff79c6">=</span> randomCrypto(oneFewer).slice(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">16</span>).join(<span style="color:#f1fa8c">&#34;&#34;</span>);
+  <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">256</span>; k<span style="color:#ff79c6">++</span>) {
+    <span style="color:#6272a4">// Step 2
+</span><span style="color:#6272a4"></span>    <span style="color:#8be9fd;font-style:italic">let</span> <span style="color:#ff79c6">char</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">String</span>.fromCharCode(k);
+    <span style="color:#8be9fd;font-style:italic">let</span> str <span style="color:#ff79c6">=</span> oneFewer <span style="color:#ff79c6">+</span> prevBlockGuessed.join(<span style="color:#f1fa8c">&#34;&#34;</span>) <span style="color:#ff79c6">+</span> <span style="color:#ff79c6">char</span>;
+    <span style="color:#ff79c6">if</span> (oneShort <span style="color:#ff79c6">===</span> randomCrypto(str).slice(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">16</span>).join(<span style="color:#f1fa8c">&#34;&#34;</span>)) {
+      <span style="color:#6272a4">// Step 3
+</span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// We found a match!
+</span><span style="color:#6272a4"></span>      prevBlockGuessed.push(<span style="color:#8be9fd;font-style:italic">String</span>.fromCharCode(smartIter[k])); <span style="color:#6272a4">// store it
+</span><span style="color:#6272a4"></span>      <span style="color:#ff79c6">break</span>; <span style="color:#6272a4">// then stop checking this character
+</span><span style="color:#6272a4"></span>    }
+  }
+}
+</code></pre></div><p>The implementation of #4 is left as an exercise for the reader. Or, you know, just look at the Github repo. A few hints: you&rsquo;ll need to have <em>at least</em> as many <code>A</code> characters as there are letters in the string you are attempting to decode. Think about how you found the first character. How many <code>A</code>s will you need to add, given an unknown string&rsquo;s length, in order to ensure the block you are guessing contains 15 known characters and one unknown character?</p>
+<p>You&rsquo;ll also want to stop once you&rsquo;ve finished guessing all the letters in the unknown string, since unless the unknown string is a multiple of the block size, you&rsquo;ll have <code>A</code>s left over at the end, and that&rsquo;s just untidy! You can calculate when that &lsquo;halting index&rsquo; will be, and then run an index check on your innermost loop to break out when you have arrived at your destination.</p>
+<p>Finally, the code above is quite inefficient. Sure, you could simply loop through every single possible character, (0-255). But if you look at an ASCII chart (<code>man ascii</code>) or <a href="http://en.cppreference.com/w/cpp/language/ascii" target="_blank" rel="noreferrer noopener">this link</a>, you&rsquo;ll quickly see a better way of guessing possible letters.</p>
+<p>I created an array of ASCII characters indices to loop through, ordered by those I thought to most commonly appear in readable strings. This hearkens back to how we <a href="http://localhost:4000/tutorials/javascript/cryptopals/2017/09/14/cryptopals-set1-challenge-3-single-byte-XOR-cipher.html#step-4-scoring-the-results" target="_blank" rel="noreferrer noopener">used character frequency in English texts to score plaintexts</a> generated from guessing all possible values for an XOR key.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#6272a4">//32, 97 to 122, 65 to 90, 39, 9 to 13
+</span><span style="color:#6272a4">//40-64, 33-38, 91-96, 1-8, 14-31, 123-255
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> smartIter <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`32,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,
+</span><span style="color:#f1fa8c"> 65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,39,9,10,11,12,13,40,41,42,
+</span><span style="color:#f1fa8c"> 43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,33,34,35,36,37,38,91,92,93,94,95,96,1,
+</span><span style="color:#f1fa8c"> 2,3,4,5,6,7,8,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,123,124,125,126,127,128,129,130,131,
+</span><span style="color:#f1fa8c"> 132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,
+</span><span style="color:#f1fa8c"> 158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,
+</span><span style="color:#f1fa8c"> 184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,
+</span><span style="color:#f1fa8c"> 210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,
+</span><span style="color:#f1fa8c"> 236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255`</span>.split(
+ <span style="color:#f1fa8c">&#34;,&#34;</span>
+);
+</code></pre></div><p>I look for spaces first, then lower-case letters, upper-case letters, newline/tab/etc., numbers, then all the rest. Using this shortcut saves a <em>lot</em> of loop iterations. Assume the guessed character is a letter. You save 65 iterations per character. In the challenge case there are 137 letters (mostly) to guess, so that&rsquo;s about 9,000 fewer loops performed.</p>
+<p>Just because we are using brute force does not mean that we cannot also use finesse.</p>
+<h3 id="step-5-lets-display-the-databesides-using-consolelog">Step 5: Let&rsquo;s Display the Data&hellip;Besides Using <code>Console.log()</code></h3>
+<p>Oh wait, the loop function we&rsquo;ve created for decryption takes a really, really long time to run.</p>
+<p>There are a few techniques for displaying intermediate results of an executing code block in Javascript. One common example is the &ldquo;print the current iterator value in a for loop. The gotcha is that you can&rsquo;t just write this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>; i<span style="color:#ff79c6">++</span>) {
+  setTimeout(<span style="color:#8be9fd;font-style:italic">function</span> () {
+    console.log(i);
+  }, i);
+}
+</code></pre></div><p>unless you want the output to be 10 <code>10</code>s. Why is that? Well, setTimeout says &ldquo;execute this thing after <code>i</code> milliseconds have passed, if you don&rsquo;t have anything else to do, and if this current call is at the top of the event loop&rdquo;. Even setting <code>i</code> to zero by leaving it blank says &ldquo;execute as soon as you&rsquo;re done&rdquo;. The problem is that when the loop&rsquo;s done, the value of i is 10, and so each invocation of the <code>setTimeout</code> function will just log what <code>i</code> is, 10 times.</p>
+<p>There are two ways of fixing this. One more modern way in ES6 is to use <code>let</code> instead of <code>var</code> to declare the iterator in the for loop instantiation: e.g., <code>for (let i=0;i&lt;10;i++)</code>. <code>Let</code> declares a <em>block-scoped</em> variable rather than a <em>globally scoped</em> variable <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let" target="_blank" rel="noreferrer noopener">MDN docs</a>.</p>
+<p>Another solution is to use an IIFE, or &ldquo;Immediately Invoked Function Expression&rdquo; <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank" rel="noreferrer noopener">MDN docs</a>. That would look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">10</span>; i<span style="color:#ff79c6">++</span>) {
+  (<span style="color:#8be9fd;font-style:italic">function</span> (i) {
+    setTimeout(<span style="color:#8be9fd;font-style:italic">function</span> () {
+      console.log(i);
+    }, i);
+  })(i);
+}
+</code></pre></div><p>The IIFE creates a new scope via the wrapping parentheses. It calls the setTimeout() creation function immediately, passing it the value of <code>i</code> at that time. This way, each setTimeout on the event loop has its own copy of <code>i</code>, namely a copy that reflects the value of <code>i</code> when the timeout was <em>created</em>, in the loop&rsquo;s <code>i</code>th iteration itself, rather than at the time it was eventually called.</p>
+<p>But y&rsquo;know what? This <em>still</em> didn&rsquo;t work, to display the data. I realized that the reason why is that the loop takes a lot of processing power, and so any setTimeouts that we call from within the loop are not going to be executed until that loop is done, full stop.</p>
+<p>This brings up something that some perceive to be a limitation about the JavaScript language as a whole, and that is its single-threaded nature.</p>
+<p>If you use Javascript to execute an asynchronous function (a function whose return value is not known and must be awaited), like reading a file from the filesystem or requesting responses from a server, you have to pass something known as a &ldquo;callback&rdquo;. This allows the code to continue executing while it is still waiting on the results of the previous operation.</p>
+<p>My for loop is essentially an asynchronous in this way. However, it is asynchronous <em>on the same machine</em>. And unlike asynchronous functions, I don&rsquo;t want to wait until the decryption is done to display the result. I want to display intermediate results in real-time so you can see what&rsquo;s going in the loop.</p>
+<h3 id="step-6-multithreading-with-web-workers">Step 6: Multithreading with Web Workers!</h3>
+<p>The answer: threading! Using something called Web Workers <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noreferrer noopener">(MDN)</a>, I can run the decryption code in a separate thread. The page code is simply a message receiver.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">window</span>.onload <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> () {
+  <span style="color:#8be9fd;font-style:italic">let</span> res <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.querySelector(<span style="color:#f1fa8c">&#34;div#result&#34;</span>);
+  <span style="color:#8be9fd;font-style:italic">var</span> worker <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Worker(<span style="color:#f1fa8c">&#34;decryptTask.js&#34;</span>);
+  worker.addEventListener(<span style="color:#f1fa8c">&#34;message&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span> (e) {
+    e.data.res <span style="color:#ff79c6">=</span> e.data.res.replace(<span style="color:#f1fa8c">/\n/</span>, <span style="color:#f1fa8c">&#34;&lt;br /&gt;&#34;</span>);
+    <span style="color:#ff79c6">if</span> (e.data.type <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;intermediate&#34;</span>) {
+      res.innerHTML <span style="color:#ff79c6">=</span> e.data.res;
+    }
+  });
+  worker.postMessage(<span style="color:#f1fa8c">&#34;gogogo&#34;</span>);
+};
+</code></pre></div><p>That&rsquo;s all the page does! It loads the worker script file, adds an event listener to wait for messages from the worker, invokes the worker with the initial postMessage() and then updates a div with the intermediate results. It can display these intermediate results of the decryption as it is proceeding in another thread, because the display code doesn&rsquo;t have to wait on the calculation code to complete before it can function. (I replace the <code>\n</code>s in the string with <code>&lt;br /&gt;</code>s so newlines render as HTML).</p>
+<p>The web worker just contains a function to invoke the decryption loop when it receives a message:</p>
+<p><code>onmessage = function(e) { loopThat(); };</code></p>
+<p>and then calls <code>postMessage()</code> within the for loop every time it has an intermediate result:</p>
+<p><code>postMessage({'type':'intermediate', 'res':str});</code>.</p>
+<p>Whoa, that is majorly cool, right? I felt this was a really great use case for a multithreading example, displaying the results of a process in real-time. This only scratches the surface. If you want to test the Web Worker code locally (at least in Chrome), you need to serve your code with an HTTP server, since <a href="https://stackoverflow.com/questions/21408510/chrome-cant-load-web-worker" target="_blank" rel="noreferrer noopener">Chrome doesn&rsquo;t allow loading Web Workers from the filesystem</a>.</p>
+<p>No worries, just enter: <code>python -m SimpleHTTPServer</code> from your code directory in terminal.
+Point your browser to <code>http://localhost:8000</code>.</p>
+<p>Voila! Icy cold.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set2/"> cryptopals-set2 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

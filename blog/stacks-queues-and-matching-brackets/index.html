@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Stacks, Queues, and Matching Brackets">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,stack,queue,big-O,complexity,dataStructures"><meta name="description" content="Introducing the Stack and Queue data structures, using the Stack to implement a Code Linter to check for mismatched open and closing brackets."><meta property="og:title" content="Stacks, Queues, and Matching Brackets" />
+<meta property="og:description" content="Introducing the Stack and Queue data structures, using the Stack to implement a Code Linter to check for mismatched open and closing brackets." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/stacks-queues-and-matching-brackets/" />
+<meta property="article:published_time" content="2018-01-30T08:56:04+00:00" />
+<meta property="article:modified_time" content="2018-01-30T08:56:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Stacks, Queues, and Matching Brackets"/>
+<meta name="twitter:description" content="Introducing the Stack and Queue data structures, using the Stack to implement a Code Linter to check for mismatched open and closing brackets."/>
+
+	
+	
+
+	<title>Stacks, Queues, and Matching Brackets | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">30</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Stacks, Queues, and Matching Brackets</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="bLNzbd"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p>A cool thing we can build with stacks: a code linter!</p>
+</blockquote>
+<h2 id="stacks-and-queues-fundamental-data-structures">Stacks and Queues, Fundamental Data Structures</h2>
+<p>Today we&rsquo;re going to talk about stacks and queues, two common and incredibly useful data structures in computer science.</p>
+<p>Data&rsquo;s the raw stuff of your computer. Types of data include a text file, an image, a string, an integer, etcetera. All of these pieces of data are ultimately boiled down to a sequence of zeroes and ones in memory. Imagine the task of trying to parse out of these zeroes and ones what the bits represent if we did not have way of classifying and organizing them? It would represent an impossible task.</p>
+<p>Certain applications value different factors (lookup speed, addition speed, etc.). Hence, <em>data structures are choices</em>. We have to structure our data in meaningful ways, not only so that we can store it in memory, but also so that we can efficiently perform operations on the data that we find most important.</p>
+<p>Let&rsquo;s look at some concrete examples.</p>
+<h3 id="stacks-last-in-first-out-lifo">Stacks: Last In, First Out: LIFO.</h3>
+<p>Stacks. Stacks of books, stacks of plates. To add an item to the stack, you put it on top. To remove it, you take one off the top. You can&rsquo;t take one from the middle or the bottom &ndash; the plates will fall and shatter! Stacks follow the Last In First Out discipline, which means just what it sounds like: the last thing you put on a stack is the first thing you get out of it.</p>
+<blockquote>
+<p>Stacks consist of a sequentially ordered list of elements of the same type. You can only add and remove elements from one end, and you can only remove the elements in the order of their addition (most recent first).</p>
+</blockquote>
+<h3 id="queues-first-in-first-out-fifo">Queues: First In, First Out: FIFO.</h3>
+<p>Lines at the grocery store. A row of cars at a stoplight. A four-way stop. In a queue, new items are added at the end of the list (an operation known as &ldquo;enqueuing&rdquo;) and removed from the front of the list (an operation known as &ldquo;dequeuing&rdquo;).</p>
+<blockquote>
+<p>Queues consist of a sequentially ordered list of elements of the same type. Operations take place on both ends, but you can only add items to the end of the queue (enqueue) and remove items from the beginning of the queue (dequeue).</p>
+</blockquote>
+<h2 id="a-four-way-stop">A four-way stop</h2>
+<p>Let&rsquo;s do a little thought experiment and implement a four-way stop as a stack and a queue.</p>
+<p>If you aren&rsquo;t familiar with a four way stop, it is when all drivers who reach the intersection must stop and then yield to all other drivers who reached the intersection and stopped before them.</p>
+<p>Let&rsquo;s implement the four-way stop as a <strong>queue</strong>. One driver rolls up, followed by another soon after. The first driver gets to leave first: he got there first. First in, first out.</p>
+<p>If drivers A, B, C, and D arrive at different sides of the intersection, in this order, then B, C, D yield to A, C and D yield to B, D yields to C, and D goes. First in, first out.</p>
+<p>Imagine if we implemented a four-way stop as a <strong>stack</strong>. One driver would roll up, then another, then another, until finally the last driver arrives. The last driver to arrive would be the first to leave, followed by the next-to-last, until finally we get back to the poor first driver, who&rsquo;s had to watch three other cars come and go before he can go.</p>
+<p>Oops! We can see from these examples how a either a stack or a queue is the obvious chose for modeling real-world situations.</p>
+<h2 id="code-linting">Code linting</h2>
+<p>Let&rsquo;s get more abstract and write a quick code linter. <a href="https://en.wikipedia.org/wiki/Lint_%28software%29" target="_blank" rel="noreferrer noopener">Code linters</a> are scripts that you can run on your code to make sure it follows a set of stylistic constraints (such as number of indentations, no unused variables, naming conventions, etc.).</p>
+<p>We&rsquo;ll write a linter to ensure that opening and closing brackets are matched.</p>
+<p>In programming, you can use parentheses and brackets (both curly and flat) to separate statements or blocks of code. There is often no restriction to the degree of nesting: <code>(((((2+2)))))</code> would be considered valid, for instance.</p>
+<p>However, the thing you cannot do is have something like this: <code>(2+2]</code> or this: <code>((2+2)</code>, in which the opening and closing bracket types are mismatched, either in type or number.</p>
+<p>We can use one of our new data structures to detect invalid use of brackets.</p>
+<h3 id="stack-or-queue">Stack or Queue?</h3>
+<p>Which type of data structure do you think it would make sense to use? Consider what we&rsquo;re looking for: in a line of code, we take the <em>Last</em> bracket and compare it with the next bracket that we encounter in the line to see if the brackets match. If they do, we continue. If they don&rsquo;t, we&rsquo;ve found a mismatch. The <em>Last</em> bracket that we encounter is the <em>First</em> one that we compare.</p>
+<p>Too obvious? Well, a stack is a great structure to use to solve this problem. Here&rsquo;s the strategy:</p>
+<ol>
+<li>Iterate through every character in the line of code. If the character is not an opening or closing bracket, continue. If the character is an opening bracket <code>(,[,{</code>, push it onto a stack.</li>
+<li>If the character is a closing bracket <code>),],}</code>, pop the first bracket off the stack.</li>
+<li>If the first bracket exists AND matches the closing bracket, continue parsing.</li>
+<li>If the first bracket does NOT exist, or if it does not match the closing bracket, there is a mismatch.</li>
+<li>If we have reached the end of the code and there are still items in the stack, there are too many opening brackets and not enough closing brackets. Record these instances.</li>
+</ol>
+<p>World, I give thee: bracketLint()!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> bracketLint(string) {
+  <span style="color:#ff79c6">const</span> openersToClosers <span style="color:#ff79c6">=</span> {
+    <span style="color:#f1fa8c">&#34;[&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;]&#34;</span>,
+    <span style="color:#f1fa8c">&#34;(&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;)&#34;</span>,
+    <span style="color:#f1fa8c">&#34;{&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;}&#34;</span>,
+  };
+  <span style="color:#ff79c6">const</span> closersToOpeners <span style="color:#ff79c6">=</span> {
+    <span style="color:#f1fa8c">&#34;]&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;[&#34;</span>,
+    <span style="color:#f1fa8c">&#34;)&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;(&#34;</span>,
+    <span style="color:#f1fa8c">&#34;}&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;{&#34;</span>,
+  };
+  <span style="color:#8be9fd;font-style:italic">let</span> lines <span style="color:#ff79c6">=</span> string.split(<span style="color:#f1fa8c">/\n/</span>);
+  <span style="color:#8be9fd;font-style:italic">let</span> stack <span style="color:#ff79c6">=</span> [];
+  <span style="color:#8be9fd;font-style:italic">let</span> errors <span style="color:#ff79c6">=</span> [];
+  lines.forEach((line, idx) =&gt; {
+    line <span style="color:#ff79c6">=</span> line.split(<span style="color:#f1fa8c">&#34;&#34;</span>);
+    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> line.length; i<span style="color:#ff79c6">++</span>) {
+      <span style="color:#ff79c6">if</span> (openersToClosers[line[i]]) {
+        <span style="color:#6272a4">// Opening bracket
+</span><span style="color:#6272a4"></span>        stack.push(line[i]);
+      } <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> (closersToOpeners[line[i]]) {
+        <span style="color:#6272a4">// Check to see if this closing bracket matches the last opener
+</span><span style="color:#6272a4"></span>        <span style="color:#8be9fd;font-style:italic">let</span> firstOut <span style="color:#ff79c6">=</span> stack.pop();
+        <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>firstOut <span style="color:#ff79c6">||</span> openersToClosers[firstOut] <span style="color:#ff79c6">!==</span> line[i]) {
+          errors.push({
+            line<span style="color:#ff79c6">:</span> idx <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>,
+            charIdx<span style="color:#ff79c6">:</span> i,
+            missing<span style="color:#ff79c6">:</span> openersToClosers[firstOut] <span style="color:#ff79c6">||</span> closersToOpeners[line[i]],
+          });
+        }
+      }
+    }
+  });
+  <span style="color:#ff79c6">while</span> (stack.length) {
+    popElement <span style="color:#ff79c6">=</span> stack.pop();
+    errors.push({
+      line<span style="color:#ff79c6">:</span> lines.length,
+      charIdx<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+      missing<span style="color:#ff79c6">:</span> openersToClosers[popElement],
+    });
+  }
+  <span style="color:#ff79c6">return</span> errors.length <span style="color:#ff79c6">?</span> errors <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>;
+}
+</code></pre></div><p>Let&rsquo;s walk through this code. First, we define a simple mapping from opening brackets to closing brackets and vice versa. This way, when we consider a bracket, we know its partner. We can also use the dictionaries to test the characters in the string that we parse for matching a bracket.</p>
+<p>We take in the string we&rsquo;ve been passed. We break the code up into an array with elements corresponding to lines. For each line, we break it into another array with elements at the character level. Then we do our parsing.</p>
+<p>If we have an opening bracket, we push it on the stack! If we have a closing bracket, we <code>.pop()</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop" target="_blank" rel="noreferrer noopener">(Docs)</a> the last-encountered opening bracket off the stack. We look it up in our dictionary to see what closing bracket we expect, and then we compare our expectation with the actual bracket we encountered.</p>
+<p>If they match, no problem! If not, there&rsquo;s an error. We push an error object into our errors array with the line (incremented by one, since line-numbers are not zero-based), character, and &ldquo;missing closing bracket&rdquo;. We&rsquo;ll return this array at the end so the user knows where to go into the code to fix the error.</p>
+<p>We finish running through all the lines, but we&rsquo;re not done quite yet. If the stack isn&rsquo;t empty, this means that there are not enough closing brackets (even if we&rsquo;ve matched all our openers and closers thus far). Consider this: <code>[[]</code>. There&rsquo;s an extra <code>[</code> that never gets closed. To handle this case, we run a while loop over <code>stack.length</code> and pop each of the remaining items off the top.</p>
+<p>We know that each one is an error because there&rsquo;s nothing else left in the code to close it out with, so we record each instance.</p>
+<p>Similarly, we have to consider the case where the stack is empty, but we encounter a bracket. This means that there was not an opening bracket for the closing bracket. We record each instance, noting the missing partner of this extra closing bracket.</p>
+<p>Once we&rsquo;ve accounted for all the brackets, we return the array of errors, or an empty array if none exist.</p>
+<p>We can invoke our bracketLinter with test strings like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> testValidString <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`
+</span><span style="color:#f1fa8c">function heyThere() {
+</span><span style="color:#f1fa8c">  console.log(&#39;lots and lots of cats&#39;);
+</span><span style="color:#f1fa8c">  return true;
+</span><span style="color:#f1fa8c">}`</span>;
+
+<span style="color:#ff79c6">const</span> testInvalidString <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`
+</span><span style="color:#f1fa8c">function heyThere()
+</span><span style="color:#f1fa8c">{
+</span><span style="color:#f1fa8c">  console.log(&#39;lots and lots of cats&#39;];
+</span><span style="color:#f1fa8c">  return true;
+</span><span style="color:#f1fa8c">}`</span>;
+
+bracketLint(testValidString);
+<span style="color:#6272a4">// []
+</span><span style="color:#6272a4"></span>
+bracketLint(testInvalidString);
+<span style="color:#6272a4">// [{line: 3, charIdx: 39, missing: &#34;)&#34;}]
+</span></code></pre></div><h2 id="wrapping-up">Wrapping up</h2>
+<p>Stacks and queues are incredibly practical. Try to look around in the world and imagine some examples of stacks and queues you encounter every day. Consider how you can make your code more efficient by leveraging these structures.</p>
+<h3 id="abstract-data-types-and-implementations">Abstract Data Types and Implementations</h3>
+<p>Note that we have specified these data structures but nothing about their implementations. Strictly speaking, stacks and queues as discussed are <a href="https://en.wikipedia.org/wiki/Abstract_data_type" target="_blank" rel="noreferrer noopener">Abstract Data Types</a>, or implementation-independent structures. We&rsquo;ll get more in depth on <strong>how</strong> you actually implement a stack and a queue in memory soon, but it gets a little complex. This article covers the basics, helps build a foundation, and motivates further study of the nitty gritty details of what&rsquo;s going on under the hood.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/computer-science/"> computer-science </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/big-o/"> big-o </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/complexity/"> complexity </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/datastructures/"> datastructures </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/queue/"> queue </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/stack/"> stack </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>AVL Trees Part 2: Insertions</title>
-			<link>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</link>
+			<link>https://thmsdnnr.com/blog/avl-trees-part-2-insertions/</link>
 			<pubDate>Wed, 07 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/avl-trees-part-2-insertions/</guid>
+			<guid>https://thmsdnnr.com/blog/avl-trees-part-2-insertions/</guid>
 			<description>
 				
 				Taking an in-depth look at node rebalancing after insertions in AVL trees.

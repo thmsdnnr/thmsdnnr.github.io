@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Fractal Art and Sierpinski Triangles">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,fractals,sierpinski,gasket,triangle,equilateral"><meta name="description" content="Building a Sierpinski Triangle with HTML5 Canvas and JavaScript."><meta property="og:title" content="Fractal Art and Sierpinski Triangles" />
+<meta property="og:description" content="Building a Sierpinski Triangle with HTML5 Canvas and JavaScript." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/" />
+<meta property="article:published_time" content="2018-01-06T14:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-06T14:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fractal Art and Sierpinski Triangles"/>
+<meta name="twitter:description" content="Building a Sierpinski Triangle with HTML5 Canvas and JavaScript."/>
+
+	
+	
+
+	<title>Fractal Art and Sierpinski Triangles | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">06</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Fractal Art and Sierpinski Triangles</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="opoddP"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<blockquote>
+<p>Sierpinski Triangle going from 4 (4*1) to 65,536 (4**8) triangles</p>
+</blockquote>
+<p>A <a href="https://en.wikipedia.org/wiki/Sierpinski_triangle" target="_blank" rel="noreferrer noopener">Sierpinski Triangle</a> is a fractal that is generated by recursively subdividing an equilateral triangle into four smaller equilateral triangles. Starting with one triangle, we divide it into four equilateral triangles. Three of these triangles will &ldquo;point up&rdquo;. One will point down.</p>
+<p>We then divide each of those four triangles into four more triangles. With each generation, the number of triangles increases by a factor of four while the triangles' size decreases by a factor of four.</p>
+<h3 id="how-to-code-this">How to code this?</h3>
+<p>There are two steps to coding this.</p>
+<ol>
+<li>The data and display problems: how to store and draw the triangles that we generate?</li>
+<li>The geometry problem: how to subdivide the triangle and generate smaller triangles? We need an object that constitutes a triangle, and that object should have a method to divide itself into four smaller triangles.</li>
+</ol>
+<p>We&rsquo;ll tackle them in order.</p>
+<h3 id="data-structure--display">Data Structure &amp; Display</h3>
+<p>We&rsquo;ll create an object to hold a triangle and a smaller object to hold a point (x and y coordinate).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">var</span> Point <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (x, y) {
+  <span style="color:#ff79c6">this</span>.x <span style="color:#ff79c6">=</span> x;
+  <span style="color:#ff79c6">this</span>.y <span style="color:#ff79c6">=</span> y;
+};
+<span style="color:#8be9fd;font-style:italic">var</span> Triangle <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (args <span style="color:#ff79c6">=</span> {}) {
+  <span style="color:#ff79c6">const</span> { A, B, C, tIndex } <span style="color:#ff79c6">=</span> args;
+  <span style="color:#ff79c6">this</span>.A <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(A[<span style="color:#bd93f9">0</span>], A[<span style="color:#bd93f9">1</span>]);
+  <span style="color:#ff79c6">this</span>.B <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(B[<span style="color:#bd93f9">0</span>], B[<span style="color:#bd93f9">1</span>]);
+  <span style="color:#ff79c6">this</span>.C <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Point(C[<span style="color:#bd93f9">0</span>], C[<span style="color:#bd93f9">1</span>]);
+  <span style="color:#ff79c6">this</span>.tIndex <span style="color:#ff79c6">=</span> tIndex;
+  <span style="color:#8be9fd;font-style:italic">let</span> xDiff <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.B.x <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.A.x;
+  <span style="color:#8be9fd;font-style:italic">let</span> yDiff <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.B.y <span style="color:#ff79c6">-</span> <span style="color:#ff79c6">this</span>.A.y;
+  <span style="color:#ff79c6">this</span>.sLength <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#8be9fd;font-style:italic">Math</span>.pow(xDiff, <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">+</span> <span style="color:#8be9fd;font-style:italic">Math</span>.pow(yDiff, <span style="color:#bd93f9">2</span>));
+};
+</code></pre></div><p>A, B, and C are the three points corresponding to the sides of the triangle. For simplicity, we&rsquo;ll define these points in terms of the left-most, bottom-most point of the triangle, proceeding clockwise around the triangle from there. So, for a triangle that points up, A is the bottom-left, B is the top point, and C is the bottom-right. For a triangle that points down, A is the bottom, B the top-left, and C the top-right.</p>
+<p><code>tIndex</code> might not make sense right now. We&rsquo;re indexing each triangle from 1 to 4 to keep track of which triangle is drawn differently (the &ldquo;blank space&rdquo;) when we draw the fractal.</p>
+<p>We calculate <code>sLength</code> with the <a href="https://en.wikipedia.org/wiki/Euclidean_distance" target="_blank" rel="noreferrer noopener">distance formula</a>. It doesn&rsquo;t matter which two points we pick to measure the distance between, because all the sides are the same length.</p>
+<p>We draw the triangles in the same manner that we define the points. Index 1 is the bottom-left triangle. 2 is the top. 3 is the down-pointing inner triangle, and 4 is the bottom-right triangle.</p>
+<p>We&rsquo;re using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" target="_blank" rel="noreferrer noopener">HTML5 Canvas</a> to draw the triangles. It&rsquo;s pretty basic. You put a <code>canvas</code> element in your HTML like this:</p>
+<p><code>&lt;canvas id=&quot;gasket_0&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;</code></p>
+<p>Then, in your JS, you select the canvas and call <code>getContext('2d')</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> C <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;gasket_0&#34;</span>);
+<span style="color:#ff79c6">const</span> ctx <span style="color:#ff79c6">=</span> C.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+</code></pre></div><p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D" target="_blank" rel="noreferrer noopener">context</a> is what you use to draw to the canvas.</p>
+<p>To draw lines, we tell the context that we are beginning a &ldquo;path&rdquo; with <code>ctx.beginPath();</code>. Then, we can call <code>moveTo</code> with an X and Y coordinate to move our virtual &ldquo;pen&rdquo; to this point. We can call <code>lineTo</code> with another X and Y coordinate to draw a line connecting these two points.</p>
+<p>So, to draw a triangle that points up, we&rsquo;ll <code>moveTo</code> the first point A, draw a line to the point B, draw a line from B to C, and then draw a line from C back to A, where we started.</p>
+<p>We can set the <code>fillStyle</code> of the context, depending on which triangle we are drawing. This is where the <code>tIndex</code> comes in. We can define the <code>BLANK_SPACE_COLOR</code> to be whatever we like (hex values, CSS color names, and rgb strings are all accepted).</p>
+<p>I&rsquo;m using <a href="https://github.com/bgrins/TinyColor" target="_blank" rel="noreferrer noopener">tinyColor</a> to grab some neat colors by &ldquo;spinning&rdquo; the hue by a random amount and turning that color into an rgb string for the context.</p>
+<p>When we&rsquo;ve defined the path and fill color, we call <code>ctx.fill()</code> to complete the drawing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Triangle.prototype.draw <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (ctx) {
+  ctx.beginPath();
+  ctx.moveTo(<span style="color:#ff79c6">this</span>.A.x, <span style="color:#ff79c6">this</span>.canvasY(<span style="color:#ff79c6">this</span>.A.y));
+  ctx.lineTo(<span style="color:#ff79c6">this</span>.B.x, <span style="color:#ff79c6">this</span>.canvasY(<span style="color:#ff79c6">this</span>.B.y));
+  ctx.lineTo(<span style="color:#ff79c6">this</span>.C.x, <span style="color:#ff79c6">this</span>.canvasY(<span style="color:#ff79c6">this</span>.C.y));
+  ctx.lineTo(<span style="color:#ff79c6">this</span>.A.x, <span style="color:#ff79c6">this</span>.canvasY(<span style="color:#ff79c6">this</span>.A.y));
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">this</span>.tIndex <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">3</span>) {
+    ctx.fillStyle <span style="color:#ff79c6">=</span> BLANK_SPACE_COLOR;
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#8be9fd;font-style:italic">let</span> baseColor <span style="color:#ff79c6">=</span> tinycolor(random_rgba());
+    ctx.fillStyle <span style="color:#ff79c6">=</span> baseColor
+      .spin(<span style="color:#8be9fd;font-style:italic">Math</span>.random() <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">10</span>)
+      .lighten(<span style="color:#bd93f9">5</span>)
+      .toRgbString();
+  }
+  ctx.fill();
+};
+</code></pre></div><p>Here&rsquo;s the tricky thing about canvas. The origin is the top-left corner of the canvas. This means that your X values work as you&rsquo;d expect: 0 is far left, and <code>canvas.width</code> is far right. Y values, however, increase when going down. It&rsquo;s as though you&rsquo;re in the fourth quadrant of a standard graph.</p>
+<p>When I initialize the gasket, I add a <code>canvasY</code> method to the prototype chain of <code>Triangle</code>. All this does is subtracts the the y coordinate I&rsquo;m drawing from the <code>gasketHeight</code> so that I can define y=0 at the <em>bottom</em> instead of the top. This was just a personal choice to make things easier to reason about.</p>
+<h3 id="geometry">Geometry</h3>
+<p>If it&rsquo;s been a while since you&rsquo;ve had a geometry class, you might have forgotten a few key properties of an equilateral triangle. All the sides are equal. The height of the triangle is given by <code>sideLength*sqrt(3)/2</code>.</p>
+<p>This is where it all comes together. We need to write a function that will split any triangle in the gasket into four equal equilateral triangles.</p>
+<p>The easiest way to go about this is to draw a triangle on paper and think through things.</p>
+<p>Here&rsquo;s the picture I drew:</p>
+<p><figure>
+  <img src="/assets/pics/tri.png" alt="Sierpinski geometry drawing"  />
+</figure></p>
+<p>Let&rsquo;s walk through coding this function triangle by triangle based on the picture.</p>
+<p>The key point to note is that when we generate these smaller triangles, we define the triangles' coordinates <em>in terms of the bottom-left point of the original triangle</em>. This means that we have to <em>offset</em> the other points in the triangle by <code>this.A.x</code> and <code>this.A.y</code>.</p>
+<p>If we did not do this, things would work fine for the first four triangles (because <code>this.A.x</code> and <code>this.A.y</code> are zero, and adding zero changes nothing) and then go haywire on subsequent triangles.</p>
+<h3 id="triangleprototypefoursmaller">Triangle.prototype.fourSmaller()</h3>
+<h4 id="triangle-one">Triangle One</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> sLength <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.getLength();
+<span style="color:#ff79c6">const</span> lRoot3 <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#bd93f9">3</span>) <span style="color:#ff79c6">*</span> sLength;
+<span style="color:#8be9fd;font-style:italic">let</span> tOne <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Triangle({
+  <span style="color:#6272a4">// bottom-left
+</span><span style="color:#6272a4"></span>  A<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x, <span style="color:#ff79c6">this</span>.A.y],
+  B<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>, <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>],
+  C<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">this</span>.A.y],
+  tIndex<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>,
+});
+</code></pre></div><p>We set up some constants and then define the coordinates of the bottom-left triangle, #1 from the picture.</p>
+<ul>
+<li>A: Bottom-left point is going to be just the A.x and A.y of the starting triangle.</li>
+<li>B: The top point is going to be halfway up the original triangle, and a <em>quarter</em> of the way across.</li>
+<li>C: The bottom-right point will be halfway across the original triangle, and at the starting height.</li>
+</ul>
+<h4 id="triangle-two">Triangle Two</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> tTwo <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Triangle({
+  <span style="color:#6272a4">// top
+</span><span style="color:#6272a4"></span>  A<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>, <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>],
+  B<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>],
+  C<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">*</span> (<span style="color:#bd93f9">3</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>), <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>],
+  tIndex<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">2</span>,
+});
+
+</code></pre></div><ul>
+<li>A: Bottom-left point is going to be the same as point B of Triangle One</li>
+<li>B: The top point is going to be halfway up the original triangle, and a half of the way across.</li>
+<li>C: The bottom-right point will be three-quarters of the way across the original triangle, and at the starting height.</li>
+</ul>
+<h4 id="triangle-three-the-upside-down-one">Triangle Three (the upside-down one)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> tThree <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Triangle({
+  <span style="color:#6272a4">// middle (down-pointing)
+</span><span style="color:#6272a4"></span>  A<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">this</span>.A.y],
+  B<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>, <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>],
+  C<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">*</span> (<span style="color:#bd93f9">3</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>), <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>],
+  tIndex<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">3</span>,
+});
+</code></pre></div><ul>
+<li>A: Bottom point is going to be the midpoint of the starting triangle</li>
+<li>B: The top-left point is going to be one-quarter across the original triangle, and halfway up</li>
+<li>C: The top-right point will be three-quarters across the original triangle, and at the starting height.</li>
+</ul>
+<h4 id="triangle-four">Triangle Four</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> tFour <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Triangle({
+  <span style="color:#6272a4">// top
+</span><span style="color:#6272a4"></span>  A<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">this</span>.A.y],
+  B<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength <span style="color:#ff79c6">*</span> (<span style="color:#bd93f9">3</span> <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>), <span style="color:#ff79c6">this</span>.A.y <span style="color:#ff79c6">+</span> lRoot3 <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">4</span>],
+  C<span style="color:#ff79c6">:</span> [<span style="color:#ff79c6">this</span>.A.x <span style="color:#ff79c6">+</span> sLength, <span style="color:#ff79c6">this</span>.A.y],
+  tIndex<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">4</span>,
+});
+</code></pre></div><ul>
+<li>A: Bottom-left point is going to be the same as the bottom point of Triangle Three</li>
+<li>B: The top point is going to be three-quarters across the original triangle, and halfway up</li>
+<li>C: The bottom-right point will be all the way across the original triangle, and at the starting height.</li>
+</ul>
+<p>Note a lot of shared points here. Point A of #2 is Point B of #1. Point A of #3 is Point C of #1, etc.</p>
+<h3 id="initialization-and-triangle-generation">Initialization and Triangle Generation</h3>
+<p>We set up some basic constants and create the <code>urTriangle</code>, the triangle that will spawn all the smaller triangles.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> gasketWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">500</span>; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">const</span> padding <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">10</span>; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">const</span> gasketHeight <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#bd93f9">3</span>) <span style="color:#ff79c6">*</span> gasketWidth) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>;
+
+<span style="color:#ff79c6">const</span> canvas <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;gasket_&#34;</span> <span style="color:#ff79c6">+</span> id);
+canvas.width <span style="color:#ff79c6">=</span> gasketWidth <span style="color:#ff79c6">+</span> padding <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>;
+canvas.height <span style="color:#ff79c6">=</span> gasketHeight <span style="color:#ff79c6">+</span> padding <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">2</span>;
+
+<span style="color:#ff79c6">const</span> urTriangle <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Triangle({
+  A<span style="color:#ff79c6">:</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>],
+  B<span style="color:#ff79c6">:</span> [gasketWidth <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>, gasketHeight],
+  C<span style="color:#ff79c6">:</span> [gasketWidth, <span style="color:#bd93f9">0</span>],
+});
+
+<span style="color:#8be9fd;font-style:italic">let</span> ctx <span style="color:#ff79c6">=</span> canvas.getContext(<span style="color:#f1fa8c">&#34;2d&#34;</span>);
+ctx.translate(padding, padding);
+ctx.imageSmoothingEnabled <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+</code></pre></div><p>The <code>ctx.translate</code> moves the drawing context to account for our padding, and <code>ctx.imageSmoothingEnabled</code> helps with anti-aliasing and makes things look a bit smoother.</p>
+<p>Then I do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Triangle.prototype.canvasY <span style="color:#ff79c6">=</span> (Y) =&gt; gasketHeight <span style="color:#ff79c6">-</span> Y;
+urTriangle.draw(ctx);
+pics.push(ctx.getImageData(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, canvas.width, canvas.height));
+
+<span style="color:#8be9fd;font-style:italic">let</span> triangles <span style="color:#ff79c6">=</span> urTriangle.fourSmaller();
+triangles.forEach((t) =&gt; t.draw(ctx));
+pics.push(ctx.getImageData(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, canvas.width, canvas.height));
+</code></pre></div><p>We&rsquo;ve got the first four! Now just get the next 65,532&hellip;</p>
+<h3 id="wait-getimagedata-pics">Wait, getImageData? pics?</h3>
+<p>I wanted to watch the fractals' triangle number expand and contract in an infinite loop. I did not want to have to recalculate the frames, however.</p>
+<p>I use <code>getImageData</code> to save off the data on the canvas at each level of drawing in <code>pics</code>. I then set an interval to display these saved off datasets using <code>putImageData</code>. I set the interval to &ldquo;bounce&rdquo; back and forth (changing direction to backwards when it reaches either end of the array).</p>
+<p>Finally, I call <code>ctx.clearRect</code>, in between each <code>putImageData</code> a very useful function. You pass it the starting X and Y coordinates, followed by the width and height of the rectangle.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> levels <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">7</span>;
+<span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; i <span style="color:#ff79c6">&lt;=</span> levels; i<span style="color:#ff79c6">++</span>) {
+  triangles <span style="color:#ff79c6">=</span> triangles
+    .map((t) =&gt; t.fourSmaller())
+    .reduce((arr, c) =&gt; arr.concat(c), []);
+  triangles.forEach((t) =&gt; t.draw(ctx));
+  pics.push(ctx.getImageData(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, canvas.width, canvas.height));
+}
+<span style="color:#8be9fd;font-style:italic">var</span> ct <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+<span style="color:#8be9fd;font-style:italic">var</span> direction <span style="color:#ff79c6">=</span> id <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">?</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+setInterval(() =&gt; {
+  <span style="color:#ff79c6">if</span> (ct <span style="color:#ff79c6">==</span> pics.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) {
+    direction <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>;
+  }
+  <span style="color:#ff79c6">if</span> (ct <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span>) {
+    direction <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+  }
+  ct <span style="color:#ff79c6">+=</span> direction;
+  ctx.clearRect(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, canvas.width, canvas.height);
+  ctx.putImageData(pics[ct], <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>);
+}, <span style="color:#bd93f9">250</span>);
+</code></pre></div><h3 id="warning"><em>warning</em></h3>
+<p><code>levels</code> should not exceed 7, or <code>4**(levels+1) =&gt; 65,536</code> triangles. If you do&hellip;well, let&rsquo;s just say that if you&rsquo;re in CodePen, you can add <code>?turn_off_js=true</code> <a href="https://blog.codepen.io/documentation/features/turn-off-javascript-in-previews/" target="_blank" rel="noreferrer noopener">(Docs)</a> to the end of your URL so that you can access the pen and fix the code. It will hang hard. I suspect this is caused by compounded roundoff error and HTML5 canvas weirdness when you try to draw &gt;100k elements with poor precision.</p>
+<h3 id="til">TIL</h3>
+<p>Fractal patterns can be generated by the iterated division of space according to a rule, known formally as an <a href="https://en.wikipedia.org/wiki/Iterated_function_system" target="_blank" rel="noreferrer noopener">Iterated function system</a>. Try creating the <a href="https://en.wikipedia.org/wiki/Sierpinski_carpet" target="_blank" rel="noreferrer noopener">Sierpinski Carpet</a> or other <a href="https://en.wikipedia.org/wiki/Rep-tile" target="_blank" rel="noreferrer noopener">Rep-tiles</a> like the <a href="https://en.wikipedia.org/wiki/Koch_snowflake" target="_blank" rel="noreferrer noopener">Koch Snowflake</a>. Have fun with it. Soon we will cover <a href="https://en.wikipedia.org/wiki/Binary_space_partitioning" target="_blank" rel="noreferrer noopener">Binary Space Partitioning</a>, a method of dividing space that can be used for the procedural generation of game levels, like in my <a href="https://thmsdnnr.com/roguelike/" target="_blank" rel="noreferrer noopener">Roguelike Dungeoncrawler</a>.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/equilateral/"> equilateral </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/fractals/"> fractals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/gasket/"> gasket </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/sierpinski/"> sierpinski </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/triangle/"> triangle </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

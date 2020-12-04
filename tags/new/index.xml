@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Prototypal Inheritance Basics</title>
-			<link>https://thmsdnnr.com/post/prototypal-inheritance-basics/</link>
+			<link>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</link>
 			<pubDate>Mon, 05 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/prototypal-inheritance-basics/</guid>
+			<guid>https://thmsdnnr.com/blog/prototypal-inheritance-basics/</guid>
 			<description>
 				
 				What are prototypes and what does prototypal inheritance mean in JavaScript? Covers the new keyword, Object.create, and ES5 class syntax.

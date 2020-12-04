@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Pixl: A Sea of CSS [part 5]">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="javascript,events,canvas,pixelArt,pixl,UI,CSS"><meta name="description" content="Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox."><meta property="og:title" content="Pixl: A Sea of CSS [part 5]" />
+<meta property="og:description" content="Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/pixl-a-sea-of-css-part-5/" />
+<meta property="article:published_time" content="2018-01-13T09:30:04+00:00" />
+<meta property="article:modified_time" content="2018-01-13T09:30:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pixl: A Sea of CSS [part 5]"/>
+<meta name="twitter:description" content="Add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox."/>
+
+	
+	
+
+	<title>Pixl: A Sea of CSS [part 5] | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">13</span>
+				<span class="rest">Jan 2018</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Pixl: A Sea of CSS [part 5]</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		
+
+
+
+
+
+
+
+<script
+    data-slug-hash="JMBPzy"
+    data-user="thmsdnnr"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+<ul>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+</li>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+</li>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank" rel="noreferrer noopener">part three</a> we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
+</li>
+<li>
+<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/12/html5-canvas-pixl-art-project-part-four.html" target="_blank" rel="noreferrer noopener">part four</a> we questioned whether we ought to be using React after all, and we added support for saving canvas images in localStorage.</p>
+</li>
+</ul>
+<h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
+<p>Now we&rsquo;re going to push the project to the limit: we&rsquo;ll add CSS styling to make the app responsive on multiple screen sizes using media queries and flexbox.</p>
+<blockquote>
+<p>small, narrow screen
+<figure>
+  <img src="/assets/pics/pixl_five_one.png#400-high" alt="Pixl viewed on a small, narrow screen."  />
+</figure></p>
+</blockquote>
+<blockquote>
+<p>medium screen width
+<figure>
+  <img src="/assets/pics/pixl_five_two.png#400-high" alt="Pixl viewed on a medium screen width."  />
+</figure></p>
+</blockquote>
+<blockquote>
+<p>normal screen width
+<figure>
+  <img src="/assets/pics/pixl_five_three.png#400-high" alt="Pixl viewed on a normal screen width."  />
+</figure></p>
+</blockquote>
+<h3 id="media-queries">Media queries</h3>
+<p>A <a href="https://en.wikipedia.org/wiki/Media_queries" target="_blank" rel="noreferrer noopener">media query</a> allows us to define rules for styling elements differently depending on <em>media type</em> (e.g., print, screen, TV, braille) and a list of <em>media features</em> that include <code>color</code>, <code>width</code>, and <code>device-aspect-ratio</code>. Media queries allow us to define a an element once in our HTML, and then make it appear differently depending on context.</p>
+<p>Here&rsquo;s a simple example.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#colorDemo {
+  <span style="color:#ff79c6">background-color</span>: <span style="color:#ff79c6">white</span>;
+}
+@<span style="color:#ff79c6">media</span> <span style="color:#ff79c6">all</span> <span style="color:#ff79c6">and</span> <span style="color:#ff79c6">(</span><span style="color:#ff79c6">min-width</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">500px</span><span style="color:#ff79c6">)</span> {
+  <span style="color:#ff79c6">div</span>#colorDemo {
+    <span style="color:#ff79c6">background-color</span>: <span style="color:#ff79c6">gold</span>;
+  }
+}
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Note how we define rules for #colorDemo twice: once for the smaller screen, and once for the larger screen. In mobile-first design, we make our app look good on smaller screens first, and then we set media queries to override this behavior on a larger screen: perhaps by widening the elements, or letting them take up additional columns.</p>
+<p>This is done since styling for smaller screens is usually simpler. Most things end up being full-width and margins and padding do not come into play so much.</p>
+<p>We can leverage media queries in JavaScript too to change our code dynamically. It looks quite similar to the CSS. The <code>window</code> object has a <code>matchMedia</code> method that allows us to add listeners to a given CSS query of interest.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#6272a4">// Create the query list.
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">var</span> mediaQueryList <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.matchMedia(<span style="color:#f1fa8c">&#34;(min-width: 500px)&#34;</span>);
+<span style="color:#8be9fd;font-style:italic">function</span> handleOrientationChange(mql) {
+  isLargeScreen <span style="color:#ff79c6">=</span> mql.matches <span style="color:#ff79c6">?</span> <span style="color:#ff79c6">true</span> <span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>;
+  <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>isLargeScreen) {
+    <span style="color:#6272a4">// transition to small screen
+</span><span style="color:#6272a4"></span>    redrawAtScale(<span style="color:#bd93f9">0.8</span>);
+  } <span style="color:#ff79c6">else</span> {
+    <span style="color:#6272a4">// transition to large screen
+</span><span style="color:#6272a4"></span>    redrawAtScale(<span style="color:#bd93f9">1</span>);
+  }
+}
+<span style="color:#6272a4">// Add the callback function as a listener to the query list.
+</span><span style="color:#6272a4"></span>mediaQueryList.addListener(handleOrientationChange);
+
+<span style="color:#6272a4">// Run the orientation change handler once.
+</span><span style="color:#6272a4"></span>handleOrientationChange(mediaQueryList);
+</code></pre></div><p>We&rsquo;ll add an event listener to our window width and use it to dynamically change the size of the grid and the size of the preview thumbnails.</p>
+<p>We&rsquo;ll also add some CSS to make the page look nice whether the screen is small or large.</p>
+<h3 id="first-the-html">First the HTML</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;container&#34;</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;header&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">h1</span>&gt;pixl&lt;/<span style="color:#ff79c6">h1</span>&gt; // &lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;https://github.com/thmsdnnr/pixl&#34;</span>&gt;repo&lt;/<span style="color:#ff79c6">a</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row_0&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;paletteControls&#34;</span>&gt;
+       &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;randomPalette&#34;</span>&gt;rando&lt;/<span style="color:#ff79c6">button</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+       &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;reset&#34;</span>&gt;reset&lt;/<span style="color:#ff79c6">button</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+       &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;swatch&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+    &lt;/<span style="color:#ff79c6">div</span>&gt;
+   &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;palette&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+ &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row_1&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;savedImages&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+    &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;canvas&#34;</span>&gt;&lt;<span style="color:#ff79c6">canvas</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;editor&#34;</span>&gt;&lt;/<span style="color:#ff79c6">canvas</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row_2&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;controls&#34;</span>&gt;
+      &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row&#34;</span>&gt;
+        &lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;saveImage&#34;</span>&gt;save image&lt;/<span style="color:#ff79c6">button</span>&gt;
+        &lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;loadImages&#34;</span>&gt;load images&lt;/<span style="color:#ff79c6">button</span>&gt;
+      &lt;/<span style="color:#ff79c6">div</span>&gt;
+      &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;&lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;getImage&#34;</span>&gt;get image&lt;/<span style="color:#ff79c6">button</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+      &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;transparent
+        &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;transparent&#34;</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;checkbox&#34;</span> <span style="color:#50fa7b">checked</span>&gt;
+      &lt;/<span style="color:#ff79c6">div</span>&gt;
+      &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;bgcolor &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;bgColor&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+      &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;control&#34;</span>&gt;width
+        &lt;<span style="color:#ff79c6">select</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;pxWidth&#34;</span>&gt;
+          &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;16&#34;</span>&gt;16px&lt;/<span style="color:#ff79c6">option</span>&gt;
+          &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;32&#34;</span>&gt;32px&lt;/<span style="color:#ff79c6">option</span>&gt;
+          &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;64&#34;</span>&gt;64px&lt;/<span style="color:#ff79c6">option</span>&gt;
+          &lt;<span style="color:#ff79c6">option</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;128&#34;</span> <span style="color:#50fa7b">selected</span>&gt;128px&lt;/<span style="color:#ff79c6">option</span>&gt;
+        &lt;/<span style="color:#ff79c6">select</span>&gt;
+      &lt;/<span style="color:#ff79c6">div</span>&gt;
+    &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;/<span style="color:#ff79c6">div</span>&gt;
+  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;row_3&#34;</span>&gt;&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;imageTray&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+&lt;/<span style="color:#ff79c6">div</span>&gt;
+</code></pre></div><h2 id="styling-this-html">Styling this HTML</h2>
+<p>There are a few global styles.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">html</span> {
+  <span style="color:#ff79c6">box-sizing</span>: <span style="color:#ff79c6">border-box</span>;
+}
+<span style="color:#ff79c6">*,</span>
+<span style="color:#ff79c6">*</span>:before<span style="color:#ff79c6">,</span>
+<span style="color:#ff79c6">*</span>:after {
+  <span style="color:#ff79c6">box-sizing</span>: <span style="color:#ff79c6">inherit</span>;
+}
+
+<span style="color:#ff79c6">body</span> {
+  <span style="color:#ff79c6">background-color</span>: <span style="color:#bd93f9">#fff</span>;
+  <span style="color:#ff79c6">cursor</span>: <span style="color:#ff79c6">crosshair</span>;
+  <span style="color:#ff79c6">font-family</span>: <span style="color:#f1fa8c">&#34;Lekton&#34;</span>, <span style="color:#ff79c6">sans-serif</span>;
+}
+
+<span style="color:#ff79c6">body</span><span style="color:#ff79c6">,</span>
+<span style="color:#ff79c6">h1</span><span style="color:#ff79c6">,</span>
+<span style="color:#ff79c6">input</span><span style="color:#ff79c6">,</span>
+<span style="color:#ff79c6">button</span><span style="color:#ff79c6">,</span>
+<span style="color:#ff79c6">select</span> {
+  <span style="color:#ff79c6">font-family</span>: <span style="color:#f1fa8c">&#34;Lekton&#34;</span>, <span style="color:#ff79c6">sans-serif</span>;
+}
+</code></pre></div><h3 id="side-note--box-sizing-border-box">side note — box-sizing: border-box</h3>
+<p>Setting <code>box-sizing: border-box</code> allows us to &ldquo;unquirk&rdquo; the <a href="https://css-tricks.com/box-sizing/" target="_blank" rel="noreferrer noopener">typical CSS box sizing behavior</a>.</p>
+<p>Without this setting, the width and height of elements will not be what you specify. Rather, elements will take the specified width and height as a base, adding on any padding and border that you specify (or, if you do not do a CSS reset, that a browser stylesheet has by default).</p>
+<p>This can result in some strange behavior. Consider this box. Without <code>border-box</code> set, it will display as 106x106 px instead of 100x100.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#box {
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">100</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">height</span>: <span style="color:#bd93f9">100</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">5</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">black</span>;
+}
+</code></pre></div><p>Now imagine that you have a div to hold a row of boxes, and you&rsquo;d like to display six per line. Well, you can&rsquo;t make it 600px, because it&rsquo;s going to have to hold 600 + 6*6 = 636px of width total.</p>
+<p>You could just resize the container div. But now imagine you want to tweak the padding slightly on your elements. You&rsquo;ll have to go back and resize the container div.</p>
+<h3 id="row-by-row">Row by row</h3>
+<p>We have a large container wrapper that holds all of our rows. Here&rsquo;s what the container looks like on narrower screens:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#container {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">column</span> <span style="color:#ff79c6">wrap</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">99</span><span style="color:#8be9fd">%</span>;
+  <span style="color:#ff79c6">max-width</span>: <span style="color:#bd93f9">680</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">black</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#bd93f9">0</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">10</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">4</span><span style="color:#8be9fd">px</span>;
+}
+</code></pre></div><p>We set a maximum width in pixels so that the percentage width does not become too large on large screens.</p>
+<p>We have a line of content for each &ldquo;row&rdquo; on the screen.</p>
+<p>We create a <code>row</code> class that is used to wrap individual rows of content. It looks the same on any type of screen size, and it scales automatically given that it&rsquo;s a flexbox.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">row</span> {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">wrap</span>;
+  <span style="color:#ff79c6">align-items</span>: <span style="color:#ff79c6">center</span>;
+}
+</code></pre></div><p>The rows are:</p>
+<ol>
+<li>Header</li>
+<li>Color Palette &amp; Palette Controls</li>
+<li>localStorage Saved Images &amp; Drawing Canvas</li>
+<li>Canvas Controls</li>
+<li>User-generated images to save to computer</li>
+</ol>
+<p>Let&rsquo;s describe row by row what the style will look like for large and small screens.</p>
+<h3 id="header">Header</h3>
+<p>When the screen is 450px or wider, we display the header.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#header {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">block</span>;
+  <span style="color:#ff79c6">font-size</span>: <span style="color:#bd93f9">0.7</span><span style="color:#8be9fd">em</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">90</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border-bottom</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">tomato</span>;
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+}
+</code></pre></div><p>Otherwise, the header is hidden.</p>
+<p><code>div#header { display: none; }</code></p>
+<h3 id="color-palette--palette-controls">Color Palette &amp; Palette Controls</h3>
+<p>The palette is a div container filled with color &ldquo;chips&rdquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#palette {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">6</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">8</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">nowrap</span>;
+  <span style="color:#ff79c6">height</span>: <span style="color:#bd93f9">32</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">align-items</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">box-shadow</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">3</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0.12</span>), <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0.24</span>);
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+}
+
+<span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">chip</span> {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">2</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">height</span>: <span style="color:#bd93f9">100</span><span style="color:#8be9fd">%</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border-radius</span>: <span style="color:#bd93f9">6</span><span style="color:#8be9fd">px</span>;
+}
+</code></pre></div><p>Chips can have a class <code>activeColor</code> when they are selected. <code>activeColor</code> gives a visual indication that the color is selected by spinning the chip around, raising it slightly, and giving it a box-shadow.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">activeColor</span> {
+  <span style="color:#ff79c6">transform</span>: <span style="color:#8be9fd;font-style:italic">rotate</span>(<span style="color:#bd93f9">-90</span><span style="color:#8be9fd">deg</span>) <span style="color:#8be9fd;font-style:italic">translateX</span>(<span style="color:#bd93f9">11</span><span style="color:#8be9fd">px</span>);
+  <span style="color:#ff79c6">transition</span>: <span style="color:#bd93f9">200</span><span style="color:#8be9fd">ms</span> <span style="color:#ff79c6">all</span> <span style="color:#ff79c6">ease</span><span style="color:#ff79c6">-</span>in-out;
+  <span style="color:#ff79c6">box-shadow</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">3</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0.12</span>), <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0.24</span>);
+}
+</code></pre></div><p>The controls are a div container filled with control divs.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#paletteControls {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">1</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">8</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">nowrap</span>;
+  <span style="color:#ff79c6">height</span>: <span style="color:#bd93f9">32</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">justify-content</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">box-shadow</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">3</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0.12</span>), <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">0.24</span>);
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+}
+
+<span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">control</span> {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">align-self</span>: <span style="color:#ff79c6">center</span>;
+}
+</code></pre></div><h3 id="localstorage-saved-images--drawing-canvas">localStorage Saved Images &amp; Drawing Canvas</h3>
+<p>The saved images are those that are stored in localStorage and can be retrieved for future editing. On small screens, they&rsquo;ll appear as a single row across the top of the page. We set <code>flex-flow</code> to row nowrap and <code>overflow-x</code> to cause the container to scroll when there are too many images inside to appear at once.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#savedImages {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">none</span>;
+  <span style="color:#ff79c6">justify-content</span>: <span style="color:#ff79c6">flex</span><span style="color:#ff79c6">-</span><span style="color:#ff79c6">start</span>;
+  <span style="color:#ff79c6">align-items</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">nowrap</span>;
+  <span style="color:#ff79c6">overflow-x</span>: <span style="color:#ff79c6">scroll</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">90</span><span style="color:#8be9fd">%</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#bd93f9">4</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">auto</span>;
+}
+</code></pre></div><p>For screens wider than 700px, we want the saved images to appear as a vertical column to the left of the canvas. Here, we set the <code>flex-flow</code> to column and set a height on the div:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#savedImages {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#bd93f9">140</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">column</span>;
+  <span style="color:#ff79c6">height</span>: <span style="color:#bd93f9">430</span><span style="color:#8be9fd">px</span>;
+ }
+</code></pre></div><p>The canvas is where it all (well, all the drawing at least) happens.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#canvas {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#bd93f9">4</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">5</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">height</span>: <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">box-shadow</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">3</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.12</span>), <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.24</span>);
+}
+
+<span style="color:#ff79c6">canvas</span>#editor {
+  <span style="color:#ff79c6">margin</span>: <span style="color:#bd93f9">4</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">box-shadow</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">3</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.12</span>), <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.24</span>);
+}
+</code></pre></div><h3 id="canvas-controls">Canvas Controls</h3>
+<p>The controls (buttons like save/load/get image and background settings) will all appear as a single row below the canvas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">controls</span> {
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">text-align</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">font-size</span>: <span style="color:#bd93f9">0.9</span><span style="color:#8be9fd">em</span>;
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">flex-flow</span>: <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">nowrap</span>;
+  <span style="color:#ff79c6">justify-content</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">align-items</span>: <span style="color:#ff79c6">center</span>;
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+}
+</code></pre></div><h3 id="user-generated-images-to-save-to-computer">User-generated images to save to computer</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>#imageTray {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#ff79c6">auto</span>;
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">90</span><span style="color:#8be9fd">%</span>;
+  <span style="color:#ff79c6">white-space</span>: <span style="color:#ff79c6">nowrap</span>;
+  <span style="color:#ff79c6">overflow-x</span>: <span style="color:#ff79c6">scroll</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">5</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">transition</span>: <span style="color:#bd93f9">200</span><span style="color:#8be9fd">ms</span> <span style="color:#ff79c6">all</span> <span style="color:#ff79c6">ease</span><span style="color:#ff79c6">-</span>in;
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+}
+</code></pre></div><h2 id="we-set-a-few-more-styles-everywhere-the-same">We set a few more styles everywhere the same:</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">input</span>.<span style="color:#50fa7b">jscolor</span> {
+  <span style="color:#ff79c6">cursor</span>: grab;
+}
+
+<span style="color:#ff79c6">button</span> {
+  <span style="color:#ff79c6">outline</span>: <span style="color:#ff79c6">none</span>;
+  <span style="color:#ff79c6">font-size</span>: <span style="color:#bd93f9">0.9</span><span style="color:#8be9fd">em</span>;
+  <span style="color:#ff79c6">max-width</span>: <span style="color:#bd93f9">110</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">auto</span>;
+}
+
+<span style="color:#ff79c6">h1</span> {
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">inline</span>;
+  <span style="color:#ff79c6">font-size</span>: <span style="color:#bd93f9">2</span><span style="color:#8be9fd">em</span>;
+}
+
+<span style="color:#ff79c6">input</span>#swatch {
+  <span style="color:#ff79c6">max-width</span>: <span style="color:#bd93f9">52</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">0</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">outline</span>: <span style="color:#ff79c6">none</span>;
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+  <span style="color:#ff79c6">flex</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">auto</span>;
+}
+
+<span style="color:#ff79c6">input</span>#bgColor {
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">50</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">0</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">outline</span>: <span style="color:#ff79c6">none</span>;
+}
+
+<span style="color:#ff79c6">select</span>#pxWidth {
+  <span style="color:#ff79c6">width</span>: <span style="color:#bd93f9">64</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">font-family</span>: <span style="color:#f1fa8c">&#34;Lekton&#34;</span>, <span style="color:#ff79c6">sans-serif</span>;
+  <span style="color:#ff79c6">font-size</span>: <span style="color:#bd93f9">0.9</span><span style="color:#8be9fd">em</span>;
+}
+</code></pre></div><p>Canvas preview containers hold canvases saved in localStorage, or canvases that the user has generated with the &ldquo;get image&rdquo; button. These containers look the same everywhere. A little box-shadow makes them pop from the page, and a border on hover gives the user a hint that they are clickable and have associated actions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">cvs-preview</span> {
+  <span style="color:#ff79c6">position</span>: <span style="color:#ff79c6">relative</span>;
+  <span style="color:#ff79c6">flex</span>: <span style="color:#ff79c6">none</span>;
+  <span style="color:#ff79c6">margin</span>: <span style="color:#bd93f9">5</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">black</span>;
+  <span style="color:#ff79c6">box-shadow</span>: <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">3</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.12</span>), <span style="color:#bd93f9">0</span> <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#bd93f9">2</span><span style="color:#8be9fd">px</span> <span style="color:#8be9fd;font-style:italic">rgba</span>(<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">0.24</span>);
+  <span style="color:#ff79c6">user-select</span>: <span style="color:#ff79c6">none</span>;
+}
+
+<span style="color:#ff79c6">div</span>.<span style="color:#50fa7b">cvs-preview</span>:hover {
+  <span style="color:#ff79c6">border</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">px</span> <span style="color:#ff79c6">solid</span> <span style="color:#ff79c6">gold</span>;
+}
+</code></pre></div><h4 id="dynamically-controlling-row-orientation">Dynamically controlling row orientation</h4>
+<p>On largest screens, I want to have the controls displayed above the preview images. But on smaller screens, I want to. move the controls to the very bottom and display preview images closer to the canvas.</p>
+<p>Flexbox allows you to dynamically switch the order of elements using the <code>order</code> property. I number each row with an ID, <code>row_0</code> through <code>row_3</code>.</p>
+<p>I can then swap the position of the last two rows on smaller screens like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#row_3 { <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">0</span>; }
+#row_2 { <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">1</span>; }
+</code></pre></div><p>On larger screens, I can flip the order back to normal.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#row_3 { <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">1</span>; }
+#row_2 { <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">0</span>; }
+</code></pre></div><p>Nice!</p>
+<p>By using <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noreferrer noopener">CSS flexbox</a> judiciously, we&rsquo;re able to define a simple, row-based layout that collapses to a single column of elements on smaller screens.</p>
+<h3 id="making-the-canvas-smallerlarger">Making the canvas smaller/larger</h3>
+<p>We are able to toggle the canvas size and appearance using the JavaScript media query listener we defined earlier. Remember the <code>handleOrientationChange</code> bit we wrote earlier?</p>
+<p>We also wrote the method <code>redrawAtScale</code>. This function does the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> WIDTH <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">400</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> WIDTH_BASIS <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">400</span>; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> HEIGHT_BASIS <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">400</span>;
+<span style="color:#8be9fd;font-style:italic">let</span> HEIGHT <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">400</span>; <span style="color:#6272a4">// px
+</span><span style="color:#6272a4"></span>
+WIDTH <span style="color:#ff79c6">=</span> n <span style="color:#ff79c6">*</span> WIDTH_BASIS;
+HEIGHT <span style="color:#ff79c6">=</span> n <span style="color:#ff79c6">*</span> HEIGHT_BASIS;
+PREVIEW_IMAGE_SCALE <span style="color:#ff79c6">=</span> n;
+getCanvasAndContext();
+forceRedraw();
+</code></pre></div><p>Whenever the screen size changes, we redraw the canvas and auxiliary canvases at a fixed ratio based on the initial height and width (the <code>HEIGHT_BASIS</code> and <code>WIDTH_BASIS</code> variables). By providing a breakpoint between screen sizes, we enable the user to access the app on different-sized devices.</p>
+<p>There you have it. TIL about responsive design, flexbox, and mobile-first CSS!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/projects/"> projects </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/canvas/"> canvas </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/css/"> css </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/events/"> events </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixelart/"> pixelart </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/pixl/"> pixl </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/ui/"> ui </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

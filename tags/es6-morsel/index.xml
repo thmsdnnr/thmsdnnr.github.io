@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>ES6 — Destructuring &#43; Default Parameters</title>
-			<link>https://thmsdnnr.com/post/es6-destructuring-default-parameters/</link>
+			<link>https://thmsdnnr.com/blog/es6-destructuring-default-parameters/</link>
 			<pubDate>Sun, 04 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/es6-destructuring-default-parameters/</guid>
+			<guid>https://thmsdnnr.com/blog/es6-destructuring-default-parameters/</guid>
 			<description>
 				
 				Object and Array destructuring in ES6 allows you to easily extract selected properties of nested objects.

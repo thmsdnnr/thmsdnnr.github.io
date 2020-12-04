@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>cryptopals-set3 on full-stack overflow 🥞</title>
+		<link>https://thmsdnnr.com/tags/cryptopals-set3/</link>
+		<description>Recent content in cryptopals-set3 on thmsdnnr.com</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<lastBuildDate>Tue, 03 Oct 2017 07:40:04 +0000</lastBuildDate>
+		
+		<atom:link href="https://thmsdnnr.com/tags/cryptopals-set3/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Let&#39;s Implement a Stream Cipher (CTR)!</title>
+			<link>https://thmsdnnr.com/blog/lets-implement-a-stream-cipher-ctr/</link>
+			<pubDate>Tue, 03 Oct 2017 07:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/lets-implement-a-stream-cipher-ctr/</guid>
+			<description>
+				
+				Implementing AES in CTR mode, a Stream Cipher, to solve Cryptopals Set 3 Challenge 18.
+				
+			</description>
+		</item>
+		<item>
+			<title>CBC Padding Oracle</title>
+			<link>https://thmsdnnr.com/blog/cbc-padding-oracle/</link>
+			<pubDate>Mon, 02 Oct 2017 14:40:04 +0000</pubDate>
+			
+			<guid>https://thmsdnnr.com/blog/cbc-padding-oracle/</guid>
+			<description>
+				
+				Exploring a CBC padding oracle in Cryptopals Set 3 Challenge 17.
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>

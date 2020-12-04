@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Draw Photo Histograms: D3 &#43; Canvas</title>
-			<link>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</link>
+			<link>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</link>
 			<pubDate>Fri, 09 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/draw-photo-histograms-d3-canvas/</guid>
+			<guid>https://thmsdnnr.com/blog/draw-photo-histograms-d3-canvas/</guid>
 			<description>
 				
 				Exploring histograms using vanilla JavaScript, D3, and the FileReader API.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>Histograms in D3 and Observable HQ</title>
-			<link>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</link>
+			<link>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</link>
 			<pubDate>Tue, 06 Mar 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/histograms-in-d3-and-observable-hq/</guid>
+			<guid>https://thmsdnnr.com/blog/histograms-in-d3-and-observable-hq/</guid>
 			<description>
 				
 				An introduction to creating histograms in D3 and the use of Observable HQ to make interactive notebooks for data exploration.

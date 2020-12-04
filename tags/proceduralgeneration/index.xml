@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Binary Tree Application: Binary Space Partitioning</title>
-			<link>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</link>
+			<link>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</link>
 			<pubDate>Sat, 03 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/binary-tree-application-binary-space-partitioning/</guid>
+			<guid>https://thmsdnnr.com/blog/binary-tree-application-binary-space-partitioning/</guid>
 			<description>
 				
 				Binary space partitioning recursively subdivides a space. It is an application of binary trees and often used for procedurally generated game levels or computational art.

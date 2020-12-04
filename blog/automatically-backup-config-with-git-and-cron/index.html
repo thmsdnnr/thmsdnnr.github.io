@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Automatically backup config with git and cron">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="backups,dotfiles,git,cron,crontab,shell"><meta name="description" content="An automated backup strategy for configuration files to make restoring from backups or purchasing a new computer easy."><meta property="og:title" content="Automatically backup config with git and cron" />
+<meta property="og:description" content="An automated backup strategy for configuration files to make restoring from backups or purchasing a new computer easy." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/automatically-backup-config-with-git-and-cron/" />
+<meta property="article:published_time" content="2019-06-14T19:20:04+00:00" />
+<meta property="article:modified_time" content="2019-06-14T19:20:04+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Automatically backup config with git and cron"/>
+<meta name="twitter:description" content="An automated backup strategy for configuration files to make restoring from backups or purchasing a new computer easy."/>
+
+	
+	
+
+	<title>Automatically backup config with git and cron | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">14</span>
+				<span class="rest">Jun 2019</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Automatically backup config with git and cron</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>If you have been coding for any amount of time, you have probably experienced hard drive failure, computer theft, or liquid damage to your precious machine. Maybe, infallible developer though you are, one day you just didn&rsquo;t look before you rm -rf&rsquo;d, and now you are well and truly rm -r f&rsquo;d.</p>
+<p>What to do?</p>
+<h2 id="rules-of-backups-for-the-lazy-programmer">Rules of backups for the lazy programmer</h2>
+<ol>
+<li>If it requires you to physically do something, it&rsquo;s not going to happen. You are a busy professional with just as many best intentions as you have temporal limitations. You will remember it today, maybe for the next week, but you will inevitably forget. So requirement #1 is automated tracking of files you wish to keep. Plus, computers are designed to do this work for us.</li>
+<li>Restoration should be as simple as downloading a script, pressing enter, and maybe entering your password a couple of times.</li>
+</ol>
+<h2 id="how-i-do-it">How I do it</h2>
+<p>In short:</p>
+<ol start="0">
+<li>
+<p>dotfiles and their updates over time are stored in a git repository.</p>
+</li>
+<li>
+<p>my machine&rsquo;s crontab runs a script each hour that checks in any changes from a list of files that I specify (.vimrc, .bashrc, etc) into the configuration repo. It also updates things like the current list of all my brew packages and vscode extensions that are installed. If there are any changes, it automatically git commits and pushes them to my remote repo  repo that holds the current state of my config</p>
+</li>
+<li>
+<p>a provisioning script for a new computer pulls the config repo, restores the dotfiles, and reinstalls all the software packages and editor fixings I had on my machine, down to the last time my repo was updated</p>
+</li>
+</ol>
+<p>On a Mac, I use <a href="https://brew.sh/" target="_blank" rel="noreferrer noopener">brew</a> fairly extensively to handle package management. Brew has a nice feature called <code>brew bundle</code>, which enables you to make a list of all the current packages installed on the machine. <code>brew bundle dump</code> creates the list, and <code>brew bundle install</code> reinstalls every package on that list.</p>
+<p>Storing updates in git is also nice, because if you happen to mess up your configuration somehow, chances are you can track down the buggy commit in git and revert the changes.</p>
+<p>Also note that just because you are uploading your config to a &ldquo;private repo&rdquo;, it would be an <em>exceedingly awful idea</em> to use this method for things like ssh key management, or really anything at all that you wish to remain remotely private.</p>
+<h2 id="here-is-what-my-script-looks-like">Here is what my script looks like.</h2>
+<h3 id="provisioning-script-excerpt">provisioning script excerpt</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#!/bin/bash
+</span><span style="color:#ff79c6"></span>
+<span style="color:#6272a4"># this script is downloaded from the config repo and run on</span>
+<span style="color:#6272a4"># a new machine to reinstall all packages, configure dotfiles,</span>
+<span style="color:#6272a4"># and set up preferences</span>
+
+<span style="color:#6272a4"># secret, set up my SSH</span>
+
+<span style="color:#6272a4"># secret, set up git</span>
+
+<span style="color:#6272a4"># .dotfiles paths</span>
+<span style="color:#8be9fd;font-style:italic">BACKUP_DIR</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/.BACKUP_CONFIG&#34;</span>
+<span style="color:#8be9fd;font-style:italic">DOTFILES_DIR</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/dotfiles&#34;</span>
+<span style="color:#8be9fd;font-style:italic">BREW_INSTALLS_FILE</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/brew_bundle_dump&#34;</span>
+<span style="color:#8be9fd;font-style:italic">VSCODE_EXTENSIONS_FILE</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/vscode_extensions&#34;</span>
+
+<span style="color:#6272a4"># Clone my dotfiles repo: $BACKUP_DIR is my local folder where</span>
+<span style="color:#6272a4"># backup copies of all my dotfiles and config are saved.</span>
+git clone --depth<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span> git@github.com:ME/MYSECRETREPO.git <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">||</span> <span style="color:#ff79c6">{</span>
+  <span style="color:#8be9fd;font-style:italic">printf</span> <span style="color:#f1fa8c">&#34;Error: git clone of configuration repo failed\n&#34;</span>
+  <span style="color:#8be9fd;font-style:italic">exit</span> <span style="color:#bd93f9">1</span>
+<span style="color:#ff79c6">}</span>
+<span style="color:#6272a4"># Copy dotfiles into homedir</span>
+cp -a <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$DOTFILES_DIR</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">&#34;</span>
+git config --global core.excludesfile <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$DOTFILES_DIR</span><span style="color:#f1fa8c">/.gitignore_global&#34;</span>
+
+<span style="color:#6272a4"># Install Brew</span>
+<span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">test</span> ! <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">command</span> -v brew<span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span>; <span style="color:#ff79c6">then</span>
+  <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Installing homebrew...&#34;</span>
+  ruby -e <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#ff79c6">fi</span>
+
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">HOMEBREW_NO_ANALYTICS</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span>
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">HOMEBREW_NO_INSECURE_REDIRECT</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span>
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">HOMEBREW_CASK_OPTS</span><span style="color:#ff79c6">=</span>--require-sha
+
+<span style="color:#6272a4"># Install all brew packages</span>
+brew update-reset <span style="color:#ff79c6">&amp;&amp;</span> brew update
+brew tap Homebrew/bundle
+brew bundle install --file<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BREW_INSTALLS_FILE</span><span style="color:#f1fa8c">&#34;</span>
+brew upgrade --all <span style="color:#ff79c6">&amp;&amp;</span> brew cleanup
+
+<span style="color:#6272a4"># Set up packages just installed via homebrew</span>
+
+<span style="color:#6272a4">## vscode</span>
+<span style="color:#6272a4">### install extensions</span>
+<span style="color:#ff79c6">while</span> <span style="color:#8be9fd;font-style:italic">IFS</span><span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">read</span> -r line; <span style="color:#ff79c6">do</span>
+  code --install-extension <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$line</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#ff79c6">done</span> &lt; <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$VSCODE_EXTENSIONS_FILE</span><span style="color:#f1fa8c">&#34;</span>
+
+<span style="color:#6272a4">### import settings</span>
+<span style="color:#8be9fd;font-style:italic">VSCODE_SETTINGS_FOLDER</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/Library/Application Support/Code/User/&#34;</span>
+mkdir -p <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$VSCODE_SETTINGS_FOLDER</span><span style="color:#f1fa8c">&#34;</span>
+mv <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$DOTFILES_DIR</span><span style="color:#f1fa8c">/vscode_settings.json&#34;</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$VSCODE_SETTINGS_FOLDER</span><span style="color:#f1fa8c">/settings.json&#34;</span>
+
+<span style="color:#6272a4"># bootstrap my backup script</span>
+<span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/config_updater.sh&#34;</span>
+</code></pre></div><p>And, the backup script, referenced at the end of the provisioning script&hellip;</p>
+<h3 id="config_updatersh"><code>config_updater.sh</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#!/bin/bash
+</span><span style="color:#ff79c6"></span><span style="color:#6272a4"># This script commits any local configuration changes and automatically</span>
+<span style="color:#6272a4"># pushes them to the remote.</span>
+<span style="color:#6272a4">#</span>
+<span style="color:#6272a4"># Uploads newest versions of dotfiles from the $HOME dir into</span>
+<span style="color:#6272a4"># $HOME/.BACKUP_CONFIG, a folder created by the provisioning script</span>
+<span style="color:#6272a4"># that is linked to the remote configuration repo.</span>
+
+<span style="color:#8be9fd;font-style:italic">BACKUP_DIR</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/.BACKUP_CONFIG&#34;</span>
+<span style="color:#8be9fd;font-style:italic">THIS_SCRIPT_FULL_PATH</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/</span><span style="color:#ff79c6">$(</span>basename -- <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$0</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#8be9fd;font-style:italic">DOTFILE_DIR</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/dotfiles&#34;</span>
+mkdir -p <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">&#34;</span>
+mkdir -p <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$DOTFILE_DIR</span><span style="color:#f1fa8c">&#34;</span>
+
+<span style="color:#8be9fd;font-style:italic">BREW_INSTALLS_FILENAME</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;brew_bundle_dump&#34;</span>
+<span style="color:#8be9fd;font-style:italic">VSCODE_EXTENSIONS_FILENAME</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;vscode_extensions&#34;</span>
+
+/usr/local/bin/brew bundle dump --force --file<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/</span><span style="color:#8be9fd;font-style:italic">$BREW_INSTALLS_FILENAME</span><span style="color:#f1fa8c">&#34;</span>
+/usr/local/bin/code --list-extensions &gt; <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$BACKUP_DIR</span><span style="color:#f1fa8c">/</span><span style="color:#8be9fd;font-style:italic">$VSCODE_EXTENSIONS_FILENAME</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#8be9fd;font-style:italic">dotfile_list</span><span style="color:#ff79c6">=(</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/.gitignore_global&#34;</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/.bashrc&#34;</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/.vimrc&#34;</span><span style="color:#ff79c6">)</span>
+
+<span style="color:#ff79c6">for</span> file in <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">dotfile_list</span>[@]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>; <span style="color:#ff79c6">do</span> cp <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$file</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$DOTFILE_DIR</span><span style="color:#f1fa8c">&#34;</span>; <span style="color:#ff79c6">done</span>
+
+<span style="color:#8be9fd;font-style:italic">cd</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$DOTFILE_DIR</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">exit</span>
+<span style="color:#ff79c6">if</span> ! git diff --quiet HEAD <span style="color:#ff79c6">||</span> git status --short; <span style="color:#ff79c6">then</span>
+  git add --all
+  git commit -m <span style="color:#f1fa8c">&#34;updating dotfiles on </span><span style="color:#ff79c6">$(</span>date -u<span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span>
+  git push origin master
+<span style="color:#ff79c6">fi</span>
+
+<span style="color:#6272a4"># Make this script call itself hourly from the crontab, if it isn&#39;t already.</span>
+<span style="color:#ff79c6">if</span> ! crontab -l | grep <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$THIS_SCRIPT_FULL_PATH</span><span style="color:#f1fa8c">&#34;</span>; <span style="color:#ff79c6">then</span>
+  <span style="color:#ff79c6">(</span>crontab -l ; <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;0 * * * * </span><span style="color:#8be9fd;font-style:italic">$THIS_SCRIPT_FULL_PATH</span><span style="color:#f1fa8c"> &gt; /dev/null 2&gt;&amp;1&#34;</span><span style="color:#ff79c6">)</span> | sort - | uniq - | crontab - 2&gt;&amp;<span style="color:#bd93f9">1</span>
+<span style="color:#ff79c6">fi</span>
+</code></pre></div><p>If you&rsquo;re not familiar with crontab, <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noreferrer noopener">read up on it here</a>. Aside from slightly unfamiliar syntax for defining times, it&rsquo;s basically a big to-do list for your computer for recurring tasks. It&rsquo;s very useful, easy to learn, and almost every server everywhere is probably running one. Before you know it, you&rsquo;ll be writing down <code>12 * * * * ./eat_lunch.sh</code> on your calendar for lunch dates.</p>
+<p>Hopefully this article has given you some ideas to inspire your own backup strategy. It&rsquo;s worth the initial time investment. Just think about how many little things you&rsquo;ve customized on your machine, and imagine having to restore them all (much less: remember them all!) by hand, following a hardware failure.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/devtips/"> devtips </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Series</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			<a href="/series/backup/"> backup </a>
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/backups/"> backups </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cron/"> cron </a>
+			
+			
+			
+			
+			
+			<a href="/tags/crontab/"> crontab </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/dotfiles/"> dotfiles </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/git/"> git </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/shell/"> shell </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

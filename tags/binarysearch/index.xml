@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Binary Insertion Sort</title>
-			<link>https://thmsdnnr.com/post/binary-insertion-sort/</link>
+			<link>https://thmsdnnr.com/blog/binary-insertion-sort/</link>
 			<pubDate>Tue, 19 Dec 2017 09:50:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/binary-insertion-sort/</guid>
+			<guid>https://thmsdnnr.com/blog/binary-insertion-sort/</guid>
 			<description>
 				
 				Binary Insertion Sort algorithm, coded in JavaScript.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>Binary Search</title>
-			<link>https://thmsdnnr.com/post/binary-search/</link>
+			<link>https://thmsdnnr.com/blog/binary-search/</link>
 			<pubDate>Fri, 15 Dec 2017 21:06:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/binary-search/</guid>
+			<guid>https://thmsdnnr.com/blog/binary-search/</guid>
 			<description>
 				
 				Binary search algorithm with a test runner implementation, coded in JavaScript.

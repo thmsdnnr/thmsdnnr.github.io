@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Binary Search Trees: Handling Deletion</title>
-			<link>https://thmsdnnr.com/post/binary-search-trees-handling-deletion/</link>
+			<link>https://thmsdnnr.com/blog/binary-search-trees-handling-deletion/</link>
 			<pubDate>Fri, 02 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/binary-search-trees-handling-deletion/</guid>
+			<guid>https://thmsdnnr.com/blog/binary-search-trees-handling-deletion/</guid>
 			<description>
 				
 				Handling deletion in Binary Search Trees for nodes with zero, one, and two children.
@@ -25,10 +25,10 @@
 		</item>
 		<item>
 			<title>Intro to Binary Search Trees</title>
-			<link>https://thmsdnnr.com/post/intro-to-binary-search-trees/</link>
+			<link>https://thmsdnnr.com/blog/intro-to-binary-search-trees/</link>
 			<pubDate>Thu, 01 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/intro-to-binary-search-trees/</guid>
+			<guid>https://thmsdnnr.com/blog/intro-to-binary-search-trees/</guid>
 			<description>
 				
 				Binary Search Trees are are a data structure allowing O(log(N)) lookup of entries. We implement insertion, traversal, and search methods for Binary Search Trees.

@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Quicksort, a Divide and Conquer Sorting Algorithm.</title>
-			<link>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</link>
+			<link>https://thmsdnnr.com/blog/quicksort-a-divide-and-conquer-sorting-algorithm./</link>
 			<pubDate>Wed, 20 Dec 2017 10:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/quicksort-a-divide-and-conquer-sorting-algorithm./</guid>
+			<guid>https://thmsdnnr.com/blog/quicksort-a-divide-and-conquer-sorting-algorithm./</guid>
 			<description>
 				
 				We code Quicksort in JavaScript.

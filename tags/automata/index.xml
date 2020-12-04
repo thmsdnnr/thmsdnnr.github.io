@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>John Conway&#39;s Game of Life: Cellular Automata</title>
-			<link>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</link>
+			<link>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</link>
 			<pubDate>Fri, 29 Dec 2017 08:40:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/john-conways-game-of-life-cellular-automata/</guid>
+			<guid>https://thmsdnnr.com/blog/john-conways-game-of-life-cellular-automata/</guid>
 			<description>
 				
 				John Conway&#39;s Game of Life simulation implemented in JavaScript.

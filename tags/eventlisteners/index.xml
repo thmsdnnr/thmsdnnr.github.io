@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Events and Event Listeners in JavaScript</title>
-			<link>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</link>
+			<link>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</link>
 			<pubDate>Fri, 05 Jan 2018 19:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/events-and-event-listeners-in-javascript/</guid>
+			<guid>https://thmsdnnr.com/blog/events-and-event-listeners-in-javascript/</guid>
 			<description>
 				
 				JavaScript is a fundamentally event-driven programming language. Learn about the event loop, adding handlers to events with listeners, and debouncing for limiting the number of times those handlers are called.

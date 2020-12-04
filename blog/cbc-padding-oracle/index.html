@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.76.0-DEV" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="CBC Padding Oracle">
+	<link rel="preload" href="/webfonts/Roboto-Regular.woff" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	
+	
+	<meta name="author" content="Thomas Danner"><meta name="keywords" content="algorithms,tutorial,cryptopals-set3"><meta name="description" content="Exploring a CBC padding oracle in Cryptopals Set 3 Challenge 17."><meta property="og:title" content="CBC Padding Oracle" />
+<meta property="og:description" content="Exploring a CBC padding oracle in Cryptopals Set 3 Challenge 17." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://thmsdnnr.com/blog/cbc-padding-oracle/" />
+<meta property="article:published_time" content="2017-10-02T14:40:04+00:00" />
+<meta property="article:modified_time" content="2017-10-02T14:40:04+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CBC Padding Oracle"/>
+<meta name="twitter:description" content="Exploring a CBC padding oracle in Cryptopals Set 3 Challenge 17."/>
+
+	
+	
+
+	<title>CBC Padding Oracle | full-stack overflow 🥞</title></head>
+<body><header>
+	
+	<div id="avatar">
+		<a href="https://thmsdnnr.com/">
+			
+			
+			<svg version="1.1" id="emoji" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve" alt="full-stack overflow 🥞" width="80px" height="80px">
+			<g id="_xD83D__xDE38__1_">
+				<path fill="#F4AA41" d="M58.7,49.7C55.1,58.8,46,64.9,35.5,64.9c-9.1,0-19.3-5.8-22.9-15l-0.1-0.3c-1.1-2.9-2-6.4-2-9.6l3.7-33.4
+					l11.2,11.1c2.9-1.2,6.1-1.9,9.5-1.9H36c3.4,0,6.6,0.7,9.5,1.9L56.7,6.6l3.7,33.9C60.5,43.7,59.8,46.8,58.7,49.7"/>
+				<path fill="#E27022" d="M35.5,64.9c10.6,0.3,20.4-6,24-15.1l0.1-0.2c1.1-2.9,2-6.9,2-10.2L56.7,6.6"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="62" y1="54.9" x2="52.6" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M52.6,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="57.8" y1="60.1" x2="48.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M46.4,56"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M13.3,48.8c-1.1-2.8-1.7-5.8-1.7-9l3.6-32.8l11,10.7c2.9-1.2,6-1.9,9.3-1.9h1c3.3,0,6.4,0.7,9.3,1.9l11-10.7l3.6,32.8
+					c0,3.2-0.6,6.2-1.7,9"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="54.9" x2="19.4" y2="49.7"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M19.4,47.7"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.2" y1="60.1" x2="23.5" y2="54.9"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,56"/>
+					<line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.8" y1="46.3" x2="40.2" y2="46.3"/>
+					<path fill="#EA5A47" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M25.6,49.4c0,0,7.8,4.2,10.4-3.1c2.6,7.3,10.8,3.1,10.8,3.1s-2.7,4.4-3.5,5.2c-4,4.3-9.4,4.1-13.7,0.1
+					C28.7,53.8,25.6,49.4,25.6,49.4z"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.7,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.3,61"/>
+				<path fill="none" stroke="#1D1D1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M64,56.1"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M22.9,60.2c3.7,2.3,8,3.6,12.6,3.6h1c4.6,0,9-1.3,12.6-3.6"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M55.2,38.6c-3.1-4.2-9.3-4.2-11.4,0"/>
+				<path fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+					M16.8,38.6c3.1-4.2,9.3-4.2,11.4,0"/>
+			</g>
+			</svg>
+		</a>
+	</div>
+	
+	<div id="titletext"><h2 id="title"><a href="https://thmsdnnr.com/">full-stack overflow 🥞</a></h2></div>
+	<div id="title-description"><p id="subtitle">writing code 🤖 drinking coffee ☕ petting cats 😺 wearing masks 😷</p><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/projects">Projects</a></li>
+				
+				<li><a href="/blog">Blog</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">02</span>
+				<span class="rest">Oct 2017</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">CBC Padding Oracle</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p><a href="https://cryptopals.com/sets/3/challenges/17" target="_blank" rel="noreferrer noopener">Cryptopals Set 3 Challenge 17</a> // <a href="https://github.com/thmsdnnr/cryptopals/tree/master/s3c17" target="_blank" rel="noreferrer noopener">code repo</a> // <a href="https://thmsdnnr.github.io/cryptopals/s3c17/" target="_blank" rel="noreferrer noopener">demo</a></p>
+<h3 id="step-0-learn-whats-going-on-v-high-level">Step 0: Learn What&rsquo;s Going On, v. High-Level</h3>
+<blockquote>
+<p>It is easy to get tripped up on the fact that CBC plaintexts are &ldquo;padded&rdquo;. Padding oracles have nothing to do with the actual padding on a CBC plaintext. It&rsquo;s an attack that targets a specific bit of code that handles decryption. You can mount a padding oracle on any CBC block, whether it&rsquo;s padded or not.</p>
+</blockquote>
+<p>The hint for this challenge is key! What you&rsquo;re doing is taking <code>blockSize</code> chunks of ciphertext, making the decryption function <em>think</em> that they are the last block, and then making the padding removal function <em>think</em> they are padded. By making guesses and observing when the padding oracle says that the message has valid padding, you can determine the plaintext without ever seeing decryption output.</p>
+<p>Remember in the <a href="https://thmsdnnr.github.io/tutorials/javascript/cryptopals/2017/09/29/cryptopals-set2-challenge-16-cbc-bitflipping-attacks.html" target="_blank" rel="noreferrer noopener">last challenge</a> how we could manipulate the ciphertext to make the plaintext say whatever we&rsquo;d like? In that case, we knew both the plaintext and the ciphertext.</p>
+<p>In this challenge, we know only the ciphertext. With just this information, plus a way to know whether a message has valid padding (the Padding Oracle!), we can recover the plaintext.</p>
+<p>Two adjacent blocks in Cipher Block Chaining mode constitute a complete encryption of a 16-byte plaintext block, so we only need to work with two blocks at a time. This enables us to extend the technique over multiple blocks by taking <code>blockSize*2</code>-sized slices of the ciphertext, moving forward one block at a time, and solving the first block in each slice.</p>
+<p>We can solve all blocks except the first without knowing the encryption key or initialization vector (IV). If we have the IV, we can also solve the first block by solving a &ldquo;first block&rdquo; of the IV prepended to C<!-- raw HTML omitted -->1<!-- raw HTML omitted -->.</p>
+<p>In the <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29" target="_blank" rel="noreferrer noopener">decryption diagram</a>, the lines between blocks and the XOR operations are targeted, not the &ldquo;encryption&rdquo; and &ldquo;decryption&rdquo; boxes. Guesses are cheap, because the only operation required to check one guess is a few XORs and a decryption.</p>
+<h3 id="step-1-the-padding-oracle">Step 1: The Padding Oracle</h3>
+<p>A padding oracle tells us whether or not a plaintext is properly padded. <a href="https://en.wikipedia.org/wiki/Padding_%28cryptography%29#PKCS7" target="_blank" rel="noreferrer noopener">PKCS7 padding</a> specifies that the end of a plaintext is padded with N bytes of value N so that the block becomes a multiple of <code>blockSize</code>. When we decrypt, we do not want these extra bytes, so often a function looks at the last byte of the last block and chops that number of bytes off the end of the decryption result.</p>
+<p>This function doesn&rsquo;t want to chop something that&rsquo;s not properly padded. For instance, a block ending in <code>04 04 01 04</code> is invalid padding. It says: &ldquo;chop off the last 4 bytes, each of which are <code>04</code>&rdquo;, but one of the bytes isn&rsquo;t <code>04</code>. This could just be a message that ends in <code>04 04 01 04</code>, but it&rsquo;s not padding. By the way, to eliminate this ambiguity:</p>
+<ul>
+<li>if a message is a multiple of <code>blockSize</code>, PKCS7 <em>still</em> &ldquo;pads out&rdquo; with a block of 16 0x10s</li>
+</ul>
+<p>Anyway, the padding removal function throws an error, because this isn&rsquo;t padding. We use the presence/absence of this error to tell us when we&rsquo;ve guessed the right byte in the plaintext.</p>
+<h3 id="step-2-how-the-last-byte-shall-be-found-first">Step 2: How? The Last Byte Shall Be (Found) First</h3>
+<p>We start by slicing blocks 2 and 3 of the ciphertext. Call these C1 and C2. In decrypting the plaintext from block C2, the result of C2&rsquo;s decryption gets XOR&rsquo;d with block C1, and then we chop the padding.</p>
+<p>We manipulate C1. Here is a beautiful picture.</p>
+<p><figure>
+  <img src="/assets/pics/s3c17-bitswitch.png" alt="picture of the bit switching process"  />
+</figure></p>
+<p>If we change C<!-- raw HTML omitted -->1<!-- raw HTML omitted -->[15] (red square), it alters plaintext P[15] (red square).</p>
+<p>We will guess all possible values from 0 to 255 for the plaintext byte. There will be valid padding in the result when the last byte equals 0x01. We can use the fact that anything XOR&rsquo;d with itself is zero. So we do the following operation:</p>
+<p><code>for i=0;i&lt;256;i++) {</code></p>
+<ol>
+<li>Construct a padded first block of all zeroes except the last position</li>
+</ol>
+<ul>
+<li>This could just be random bytes. Doesn&rsquo;t matter. It just puts our guess at the last byte of C1.</li>
+</ul>
+<ol start="2">
+<li>Insert our guess of <code>parseInt(i,10).toString(16)</code> into the last byte of this block</li>
+</ol>
+<ul>
+<li>We do so by XORing the guess with the last byte of C1 (red square!)</li>
+<li>Then we XOR this byte with (0x01), the &ldquo;valid padding&rdquo;</li>
+</ul>
+<ol start="3">
+<li>Concatenate our padded first block with C2</li>
+<li>Pass it into our decryption function &amp; see if we get valid plaintext padding (red square == <code>0x01</code>)</li>
+</ol>
+<ul>
+<li>If so, store the character</li>
+<li>If not <code>i++</code> and continue guessing</li>
+</ul>
+<p><code>}</code></p>
+<p>I use the <code>smartIter</code> values from a previous challenge to make smarter guesses and save loop cycles <a href="https://thmsdnnr.github.io/tutorials/javascript/cryptopals/2017/09/26/cryptopals-set2-challenge-12-byte-at-a-time-ecb-decryption.html#step-4-wait-whathow-do-we-figure-out-thegreatunknown-string" target="_blank" rel="noreferrer noopener">see more here</a>.</p>
+<p>We know whether or not we have valid padding by using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank" rel="noreferrer noopener">try/catch block</a> inside the for loop:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">try</span> {
+  q <span style="color:#ff79c6">=</span> empty
+    .slice(<span style="color:#bd93f9">15</span> <span style="color:#ff79c6">-</span> b)
+    .concat(
+      hexPad(
+        hexXOR(hexXOR(<span style="color:#ff79c6">char</span>, nB[b]), hP)),
+        middleMen, nB.slice(<span style="color:#bd93f9">16</span>)
+      );
+  decrypt <span style="color:#ff79c6">=</span> aesDecryptCBC(q, rKey, rIV, <span style="color:#bd93f9">16</span>);
+  chopped <span style="color:#ff79c6">=</span> chopPKCS7(decrypt);
+  intermediates.unshift(<span style="color:#ff79c6">char</span>);
+} <span style="color:#ff79c6">catch</span> (err) {}
+</code></pre></div><p>If <code>chopPKCS7</code> throws an error, the <code>try</code> block breaks early and proceeds to <code>catch</code>. In this case, we don&rsquo;t care about the error (we know what it is), so we do nothing and continue. If <code>chopPKCS7</code> succeeds, it means padding is valid, so we store the result in <code>intermediates</code>.</p>
+<h3 id="step-3-super-verbose-explanation-of-the-process">Step 3: Super Verbose Explanation of The Process</h3>
+<p>We&rsquo;re creating a situation where if we guess the byte, the output is correctly padded. That&rsquo;s all.</p>
+<p>The tricky part for me was <em>how</em> to do this. Particularly Step #2, where we XOR our guess into the block.</p>
+<p>Think about the encryption. When P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[15] was encrypted, it was XOR&rsquo;d with C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[15], the encryption result of the last byte of the previous block, and then run through the AES encryption process.</p>
+<p>When it is decrypted, the same process happens in reverse. C<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[15] runs through AES decryption. Then it will be XOR&rsquo;d with the last byte of the previous block of ciphertext, C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[15].</p>
+<p>We can make this decryption output visible through the padding oracle side-channel by adding (XOR-ing) two additional pieces of information to C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[15]:</p>
+<ol>
+<li>We XOR our guess for the plaintext byte.</li>
+<li>We XOR valid block padding, given the byte we are guessing: <code>blockLength - byteIndex</code>.</li>
+</ol>
+<p>In this case, to guess P<!-- raw HTML omitted -->n<!-- raw HTML omitted -->[15], we want to modify C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted -->[15] such that when it is decrypted, it gives <code>0x01</code> (blockLength:16, byteIndex:15). That&rsquo;s what this code is doing <code>hexXOR(hexXOR(char,nB[b]),hP)</code>:</p>
+<ul>
+<li><code>char</code> is the guess, from 0-255,</li>
+<li><code>hP</code> is the padding character</li>
+<li><code>nB[b]</code> is the original ciphertext value at index b.</li>
+</ul>
+<p>If we guess the correct plaintext byte, we get <code>0x00</code> when our guess is XOR&rsquo;d with the plaintext decryption result. <code>A XOR A == 0.</code> Then, we XOR the padding byte, 0x01. <code>0x00 XOR 0x01==0x01</code>. So if we guess correctly, we get 0x01, which is valid padding for one byte at the end of a string.</p>
+<p>The padding function chops it and does not error. We store the guess as correct. Done!</p>
+<h3 id="step-4-now-just-iterate-except">Step 4: Now Just Iterate! Except&hellip;</h3>
+<p>Well&hellip;if we guess wrong, we <em>almost certainly</em> get something that&rsquo;s not valid padding. It is <em>possible (though rare)</em> that we could guess wrong and still have valid padding. Can you see how this might happen? The description touches on this:</p>
+<blockquote>
+<!-- raw HTML omitted -->
+</blockquote>
+<p>02h 02h is valid padding, but is much less likely to occur randomly than 01h.<!-- raw HTML omitted -->
+03h 03h 03h is even less likely.<!-- raw HTML omitted --><!-- raw HTML omitted -->So you can assume that if you corrupt a decryption AND it had valid padding, you know what that padding byte is.<!-- raw HTML omitted --></p>
+<p>Imagine the plaintext ends <code>0x02 0x04</code>. We guess 0x07. <code>0x07 XOR 0x01 XOR 0x04 = 0x02</code>. The block ends in <code>0x02 0x02</code>: valid padding. It gets chopped, but we guessed the wrong value. Oops.</p>
+<p>We can&rsquo;t check the length of the decryption result to figure out that it&rsquo;s sliced off two bytes instead of one. All we know is that it saw <code>0x02 0x02</code>. That&rsquo;s valid, so we assume our guess was valid too.</p>
+<p><strong>Limitations of the Method</strong></p>
+<ul>
+<li>
+<p>These &ldquo;collisions&rdquo; happen rarely enough that in most cases, if the padding we engineer into the plaintext is valid, our guess for that byte is also valid.</p>
+</li>
+<li>
+<p>The first block of the plaintext cannot be recovered without knowing the Initialization Vector.</p>
+<ul>
+<li>We XOR our guesses for the bytes of P<!-- raw HTML omitted -->n<!-- raw HTML omitted --> into the C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted --> block, but for ciphertext block 1, C<!-- raw HTML omitted -->n-1<!-- raw HTML omitted --> is the IV, which is XOR&rsquo;d into Block 1, not contained in its own separate block.</li>
+</ul>
+</li>
+</ul>
+<p>Also remember: the result of everything we are doing is directed <em>only</em> toward the XOR after the decryption of C2. Just like with the last challenge, this modification totally jumbles the plaintext output of block #1, but we don&rsquo;t care. We&rsquo;re solving block #2. That&rsquo;s why we iterate through chunks of <code>blockSize*2</code> but proceed forward one block at a time.</p>
+<h3 id="step-5-given-this-limitation-iterate-to-solve-the-block">Step 5: Given This Limitation, Iterate to Solve the Block</h3>
+<p>We save the value of each correct guess, working right-to-left on each byte of the block.</p>
+<p>I used <code>Array.unshift</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift" target="_blank" rel="noreferrer noopener">(Docs)</a> instead of <code>.push()</code>, since I&rsquo;m solving the block from right-to-left but the answers I get are read left-to-right. <code>.unshift()</code> puts new elements at the beginning of the array rather than the end like <code>.push()</code>. Last-in =&gt; front-of-the-line, instead of last-in =&gt; end-of-the-line.</p>
+<p>Basically you want some way of storing your intermediate solved characters, because each time you try to guess the next character (one &lsquo;left&rsquo;, since we&rsquo;re working right-to-left) of the block, you&rsquo;ll need to append to your guess your previous correct guesses, each of which are XOR&rsquo;d with their corresponding value in the ciphertext block, and then XOR&rsquo;d with the current padding character.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> hP <span style="color:#ff79c6">=</span> hexPad(<span style="color:#8be9fd;font-style:italic">parseInt</span>(<span style="color:#bd93f9">16</span> <span style="color:#ff79c6">-</span> b, <span style="color:#bd93f9">10</span>).toString(<span style="color:#bd93f9">16</span>));
+<span style="color:#8be9fd;font-style:italic">let</span> middleMen <span style="color:#ff79c6">=</span> intermediates.map((e, idx) =&gt;
+  hexXOR(hexXOR(e, nB[<span style="color:#bd93f9">16</span> <span style="color:#ff79c6">-</span> intermediates.length <span style="color:#ff79c6">+</span> idx]), hP)
+);
+</code></pre></div><p>Indexing the loop on the byte you&rsquo;re solving and running from b=15 to 0, r-to-l, is one way to do it.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/cryptopals/"> cryptopals </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/tutorials/"> tutorials </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/algorithms/"> algorithms </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/cryptopals-set3/"> cryptopals-set3 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/tutorial/"> tutorial </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+<footer>
+	 © 2017-2020 thomas danner // <a href="https://github.com/dataCobra/hugo-vitae">Vitae</a> theme for <a href="https://gohugo.io">Hugo</a> 
+	
+	
+	
+</footer>
+
+
+</body>
+</html>

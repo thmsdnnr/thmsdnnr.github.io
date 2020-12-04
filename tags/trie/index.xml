@@ -13,10 +13,10 @@
 		
 		<item>
 			<title>Lightning Fast String Lookups With Tries</title>
-			<link>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</link>
+			<link>https://thmsdnnr.com/blog/lightning-fast-string-lookups-with-tries/</link>
 			<pubDate>Wed, 14 Feb 2018 06:56:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/post/lightning-fast-string-lookups-with-tries/</guid>
+			<guid>https://thmsdnnr.com/blog/lightning-fast-string-lookups-with-tries/</guid>
 			<description>
 				
 				Tries are a hybrid data structure combining a tree and hash table to provide O(k) lookup for k-character words, popular for use cases like typeahead and autocomplete.
