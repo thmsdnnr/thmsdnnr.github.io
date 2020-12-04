@@ -559,7 +559,7 @@
 			<guid>https://thmsdnnr.com/homepage/</guid>
 			<description>
 				
-				Boids: A Bird Flock Simulator  Learn More blog post // GitHub Repo 
+				Boids: A Bird Flock Simulator  let COHESION_FACTOR = 1 / 10e3 let TOO_CLOSE_MAGNITUDE = 10e2 let VELOCITY_MATCH_FACTOR =...
 				
 			</description>
 		</item>

@@ -2,7 +2,6 @@
   font-family: 'Roboto Regular';
   font-style:  normal;
   font-weight: 400;
-  font-display: swap;
   src: local('Roboto Regular'), url('../webfonts/Roboto-Regular.woff') format('woff');
 }
 
