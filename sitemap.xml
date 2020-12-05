@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://thmsdnnr.com/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://thmsdnnr.com/blog/automatically-backup-config-with-git-and-cron/</loc>
     <lastmod>2019-06-14T19:20:04+00:00</lastmod>
   </url>
@@ -44,11 +49,6 @@
   
   <url>
     <loc>https://thmsdnnr.com/tags/dotfiles/</loc>
-    <lastmod>2019-06-14T19:20:04+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thmsdnnr.com/</loc>
     <lastmod>2019-06-14T19:20:04+00:00</lastmod>
   </url>
   
@@ -1040,11 +1040,6 @@
   <url>
     <loc>https://thmsdnnr.com/blog/convert-hexadecimal-string-to-base-64/</loc>
     <lastmod>2017-09-14T10:47:06+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://thmsdnnr.com/homepage/</loc>
-    <priority>0</priority>
   </url>
   
   <url>

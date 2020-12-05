@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>full-stack overflow 🥞</title>
+		<title>Hi there! I&#39;m Thomas. I Develop Software. on full-stack overflow</title>
 		<link>https://thmsdnnr.com/</link>
-		<description>Recent content on thmsdnnr.com</description>
+		<description>Recent content in Hi there! I&#39;m Thomas. I Develop Software. on thmsdnnr.com</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
-		<lastBuildDate>Fri, 14 Jun 2019 19:20:04 +0000</lastBuildDate>
+		<lastBuildDate>Fri, 04 Dec 2020 00:00:00 +0000</lastBuildDate>
 		
 		<atom:link href="https://thmsdnnr.com/index.xml" rel="self" type="application/rss+xml" />
 		
@@ -764,18 +764,6 @@
 			<description>
 				
 				Calculate a Fixed XOR between two strings and solve Cryptopals Set 1 Challenge 1.
-				
-			</description>
-		</item>
-		<item>
-			<title></title>
-			<link>https://thmsdnnr.com/homepage/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-			
-			<guid>https://thmsdnnr.com/homepage/</guid>
-			<description>
-				
-				👋 Hi there! I’m Thomas. I am a Software Developer. I like to write tutorials about things I am learning about and ...
 				
 			</description>
 		</item>
