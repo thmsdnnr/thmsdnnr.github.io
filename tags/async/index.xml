@@ -6,7 +6,7 @@
 		<description>Recent content in async on thmsdnnr.com</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
-		<copyright>© 2017-2020 thomas danner // Vitae theme for Hugo</copyright>
+		<copyright>true</copyright>
 		<lastBuildDate>Sat, 30 Dec 2017 23:40:04 +0000</lastBuildDate>
 		
 		<atom:link href="https://thmsdnnr.com/tags/async/index.xml" rel="self" type="application/rss+xml" />
