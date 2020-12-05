@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -148,7 +148,7 @@
 </blockquote>
 <h2 id="excellent-resources-on-avl-trees">Excellent Resources on AVL Trees</h2>
 <p>If you are a visual learner, <a href="https://www.youtube.com/watch?v=-9sHvAnLN_w" target="_blank" rel="noreferrer noopener">these YouTube Lectures</a> by Rob Edwards at San Diego State University are a fantastic resource. I highly recommend taking a look at them to get a sense of what rotations are doing before you dig too far into the code.</p>
-<p>It&rsquo;s key that you read the <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/05/avl-trees-balanced-bst.html" target="_blank" rel="noreferrer noopener">previous tutorial on AVL trees</a> for this tutorial to make sense. We&rsquo;ve covered the concepts of node balance factors, keeping node height differential to within <code>[-1, 1]</code>, and the use of rotations to correct imbalanced nodes.</p>
+<p>It&rsquo;s key that you read the <a href="https://thmsdnnr.com/blog/avl-trees-part-1-balanced-binary-search-and-rotations/" target="_blank" rel="noreferrer noopener">previous tutorial on AVL trees</a> for this tutorial to make sense. We&rsquo;ve covered the concepts of node balance factors, keeping node height differential to within <code>[-1, 1]</code>, and the use of rotations to correct imbalanced nodes.</p>
 <p>Today we&rsquo;re going to incorporate this balancing behavior into our tree structure so that the tree will automatically rebalance itself and update node height upon insertion and deletion.</p>
 <h2 id="generating-imbalance">Generating Imbalance</h2>
 <p>Before we code, let&rsquo;s first consider how trees can go out of balance. We will correct any imbalance when it is -2 or 2, so the tree will never get farther out of balance than this at a node.</p>

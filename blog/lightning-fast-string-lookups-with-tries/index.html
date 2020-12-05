@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -367,7 +367,7 @@ Trie.prototype.find <span style="color:#ff79c6">=</span> <span style="color:#8be
 </ol>
 <p>These cases correspond to the three if statements above. Note the need to store the deletion key here. This saves us the work of having to store pointers between nodes so that we can traverse backwards through the tree to identify parents.</p>
 <h2 id="printing-out-words-in-the-trie">Printing out words in the trie</h2>
-<p>In order to print words in the trie, we&rsquo;ll use a recursive method that implements pre-order depth-first traversal. We covered <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/01/binary-trees.html#traversal" target="_blank" rel="noreferrer noopener">different tree traversal methods</a> in a previous tutorial on binary search trees.</p>
+<p>In order to print words in the trie, we&rsquo;ll use a recursive method that implements pre-order depth-first traversal. We covered <a href="https://thmsdnnr.com/blog/intro-to-binary-search-trees/#traversal" target="_blank" rel="noreferrer noopener">different tree traversal methods</a> in a previous tutorial on binary search trees.</p>
 <p>First we&rsquo;ll define a <code>getNode</code> helper function. It works a little like <code>search</code>, but all it&rsquo;s going to do is return a given node in the tree.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Trie.prototype.getNode <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span> (word) {
   word <span style="color:#ff79c6">=</span> word.split(<span style="color:#f1fa8c">&#34;&#34;</span>).map((e) =&gt; e.toUpperCase());

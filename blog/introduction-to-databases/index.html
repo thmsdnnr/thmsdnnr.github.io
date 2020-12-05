@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -146,7 +146,7 @@
 <p>Imagine you are checking your cat text files for JOIN_DATE, but now another user wants to see a list of all the users who they share a birthday with, so that they can plan a big cat celebration. What happens when your first request already has a file open? If you&rsquo;re just both reading at the same time, it&rsquo;s fine. But imagine you&rsquo;re both writing at the same time, and imagine that you might both be writing to the same field. Everyone&rsquo;s had this experience with Google Docs before. Chaos ensues.</p>
 <h3 id="optimized-storage">Optimized Storage</h3>
 <p>Since databases know what type of data they will store, they can optimize the arrangement of this information on the disk to minimize the number of times they will have to spin up a hard drive to gather information. If the database can deliver the result directly from memory, the query will execute faster, and fewer resources will be required to serve it.</p>
-<p>One key concept in database querying is indexing. We&rsquo;ve already talked about <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/01/binary-trees.html" target="_blank" rel="noreferrer noopener">Binary Search Trees</a> and <a href="https://thmsdnnr.com/tutorials/compsci/2018/02/12/binary-heaps.html" target="_blank" rel="noreferrer noopener">heaps</a>. Enter the <a href="https://en.wikipedia.org/wiki/B-tree#B-tree_usage_in_databases" target="_blank" rel="noreferrer noopener">B-tree</a>. B-trees maintain an index of a given piece of information in the database that eases searching for records corresponding to that information. The strategy is to make the information accessible in O(log N) time with divide and conquer.</p>
+<p>One key concept in database querying is indexing. We&rsquo;ve already talked about <a href="https://thmsdnnr.com/blog/intro-to-binary-search-trees/" target="_blank" rel="noreferrer noopener">Binary Search Trees</a> and <a href="https://thmsdnnr.com/blog/binary-heaps-min-heaps-and-max-heaps/" target="_blank" rel="noreferrer noopener">heaps</a>. Enter the <a href="https://en.wikipedia.org/wiki/B-tree#B-tree_usage_in_databases" target="_blank" rel="noreferrer noopener">B-tree</a>. B-trees maintain an index of a given piece of information in the database that eases searching for records corresponding to that information. The strategy is to make the information accessible in O(log N) time with divide and conquer.</p>
 <h3 id="distributed-storage">Distributed Storage</h3>
 <p>It seems hard to imagine how we could run out of space to store text files containing user information. One billion users at 1 kB each, and we&rsquo;re looking at a terabyte. But imagine that each user also has on average 3 or 4 cat pictures at 1mb each. Suddenly, we&rsquo;re in the Petabyte range: 1,000 terabytes of data. Too big to store on any one hard drive.</p>
 <p>Even if we could, what happens when one of those hard drives goes down? Databases support horizontal scaling out of the box through clustering.</p>

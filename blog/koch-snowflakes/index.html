@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -274,7 +274,7 @@ Segment.prototype.split <span style="color:#ff79c6">=</span> <span style="color:
   ];
 };
 </code></pre></div><h3 id="using-what-we-already-made">Using what we already made</h3>
-<p>We can use the same code that we wrote for the <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/06/html5-canvas-sierpinski-triangle.html" target="_blank" rel="noreferrer noopener">Sierpinski Triangle</a> tutorial to generate and play through the phases of evolution of the Koch Snowflake.</p>
+<p>We can use the same code that we wrote for the <a href="https://thmsdnnr.com/blog/fractal-art-and-sierpinski-triangles/" target="_blank" rel="noreferrer noopener">Sierpinski Triangle</a> tutorial to generate and play through the phases of evolution of the Koch Snowflake.</p>
 <p>We&rsquo;ll define our three starting line segments as the three sides of an equilateral triangle. Our <code>Segment</code> object does all the heavy lifting of figuring out how to split itself up given its orientation. We then simply iterate over the number of levels to generate our lovely snowflake.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> triWidth <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">400</span>;
 <span style="color:#ff79c6">const</span> triHeight <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd;font-style:italic">Math</span>.sqrt(<span style="color:#bd93f9">3</span>) <span style="color:#ff79c6">*</span> triWidth) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>;
@@ -297,7 +297,7 @@ Segment.prototype.split <span style="color:#ff79c6">=</span> <span style="color:
 <li>Drawing lines on HTML canvas that are incredibly close together and at strange decimal offsets</li>
 <li>Error propagation due to cumulative rounding inaccuracies of floating-point arithmetic</li>
 </ol>
-<p>We&rsquo;ve already seen #1 before <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">in our previous HTML5 canvas tutorials</a>. That&rsquo;s why we call <code>ctx.translate(0.5, 0.5)</code> for smooth lines (so we draw &ldquo;on&rdquo; a pixel instead of &ldquo;between&rdquo; pixels).</p>
+<p>We&rsquo;ve already seen #1 before <a href="https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/" target="_blank" rel="noreferrer noopener">in our previous HTML5 canvas tutorials</a>. That&rsquo;s why we call <code>ctx.translate(0.5, 0.5)</code> for smooth lines (so we draw &ldquo;on&rdquo; a pixel instead of &ldquo;between&rdquo; pixels).</p>
 <p>For #2, just try this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">console.log(<span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0.2</span>); <span style="color:#6272a4">// true
 </span><span style="color:#6272a4"></span>console.log(<span style="color:#bd93f9">0.1</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0.2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0.3</span>); <span style="color:#6272a4">// false... what the?!

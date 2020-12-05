@@ -324,11 +324,11 @@
 			</description>
 		</item>
 		<item>
-			<title>Pixl: A Pixel Art Editor w/Canvas [part 1]</title>
-			<link>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</link>
+			<title>Pixl: A Pixel Art Editor with Canvas Part 1</title>
+			<link>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-with-canvas-part-1/</link>
 			<pubDate>Sun, 07 Jan 2018 14:30:04 +0000</pubDate>
 			
-			<guid>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/</guid>
+			<guid>https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-with-canvas-part-1/</guid>
 			<description>
 				
 				A full-featured, 5-part tutorial on creating a pixel art editor using JavaScript and HTML5 Canvas. Supports saving and loading images, color selection, transparent backgrounds, and more.

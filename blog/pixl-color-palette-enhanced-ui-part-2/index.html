@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -147,7 +147,7 @@
     src="//codepen.io/assets/embed/ei.js"
 ></script>
 <h2 id="lets-make-things-more-interesting">Let&rsquo;s make things more interesting</h2>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start. We have a grid that refreshes gracefully based on a data array, and the user can toggle a single colors on and off for each pixel. Nice.</p>
+<p>In <a href="https://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start. We have a grid that refreshes gracefully based on a data array, and the user can toggle a single colors on and off for each pixel. Nice.</p>
 <p>But in order to let the user create a wider variety of art, we need two new features.</p>
 <ol>
 <li>More colors.</li>
@@ -160,7 +160,7 @@
   &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;jscolor&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;swatch&#34;</span>&gt;
 &lt;/<span style="color:#ff79c6">div</span>&gt;
 </code></pre></div><p>We&rsquo;ll add a <code>div</code> to the top of our editor that will hold &ldquo;color chips&rdquo;, as well as buttons to generate a random palette and reset the current one.</p>
-<p>We&rsquo;re also introducing a tiny dependency called <a href="http://jscolor.com/" target="_blank" rel="noreferrer noopener">jscolor</a>. The <code>&lt;input type=&quot;color&quot;&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank" rel="noreferrer noopener">has poor cross-browser support</a>. We want to enable the user to select whatever colors they choose, so we&rsquo;re pulling in a simple colorpicker element.</p>
+<p>We&rsquo;re also introducing a tiny dependency called <a href="https://jscolor.com/" target="_blank" rel="noreferrer noopener">jscolor</a>. The <code>&lt;input type=&quot;color&quot;&gt;</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank" rel="noreferrer noopener">has poor cross-browser support</a>. We want to enable the user to select whatever colors they choose, so we&rsquo;re pulling in a simple colorpicker element.</p>
 <p>I&rsquo;m going to use a library called <a href="https://bgrins.github.io/TinyColor/" target="_blank" rel="noreferrer noopener">tinycolor</a> to generate random palettes of related colors.</p>
 <p>Here&rsquo;s how it&rsquo;ll work.</p>
 <!-- raw HTML omitted -->

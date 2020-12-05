@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -212,7 +212,7 @@ console.log(lastSizeJump, lastSize, res, res.length);
 </code></pre></div><p>The implementation of #4 is left as an exercise for the reader. Or, you know, just look at the Github repo. A few hints: you&rsquo;ll need to have <em>at least</em> as many <code>A</code> characters as there are letters in the string you are attempting to decode. Think about how you found the first character. How many <code>A</code>s will you need to add, given an unknown string&rsquo;s length, in order to ensure the block you are guessing contains 15 known characters and one unknown character?</p>
 <p>You&rsquo;ll also want to stop once you&rsquo;ve finished guessing all the letters in the unknown string, since unless the unknown string is a multiple of the block size, you&rsquo;ll have <code>A</code>s left over at the end, and that&rsquo;s just untidy! You can calculate when that &lsquo;halting index&rsquo; will be, and then run an index check on your innermost loop to break out when you have arrived at your destination.</p>
 <p>Finally, the code above is quite inefficient. Sure, you could simply loop through every single possible character, (0-255). But if you look at an ASCII chart (<code>man ascii</code>) or <a href="http://en.cppreference.com/w/cpp/language/ascii" target="_blank" rel="noreferrer noopener">this link</a>, you&rsquo;ll quickly see a better way of guessing possible letters.</p>
-<p>I created an array of ASCII characters indices to loop through, ordered by those I thought to most commonly appear in readable strings. This hearkens back to how we <a href="http://localhost:4000/tutorials/javascript/cryptopals/2017/09/14/cryptopals-set1-challenge-3-single-byte-XOR-cipher.html#step-4-scoring-the-results" target="_blank" rel="noreferrer noopener">used character frequency in English texts to score plaintexts</a> generated from guessing all possible values for an XOR key.</p>
+<p>I created an array of ASCII characters indices to loop through, ordered by those I thought to most commonly appear in readable strings. This hearkens back to how we <a href="https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/#step-4-scoring-the-results" target="_blank" rel="noreferrer noopener">used character frequency in English texts to score plaintexts</a> generated from guessing all possible values for an XOR key.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#6272a4">//32, 97 to 122, 65 to 90, 39, 9 to 13
 </span><span style="color:#6272a4">//40-64, 33-38, 91-96, 1-8, 14-31, 123-255
 </span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">let</span> smartIter <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">`32,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,

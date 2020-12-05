@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -152,13 +152,13 @@
 ></script>
 <ul>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/07/html5-canvas-pixl-art-project-part-one.html" target="_blank" rel="noreferrer noopener">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
+<p>In <a href="hhttps://thmsdnnr.com/blog/pixl-a-pixel-art-editor-w/canvas-part-1/">part one</a> of our tutorial, we got a pretty good start with a grid that refreshes gracefully based on a data array. The user can toggle a single colors on and off for each pixel.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/08/html5-canvas-pixl-art-project-part-two.html" target="_blank" rel="noreferrer noopener">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
+<p>In <a href="https://thmsdnnr.com/blog/pixl-color-palette-enhanced-ui-part-2/" target="_blank" rel="noreferrer noopener">part two</a> we added a color palette and mouse-dragging functionality to paint pixels more quickly.</p>
 </li>
 <li>
-<p>In <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html" target="_blank" rel="noreferrer noopener">part three</a> we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
+<p>In <a href="https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/" target="_blank" rel="noreferrer noopener">part three</a> we created an image tray at the bottom of the screen where users could grab different-sized canvases of their pixel art to save on their PC.</p>
 </li>
 </ul>
 <h3 id="whats-happening-today">What&rsquo;s happening today?</h3>
@@ -187,7 +187,6 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;saveImage&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, saveImage);
 <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;loadImages&#34;</span>).addEventListener(<span style="color:#f1fa8c">&#34;click&#34;</span>, loadImages);
 </code></pre></div><p>Save image is our handler that fires when the user decides to save the current canvas image.</p>
-<p>If you aren&rsquo;t familiar with localStorage, check out <a href="https://thmsdnnr.com/tutorials/javascript/fundamentals/2018/01/02/code-morsels-localstorage.html" target="_blank" rel="noreferrer noopener">my tutorial on it</a> <em>cough shameless plug</em>.</p>
 <p>localStorage in one line: a key-value store persistent across browser sessions that our app can use to save data on the user&rsquo;s machine (until they clear out their cookies+other saved data of course).</p>
 <h4 id="save-the-image">Save the image</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">function</span> saveImage(e) {
@@ -230,7 +229,7 @@
 }
 </code></pre></div><p>We create a <code>loadedImages</code> global variable to hold the currently loaded images.</p>
 <p>Okay, we&rsquo;ve got the data. Now how do we display it?</p>
-<p>You might remember the  <code>grabCanvas</code> <a href="https://thmsdnnr.com/tutorials/javascript/projects/2018/01/09/html5-canvas-pixl-art-project-part-three.html#2-scale-the-canvas" target="_blank" rel="noreferrer noopener">(link)</a> method from the last tutorial. It&rsquo;s what we used to grab <code>canvasData</code> and &ldquo;blit&rdquo; it onto a new canvas at the bottom of the screen at a user-specified size, background color, and transparency.</p>
+<p>You might remember the  <code>grabCanvas</code> <a href="https://thmsdnnr.com/blog/pixl-scaling-saving-art-part-3/#2-scale-the-canvas" target="_blank" rel="noreferrer noopener">(link)</a> method from the last tutorial. It&rsquo;s what we used to grab <code>canvasData</code> and &ldquo;blit&rdquo; it onto a new canvas at the bottom of the screen at a user-specified size, background color, and transparency.</p>
 <p>Previously, it took three arguments: width, transparency (true/false), and background color. I&rsquo;ve added a fourth argument, <code>data</code>, so that grabCanvas can now make us a canvas with an arbitrary data array. We have data arrays corresponding to saved images stored in localStorage&hellip;I think you see where we&rsquo;re going with this.</p>
 <p>We can draw arbitrary data by changing just two lines.</p>
 <p><code>function grabCanvas(width, transparent, bgColor) {</code></p>

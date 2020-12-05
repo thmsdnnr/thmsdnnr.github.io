@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -163,7 +163,7 @@ giveCatHaircut(fluffy);
 countSingles(mixedArr); <span style="color:#6272a4">// 3, correct!
 </span><span style="color:#6272a4"></span>console.log(mixedArr); <span style="color:#6272a4">// [], oops.
 </span></code></pre></div><h5 id="naive-way-to-count-the-number-of-length1-elements-in-an-array">Naive way to count the number of length===1 elements in an array</h5>
-<p>Pass-by-reference is usually a nice feature: indeed, it&rsquo;s a key mechanism for <a href="https://thmsdnnr.com/fundamentals/2018/03/05/prototypal-inheritance.html" target="_blank" rel="noreferrer noopener">prototypal inheritance</a> to function. It&rsquo;s only an issue when the implicit nature of the reference causes you to unintentionally mutate state and create unexpected behavior. In languages like C, pointers and references are explicitly declared. In JS, it happens under the hood.</p>
+<p>Pass-by-reference is usually a nice feature: indeed, it&rsquo;s a key mechanism for <a href="https://thmsdnnr.com/blog/prototypal-inheritance-basics/" target="_blank" rel="noreferrer noopener">prototypal inheritance</a> to function. It&rsquo;s only an issue when the implicit nature of the reference causes you to unintentionally mutate state and create unexpected behavior. In languages like C, pointers and references are explicitly declared. In JS, it happens under the hood.</p>
 <h2 id="fixing-the-two-examples">Fixing the Two Examples</h2>
 <h3 id="object-copying">Object copying</h3>
 <p>We can copy one-dimensional (non-nested) objects using <code>Object.assign</code> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank" rel="noreferrer noopener">(Docs)</a>, which copies all enumerable and own properties from specified sources (one or more objects) to a target object. If multiple source objects are defined, matching keys are that occur earlier overwritten by keys that occur later (assignment occurs from left-to-right).</p>

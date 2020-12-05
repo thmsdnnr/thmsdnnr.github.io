@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -132,29 +132,27 @@
 <p>Imagine that we are placing <code>0</code>, the last element. Insertion sort would have us compare 0 with 4&ndash;nope, still bigger!&ndash;then with 3, and then with 1.</p>
 <p>We can use a binary search technique with this sorted part of the array, <code>[1,3,4]</code> in order to divide-and-conquer to find the index of insertion so that we do not have to make as many comparisons.</p>
 <h3 id="tiny-modification-to-binary-search-algorithm">Tiny Modification to Binary Search Algorithm</h3>
-<p>The code is nearly identical. We rewrite our <a href="https://thmsdnnr.com/tutorials/javascript/codemorsels/algorithms/2017/12/15/code-morsels-binary-search.html" target="_blank" rel="noreferrer noopener">binary search</a> algorithm slightly.</p>
+<p>The code is nearly identical. We rewrite our <a href="https://thmsdnnr.com/blog/binary-search/" target="_blank" rel="noreferrer noopener">binary search</a> algorithm slightly.</p>
 <p>Previously, our search returned <code>false</code> if the element was missing from the array:</p>
 <p><code>if (L&gt;R) { return false; }</code></p>
 <p>Now, we return the <code>index</code> of <em>where the element would exist, if it did exist</em>:</p>
 <p><code>if (L&gt;=R) { return (target &gt; arr[L]) ? L+1 : L; }</code></p>
 <h3 id="tiny-modification-to-insertion-sort-algorithm">Tiny Modification to Insertion Sort Algorithm</h3>
-<p>We rewire our <a href="https://thmsdnnr.com/tutorials/javascript/codemorsels/algorithms/2017/12/18/code-morsels-insertion-sort.html" target="_blank" rel="noreferrer noopener">insertion sort</a> to use the index returned by our new Binary Search function.</p>
-<p>Previously, we checked every preceding value to find the index.
+<p>We rewire our <a href="https://thmsdnnr.com/blog/insertion-sort/" target="_blank" rel="noreferrer noopener">insertion sort</a> to use the index returned by our new Binary Search function.</p>
+<p>Previously, we checked every preceding value to find the index.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">while</span> (j <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">&amp;&amp;</span> arr[j] <span style="color:#ff79c6">&gt;</span> key) {
   arr[j <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> arr[j];
   j<span style="color:#ff79c6">--</span>;
 }
 arr[j <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> key;
-</code></pre></div></p>
-<p>Now, we use the index provided by binary search:</p>
+</code></pre></div><p>Now, we use the index provided by binary search:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> idx <span style="color:#ff79c6">=</span> binarySearch(arr, key, <span style="color:#bd93f9">0</span>, j);
 <span style="color:#ff79c6">while</span> (j <span style="color:#ff79c6">&gt;=</span> idx) {
   arr[j <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> arr[j];
   j<span style="color:#ff79c6">--</span>;
 }
 arr[j <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> key;
-</code></pre></div>
-<p>This might look like the same number of loops. While it is true that we still have to <em>shift each element forward</em> by one until we get to the index of insertion for <code>key</code>, we do not pay for the additional comparison of <code>arr[j]&gt;key</code> in each while loop iteration.</p>
+</code></pre></div><p>This might look like the same number of loops. While it is true that we still have to <em>shift each element forward</em> by one until we get to the index of insertion for <code>key</code>, we do not pay for the additional comparison of <code>arr[j]&gt;key</code> in each while loop iteration.</p>
 <p>This might seem trivial in a small case, but if you imagine sorting a very large array, or an array of items that are larger and more expensive to compare than numbers, it is worth the time savings.</p>
 <h3 id="lets-walk-through-step-by-step">Let&rsquo;s walk through step by step.</h3>
 <p><code>arr=[1,3,4,0]</code>. Where do we insert 0?</p>
@@ -208,7 +206,7 @@ Midpoint is 1 (<code>Math.floor((0+2)/2)</code>). <code>arr[1]===3</code>.</p>
   }
   ct<span style="color:#ff79c6">++</span>;
   <span style="color:#ff79c6">if</span> (ct <span style="color:#ff79c6">===</span> arr.length <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>) {
-    <span style="color:#6272a4">//prevent infinite recursion for unsorted array
+    <span style="color:#6272a4">// prevent infinite recursion for unsorted array
 </span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">Error</span>(<span style="color:#f1fa8c">&#34;Infinite loop prevented.&#34;</span>);
   }
   <span style="color:#8be9fd;font-style:italic">let</span> midPt <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">Math</span>.floor((L <span style="color:#ff79c6">+</span> R) <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>);

@@ -89,13 +89,13 @@
 		<nav>
 			<ul>
 				
-				<li><a href="/projects">Projects</a></li>
+				<li><a href="/projects/">Projects</a></li>
 				
-				<li><a href="/blog">Blog</a></li>
+				<li><a href="/blog/">Blog</a></li>
 				
-				<li><a href="/tags">Tags</a></li>
+				<li><a href="/tags/">Tags</a></li>
 				
-				<li><a href="/categories">Categories</a></li>
+				<li><a href="/categories/">Categories</a></li>
 				
 				<li><a href="https://github.com/thmsdnnr">GitHub</a></li>
 				
@@ -226,7 +226,7 @@ blockedBarre[blockedBarre.length <span style="color:#ff79c6">-</span> <span styl
   interN <span style="color:#ff79c6">=</span> [];
 }
 </code></pre></div><h3 id="step-6-solve-each-block-with-single-character-xor-technique">Step 6: Solve Each Block with Single-Character XOR Technique</h3>
-<p>We transpose, and then we use the same code as from <a href="http://localhost:4000/tutorials/javascript/cryptopals/2017/09/14/cryptopals-set1-challenge-3-single-byte-XOR-cipher.html" target="_blank" rel="noreferrer noopener">challenge 3</a> to try each possible character (ASCII 0-255) for each byte position of the key. Each character is XOR&rsquo;d with the corresponding blocks in the cryptotext, the XOR result is converted to ASCII, and this string is scored using English language text character frequencies.</p>
+<p>We transpose, and then we use the same code as from <a href="https://thmsdnnr.com/blog/cracking-the-single-byte-xor-cipher/" target="_blank" rel="noreferrer noopener">challenge 3</a> to try each possible character (ASCII 0-255) for each byte position of the key. Each character is XOR&rsquo;d with the corresponding blocks in the cryptotext, the XOR result is converted to ASCII, and this string is scored using English language text character frequencies.</p>
 <p>When we use the correct key, we will obtain the greatest number of commonly-appearing letters in an English text (since the correct key decodes a plaintext). We pick the highest scoring character for each position in the key.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#8be9fd;font-style:italic">let</span> keys <span style="color:#ff79c6">=</span> [];
 <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">var</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">256</span>; i<span style="color:#ff79c6">++</span>) {
