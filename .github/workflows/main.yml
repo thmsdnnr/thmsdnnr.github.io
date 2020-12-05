@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Purge the Cloudflare Cache
         run: |
-          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+          echo "purge result: $(curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
                -H "Content-Type: application/json" \
                -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-               --data "{\"purge_everything\":true}"
+               --data "{\"purge_everything\":true}")"
